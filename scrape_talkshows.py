@@ -13,6 +13,13 @@ import json
 import pandas as pd
 from datetime import datetime, timedelta
 import locale
+import hashlib
+import base64
+import re
+import networkx as nx
+import itertools
+import matplotlib.pyplot as plt
+from collections import Counter
 
 
 os.chdir("/Users/julianschibberges/Library/CloudStorage/OneDrive-BernsteinGroup/talkshows")
@@ -21,6 +28,90 @@ url_will = "https://daserste.ndr.de/annewill/archiv/"
 url_miosga = "https://www.daserste.de/information/talk/caren-miosga/sendung/index.html"
 url_hartaberfair = "https://www1.wdr.de/daserste/hartaberfair/sendungen/index.html"
 url_maischberger = "https://www.daserste.de/information/talk/maischberger/sendung/index.html"
+url_illner = "https://www.zdf.de/politik/maybrit-illner"
+
+
+german_months = [
+    "januar", "februar", "maerz", "april", "mai", "juni",
+    "juli", "august", "september", "oktober", "november", "dezember"
+]
+
+def create_hash(url, length=8):
+    """
+    Create a unique and short hash for a given URL.
+    
+    Args:
+        url (str): The URL to hash.
+        length (int): The desired length of the short hash. Default is 8.
+    
+    Returns:
+        str: A short hash of the URL.
+    """
+    # Generate a SHA256 hash of the URL
+    sha256_hash = hashlib.sha256(url.encode()).digest()
+    # Encode the hash in Base64 for shorter representation
+    base64_hash = base64.urlsafe_b64encode(sha256_hash).decode()
+    # Truncate to the desired length
+    return base64_hash[:length]
+
+def extract_party(text):
+    """
+    Extract items from the list that are partial matches in the string (case insensitive).
+    
+    Args:
+        text (str): The string to check against.
+    
+    Returns:
+        string: The matching string from the text.
+    """
+    partei_strings = ["CDU", "CSU", "SPD", "freie wähler", "FDP", "BSW",
+                      "B‘90/Grüne","Bündnis 90/ Die Grünen","AfD","Linke",
+                      "parteilos", "Bündnis 90 / Die Grünen", "Bündnis 90/Die Grünen"]
+
+    text_lower = text.lower().replace("("," ").replace(")"," ").replace(",", " ")
+    # Collect items that are partial matches
+    matches = [item for item in partei_strings if item.lower() in text_lower]
+    if len(matches)==1:
+        return matches[0]
+    elif len(matches)==0:
+        g_pattern =r"B[^.]{0,10}90[^.]*?[gG]rün\w{1,2}\b"
+        matches = re.findall(g_pattern, text, flags=re.IGNORECASE)
+        if "Die Grünen " in text:
+            return "Bündnis 90 / Die Grünen"
+        elif matches:
+            return "Bündnis 90 / Die Grünen"
+    else:
+        return None
+
+def clean_name(name:str):
+    second_string=""
+    new_name = None
+    if "," in name and "(" in name:
+        new_name = name.split(",")[0]
+        second_string = " ".join(name.split(",")[1:])
+    elif "," in name and "(" not in name:
+        new_name = name.split(",")[0]
+        second_string = " ".join(name.split(",")[1:])
+    elif "," not in name and "(" in name:
+        new_name = name.split("(")[0]
+        second_string = " ".join(name.split("(")[1:])
+    if new_name:
+        if ":" in new_name:
+            new_name = new_name.split(":")[1]
+    elif ":" in name:
+        name = name.split(":")[1]
+    if new_name:
+        new_name = new_name.strip()
+        if second_string != "":
+            party = extract_party(second_string)
+            if party:
+                return new_name, party
+            else:
+                return new_name, None
+        else:
+            return new_name, None     
+    else:
+        return name.strip(), None
 
 def extractShows_Will(base_url):
     def get_links(url):
@@ -70,7 +161,7 @@ def extractShowsDetails_Will(links):
 
             # Initialize dictionary for the current link
             page_data = {}
-
+            page_data["uid"] = create_hash(link)
             # Scrape the title
             title_element = soup.find('h1', class_='headline small')
             page_data['title'] = title_element.get_text(strip=True) if title_element else None
@@ -90,7 +181,7 @@ def extractShowsDetails_Will(links):
                         page_data['show'] = broadcast_details[1].strip()
                         page_data['date'] = broadcast_details[2].strip()
                         page_data['time'] = broadcast_details[3].strip()
-
+            page_data['link'] = link
             # Find the guest link
             guest_link_element = list(set([link['href'] for link in soup.find_all('a', href=True) if "Unsere-Gaeste" in link['href']]))
             pre_url = "https://daserste.ndr.de"
@@ -111,7 +202,7 @@ def extractShowsDetails_Will(links):
                 for name_element in name_elements:
                     # Extract the name from the h3 element
                     name = name_element.get_text(strip=True)
-            
+                    name, party = clean_name(name)
                     # Find the next two p elements
                     role = None
                     description = None
@@ -119,7 +210,8 @@ def extractShowsDetails_Will(links):
                     role_element = name_element.find_next('p')
                     if role_element:
                         role = role_element.get_text(strip=True)
-                    
+                    if not party:
+                        party = extract_party(role)
                     description_element = role_element.find_next('p') if role_element else None
                     if description_element:
                         description = description_element.get_text(strip=True)
@@ -127,6 +219,7 @@ def extractShowsDetails_Will(links):
                     # Append the guest data as a dictionary
                     guests.append({
                         'name': name,
+                        'party': party,
                         'role': role,
                         'description': description
                     })
@@ -191,6 +284,7 @@ def extractShowsDetails_Miosga(links):
 
             # Initialize dictionary for the current page
             page_data = {}
+            page_data["uid"] = create_hash(link)
 
             # Scrape the title
             title_element = soup.find('h1', class_='headline small')
@@ -204,19 +298,26 @@ def extractShowsDetails_Miosga(links):
             text_div = soup.find('div', class_='text')
             if text_div:
                 text_element = text_div.contents[1].split("|")
-                if len(text_element) >= 3:
+                if len(text_element) >= 2:
                     page_data['date'] = text_element[0].split(",")[1].strip()
                     page_data['time'] = text_element[1].strip()
-                    page_data['station'] = text_element[2].strip()
-                    # Add a static "show" key
-                    page_data['show'] = "Caren Miosga"
+                    if len(text_element) >= 3:
+                        page_data['station'] = text_element[2].strip()
+            # Add a static "show" key
+            page_data['show'] = "Caren Miosga"
+            page_data["link"] = link
 
             # Scrape guests
             guests = []
-            name_elements = soup.find_all('h2', class_='subtitle small')
+            img_element = soup.find('img', alt="Nachgehakt")
+            if img_element:
+                name_elements = img_element.find_all_previous('h2', class_='subtitle small')
+            else:
+                name_elements = soup.find_all('h2', class_='subtitle small')
+
             for name_element in name_elements:
                 name = name_element.get_text(strip=True)
-                
+                name, party = clean_name(name)
                 # Extract the next p element as description
                 description = None
                 description_element = name_element.find_next('p')
@@ -230,10 +331,13 @@ def extractShowsDetails_Miosga(links):
                     infotext = infotext_element.get_text(strip=True)
                     if ',' in infotext and '|' in infotext:
                         role = infotext.split(',')[1].split('|')[0].strip()
-
+                if not party:
+                    if role is not None:
+                        party = extract_party(role)
                 # Append the guest data
                 guests.append({
                     'name': name,
+                    "party":party,
                     'role': role,
                     'description': description
                 })
@@ -279,7 +383,8 @@ def extractShowsDetails_HartAberFair(links):
     
             # Initialize dictionary for the current page
             page_data = {}
-    
+            page_data["uid"] = create_hash(link)
+
             # Scrape the title
             title_element = soup.find_all('h4', class_='headline')[1]
             page_data['title'] = title_element.get_text(strip=True) if title_element else None
@@ -292,22 +397,28 @@ def extractShowsDetails_HartAberFair(links):
             page_data['time'] = ""
             page_data['station'] = "Das Erste"
             page_data['show'] = "Hart Aber Fair"
-            
+            page_data["link"] = link
+
             # Scrape guests
             guests = []
             name_elements = soup.find('div', class_='modCon modConStage').find_all("h4", class_="headline")
             for name_element in name_elements:
                 name = name_element.get_text(strip=True)
+                name, party = clean_name(name)
                 description = name_element.get("data-pre-headline").strip()
                 if "," in description:
                     role = description.split(",")[0].strip()
                 elif "und" in description:
                     role = description.split("und")[0].strip()
                 else:
-                    role = ""
+                    role = None
+                if not party:
+                    if role is not None:
+                        party = extract_party(role)
                 # Append the guest data
                 guests.append({
                     'name': name,
+                    'party':party,
                     'role': role,
                     'description': description
                 })
@@ -383,30 +494,48 @@ def extractShowsDetails_Lanz(links):
     
             # Initialize dictionary for the current page
             page_data = {}
-    
+            page_data["uid"] = create_hash(link)
+
             # Scrape the title
             title_element = soup.find('h1', class_='big-headline')
             page_data['title'] = title_element.get_text(strip=True) if title_element else None
     
             # Scrape the description
-            page_data['description'] = ""
+            description = soup.find("p", class_="item-description")
+            if description:
+                page_data['description'] = description.get_text(strip=True)
+            else:
+                page_data['description'] = ""
             date_element = soup.find_all('dd', class_='teaser-info')[1]
             page_data['date'] = date_element.get_text(strip=True)
             page_data['time'] = ""
             page_data['station'] = "ZDF"
             page_data['show'] = "Markus Lanz"
-            
+            page_data["link"] = link
+
             # Scrape guests
             guests = []
             name_elements = soup.find('div', class_='b-post-content').find_all('b')
             for name_element in name_elements:
                 namerole = name_element.get_text(strip=True).split(",")
-                name = namerole[0]
-                role = namerole[1]
+                if len(namerole)==2:
+                    name = namerole[0]
+                    role = namerole[1]
+                elif len(namerole)==1:
+                    name = namerole[0]
+                    role = None
+                else:
+                    name = namerole[0]
+                    role = " ".join(namerole[1:])
+                name, party = clean_name(name)
+                if not party:
+                    if role is not None:
+                        party = extract_party(role)
                 description = name_element.find_next_sibling(string=True)
                 # Append the guest data
                 guests.append({
                     'name': name,
+                    'party':party,
                     'role': role,
                     'description': description
                 })
@@ -455,27 +584,64 @@ def extractShows_Maischberger(initial_url):
                 page_data['time'] = ""
                 page_data['station'] = "Das Erste"
                 link_element = show.find("a", href=True)
-                links.append(link_element["href"])
-                # Scrape guests
-                guests = []
-                guest_text = page_data["description"].replace("|","").replace("Zu Gast:","").replace(") und ",");").replace("),",");").replace(").",");").strip().split(");")
-                del guest_text[-1]
-                for guest in guest_text:
-                    namerole = guest.split("(")
-                    name = namerole[0].strip()
-                    role = namerole[1].strip()
-                    description = ""
-                    # Append the guest data
-                    guests.append({
-                        'name': name,
-                        'role': role,
-                        'description': description
-                    })
+                link = pre_url+link_element["href"]
+                page_data["uid"] = create_hash(link)
+                page_data["link"] = link
+                links.append(link)
+                response = requests.get(link)
+                response.raise_for_status()
+                response.encoding = response.apparent_encoding
+                soup = BeautifulSoup(response.text, 'html.parser')
+                extended_description = soup.find_all("p",class_="text small")
+                if extended_description:
+                    description = extended_description[0:len(extended_description)-2]
+                    description = [des.get_text(strip=True) for des in description]
+                    page_data['description'] = " ".join(description)
+                specific_element = soup.find('h2', class_='subtitle small')
                 
-                page_data['guests'] = guests
+                if specific_element:
+                    # Find all <p> elements that come after the specific element
+                    paragraphs_after = specific_element.find_all_next('p', class_="text small")
+                    guests = []
+                    # Print the text of these paragraphs
+                    pattern_com_par = r",\s*\("
+                    pattern_par_com = r"\(\s*,"
+                    for paragraph in paragraphs_after:
+                        
+                        guest_text = paragraph.get_text(strip=True)
+                        if bool(re.search(pattern_com_par, guest_text)):
+                            splits = guest_text.split(",")
+                            name = splits[0]
+                            if "(" in guest_text:
+                                party = splits[1].split("(")[0]
+                                role = splits[1].split("(")[1].replace(")","")
+                            else:
+                                match = extract_party(splits[1])
+                                if match:
+                                    party = match
+                                    role = None
+                                else:
+                                    party = None
+                                    role = splits[1]
+                        elif bool(re.search(pattern_par_com, guest_text)): 
+                            splits = guest_text.split("(")
+                            name = splits[0]
+                            role = splits[1].replace(")","")
+                        else:
+                            continue
+                        description = ""
+                        # Append the guest data
+                        guests.append({
+                            'name': name,
+                            'party': party,
+                            'role': role,
+                            'description': description
+                        })
+                    page_data['guests'] = guests
+                else:
+                    page_data['guests'] = []
+                
                 all_data.append(page_data)
-
-            links = [pre_url+link for link in links if "index.html" not in link]
             return all_data, links
         except requests.RequestException as e:
             print(f"Error fetching URL {url}: {e}")
@@ -503,6 +669,29 @@ def extractShows_Maischberger(initial_url):
         all_data.extend(data)
     return all_links, all_data
 
+
+
+
+def extractShows_Illner(initial_url):
+    base_url = "https://www.zdf.de"
+    try:
+        response = requests.get(initial_url)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.text, 'html.parser')
+        links = [
+            link['href'].split("#")[0]
+            for link in soup.find_all('a', href=True)
+            if any(month in link["href"] for month in german_months) 
+        ]
+        links = [base_url+link for link in links if len(link)>10]
+        links =list(set(links))
+        return links
+    except requests.RequestException as e:
+        print(f"Error fetching URL {initial_url}: {e}")
+        return []
+
+def extractShowsDetails_Illner(links):
+    pass
 
 
 # Scrape Anne Will
@@ -546,16 +735,92 @@ with open(filename, 'w') as f:
 
 # Scrape Illner
 
-
-
+    
 
 # Aggregate
 all_data = all_annewill_data+all_carenmiosga_data+all_hartaberfair_data+all_markuslanz_data+all_maischberger_data
 df = pd.DataFrame(all_data)
+df.to_excel("all_data.xlsx", index=False)
 guest_list = []
 for dat in all_data:
-    if "guests" in dat:
-        guest_list.extend(dat["guests"])
+    if "guests" in dat and dat["guests"] is not None:
+        for guest in dat["guests"]:
+            dic = {}
+            dic.update(guest)
+            dic["Talkshow"] = dat["show"]+" - "+str(dat["date"])
+            guest_list.append(dic)
+            if len(guest["name"])>37:
+                print(dat["link"])
+                print(guest["name"])
+
 
 df_guests = pd.DataFrame(guest_list)
 df_guests.to_excel("guests.xlsx")
+
+
+grouped = df_guests.groupby('Talkshow')['name'].apply(list)
+
+# Step 2: Generate edges
+edges = []
+for names in grouped:
+    edges.extend(itertools.combinations(names, 2))  # Generate all pairs of people in the same Talkshow
+
+# Count the occurrences of each pair
+edge_counts = Counter(edges)
+
+# Step 3: Create the graph with weighted edges
+G = nx.Graph()
+for edge, weight in edge_counts.items():
+    G.add_edge(edge[0], edge[1], weight=weight)
+
+# Step 4: Visualize the network
+plt.figure(figsize=(10, 8))
+pos = nx.spring_layout(G)  # Position nodes using the spring layout
+
+# Draw nodes and edges
+nx.draw(
+    G, pos, with_labels=True, node_color="skyblue", edge_color="gray", node_size=2000, font_size=15
+)
+
+# Add edge labels (weights)
+edge_labels = nx.get_edge_attributes(G, 'weight')
+nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_size=12)
+
+plt.title("Co-occurrence Network of People in Talkshows (with Weights)")
+plt.show()
+
+# Step 5: Export the graph (optional)
+nx.write_gexf(G, "cooccurrence_network_with_weights.gexf")
+
+
+
+
+from bertopic.representation import KeyBERTInspired
+from bertopic import BERTopic
+from sentence_transformers import SentenceTransformer
+from hdbscan import HDBSCAN
+from umap import UMAP
+from sklearn.feature_extraction.text import CountVectorizer
+
+
+descriptions = list(df.description)
+descriptions = [des for des in descriptions if len(des)>200]
+
+# Pre-calculate embeddings
+embedding_model = SentenceTransformer('sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2')
+embeddings = embedding_model.encode(descriptions, show_progress_bar=True)
+# Fine-tune your topic representations
+representation_model = KeyBERTInspired()
+hdbscan_model = HDBSCAN(min_cluster_size=5, metric='euclidean', cluster_selection_method='eom', prediction_data=True)
+umap_model = UMAP(n_neighbors=5, n_components=5, min_dist=0.0, metric='cosine')
+
+topic_model = BERTopic(umap_model=umap_model, hdbscan_model=hdbscan_model)
+topics, probs = topic_model.fit_transform(descriptions, embeddings)
+
+topic_model.get_topic_info()
+
+# Fine-tune topic representations after training BERTopic
+vectorizer_model = CountVectorizer(stop_words=["der", "die","das","in","wie","und","zu",], ngram_range=(1, 3), min_df=2)
+topic_model.update_topics(descriptions, vectorizer_model=vectorizer_model)
+
+
