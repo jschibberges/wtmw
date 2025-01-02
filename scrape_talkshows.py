@@ -11,6 +11,7 @@ import requests
 import os
 import json
 import pandas as pd
+from pytubefix import YouTube,Playlist
 from datetime import datetime, timedelta
 import locale
 import hashlib
@@ -22,7 +23,41 @@ import matplotlib.pyplot as plt
 from collections import Counter
 
 
-os.chdir("/Users/julianschibberges/Library/CloudStorage/OneDrive-BernsteinGroup/talkshows")
+os.chdir("/Users/jschibberges/Documents/GitHub/wtmw")
+
+def load_json_file(filepath):
+    """Loads data from a JSON file.
+
+    Args:
+        filepath: The path to the JSON file.
+
+    Returns:
+        The loaded JSON data as a Python dictionary or list, or None if 
+        an error occurs during loading.
+    """
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:  # Explicitly handle encoding
+            data = json.load(f)
+        return data
+    except FileNotFoundError:
+        print(f"Error: File not found at {filepath}")
+        return None
+    except json.JSONDecodeError:
+        print(f"Error: Invalid JSON format in {filepath}")
+        return None
+    except Exception as e:  # Catch other potential errors
+        print(f"An unexpected error occurred: {e}")
+        return None
+
+all_annewill_data = load_json_file("./data/AnneWill_data.json")
+all_carenmiosga_data = load_json_file("./data/CarenMiosga_data.json")
+all_hartaberfair_data = load_json_file("./data/HartAberFair_data.json")
+all_markuslanz_data = load_json_file("./data/MarkusLanz_data.json")
+all_maischberger_data = load_json_file("./data/Maischberger_data.json")
+all_illner_data = load_json_file("./data/Illner_data.json")
+
+all_data = all_annewill_data+all_carenmiosga_data+all_hartaberfair_data+all_markuslanz_data+all_maischberger_data+all_illner_data
+uids = [data["uid"] for data in all_data]
 
 url_will = "https://daserste.ndr.de/annewill/archiv/"
 url_miosga = "https://www.daserste.de/information/talk/caren-miosga/sendung/index.html"
@@ -113,6 +148,62 @@ def clean_name(name:str):
     else:
         return name.strip(), None
 
+def standardize_date(date_string):
+    """
+    Standardizes date strings to DD.MM.YYYY format.
+
+    Args:
+        date_string: The date string to standardize.
+
+    Returns:
+        A standardized date string in DD.MM.YYYY format, or None if the 
+        input is invalid or cannot be parsed.
+    """
+    locale.setlocale(locale.LC_TIME, 'de_DE.UTF-8')  # Set locale for German month names
+
+    try:
+        # Attempt parsing with different formats
+        try:
+            # Format 1: DD.MM.YYYY
+            date_object = datetime.strptime(date_string, '%d.%m.%Y')
+        except ValueError:
+            try:
+                # Format 2: DD. Month YYYY
+                date_object = datetime.strptime(date_string, '%d. %B %Y')
+            except ValueError:
+                try:
+                   # Format 3: DD.MM.YYYY (with potential space after the day)
+                    date_object = datetime.strptime(date_string.replace(" ",""), '%d.%m.%Y')
+                except ValueError:
+                    return None  # Invalid format
+
+        return date_object.strftime('%d.%m.%Y')
+
+    except Exception as e:  # Catches other potential errors (e.g., TypeError)
+        print(f"Error parsing date: {e}")
+        return None
+
+def subtract_date(dt_obj):
+    """
+    Formats a datetime.datetime object to DD.MM.YYYY after subtracting one day.
+
+    Args:
+        dt_obj: A datetime.datetime object
+
+    Returns:
+         A string representing the date in DD.MM.YYYY format, one day
+         before the provided datetime object.  Returns None if input is not a 
+         datetime object.
+    """
+    if not isinstance(dt_obj, datetime):
+        return None  # Or raise a TypeError if you prefer
+
+    previous_day = dt_obj - timedelta(days=1)
+    return previous_day.strftime('%d.%m.%Y')
+
+
+
+
 def extractShows_Will(base_url):
     def get_links(url):
         """Fetches all links containing 'https://daserste.ndr.de/annewill/archiv/' from a URL."""
@@ -155,13 +246,16 @@ def extractShowsDetails_Will(links):
 
     for link in links:
         try:
+            uid = create_hash(link)
+            if uid in uids:
+                continue
             response = requests.get(link)
             response.raise_for_status()
             soup = BeautifulSoup(response.text, 'html.parser')
 
             # Initialize dictionary for the current link
             page_data = {}
-            page_data["uid"] = create_hash(link)
+            page_data["uid"] = uid
             # Scrape the title
             title_element = soup.find('h1', class_='headline small')
             page_data['title'] = title_element.get_text(strip=True) if title_element else None
@@ -220,7 +314,7 @@ def extractShowsDetails_Will(links):
                     guests.append({
                         'name': name,
                         'party': party,
-                        'role': role,
+                        'role': role.strip(),
                         'description': description
                     })
 
@@ -277,6 +371,9 @@ def extractShowsDetails_Miosga(links):
 
     for link in links:
         try:
+            uid = create_hash(link)
+            if uid in uids:
+                continue
             response = requests.get(link)
             response.raise_for_status()
             response.encoding = response.apparent_encoding
@@ -284,7 +381,7 @@ def extractShowsDetails_Miosga(links):
 
             # Initialize dictionary for the current page
             page_data = {}
-            page_data["uid"] = create_hash(link)
+            page_data["uid"] = uid
 
             # Scrape the title
             title_element = soup.find('h1', class_='headline small')
@@ -338,7 +435,7 @@ def extractShowsDetails_Miosga(links):
                 guests.append({
                     'name': name,
                     "party":party,
-                    'role': role,
+                    'role': role.strip(),
                     'description': description
                 })
             
@@ -376,6 +473,9 @@ def extractShowsDetails_HartAberFair(links):
     
     for link in links:
         try:
+            uid = create_hash(link)
+            if uid in uids:
+                continue
             response = requests.get(link)
             response.raise_for_status()
             response.encoding = response.apparent_encoding
@@ -383,7 +483,7 @@ def extractShowsDetails_HartAberFair(links):
     
             # Initialize dictionary for the current page
             page_data = {}
-            page_data["uid"] = create_hash(link)
+            page_data["uid"] = uid
 
             # Scrape the title
             title_element = soup.find_all('h4', class_='headline')[1]
@@ -409,7 +509,7 @@ def extractShowsDetails_HartAberFair(links):
                 if "," in description:
                     role = description.split(",")[0].strip()
                 elif "und" in description:
-                    role = description.split("und")[0].strip()
+                    role = description.split(" und ")[0].strip()
                 else:
                     role = None
                 if not party:
@@ -419,7 +519,7 @@ def extractShowsDetails_HartAberFair(links):
                 guests.append({
                     'name': name,
                     'party':party,
-                    'role': role,
+                    'role': role.strip(),
                     'description': description
                 })
             
@@ -487,6 +587,9 @@ def extractShowsDetails_Lanz(links):
     
     for link in links:
         try:
+            uid = create_hash(link)
+            if uid in uids:
+                continue
             response = requests.get(link)
             response.raise_for_status()
             response.encoding = response.apparent_encoding
@@ -494,7 +597,7 @@ def extractShowsDetails_Lanz(links):
     
             # Initialize dictionary for the current page
             page_data = {}
-            page_data["uid"] = create_hash(link)
+            page_data["uid"] = uid
 
             # Scrape the title
             title_element = soup.find('h1', class_='big-headline')
@@ -536,7 +639,7 @@ def extractShowsDetails_Lanz(links):
                 guests.append({
                     'name': name,
                     'party':party,
-                    'role': role,
+                    'role': role.strip(),
                     'description': description
                 })
             
@@ -585,6 +688,9 @@ def extractShows_Maischberger(initial_url):
                 page_data['station'] = "Das Erste"
                 link_element = show.find("a", href=True)
                 link = pre_url+link_element["href"]
+                uid = create_hash(link)
+                if uid in uids:
+                    continue
                 page_data["uid"] = create_hash(link)
                 page_data["link"] = link
                 links.append(link)
@@ -634,7 +740,7 @@ def extractShows_Maischberger(initial_url):
                         guests.append({
                             'name': name,
                             'party': party,
-                            'role': role,
+                            'role': role.strip(),
                             'description': description
                         })
                     page_data['guests'] = guests
@@ -672,73 +778,110 @@ def extractShows_Maischberger(initial_url):
 
 
 
-def extractShows_Illner(initial_url):
-    base_url = "https://www.zdf.de"
-    try:
-        response = requests.get(initial_url)
-        response.raise_for_status()
-        soup = BeautifulSoup(response.text, 'html.parser')
-        links = [
-            link['href'].split("#")[0]
-            for link in soup.find_all('a', href=True)
-            if any(month in link["href"] for month in german_months) 
-        ]
-        links = [base_url+link for link in links if len(link)>10]
-        links =list(set(links))
-        return links
-    except requests.RequestException as e:
-        print(f"Error fetching URL {initial_url}: {e}")
-        return []
+def extractShows_Illner():
+    base_url = "https://www.youtube.com/playlist?list=PLdPrKDvwrog5MvFTzlxs5L5QUazkvCeYa"
+    p = Playlist(base_url)
+    shows = []
+    for url in p.video_urls:
+        yt = YouTube(url)
+        if yt.length > 1800:
+            show = {"link":url,
+                    "description":yt.description,
+                    "title":yt.title,
+                    "date":yt.publish_date}
+            shows.append(show)
+    return shows
 
-def extractShowsDetails_Illner(links):
-    pass
+def extractShowsDetails_Illner(shows):
+    all_data = []
+    for show in shows:
+        uid = create_hash(show["link"])
+        if uid in uids:
+            continue
+        page_data = {}
+        page_data["uid"] = uid
+        page_data["link"] = show["link"]
+        page_data["description"] = show["description"]
+        page_data["title"] = show["title"]
+        page_data["date"] = subtract_date(show["date"])
+        page_data["time"] = ""
+        page_data["station"] = "ZDF"
+        page_data["show"] = "Maybrit Illner"
+        page_data["guests"] = []
+        description = show["description"]
+        if "Die Gäste der Sendung:" in description:
+            guests = description.split("Die Gäste der Sendung:")[1].split("--")[0].split("__")[0]
+            guests = guests.split("\n")
+            for guest in guests:
+                if guest.strip() != "":
+                    if "," in guest:
+                        name = guest.split(",")[0]
+                        role = ",".join(guest.split(",")[1:])
+                    elif "(" in guest:
+                        name = guest.split("(")[0]
+                        role = guest.split("(")[1].replace(")","")
+                    name, party = clean_name(name)
+                    if not party:
+                        party = extract_party(role)
+                    page_data["guests"].append({"name":name,"party":party,"role":role.strip(),"description":""})
+        all_data.append(page_data)
+    return all_data
 
 
 # Scrape Anne Will
 all_annewill_links = extractShows_Will(url_will)
 print(f"Total links found: {len(all_annewill_links)}")
-all_annewill_data = extractShowsDetails_Will(all_annewill_links)
-filename = f'{datetime.now().strftime("%Y%m%d")}_AnneWill_data.json'
+all_annewill_data.update(extractShowsDetails_Will(all_annewill_links))
+#filename = f'{datetime.now().strftime("%Y%m%d")}_AnneWill_data.json'
+filename = './data/AnneWill_data.json'
 with open(filename, 'w') as f:
     json.dump(all_annewill_data, f)
 
 # Scrape Caren Miosga
 all_carenmiosga_links = extractShows_Miosga(url_miosga)
-all_carenmiosga_data = extractShowsDetails_Miosga(all_carenmiosga_links)
-filename = f'{datetime.now().strftime("%Y%m%d")}_CarenMiosga_data.json'
+all_carenmiosga_data.update(extractShowsDetails_Miosga(all_carenmiosga_links))
+#filename = f'{datetime.now().strftime("%Y%m%d")}_CarenMiosga_data.json'
+filename = './data/CarenMiosga_data.json'
 with open(filename, 'w') as f:
     json.dump(all_carenmiosga_data, f)
 
 # Scrape Hart aber Fair
 all_hartaberfair_links = extractShows_HartAberFair(url_hartaberfair)
-all_hartaberfair_data = extractShowsDetails_HartAberFair(all_hartaberfair_links)
-filename = f'{datetime.now().strftime("%Y%m%d")}_HartAberFair_data.json'
+all_hartaberfair_data.update(extractShowsDetails_HartAberFair(all_hartaberfair_links))
+#filename = f'{datetime.now().strftime("%Y%m%d")}_HartAberFair_data.json'
+filename = './data/HartAberFair_data.json'
 with open(filename, 'w') as f:
     json.dump(all_hartaberfair_data, f)
 
 
 # Scrape Markus Lanz
 all_markuslanz_links = extractShows_Lanz(start_year=2)
-all_markuslanz_data = extractShowsDetails_Lanz(all_markuslanz_links)
-filename = f'{datetime.now().strftime("%Y%m%d")}_MarkusLanz_data.json'
+all_markuslanz_data.update(extractShowsDetails_Lanz(all_markuslanz_links))
+#filename = f'{datetime.now().strftime("%Y%m%d")}_MarkusLanz_data.json'
+filename = './data/MarkusLanz_data.json'
 with open(filename, 'w') as f:
     json.dump(all_markuslanz_data, f)
 
-
-
 # Scrape Maischberger
-all_maischberger_links, all_maischberger_data = extractShows_Maischberger(url_maischberger)
-filename = f'{datetime.now().strftime("%Y%m%d")}_Maischberger_data.json'
+all_maischberger_links, maischberger_data = extractShows_Maischberger(url_maischberger)
+all_maischberger_data.update(maischberger_data)
+#filename = f'{datetime.now().strftime("%Y%m%d")}_Maischberger_data.json'
+filename = './data/Maischberger_data.json'
 with open(filename, 'w') as f:
     json.dump(all_maischberger_data, f)
 
 
 # Scrape Illner
-
+all_illner_links = extractShows_Illner()
+all_illner_data.update(extractShowsDetails_Illner(all_illner_links))
+#filename = f'{datetime.now().strftime("%Y%m%d")}_Illner_data.json'
+filename = './data/Illner_data.json'
+with open(filename, 'w') as f:
+    json.dump(all_illner_data, f)
     
 
 # Aggregate
-all_data = all_annewill_data+all_carenmiosga_data+all_hartaberfair_data+all_markuslanz_data+all_maischberger_data
+all_data = all_annewill_data+all_carenmiosga_data+all_hartaberfair_data+all_markuslanz_data+all_maischberger_data+all_illner_data
 df = pd.DataFrame(all_data)
 df.to_excel("all_data.xlsx", index=False)
 guest_list = []
@@ -755,7 +898,8 @@ for dat in all_data:
 
 
 df_guests = pd.DataFrame(guest_list)
-df_guests.to_excel("guests.xlsx")
+filename = f'{datetime.now().strftime("%Y%m%d")}_guests.xlsx'
+df_guests.to_excel(filename)
 
 
 grouped = df_guests.groupby('Talkshow')['name'].apply(list)
@@ -791,36 +935,4 @@ plt.show()
 
 # Step 5: Export the graph (optional)
 nx.write_gexf(G, "cooccurrence_network_with_weights.gexf")
-
-
-
-
-from bertopic.representation import KeyBERTInspired
-from bertopic import BERTopic
-from sentence_transformers import SentenceTransformer
-from hdbscan import HDBSCAN
-from umap import UMAP
-from sklearn.feature_extraction.text import CountVectorizer
-
-
-descriptions = list(df.description)
-descriptions = [des for des in descriptions if len(des)>200]
-
-# Pre-calculate embeddings
-embedding_model = SentenceTransformer('sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2')
-embeddings = embedding_model.encode(descriptions, show_progress_bar=True)
-# Fine-tune your topic representations
-representation_model = KeyBERTInspired()
-hdbscan_model = HDBSCAN(min_cluster_size=5, metric='euclidean', cluster_selection_method='eom', prediction_data=True)
-umap_model = UMAP(n_neighbors=5, n_components=5, min_dist=0.0, metric='cosine')
-
-topic_model = BERTopic(umap_model=umap_model, hdbscan_model=hdbscan_model)
-topics, probs = topic_model.fit_transform(descriptions, embeddings)
-
-topic_model.get_topic_info()
-
-# Fine-tune topic representations after training BERTopic
-vectorizer_model = CountVectorizer(stop_words=["der", "die","das","in","wie","und","zu",], ngram_range=(1, 3), min_df=2)
-topic_model.update_topics(descriptions, vectorizer_model=vectorizer_model)
-
 
