@@ -41,13 +41,14 @@ def load_json_file(filepath):
         return data
     except FileNotFoundError:
         print(f"Error: File not found at {filepath}")
-        return None
+        return []
     except json.JSONDecodeError:
         print(f"Error: Invalid JSON format in {filepath}")
-        return None
+        return []
     except Exception as e:  # Catch other potential errors
         print(f"An unexpected error occurred: {e}")
-        return None
+        return []
+
 
 all_annewill_data = load_json_file("./data/AnneWill_data.json")
 all_carenmiosga_data = load_json_file("./data/CarenMiosga_data.json")
@@ -57,7 +58,7 @@ all_maischberger_data = load_json_file("./data/Maischberger_data.json")
 all_illner_data = load_json_file("./data/Illner_data.json")
 
 all_data = all_annewill_data+all_carenmiosga_data+all_hartaberfair_data+all_markuslanz_data+all_maischberger_data+all_illner_data
-uids = [data["uid"] for data in all_data]
+uids = [data["uid"] for data in all_data if "uid" in data]
 
 url_will = "https://daserste.ndr.de/annewill/archiv/"
 url_miosga = "https://www.daserste.de/information/talk/caren-miosga/sendung/index.html"
@@ -120,6 +121,7 @@ def extract_party(text):
 
 def clean_name(name:str):
     second_string=""
+    name = name.replace("Prof.","").replace("Dr.","")
     new_name = None
     if "," in name and "(" in name:
         new_name = name.split(",")[0]
@@ -314,7 +316,7 @@ def extractShowsDetails_Will(links):
                     guests.append({
                         'name': name,
                         'party': party,
-                        'role': role.strip(),
+                        'role': role,
                         'description': description
                     })
 
@@ -435,7 +437,7 @@ def extractShowsDetails_Miosga(links):
                 guests.append({
                     'name': name,
                     "party":party,
-                    'role': role.strip(),
+                    'role': role,
                     'description': description
                 })
             
@@ -472,10 +474,10 @@ def extractShowsDetails_HartAberFair(links):
     all_data = []
     
     for link in links:
+        uid = create_hash(link)
+        if uid in uids:
+            continue
         try:
-            uid = create_hash(link)
-            if uid in uids:
-                continue
             response = requests.get(link)
             response.raise_for_status()
             response.encoding = response.apparent_encoding
@@ -519,7 +521,7 @@ def extractShowsDetails_HartAberFair(links):
                 guests.append({
                     'name': name,
                     'party':party,
-                    'role': role.strip(),
+                    'role': role,
                     'description': description
                 })
             
@@ -639,7 +641,7 @@ def extractShowsDetails_Lanz(links):
                 guests.append({
                     'name': name,
                     'party':party,
-                    'role': role.strip(),
+                    'role': role,
                     'description': description
                 })
             
@@ -720,7 +722,7 @@ def extractShows_Maischberger(initial_url):
                             name = splits[0]
                             if "(" in guest_text:
                                 party = splits[1].split("(")[0]
-                                role = splits[1].split("(")[1].replace(")","")
+                                role = splits[1].split("(")[1].replace(")","").strip()
                             else:
                                 match = extract_party(splits[1])
                                 if match:
@@ -732,7 +734,7 @@ def extractShows_Maischberger(initial_url):
                         elif bool(re.search(pattern_par_com, guest_text)): 
                             splits = guest_text.split("(")
                             name = splits[0]
-                            role = splits[1].replace(")","")
+                            role = splits[1].replace(")","").strip()
                         else:
                             continue
                         description = ""
@@ -740,7 +742,7 @@ def extractShows_Maischberger(initial_url):
                         guests.append({
                             'name': name,
                             'party': party,
-                            'role': role.strip(),
+                            'role': role,
                             'description': description
                         })
                     page_data['guests'] = guests
@@ -810,20 +812,21 @@ def extractShowsDetails_Illner(shows):
         page_data["guests"] = []
         description = show["description"]
         if "Die Gäste der Sendung:" in description:
-            guests = description.split("Die Gäste der Sendung:")[1].split("--")[0].split("__")[0]
+            guests_section = re.split(r"Die Gäste der Sendung:\s*\n", description)[1]
+            guests = re.split(r"\n\n|--|__", guests_section)[0]
             guests = guests.split("\n")
             for guest in guests:
                 if guest.strip() != "":
                     if "," in guest:
                         name = guest.split(",")[0]
-                        role = ",".join(guest.split(",")[1:])
+                        role = ",".join(guest.split(",")[1:]).strip()
                     elif "(" in guest:
                         name = guest.split("(")[0]
-                        role = guest.split("(")[1].replace(")","")
+                        role = guest.split("(")[1].replace(")","").strip()
                     name, party = clean_name(name)
                     if not party:
                         party = extract_party(role)
-                    page_data["guests"].append({"name":name,"party":party,"role":role.strip(),"description":""})
+                    page_data["guests"].append({"name":name,"party":party,"role":role,"description":""})
         all_data.append(page_data)
     return all_data
 
@@ -831,7 +834,7 @@ def extractShowsDetails_Illner(shows):
 # Scrape Anne Will
 all_annewill_links = extractShows_Will(url_will)
 print(f"Total links found: {len(all_annewill_links)}")
-all_annewill_data.update(extractShowsDetails_Will(all_annewill_links))
+all_annewill_data.extend(extractShowsDetails_Will(all_annewill_links))
 #filename = f'{datetime.now().strftime("%Y%m%d")}_AnneWill_data.json'
 filename = './data/AnneWill_data.json'
 with open(filename, 'w') as f:
@@ -839,7 +842,7 @@ with open(filename, 'w') as f:
 
 # Scrape Caren Miosga
 all_carenmiosga_links = extractShows_Miosga(url_miosga)
-all_carenmiosga_data.update(extractShowsDetails_Miosga(all_carenmiosga_links))
+all_carenmiosga_data.extend(extractShowsDetails_Miosga(all_carenmiosga_links))
 #filename = f'{datetime.now().strftime("%Y%m%d")}_CarenMiosga_data.json'
 filename = './data/CarenMiosga_data.json'
 with open(filename, 'w') as f:
@@ -847,7 +850,7 @@ with open(filename, 'w') as f:
 
 # Scrape Hart aber Fair
 all_hartaberfair_links = extractShows_HartAberFair(url_hartaberfair)
-all_hartaberfair_data.update(extractShowsDetails_HartAberFair(all_hartaberfair_links))
+all_hartaberfair_data.extend(extractShowsDetails_HartAberFair(all_hartaberfair_links))
 #filename = f'{datetime.now().strftime("%Y%m%d")}_HartAberFair_data.json'
 filename = './data/HartAberFair_data.json'
 with open(filename, 'w') as f:
@@ -856,7 +859,7 @@ with open(filename, 'w') as f:
 
 # Scrape Markus Lanz
 all_markuslanz_links = extractShows_Lanz(start_year=2)
-all_markuslanz_data.update(extractShowsDetails_Lanz(all_markuslanz_links))
+all_markuslanz_data.extend(extractShowsDetails_Lanz(all_markuslanz_links))
 #filename = f'{datetime.now().strftime("%Y%m%d")}_MarkusLanz_data.json'
 filename = './data/MarkusLanz_data.json'
 with open(filename, 'w') as f:
@@ -864,7 +867,7 @@ with open(filename, 'w') as f:
 
 # Scrape Maischberger
 all_maischberger_links, maischberger_data = extractShows_Maischberger(url_maischberger)
-all_maischberger_data.update(maischberger_data)
+all_maischberger_data.extend(maischberger_data)
 #filename = f'{datetime.now().strftime("%Y%m%d")}_Maischberger_data.json'
 filename = './data/Maischberger_data.json'
 with open(filename, 'w') as f:
@@ -873,7 +876,7 @@ with open(filename, 'w') as f:
 
 # Scrape Illner
 all_illner_links = extractShows_Illner()
-all_illner_data.update(extractShowsDetails_Illner(all_illner_links))
+all_illner_data.extend(extractShowsDetails_Illner(all_illner_links))
 #filename = f'{datetime.now().strftime("%Y%m%d")}_Illner_data.json'
 filename = './data/Illner_data.json'
 with open(filename, 'w') as f:
@@ -883,56 +886,4 @@ with open(filename, 'w') as f:
 # Aggregate
 all_data = all_annewill_data+all_carenmiosga_data+all_hartaberfair_data+all_markuslanz_data+all_maischberger_data+all_illner_data
 df = pd.DataFrame(all_data)
-df.to_excel("all_data.xlsx", index=False)
-guest_list = []
-for dat in all_data:
-    if "guests" in dat and dat["guests"] is not None:
-        for guest in dat["guests"]:
-            dic = {}
-            dic.update(guest)
-            dic["Talkshow"] = dat["show"]+" - "+str(dat["date"])
-            guest_list.append(dic)
-            if len(guest["name"])>37:
-                print(dat["link"])
-                print(guest["name"])
-
-
-df_guests = pd.DataFrame(guest_list)
-filename = f'{datetime.now().strftime("%Y%m%d")}_guests.xlsx'
-df_guests.to_excel(filename)
-
-
-grouped = df_guests.groupby('Talkshow')['name'].apply(list)
-
-# Step 2: Generate edges
-edges = []
-for names in grouped:
-    edges.extend(itertools.combinations(names, 2))  # Generate all pairs of people in the same Talkshow
-
-# Count the occurrences of each pair
-edge_counts = Counter(edges)
-
-# Step 3: Create the graph with weighted edges
-G = nx.Graph()
-for edge, weight in edge_counts.items():
-    G.add_edge(edge[0], edge[1], weight=weight)
-
-# Step 4: Visualize the network
-plt.figure(figsize=(10, 8))
-pos = nx.spring_layout(G)  # Position nodes using the spring layout
-
-# Draw nodes and edges
-nx.draw(
-    G, pos, with_labels=True, node_color="skyblue", edge_color="gray", node_size=2000, font_size=15
-)
-
-# Add edge labels (weights)
-edge_labels = nx.get_edge_attributes(G, 'weight')
-nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_size=12)
-
-plt.title("Co-occurrence Network of People in Talkshows (with Weights)")
-plt.show()
-
-# Step 5: Export the graph (optional)
-nx.write_gexf(G, "cooccurrence_network_with_weights.gexf")
-
+df.to_excel("./data/all_data.xlsx", index=False)
