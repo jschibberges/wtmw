@@ -8,6 +8,7 @@ from typing import List, Tuple, Dict, Optional, Iterable
 import numpy as np
 import pandas as pd
 import networkx as nx
+from functools import lru_cache
 
 # --- Configuration ---
 BASE_DIR = Path(__file__).resolve().parent
@@ -78,17 +79,43 @@ PARTY_ALIASES = {
     "bsw":"BSW","parteilos":"parteilos"
     }
 MEDIA_ORG = {
-    "zdf","ard","wdr","ndr","mdr","rbb","swr","br","orf","rtl","sat1","sat.1",
+    "zdf","ard","wdr","ndr","mdr","rbb","swr","br","orf","rtl","sat1","sat.1","servustv",
     "pro7","pro sieben","phoenix","welt","faz","sz","bild","taz","zeit","spiegel","focus","stern","dpa"
 }
 ROLE_WORDS = {
-    "abgeordneter","abgeordnete","minister","ministerin","staatssekretär","staatssekretärin",
+    # Generic roles
+    "abgeordneter","abgeordnete","minister","ministerin","staatssekretär","staatssekretärin","altersforscher",
     "vorsitzender","vorsitzende","präsident","präsidentin","sprecher","sprecherin",
     "journalist","journalistin","experte","expertin","autor","autorin","unternehmer","unternehmerin",
     "wissenschaftler","wissenschaftlerin","politologe","politologin","kommentator","kommentatorin",
-    "moderator","moderatorin","bürgermeister","bürgermeisterin","mitglied","landtag","bundestag","eu-parlament",
-    "mdep","mdb","mdl","a.d.","i.r.", "korrespondent","korrespondentin"
+    "moderator","moderatorin","bürgermeister","bürgermeisterin","bezirksbürgermeister","mitglied","landtag","bundestag","eu-parlament",
+    "korrespondent","korrespondentin","altersforscherin",
+    # Specific roles from feedback
+    "bundesaußenminister", "bundesfinanzminister", "bundesjustizministerin", "bundesvorsitzender", "Fraktionsvorsitzende",
+    # Affixes and titles
+    "mdep","mdb","mdl","a.d.","i.r.",
+    # Junk words often appearing with names
+    "büro", "verein", "beamtenbund", "arbeitgeberverbands", "gesamtmetall", "ausschusses", "untersuchungsausschusses", "bundestages"
 }
+
+GERMAN_EXTRA_STOP = {
+    "heute","gestern","morgen","sendung","folge","talk","talkshow",
+    "thema","gäste","gast","moderator","moderation"
+}
+
+# Words that are not part of a name but might appear in the name field
+JUNK_WORDS_IN_NAMES = {
+    "gegen", "begleitete", "seine", "frau", "deren", "selbsttötung", "derzeit", "hoch", "verschuldet",
+    "auswärtigen", "deutschen", "terrorgruppe", "nsu", "marzahn", "aus", "ehem.", "ehemalig",
+    "ehemaliger", "ehemalige", "Familie", "Familien", "Fachbereich", "Gast","Gäste"
+}
+
+LOW_INFORMATION_LEMMAS = {
+    "deutsch", "deutschland", "bundesrepublik", "jahr", "jaehrig", "jährig",
+    "jähr", "jährlich", "uhr",
+}
+
+
 TITLES_RE = re.compile(r"\b(prof\.?\s*dr\.?|prof\.?|dr\.|dipl\.-\w+|md[bpl]|mdep|ra|ll\.?m\.?|ma|mba|ba|bsc|msc|phd|a\.d\.|i\.r\.)\b", re.IGNORECASE)
 LEADING_NUM = re.compile(r"^\s*(?:\d+[\)\.:\-]|[-–—•*])\s*")
 URL_RE = re.compile(r"https?://\S+|www\.\S+")
@@ -103,12 +130,6 @@ BOILERPLATE_PATTERNS = [
     re.compile(r"\bjetzt\s+live\b", re.IGNORECASE),
     re.compile(r"\bmehr\s+infos?:.*$", re.IGNORECASE),
 ]
-
-GERMAN_EXTRA_STOP = {
-    "heute","gestern","morgen","sendung","folge","talk","talkshow",
-    "thema","gäste","gast","moderator","moderation"
-}
-
 
 # ==============================
 # 1) SMALL HELPERS
@@ -145,6 +166,8 @@ def _normalize_role(role: str) -> str | None:
     # short role junk
     if r.lower() in {"gast","gäste","thema","talk","talkshow"}: 
         return None
+    if _is_party_or_org_only(r):
+        return None
     return r or None
 
 def _normalize_party(party: str) -> str | None:
@@ -177,74 +200,13 @@ def _is_trailing_paren_junk(raw: str) -> bool:
 # ==============================
 # 2) GUEST NAME CLEANING
 # ==============================
-def clean_person_name(raw: str) -> str:
-    if not raw:
-        return ""
-    s = _nfkc(_normalize_quotes(str(raw))).strip()
-    s = LEADING_NUM.sub("", s)
-    s = re.sub(r"\s*[\(\[\{<].*?[\)\]\}>]\s*", " ", s)           # remove parentheses blocks
-    s = TITLES_RE.sub(" ", s)                                    # remove titles
-    s = re.split(r"\s*(?:,|–|—|-{1,2})\s*", s, maxsplit=1)[0]    # cut after commas/dashes
-    s = _squash_spaces(s)
-    fold = _de_umlaut_fold(s.lower())
-    if fold in PARTY_ALIASES or fold in MEDIA_ORG:
-        return ""
-    s = re.sub(r"[)\]}>]+$", "", s).strip()
-    return s
-
-def is_plausible_person_name(s: str) -> bool:
-    if not s or re.search(r"\d", s):
-        return False
-    toks = TOKEN_RE.findall(s.strip())
-    if len(toks) < 2:
-        return False
-    fold_tokens = {_de_umlaut_fold(t.lower()) for t in toks}
-    if fold_tokens & PARTY_ALIASES.keys() or fold_tokens & MEDIA_ORG:
-        return False
-    if any(t.lower() in ROLE_WORDS for t in toks):
-        return False
-    if any(len(t) < 2 for t in toks):
-        return False
-    return True
-
-def sanitize_person_name(raw: str) -> Optional[str]:
-    cand = clean_person_name(raw)
-    if not cand:
-        return None
-
-    if is_plausible_person_name(cand):
-        return cand
-
-    tokens = TOKEN_RE.findall(cand)
-    if not tokens:
-        return None
-
-    # Drop tokens that are pure role labels if removing them leaves a usable name
-    filtered = [t for t in tokens if t.lower() not in ROLE_WORDS]
-    if filtered and filtered != tokens:
-        rebuilt = " ".join(filtered)
-        if is_plausible_person_name(rebuilt):
-            return rebuilt
-        tokens = filtered
-
-    # Accept single-token names when they look like actual names (length ≥ 3)
-    if len(tokens) == 1:
-        tok = tokens[0]
-        return tok if len(tok) >= 3 else None
-
-    # Fallback: return cleaned candidate unless it is obviously an org/party tag
-    if _is_party_or_org_only(cand):
-        return None
-
-    return cand
-
 def _clean_name_core(raw: str) -> str:
     s = _nfkc(_normalize_quotes(str(raw))).strip()
     s = LEADING_NUM.sub("", s)
     s = URL_RE.sub(" ", s)
     s = re.sub(r"\s*[\(\[\{<].*?[\)\]\}>]\s*", " ", s)             # drop (...) blocks
     s = TITLES_RE.sub(" ", s)                                      # drop titles
-    s = re.split(r"\s*(?:,|–|—|-{1,2})\s*", s, maxsplit=1)[0]      # cut after comma/dash tail
+    s = re.split(r"\s+(?:–|—|als|,|-)\s+", s, maxsplit=1)[0]      # cut after comma/dash tail, but not for intra-word hyphens
     s = re.sub(r"\s+", " ", s).strip()
     s = re.sub(r"[)\]}>]+$", "", s).strip()
     return s
@@ -282,6 +244,11 @@ def clean_guest_rows(df: pd.DataFrame,
             reasons.append("party_or_org_token")
             continue
 
+        # Reject if it looks like an organization
+        if re.search(r"\b(e\.V\.|gGmbH|GmbH|AG|e\. V)\b", s, re.IGNORECASE):
+            reasons.append("org_pattern_found")
+            continue
+
         tokens = TOKEN_RE.findall(s)
         if len(tokens) == 0:
             reasons.append("no_alpha_token")
@@ -290,6 +257,16 @@ def clean_guest_rows(df: pd.DataFrame,
         # Allow single-token names if they look substantial (e.g., "Cher", "Pelé")
         if len(tokens) == 1 and len(tokens[0]) <= 2:
             reasons.append("too_short_token")
+            continue
+
+        # Reject if name contains junk words that indicate it's a phrase
+        if any(t.lower() in JUNK_WORDS_IN_NAMES for t in tokens):
+            reasons.append("contains_junk_phrase_words")
+            continue
+
+        # Reject if any token is a role word
+        if any(t.lower() in ROLE_WORDS for t in tokens):
+            reasons.append("contains_role_word")
             continue
 
         reasons.append(None)
@@ -330,6 +307,20 @@ def clean_guest_rows(df: pd.DataFrame,
 # ==============================
 # 4) DESCRIPTION CLEANING (for topic labels)
 # ==============================
+
+# NLP cleaning deps
+try:
+    import spacy
+    nlp_de = spacy.load("de_core_news_md", disable=["parser", "ner"])
+except Exception:
+    try:
+        import spacy
+        nlp_de = spacy.load("de_core_news_sm", disable=["parser", "ner"])
+        print("Using spaCy 'sm' model. For better lemmatization run: python -m spacy download de_core_news_md")
+    except Exception:
+        nlp_de = None
+        print("spaCy German model not available; proceeding without lemmatization.")
+
 @lru_cache(maxsize=None)
 def get_german_stopwords() -> set[str]:
     """
@@ -384,7 +375,7 @@ def get_german_stopwords() -> set[str]:
         "themenwoche", "interview", "interviews", "analyse", "analysen", "bericht", 
         "berichte", "kommentar", "kommentare", "nachgehakt",
         
-        # Common roles
+        # Common roles (already in ROLE_WORDS, but good to have here for text cleaning)
         "journalist", "journalisten", "journalistin", "reporter", "reporterin",
         "korrespondent", "korrespondentin", "kommentator", "kommentatorin",
         "experte", "expertin", "experten",
@@ -392,7 +383,7 @@ def get_german_stopwords() -> set[str]:
         "wissenschaftler", "wissenschaftlerin", "wissenschaft",
         "autor", "autorin", "fraktionsvorsitzend", "bundesvorsitzender",
         
-        # Common entities/concepts
+        # Common entities/concepts and junk
         "deutsch", "deutsche", "deutschen", "deutscher", "deutschland", "bundesrepublik",
         "gesellschaft", "wirtschaft", "medien", "fernsehen",
         "jahr", "jahre", "jährige", "jährigen", "jähriger", "jähriges", "jährigem", "jaehrig", "uhr",
@@ -406,6 +397,9 @@ def _strip_urls(s: str) -> str:
 
 def _strip_emojis(s: str) -> str:
     return EMOJI_RE.sub(" ", s)
+
+def normalize_umlauts(s: str) -> str:
+    return unicodedata.normalize("NFKC", s)
 
 def clean_description_for_labels(text: str, cfg: LiteConfig = LiteConfig()) -> str:
     """Produce a lemmatized, POS-filtered, stopword-trimmed text for topic labeling."""
@@ -447,36 +441,63 @@ def clean_description_for_labels(text: str, cfg: LiteConfig = LiteConfig()) -> s
 def is_valid_cleaned_description(cleaned: str, cfg: LiteConfig = LiteConfig()) -> bool:
     return bool(cleaned) and (len(cleaned.split()) >= cfg.min_tokens_cleaned)
 
+# helper: remove redundant n-grams (keep longer phrases first)
 def _dedupe_topic_terms(topics_dict: dict[int, list[tuple[str, float]]],
                         keep_n: int = 10) -> dict[int, list[tuple[str, float]]]:
-    """
-    Remove redundant n-grams: if a candidate's token set is a subset of a kept phrase, drop it.
-    Greedy: prefer longer phrases, then higher score.
-    """
     new_repr: dict[int, list[tuple[str, float]]] = {}
-
     for tid, terms in topics_dict.items():
         if tid == -1 or not terms:
             new_repr[tid] = terms
             continue
-
-        # sort: longer phrase first, then by descending score
-        sorted_cand = sorted(terms, key=lambda x: (-len(x[0].split()), -x[1]))
-
-        kept: list[tuple[str, float]] = []
-        kept_sets: list[set[str]] = []
-
-        for w, s in sorted_cand:
-            w_tokens = tuple(t for t in w.split() if t)  # whitespace split
-            w_set = set(w_tokens)
-            # drop if subset of any already kept phrase
-            if any(w_set <= ks for ks in kept_sets):
+        cand = sorted(terms, key=lambda x: (-len(x[0].split()), -x[1]))
+        kept, kept_sets = [], []
+        for w, s in cand:
+            toks = tuple(t for t in w.split() if t)
+            wset = set(toks)
+            if any(wset <= ks for ks in kept_sets):  # drop if subset of a kept phrase
                 continue
             kept.append((w, s))
-            kept_sets.append(w_set)
+            kept_sets.append(wset)
             if len(kept) >= keep_n:
                 break
-
         new_repr[tid] = kept
-
     return new_repr
+
+@lru_cache(maxsize=512)
+def _phrase_lemmas(phrase: str) -> tuple[str, ...]:
+    phrase = (phrase or "").strip()
+    if not phrase:
+        return tuple()
+    normalized = normalize_umlauts(phrase.lower())
+    if nlp_de is not None:
+        doc = nlp_de(normalized)
+        return tuple(
+            (t.lemma_ or t.text).lower().strip("._:;,'\"()[]!?-")
+            for t in doc if (t.lemma_ or t.text)
+        )
+    tokens = re.findall(r"\b\w+\b", normalized)
+    return tuple(tokens)
+
+def _filter_topic_terms(terms_by_topic: dict[int, list[tuple[str, float]]]) -> dict[int, list[tuple[str, float]]]:
+    filtered: dict[int, list[tuple[str, float]]] = {}
+    for tid, terms in terms_by_topic.items():
+        if tid == -1 or not terms:
+            filtered[tid] = terms
+            continue
+        seen_keys: set[tuple[str, ...]] = set()
+        cleaned: list[tuple[str, float]] = []
+        for word, score in terms:
+            lemmas = tuple(l for l in _phrase_lemmas(word) if l)
+            if not lemmas:
+                continue
+            if all(l in LOW_INFORMATION_LEMMAS for l in lemmas):
+                continue
+            key = lemmas
+            if key in seen_keys:
+                continue
+            seen_keys.add(key)
+            cleaned.append((word, score))
+        if not cleaned:
+            cleaned = terms
+        filtered[tid] = cleaned
+    return filtered

@@ -1,8 +1,5 @@
 
 from __future__ import annotations
-
-
-
 import numpy as np
 import json
 import pandas as pd
@@ -17,15 +14,16 @@ import unicodedata
 from pathlib import Path
 from typing import Dict, Optional, List, Any
 
-from scrape_talkshows import load_json_file, save_json_file, LiteConfig
-from nlp_utils import (
-    clean_guest_rows,
-    clean_description_for_labels,
-    _dedupe_topic_terms,
-    sanitize_person_name,
-    clean_person_name,
-    get_german_stopwords,
-)
+from scrape_talkshows import load_json_file, save_json_file
+from nlp_utils import clean_guest_rows, clean_description_for_labels, _dedupe_topic_terms, _filter_topic_terms, get_german_stopwords
+from guest_classification import add_classification_columns
+
+try:
+    from pyvis.network import Network
+    _PYVIS_AVAILABLE = True
+except Exception:
+    Network = None
+    _PYVIS_AVAILABLE = False
 
 
 
@@ -105,55 +103,56 @@ def prepare_guest_dataframe(all_data):
     # Deduplicate guests within the same episode (if scraped multiple times)
     df_guests.drop_duplicates(subset=['name', 'uid'], inplace=True)
 
-    df_guests['name_raw'] = df_guests['name'].apply(lambda x: x)
     df_guests['name'] = df_guests['name'].apply(manual_name_corrections)
-    df_guests['name'] = df_guests['name'].apply(lambda x: sanitize_person_name(x) or clean_person_name(x) or None)
-    df_guests.dropna(subset=['name'], inplace=True)
-    df_guests.drop_duplicates(subset=['name', 'uid'], inplace=True)
     df_guests['role'] = df_guests['role'].apply(clean_str)
     df_guests['description'] = df_guests['description'].apply(clean_str)
     return df_guests
 
-def consolidate_guests(df_guests):
+def consolidate_guests(df_cleaned_guests: pd.DataFrame) -> pd.DataFrame:
+    """
+    Consolidates guest data to one row per unique name.
+
+    Args:
+        df_cleaned_guests: DataFrame of cleaned guest data, typically from `clean_guest_rows`.
+
+    Returns:
+        A DataFrame with one row per unique guest.
+    """
     def consolidate_party(parties):
-        if len(parties) == 0:
-            return None
-        elif len(set(parties)) == 1:
-            return parties.iloc[0]
-        elif "BSW" in parties:
+        """Selects the most representative party from a list."""
+        unique_parties = {p for p in parties if pd.notna(p)}
+        if not unique_parties: return None
+        if len(unique_parties) == 1: return unique_parties.pop()
+        
+        # Prioritize specific parties if present
+        if "BSW" in unique_parties:
             return "BSW"
-        elif "parteilos" in parties:
+        if "parteilos" in unique_parties:
             return "parteilos"
-        else:
-            return parties.mode()[0]  # Return the most frequent
+        
+        # Fallback to the most frequent party
+        return pd.Series(list(parties)).mode().iloc[0]
 
-    def consolidate_column(series):
-        return list(set(series)) if len(set(series)) > 1 else series.iloc[0]
-
-    # Group by name and aggregate other columns
-    df_consolidated = df_guests.groupby("name").agg({
-        "party": consolidate_party,  # Custom aggregation for party
-        "role": consolidate_column,
-        "description": consolidate_column,
-        "Talkshow": consolidate_column,
-    }).reset_index()
+    # Group by the cleaned name and aggregate other columns
+    df_consolidated = df_cleaned_guests.groupby("name_clean").agg(
+        party_norm=('party', consolidate_party),
+        role_clean=('role', lambda x: list(x.dropna().unique())),
+        description=('description', lambda x: list(x.dropna().unique())),
+        uid=('uid', lambda x: list(x.dropna().unique())),
+        Talkshow=('Talkshow', lambda x: list(x.dropna().unique())),
+        Count=('uid', 'nunique')  # Add count of unique appearances
+    ).reset_index()
 
     return df_consolidated
 
-def remove_party_from_other_columns(df):
-    """Removes party values from 'role' and 'description' columns if they exist as list elements."""
-    def remove_party(row):
-        if isinstance(row['role'], list) and row['party'] in row['role']:
-            row['role'].remove(row['party'])
-
-        if isinstance(row['description'], list) and row['party'] in row['description']:
-            row['description'].remove(row['party'])
-        return row
-
-    df = df.apply(remove_party, axis=1)  # Apply function row-wise
-    return df
-
-def visualize_network(G, df_guests=None, layout="spring", seed=42, figsize=(12, 9)):
+def visualize_network(
+    G,
+    df_guests=None,
+    layout="spring",
+    seed=42,
+    figsize=(12, 9),
+    output_path: Optional[Path | str] = None,
+):
     """
     Draw a co-occurrence graph with nodes colored by the 'topic_range' node attribute.
     Adds a colorbar safely (on the same Axes) when topic_range exists and varies.
@@ -244,7 +243,79 @@ def visualize_network(G, df_guests=None, layout="spring", seed=42, figsize=(12, 
         cbar.set_label("Guest Topic Range")
 
     fig.tight_layout()
+    if output_path:
+        out_path = Path(output_path)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        fig.savefig(out_path, dpi=300)
+        print(f"Guest network saved to {out_path}")
+
     plt.show()
+    plt.close(fig)
+
+def export_interactive_network(
+    G: nx.Graph,
+    filepath: Path | str,
+    *,
+    value_attr: str | None = None,
+    tooltip_labels: Dict[str, str] | None = None,
+    physics: bool = True,
+    height: str = "800px",
+    width: str = "100%",
+) -> None:
+    """Save an interactive PyVis network if the dependency is available."""
+    if not _PYVIS_AVAILABLE or Network is None:
+        print(f"PyVis not available. Skipping interactive export for {filepath}.")
+        return
+
+    path = Path(filepath)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    net = Network(height=height, width=width, bgcolor="#ffffff", font_color="#2b2b2b", directed=G.is_directed())
+    if physics:
+        net.barnes_hut()
+    else:
+        net.toggle_physics(False)
+
+    tooltip_labels = tooltip_labels or {}
+
+    for node, data in G.nodes(data=True):
+        tooltip_lines = [str(node)]
+        for key, label in tooltip_labels.items():
+            val = data.get(key)
+            if val is None or val == "":
+                continue
+            tooltip_lines.append(f"{label}: {val}")
+
+        node_value = None
+        if value_attr:
+            val = data.get(value_attr)
+            if isinstance(val, (int, float)) and val > 0:
+                node_value = float(val)
+
+        if node_value is None:
+            deg = G.degree(node)
+            node_value = float(deg if deg > 0 else 1.0)
+
+        net.add_node(
+            node,
+            label=str(node),
+            title="<br>".join(tooltip_lines),
+            value=node_value,
+        )
+
+    for source, target, edge_data in G.edges(data=True):
+        weight = edge_data.get("weight", 1)
+        try:
+            weight_val = float(weight)
+            if weight_val <= 0:
+                weight_val = 1.0
+        except Exception:
+            weight_val = 1.0
+        net.add_edge(source, target, value=weight_val, title=f"Gewicht: {weight}")
+
+    net.write_html(str(path), notebook=False)
+    print(f"Interactive network saved to {path}")
+
 
 def analyze_topic_guest_connections(df_guests_with_topics):
     """
@@ -302,6 +373,12 @@ def analyze_topic_guest_connections(df_guests_with_topics):
     plt.show()
     print(f"Topic co-occurrence network saved to {DATA_DIR / 'topic_cooccurrence_network.png'}")
     nx.write_gexf(T, DATA_DIR / "topic_cooccurrence_network.gexf")
+    export_interactive_network(
+        T,
+        DATA_DIR / "topic_cooccurrence_network.html",
+        value_attr="num_guests",
+        tooltip_labels={"num_guests": "Einzigartige Gäste"},
+    )
 
 
 def _auto_device() -> str:
@@ -637,19 +714,6 @@ def analyze_and_visualize_topics(
     except Exception:
         KeyBERTInspired = None
 
-    # NLP cleaning deps
-    try:
-        import spacy
-        nlp_de = spacy.load("de_core_news_md", disable=["parser", "ner"])
-    except Exception:
-        try:
-            import spacy
-            nlp_de = spacy.load("de_core_news_sm", disable=["parser", "ner"])
-            print("Using spaCy 'sm' model. For better lemmatization run: python -m spacy download de_core_news_md")
-        except Exception:
-            nlp_de = None
-            print("spaCy German model not available; proceeding without lemmatization.")
-
     def _auto_device() -> str:
         try:
             import torch
@@ -709,39 +773,7 @@ def analyze_and_visualize_topics(
         embedder.to("cpu")
         return _try(16)
 
-    def normalize_umlauts(s: str) -> str:
-        return unicodedata.normalize("NFKC", s)
 
-    def clean_german_text(text: str,
-                          keep_pos: Optional[set] = {"NOUN", "PROPN", "ADJ", "VERB"},
-                          min_len: int = 2) -> str:
-        """Lemmatize (if spaCy available), keep informative POS, drop stopwords."""
-        text = normalize_umlauts(text or "")
-        text = re.sub(r"\s+", " ", text).strip()
-        if not text:
-            return ""
-
-        stop_words = get_german_stopwords()
-        if nlp_de is None:
-            # fallback: lowercase + simple token filter
-            toks = [t for t in re.findall(r"\b\w+\b", text.lower())
-                    if len(t) >= min_len and t not in stop_words]
-            return " ".join(toks)
-
-        doc = nlp_de(text)
-        toks = []
-        for t in doc:
-            if t.is_space or t.is_punct or t.like_url or t.like_email or t.like_num:
-                continue
-            if keep_pos and t.pos_ not in keep_pos:
-                continue
-            lemma = (t.lemma_ or t.text).lower().strip("._:;,'\"()[]!?-")
-            if len(lemma) < min_len:
-                continue
-            if lemma in stop_words:
-                continue
-            toks.append(lemma)
-        return " ".join(toks)
 
     # ----------------------- data prep -----------------------
     if text_col not in df.columns:
@@ -801,29 +833,7 @@ def analyze_and_visualize_topics(
     n_topics = len(unique_topics) - 1 if -1 in unique_topics else len(unique_topics)
 
     # ----------------------- better labels via cleaned docs -----------------------
-    cleaned_texts = [clean_german_text(t) for t in texts]
-
-    # helper: remove redundant n-grams (keep longer phrases first)
-    def _dedupe_topic_terms(topics_dict: dict[int, list[tuple[str, float]]],
-                            keep_n: int = 10) -> dict[int, list[tuple[str, float]]]:
-        new_repr: dict[int, list[tuple[str, float]]] = {}
-        for tid, terms in topics_dict.items():
-            if tid == -1 or not terms:
-                new_repr[tid] = terms
-                continue
-            cand = sorted(terms, key=lambda x: (-len(x[0].split()), -x[1]))
-            kept, kept_sets = [], []
-            for w, s in cand:
-                toks = tuple(t for t in w.split() if t)
-                wset = set(toks)
-                if any(wset <= ks for ks in kept_sets):  # drop if subset of a kept phrase
-                    continue
-                kept.append((w, s))
-                kept_sets.append(wset)
-                if len(kept) >= keep_n:
-                    break
-            new_repr[tid] = kept
-        return new_repr
+    cleaned_texts = [clean_description_for_labels(t) for t in texts]
 
     try:
         # 1) Recompute topic words using cleaned docs (ask for more; we'll prune to 10)
@@ -855,52 +865,6 @@ def analyze_and_visualize_topics(
             except Exception as e:
                 print("KeyBERTInspired refinement skipped:", e)
 
-        from functools import lru_cache
-
-        LOW_INFORMATION_LEMMAS = {
-            "deutsch", "deutschland", "bundesrepublik", "jahr", "jaehrig", "jährig",
-            "jähr", "jährlich", "uhr",
-        }
-
-        @lru_cache(maxsize=512)
-        def _phrase_lemmas(phrase: str) -> tuple[str, ...]:
-            phrase = (phrase or "").strip()
-            if not phrase:
-                return tuple()
-            normalized = normalize_umlauts(phrase.lower())
-            if nlp_de is not None:
-                doc = nlp_de(normalized)
-                return tuple(
-                    (t.lemma_ or t.text).lower().strip("._:;,'\"()[]!?-")
-                    for t in doc if (t.lemma_ or t.text)
-                )
-            tokens = re.findall(r"\b\w+\b", normalized)
-            return tuple(tokens)
-
-        def _filter_topic_terms(terms_by_topic: dict[int, list[tuple[str, float]]]) -> dict[int, list[tuple[str, float]]]:
-            filtered: dict[int, list[tuple[str, float]]] = {}
-            for tid, terms in terms_by_topic.items():
-                if tid == -1 or not terms:
-                    filtered[tid] = terms
-                    continue
-                seen_keys: set[tuple[str, ...]] = set()
-                cleaned: list[tuple[str, float]] = []
-                for word, score in terms:
-                    lemmas = tuple(l for l in _phrase_lemmas(word) if l)
-                    if not lemmas:
-                        continue
-                    if all(l in LOW_INFORMATION_LEMMAS for l in lemmas):
-                        continue
-                    key = lemmas
-                    if key in seen_keys:
-                        continue
-                    seen_keys.add(key)
-                    cleaned.append((word, score))
-                if not cleaned:
-                    cleaned = terms
-                filtered[tid] = cleaned
-            return filtered
-        
         # --- de-duplicate shorter n-grams contained in longer phrases ---
         topics_dict = topic_model.get_topics()
         deduped = _dedupe_topic_terms(topics_dict, keep_n=10)
@@ -1089,42 +1053,79 @@ def main():
 
     # --- Guest Analysis ---
     df_guests = prepare_guest_dataframe(all_data)
-    #df_consolidated = consolidate_guests(df_guests)
-    df_consolidated, df_junk = clean_guest_rows(df_guests, name_col="name", role_col="role", party_col="party", show_col="Talkshow")
+    df_cleaned, df_junk = clean_guest_rows(df_guests, name_col="name", role_col="role", party_col="party", show_col="Talkshow")
+    
+    # Consolidate to one row per unique guest
+    df_consolidated = consolidate_guests(df_cleaned)
 
-    df_consolidated = remove_party_from_other_columns(df_consolidated)
+    # Rename the 'name_clean' column to 'name' for consistency in downstream analysis
+    if 'name_clean' in df_consolidated.columns:
+        df_consolidated.rename(columns={'name_clean': 'name'}, inplace=True)
+        
+    # Add guest categorization
+    df_categorized = add_classification_columns(df_consolidated, role_col="role")
 
-    # Save guest data to Excel
-    guest_filename = DATA_DIR / 'consolidated_guests.xlsx'
-    df_consolidated.to_excel(guest_filename, index=False)
-    print(f"Consolidated guest list saved to {guest_filename}")
+    # Save guest data to Excel files
+    consolidated_filename = DATA_DIR / 'guests_consolidated.xlsx'
+    df_consolidated.to_excel(consolidated_filename, index=False)
+    print(f"Consolidated guest list saved to {consolidated_filename}")
+    
+    cleaned_filename = DATA_DIR / 'guests_cleaned.xlsx'
+    df_cleaned.to_excel(cleaned_filename, index=False)
+    print(f"Cleaned guest list saved to {cleaned_filename}")
+
+    junk_filename = DATA_DIR / 'guests_junk.xlsx'
+    df_junk.to_excel(junk_filename, index=False)
+    print(f"Junk guest list saved to {junk_filename}")
 
     # Merge guest data with topic data for integrated analysis
-    df_guests_with_topics = pd.merge(df_guests, df_with_topics[['uid', 'topic', 'topic_label']], on='uid', how='left')
+    # We use df_cleaned here as it still has the original 'uid' for merging
+    df_guests_with_topics = pd.merge(df_cleaned, df_with_topics[['uid', 'topic', 'topic_label']], on='uid', how='left')
     df_guests_with_topics.to_excel(DATA_DIR / "guests_with_topics.xlsx", index=False)
     print(f"Detailed guest list with topics saved to {DATA_DIR / 'guests_with_topics.xlsx'}")
+
+    # Rename the 'name_clean' column to 'name' for consistency in downstream analysis
+    if 'name_clean' in df_guests_with_topics.columns:
+        if 'name' in df_guests_with_topics.columns:
+            df_guests_with_topics.drop(columns=['name'], inplace=True)
+        df_guests_with_topics.rename(columns={'name_clean': 'name'}, inplace=True)
 
     # --- New: Analyze Guest-Topic Connections ---
     analyze_topic_guest_connections(df_guests_with_topics)
 
     # --- Create and visualize the guest co-occurrence network ---
-    grouped = df_guests.groupby('Talkshow')['name'].apply(list)
+    # Use the cleaned and topic-merged dataframe for consistency
+    grouped = df_guests_with_topics.groupby('Talkshow')['name'].apply(list)
     edges = [edge for names in grouped for edge in itertools.combinations(sorted(list(set(names))), 2)]
     edge_counts = Counter(edges)
     G = nx.Graph()
     for edge, weight in edge_counts.items():
         G.add_edge(edge[0], edge[1], weight=weight)
     
-    # Add topic range as a node attribute to the guest network
+    # Add topic range as a node attribute to the guest network.
+    # The names in G now match the names in valid_topics_df.
     valid_topics_df = df_guests_with_topics.dropna(subset=['topic_label'])
     valid_topics_df = valid_topics_df[valid_topics_df['topic'] != -1]
     guest_topic_range = valid_topics_df.groupby('name')['topic_label'].nunique()
     nx.set_node_attributes(G, guest_topic_range.to_dict(), 'topic_range')
 
-    visualize_network(G, df_guests)
+    appearance_attr = df_guests_with_topics['name'].value_counts().to_dict()
+    nx.set_node_attributes(G, appearance_attr, 'appearances')
+
+    visualize_network(
+        G,
+        df_guests_with_topics,
+        output_path=DATA_DIR / "cooccurrence_network.png",
+    )
 
     # Export the graph (optional)
     nx.write_gexf(G, DATA_DIR / "cooccurrence_network_with_weights.gexf")
+    export_interactive_network(
+        G,
+        DATA_DIR / "cooccurrence_network.html",
+        value_attr='appearances',
+        tooltip_labels={'appearances': 'Auftritte', 'topic_range': 'Themenvielfalt'},
+    )
 
 if __name__ == "__main__":
     main()

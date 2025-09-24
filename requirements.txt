@@ -2,8 +2,11 @@ beautifulsoup4
 requests
 pandas
 openpyxl
-pytubefix
 networkx
 matplotlib
-# bertopic and its dependencies for the analysis part
-# bertopic
+bertopic
+umap-learn
+hdbscan
+streamlit
+spacy
+pyvis
