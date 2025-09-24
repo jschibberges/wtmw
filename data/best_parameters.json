@@ -1,0 +1,12 @@
+{
+    "min_cluster_size": 20,
+    "min_samples": 10,
+    "n_neighbors": 10,
+    "min_dist": 0.0,
+    "n_components": 5,
+    "num_topics": 33,
+    "outlier_ratio": 0.23856416772554004,
+    "silhouette_score": 0.6061098575592041,
+    "composite_score": 0.7392519116401672,
+    "document_count": 3148
+}

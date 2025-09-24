@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gexf xmlns="http://www.gexf.net/1.2draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">
+  <meta lastmodifieddate="2025-09-23">
+    <creator>NetworkX 3.5</creator>
+  </meta>
+  <graph defaultedgetype="undirected" mode="static" name="">
+    <attributes mode="static" class="node">
+      <attribute id="0" title="num_guests" type="long" />
+    </attributes>
+    <nodes>
+      <node id="0 ukrainisch russisch putin auswärtig" label="0 ukrainisch russisch putin auswärtig">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="1 generalsekretär politiker vorsitzender korrespondent" label="1 generalsekretär politiker vorsitzender korrespondent">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="10 mütterrente rentenpaket rentenversicherung fordern" label="10 mütterrente rentenpaket rentenversicherung fordern">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" label="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="12 abnehmen lebensmittel diät kochen" label="12 abnehmen lebensmittel diät kochen">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="13 klimaschutz klimapolitik klimawandel bundesregierung" label="13 klimaschutz klimapolitik klimawandel bundesregierung">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="14 bundesfinanzminister währungsfonds griechisch finanzminister" label="14 bundesfinanzminister währungsfonds griechisch finanzminister">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="15 wohnungsbau wohnung wohnungsmarkt sozialwohnung" label="15 wohnungsbau wohnung wohnungsmarkt sozialwohnung">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="16 netanjahu israelisch terrororganisation gaza" label="16 netanjahu israelisch terrororganisation gaza">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" label="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="18 deutschtürke türkisch türkischer flüchtlingsabkommen" label="18 deutschtürke türkisch türkischer flüchtlingsabkommen">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="19 brexit außenhandelsministerium europawahl britisch" label="19 brexit außenhandelsministerium europawahl britisch">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="2 covid impfpflicht inzidenz impfstoff" label="2 covid impfpflicht inzidenz impfstoff">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="20 katholisch glauben kindesmissbrauch glaubensgemeinschaft" label="20 katholisch glauben kindesmissbrauch glaubensgemeinschaft">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="21 energiekrise energiepreis gaspreisbremse bundesregierung" label="21 energiekrise energiepreis gaspreisbremse bundesregierung">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="22 zuwanderung einbürgern sarrazin bundesbankvorstand" label="22 zuwanderung einbürgern sarrazin bundesbankvorstand">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="23 jährige fühlen letzter fernsehmoderator" label="23 jährige fühlen letzter fernsehmoderator">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" label="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" label="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="26 millionär privatinsolvenz vermögen betrüger" label="26 millionär privatinsolvenz vermögen betrüger">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="27 haftstrafe töten umbringen totschlag" label="27 haftstrafe töten umbringen totschlag">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="28 themenwoche maischberger einzelgespräch einzelgespräche" label="28 themenwoche maischberger einzelgespräch einzelgespräche">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="3 bundestagswahl bundesvorsitzender sozialdemokrat fraktionsvorsitzend" label="3 bundestagswahl bundesvorsitzender sozialdemokrat fraktionsvorsitzend">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="4 bundestagswahl landtagswahl volkspartei bundespräsident" label="4 bundestagswahl landtagswahl volkspartei bundespräsident">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="5 auswärtig außenpolitisch vizepräsident vorsitzend" label="5 auswärtig außenpolitisch vizepräsident vorsitzend">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="6 ärztlich arzt chefarzt medizin" label="6 ärztlich arzt chefarzt medizin">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="7 bundeskanzlerin flüchtlingspolitik bundesinnenminister flüchtlingsfrage" label="7 bundeskanzlerin flüchtlingspolitik bundesinnenminister flüchtlingsfrage">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="8 fußballprofi weltmeister fußball weltmeisterschaft" label="8 fußballprofi weltmeister fußball weltmeisterschaft">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+      <node id="9 vermögen steuer steuererhöhung finanzkrise" label="9 vermögen steuer steuererhöhung finanzkrise">
+        <attvalues>
+          <attvalue for="0" value="1" />
+        </attvalues>
+      </node>
+    </nodes>
+    <edges />
+  </graph>
+</gexf>
