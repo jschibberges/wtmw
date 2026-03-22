@@ -8,7 +8,7 @@ bertopic
 sentence-transformers
 umap-learn
 hdbscan
-streamlit>=1.39,<2
+streamlit==1.53.0
 altair>=5,<6
 spacy
 pyvis
