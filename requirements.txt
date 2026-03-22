@@ -5,8 +5,10 @@ openpyxl
 networkx
 matplotlib
 bertopic
+sentence-transformers
 umap-learn
 hdbscan
 streamlit
 spacy
 pyvis
+rich

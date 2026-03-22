@@ -28060,5 +28060,2097 @@
         "station": "Das Erste",
         "title": "Sendung vom 26.04.2023",
         "description": "Die Klimaaktivisten der „Letzten Generation“ versuchen seit Montag, den Verkehr in der Hauptstadt lahm zu legen. Ist der Protest legitim? Müssen die Blockierer härter bestraft werden? Darüber diskutieren die Sprecherin der „Letzten Generation“ Carla Hinrichs und der CDU-Innenpolitiker Philipp Amthor. Er schwamm mit Haien, half Orang-Utans auszuwildern und erlebte Elefanten in freier Wildbahn. Über sein Leben nach den großen TV-Shows, seine Faszination für Wildtiere und seine Parkinson-Erkrankung spricht im Studio Showlegende Frank Elstner. Außerdem dabei der Tierfilmer Christian Ehrlich. Es erklären, kommentieren und diskutieren der langjährige ARD-Sportmoderator Gerhard Delling, die Journalistin und Moderatorin bei Deutschlandfunk Nova Rahel Klein und die Journalistin Hannah Bethke."
+    },
+    {
+        "uid": "5Tnh6x7p",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/896-sendung-vom-23-09-2025-1826283",
+        "guests": [
+            {
+                "name": "Hendrik Wüst",
+                "party": "CDU",
+                "role": "Ministerpräsident von Nordrhein-Westfalen, CDU",
+                "description": "Ministerpräsident von Nordrhein-Westfalen, CDU",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Sandra Navidi",
+                "party": null,
+                "role": "USA-Expertin",
+                "description": "USA-Expertin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Eric T. Hansen",
+                "party": null,
+                "role": "US-Autor",
+                "description": "US-Autor",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Christian Berkel",
+                "party": null,
+                "role": "Schauspieler und Autor",
+                "description": "Schauspieler und Autor",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Theo Koll",
+                "party": null,
+                "role": "phoenix-Moderator",
+                "description": "phoenix-Moderator",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Yasmine M’Barek",
+                "party": null,
+                "role": "Journalistin der Wochenzeitung „Die Zeit“",
+                "description": "Journalistin der Wochenzeitung „Die Zeit“",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "23.09.2025",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 23.09.2025",
+        "description": "Über die schwarz-roten Reformpläne: Im Studio der Ministerpräsident von Nordrhein-Westfalen, Hendrik Wüst (CDU). Über den Mord an Charlie Kirk und die politische Lage in den USA: Im Gespräch die USA-Expertin Sandra Navidi und der US-Autor Eric T. Hansen. Es kommentieren: Der Schauspieler und Autor Christian Berkel, der phoenix-Moderator Theo Koll und die Journalistin der Wochenzeitung „Die Zeit“ Yasmine M’Barek."
+    },
+    {
+        "uid": "bflQ1qx-",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/898-sendung-vom-30-09-2025-1827697",
+        "guests": [
+            {
+                "name": "Philipp Amthor",
+                "party": "CDU",
+                "role": "CDU, parlamentarischer Staatssekretär",
+                "description": "CDU, parlamentarischer Staatssekretär",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Ines Schwerdtner",
+                "party": "DIE LINKE",
+                "role": "Die Linke, Parteivorsitzende",
+                "description": "Die Linke, Parteivorsitzende",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Rüdiger von Fritsch",
+                "party": null,
+                "role": "ehem. Botschafter",
+                "description": "ehem. Botschafter",
+                "validation_status": "accept",
+                "validation_reason": "extended_person_name"
+            },
+            {
+                "name": "Bryan Lanza",
+                "party": null,
+                "role": "ehem. Trump-Berater",
+                "description": "ehem. Trump-Berater",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Bettina Böttinger",
+                "party": null,
+                "role": "Moderatorin",
+                "description": "Moderatorin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Helene Bubrowski",
+                "party": null,
+                "role": "Table Media",
+                "description": "Table Media",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Christoph Schwennicke",
+                "party": null,
+                "role": "t-online",
+                "description": "t-online",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "30.09.2025",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 30.09.2025",
+        "description": "Debatte um Reformen in der Sozialpolitik: Darüber diskutieren der parlamentarische Staatssekretär im Digitalministerium Philipp Amthor und die Parteivorsitzende der Linken Ines Schwerdtner. Russlands hybrider Krieg und Trumps Ukraine-Politik: Im Gespräch der langjährige deutsche Botschafter in Moskau Rüdiger von Fritsch und der republikanische Politik-Stratege und ehemalige Trump-Berater Bryan Lanza. Es kommentieren: die Moderatorin Bettina Böttinger, die Chefredakteurin von Table.Briefings Helene Bubrowski und das Mitglied der Chefredaktion von t-online Christoph Schwennicke."
+    },
+    {
+        "uid": "kPLeySlV",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/897-sendung-vom-24-09-2025-1825200",
+        "guests": [
+            {
+                "name": "Marie-Agnes Strack-Zimmermann",
+                "party": "FDP",
+                "role": "FDP, Vorsitzende EU-Verteidigungsausschuss",
+                "description": "FDP, Vorsitzende EU-Verteidigungsausschuss",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Ralf Stegner",
+                "party": "SPD",
+                "role": "SPD, Außenpolitiker",
+                "description": "SPD, Außenpolitiker",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "med. Hendrik Streeck",
+                "party": "CDU",
+                "role": "CDU, Drogenbeauftragter",
+                "description": "CDU, Drogenbeauftragter",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Joachim Llambi",
+                "party": null,
+                "role": "Fernsehmoderator",
+                "description": "Fernsehmoderator",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Melanie Amann",
+                "party": null,
+                "role": "Der Spiegel",
+                "description": "Der Spiegel",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Rainer Hank",
+                "party": null,
+                "role": "Frankfurter Allgemeine Sonntagszeitung",
+                "description": "Frankfurter Allgemeine Sonntagszeitung",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "24.09.2025",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 24.09.2025",
+        "description": "Russische Provokationen und neuer Wehrdienst: Darüber diskutieren die Vorsitzende des Verteidigungsausschusses im Europaparlament Marie-Agnes Strack-Zimmermann (FDP) und der Außenpolitiker Ralf Stegner (SPD). Drogenpolitik und sein Wechsel in die Politik: Im Studio der Drogenbeauftragte der Bundesregierung Hendrik Streeck (CDU). Es kommentieren: Der Fernsehmoderator Joachim Llambi, die Autorin der Spiegel-Chefredaktion Melanie Amann und der Journalist und Kolumnist Rainer Hank."
+    },
+    {
+        "uid": "E8COdonF",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/900-sendung-vom-06-10-2025-1828228",
+        "guests": [
+            {
+                "name": "Jens Spahn",
+                "party": "CDU",
+                "role": "CDU,Fraktionsvorsitzender",
+                "description": "CDU,Fraktionsvorsitzender",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Wolfgang Ischinger",
+                "party": null,
+                "role": "ehem. Diplomat und Außenpolitik-Experte",
+                "description": "ehem. Diplomat und Außenpolitik-Experte",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Oskar Lafontaine",
+                "party": "SPD",
+                "role": "BSW, ehem. SPD- und Linken-Parteichef",
+                "description": "BSW, ehem. SPD- und Linken-Parteichef",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Anja Kohl",
+                "party": null,
+                "role": "ARD-Wirtschafts- und Finanzexpertin",
+                "description": "ARD-Wirtschafts- und Finanzexpertin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Robin Alexander",
+                "party": null,
+                "role": "Die Welt",
+                "description": "Die Welt",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Alev Doğan",
+                "party": null,
+                "role": "The Pioneer",
+                "description": "The Pioneer",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "06.10.2025",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 06.10.2025",
+        "description": "Migrationsgipfel und Sozialreformen: Wann liefert die Bundesregierung? Im Gespräch der Vorsitzende der Unionsfraktion im Deutschen Bundestag Jens Spahn (CDU). Drohnenalarm und Aufrüstungskurs: Reagiert Deutschland richtig? Darüber diskutieren der ehemalige Vorsitzende der Münchner Sicherheitskonferenz Wolfgang Ischinger und der ehemalige Parteichef der SPD sowie der Linken Oskar Lafontaine (BSW). Es kommentieren: die ARD-Wirtschaftsexpertin Anja Kohl, der stellvertretende Chefredakteur der „Welt“ Robin Alexander und die stellvertretende Chefredakteurin von „The Pioneer“ Alev Doğan."
+    },
+    {
+        "uid": "0dH4Qus_",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/899-sendung-vom-01-10-2025-1826740",
+        "guests": [
+            {
+                "name": "Thorsten Frei",
+                "party": "CDU",
+                "role": "CDU, Chef des Bundeskanzleramts",
+                "description": "CDU, Chef des Bundeskanzleramts",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Felix Banaszak",
+                "party": "Bündnis 90/Die Grünen",
+                "role": "Bündnis’90/​Die Grünen, Bundesvorsitzender",
+                "description": "Bündnis’90/​Die Grünen, Bundesvorsitzender",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Frederik Pleitgen",
+                "party": null,
+                "role": "CNN",
+                "description": "CNN",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Denis Scheck",
+                "party": null,
+                "role": "Literaturkritiker und Moderator",
+                "description": "Literaturkritiker und Moderator",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Markus Feldenkirchen",
+                "party": null,
+                "role": "Der Spiegel",
+                "description": "Der Spiegel",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Dagmar Rosenfeld",
+                "party": null,
+                "role": "Media Pioneer",
+                "description": "Media Pioneer",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "01.10.2025",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 01.10.2025",
+        "description": "Pläne für den wirtschaftlichen Aufschwung in Deutschland: Darüber diskutieren Kanzleramtsminister Thorsten Frei (CDU) und der Grünen-Chef Felix Banaszak (B’90/​Grüne). Russische Provokationen und die Situation in den USA: Im Studio der Journalist Frederik Pleitgen. Es kommentieren: der Literaturkritiker und Moderator Denis Scheck, der Spiegel-Autor Markus Feldenkirchen und die Herausgeberin von „Media Pioneer“ Dagmar Rosenfeld."
+    },
+    {
+        "uid": "wZkEunep",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/901-sendung-vom-07-10-2025-1828893",
+        "guests": [
+            {
+                "name": "Karl Lauterbach",
+                "party": "SPD",
+                "role": "SPD, Bundestagsabgeordneter",
+                "description": "SPD, Bundestagsabgeordneter",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Natalie Amiri",
+                "party": null,
+                "role": "ARD-Journalistin und Autorin",
+                "description": "ARD-Journalistin und Autorin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Carlo Masala",
+                "party": null,
+                "role": "Militärexperte",
+                "description": "Militärexperte",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Jürgen Becker",
+                "party": null,
+                "role": "Kabarettist",
+                "description": "Kabarettist",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Kerstin Palzer",
+                "party": null,
+                "role": "ARD-Hauptstadtstudio",
+                "description": "ARD-Hauptstadtstudio",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Jan Fleischhauer",
+                "party": null,
+                "role": "Focus",
+                "description": "Focus",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "07.10.2025",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 07.10.2025",
+        "description": "Zweiter Jahrestag des Hamas-Angriffs auf Israel: Im Gespräch die Weltspiegel-Moderatorin und Autorin Natalie Amiri und der Professor für Internationale Politik und Militärexperte Carlo Masala. Zustand der Koalition und Reformen im Gesundheitssystem: Im Studio der Bundestagsabgeordnete und ehemalige SPD-Gesundheitsminister Karl Lauterbach. Es kommentieren: der Kabarettist Jürgen Becker, die Korrespondentin im ARD-Hauptstadtstudio Kerstin Palzer und der Focus-Kolumnist Jan Fleischhauer."
+    },
+    {
+        "uid": "y2ff62KX",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/903-sendung-vom-14-10-2025-1829775",
+        "guests": [
+            {
+                "name": "Armin Laschet",
+                "party": "CDU",
+                "role": "CDU, Außenpolitiker",
+                "description": "CDU, Außenpolitiker",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Johannes Varwick",
+                "party": null,
+                "role": "Politologe",
+                "description": "Politologe",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Richard David Precht",
+                "party": null,
+                "role": "Philosoph und Autor",
+                "description": "Philosoph und Autor",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Constantin Schreiber",
+                "party": null,
+                "role": "Axel Springer Verlag",
+                "description": "Axel Springer Verlag",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Georg Restle",
+                "party": null,
+                "role": "WDR",
+                "description": "WDR",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Susanne Gaschke",
+                "party": null,
+                "role": "NZZ",
+                "description": "NZZ",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "14.10.2025",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 14.10.2025",
+        "description": "Ist ein dauerhafter Frieden in Nahost möglich? Es diskutieren der Vorsitzende des Auswärtigen Ausschusses im Bundestag, Armin Laschet (CDU), und der Politologe Johannes Varwick. Ist die Meinungsfreiheit in Gefahr? Im Studio der Philosoph und Autor Richard David Precht. Es kommentieren: der Axel-Springer-Auslandsreporter Constantin Schreiber, der Redaktionsleiter des WDR-Politmagazins „Monitor“, Georg Restle, und die Autorin der Neuen Zürcher Zeitung, Susanne Gaschke."
+    },
+    {
+        "uid": "qBCWs5WR",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/906-sendung-vom-05-11-2025-1834601",
+        "guests": [
+            {
+                "name": "Vassili Golod",
+                "party": null,
+                "role": "Ukraine-Korrespondent der ARD",
+                "description": "Ukraine-Korrespondent der ARD",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Rüdiger von Fritsch",
+                "party": null,
+                "role": "ehem. Botschafter",
+                "description": "ehem. Botschafter",
+                "validation_status": "accept",
+                "validation_reason": "extended_person_name"
+            },
+            {
+                "name": "Sky du Mont",
+                "party": null,
+                "role": "Schauspieler und Autor",
+                "description": "Schauspieler und Autor",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Theo Koll",
+                "party": null,
+                "role": "Phoenix",
+                "description": "Phoenix",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Ulrike Herrmann",
+                "party": null,
+                "role": "taz",
+                "description": "taz",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Vince Ebert",
+                "party": null,
+                "role": "Physiker und Kabarettist",
+                "description": "Physiker und Kabarettist",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "05.11.2025",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 05.11.2025",
+        "description": "Drohnenangriffe auf Ukraine und deutsche Rüstungshilfe: Im Gespräch: der Ukraine-Korrespondent der ARD, Vassili Golod, und der langjährige Botschafter Deutschlands in Moskau, Rüdiger von Fritsch. Abschied von der Leinwand und sein Blick auf die deutsche Politik: Im Studio: der Schauspieler und Autor Sky du Mont. Es kommentieren: der langjährige Leiter des ZDF-Hauptstadtstudios, Theo Koll, die Wirtschaftskorrespondentin der taz, Ulrike Herrmann, sowie der Physiker und Kabarettist Vince Ebert."
+    },
+    {
+        "uid": "veH5-51P",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/902-sendung-vom-08-10-2025-1828229",
+        "guests": [
+            {
+                "name": "Heidi Reichinnek",
+                "party": "DIE LINKE",
+                "role": "Die Linke Fraktionsvorsitzende",
+                "description": "Die Linke Fraktionsvorsitzende",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Tim Klüssendorf",
+                "party": "SPD",
+                "role": "SPD Generalsekretär",
+                "description": "SPD Generalsekretär",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Sönke Neitzel",
+                "party": null,
+                "role": "Militärhistoriker",
+                "description": "Militärhistoriker",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Cherno Jobatey",
+                "party": null,
+                "role": "Journalist und Moderator",
+                "description": "Journalist und Moderator",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Nikolaus Blome",
+                "party": null,
+                "role": "RTL/​n-tv",
+                "description": "RTL/​n-tv",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Anna Lehmann",
+                "party": null,
+                "role": "taz",
+                "description": "taz",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "08.10.2025",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 08.10.2025",
+        "description": "Wohin steuert die Regierung bei Sozialreformen, Migration und Rüstung? Darüber diskutieren die Fraktionsvorsitzende der Linken, Heidi Reichinnek, und der Generalsekretär der SPD, Tim Klüssendorf. Wie sollen Deutschland und die NATO bei Drohnen-Alarm reagieren? Im Studio der Militärhistoriker Sönke Neitzel. Es kommentieren: der Journalist und Moderator Cherno Jobatey, der RTL/​n-tv Politikchef Nikolaus Blome und die Leiterin des Parlamentsbüros der taz Anna Lehmann."
+    },
+    {
+        "uid": "5oJYjgLP",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/904-sendung-vom-15-10-2025-1829776",
+        "guests": [
+            {
+                "name": "Michael Kretschmer",
+                "party": "CDU",
+                "role": "CDU, Ministerpräsident Sachsen",
+                "description": "CDU, Ministerpräsident Sachsen",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Sebastian Kurz",
+                "party": null,
+                "role": "Österreichs Bundeskanzler a.D.",
+                "description": "Österreichs Bundeskanzler a.D.",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Jean Asselborn",
+                "party": null,
+                "role": "Luxemburgs Außenminister a.D.",
+                "description": "Luxemburgs Außenminister a.D.",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Michael Mittermeier",
+                "party": null,
+                "role": "Comedian",
+                "description": "Comedian",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Franca Lehfeldt",
+                "party": null,
+                "role": "Journalistin und Unternehmerin",
+                "description": "Journalistin und Unternehmerin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Nicole Diekmann",
+                "party": null,
+                "role": "ZDF",
+                "description": "ZDF",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "15.10.2025",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 15.10.2025",
+        "description": "Kritik an Sozialreformen und Umgang mit Extremisten: Im Studio: der Ministerpräsident von Sachsen Michael Kretschmer (CDU). Trumps Vermittlerrolle in internationalen Krisen: Im Gespräch: der ehemalige österreichische Bundeskanzler und Unternehmer Sebastian Kurz und der ehemalige luxemburgische Außenminister Jean Asselborn. Es kommentieren: der Comedian Michael Mittermeier, die Journalistin und Unternehmerin Franca Lehfeldt und die Korrespondentin im ZDF-Hauptstadtstudio Nicole Diekmann."
+    },
+    {
+        "uid": "jCLI0Gfn",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/907-sendung-vom-10-11-2025-1836586",
+        "guests": [
+            {
+                "name": "Norbert Röttgen",
+                "party": "CDU",
+                "role": "CDU, Außenpolitiker",
+                "description": "CDU, Außenpolitiker",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Markus Frohnmaier",
+                "party": "AfD",
+                "role": "AfD, stellv. Fraktionsvorsitzender",
+                "description": "AfD, stellv. Fraktionsvorsitzender",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Wolfgang Niedecken",
+                "party": null,
+                "role": "Musiker und Maler",
+                "description": "Musiker und Maler",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Pinar Atalay",
+                "party": null,
+                "role": "RTL/​ntv",
+                "description": "RTL/​ntv",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Julie Kurz",
+                "party": null,
+                "role": "ARD",
+                "description": "ARD",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Nena Brockhaus",
+                "party": null,
+                "role": "Welt TV",
+                "description": "Welt TV",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "10.11.2025",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 10.11.2025",
+        "description": "Außenpolitik und Wehrpflicht – was die Bundesregierung plant: Darüber diskutieren der CDU-Außenpolitiker Norbert Röttgen und der stellv. Fraktionsvorsitzende der AfD, Markus Frohnmaier. 50 Jahre BAP – künstlerische, biographische und politische Bilanz: Im Studio: Musiker und Maler Wolfgang Niedecken. Es kommentieren: die RTL/​ntv-Moderatorin Pinar Atalay, die ARD-Korrespondentin im Hauptstadtstudio, Julie Kurz, und die Journalistin und Buchautorin Nena Brockhaus."
+    },
+    {
+        "uid": "V5K9ZWhS",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/905-sendung-vom-04-11-2025-1835015",
+        "guests": [
+            {
+                "name": "Britta Haßelmann",
+                "party": "Bündnis 90/Die Grünen",
+                "role": "Bündnis 90/​Die Grünen, Fraktionsvorsitzende",
+                "description": "Bündnis 90/​Die Grünen, Fraktionsvorsitzende",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Stephan Mayer",
+                "party": "CSU",
+                "role": "CSU, Bundestagsabgeordneter",
+                "description": "CSU, Bundestagsabgeordneter",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "René Obermann",
+                "party": null,
+                "role": "Airbus-Aufsichtsratsvorsitzender",
+                "description": "Airbus-Aufsichtsratsvorsitzender",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Hubertus Meyer-Burckhardt",
+                "party": null,
+                "role": "Moderator und TV-Produzent",
+                "description": "Moderator und TV-Produzent",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Jagoda Marinic",
+                "party": null,
+                "role": "Autorin",
+                "description": "Autorin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Jan Philipp Burgard",
+                "party": null,
+                "role": "Die Welt",
+                "description": "Die Welt",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "04.11.2025",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 04.11.2025",
+        "description": "„Stadtbild“-Debatte und Sozialreformen: Belastungsprobe für Schwarz-Rot? Darüber diskutieren: die Fraktionsvorsitzende der Grünen, Britta Haßelmann, und der CSU-Bundestagsabgeordnete Stephan Mayer. Rüstungspolitik: Chance für Deutschlands Wirtschaft? Im Studio: Topmanager René Obermann. Es kommentieren: der Moderator und TV-Produzent Hubertus Meyer-Burckhardt, die Autorin Jagoda Marinić und der Chefredakteur der WELT, Jan Philipp Burgard."
+    },
+    {
+        "uid": "7BMLStA5",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/911-sendung-vom-19-11-2025-1838411",
+        "guests": [
+            {
+                "name": "Christian Lindner",
+                "party": "FDP",
+                "role": "FDP, ehem. Bundesfinanzminister",
+                "description": "FDP, ehem. Bundesfinanzminister",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Boris Palmer",
+                "party": "parteilos",
+                "role": "parteilos, Oberbürgermeister Tübingen",
+                "description": "parteilos, Oberbürgermeister Tübingen",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Philipp Türmer",
+                "party": "SPD",
+                "role": "SPD, Vorsitzender der Jusos",
+                "description": "SPD, Vorsitzender der Jusos",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Markus Preiß",
+                "party": null,
+                "role": "ARD",
+                "description": "ARD",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Laura Kipfelsberger",
+                "party": null,
+                "role": "Journalistin",
+                "description": "Journalistin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Ijoma Mangold",
+                "party": null,
+                "role": "Die Zeit",
+                "description": "Die Zeit",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "19.11.2025",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 19.11.2025",
+        "description": "Neues Leben nach der Politik und kritischer Blick auf die neue Regierung: Im Studio: der ehemalige Bundesfinanzminister Christian Lindner (FDP). Neuer Kurs bei der Sozialpolitik und Migration: Darüber diskutieren der Oberbürgermeister von Tübingen, Boris Palmer (parteilos), und der Juso-Vorsitzende Philipp Türmer (SPD). Es kommentieren: der Leiter des ARD-Hauptstadtstudios, Markus Preiß, die Journalistin Laura Kipfelsberger und der Kulturkorrespondent der „Zeit“, Ijoma Mangold."
+    },
+    {
+        "uid": "D_dtHhg0",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/910-sendung-vom-18-11-2025-1838410",
+        "guests": [
+            {
+                "name": "Karsten Wildberger",
+                "party": "CDU",
+                "role": "CDU, Bundesdigitalminister",
+                "description": "CDU, Bundesdigitalminister",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Jimmy Wales",
+                "party": null,
+                "role": "Wikipedia-Gründer",
+                "description": "Wikipedia-Gründer",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Claus Kleber",
+                "party": null,
+                "role": "Fernsehmoderator",
+                "description": "Fernsehmoderator",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Oliver Kalkofe",
+                "party": null,
+                "role": "Comedian und Schauspieler",
+                "description": "Comedian und Schauspieler",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Victoria Reichelt",
+                "party": null,
+                "role": "Journalistin",
+                "description": "Journalistin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Annett Meiritz",
+                "party": null,
+                "role": "Handelsblatt",
+                "description": "Handelsblatt",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "18.11.2025",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 18.11.2025",
+        "description": "Bürokratieabbau: Entlastung für Wirtschaft und Bürger: Im Studio: der ehemalige Top-Manager und Bundesminister für Digitalisierung und Staatsmodernisierung, Karsten Wildberger, CDU. Fakten vs. Fake News: Trump und der Einfluss des Silicon Valleys: Im Gespräch der Wikipedia-Gründer Jimmy Wales und der langjährige USA-Korrespondent Claus Kleber. Es kommentieren: der Comedian und Schauspieler Oliver Kalkofe, die Journalistin Victoria Reichelt und die Autorin und USA-Expertin Annett Meiritz."
+    },
+    {
+        "uid": "oLJRJnxY",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/913-sendung-vom-26-11-2025-1840113",
+        "guests": [
+            {
+                "name": "Karl Lauterbach",
+                "party": "SPD",
+                "role": "SPD, Bundestagsabgeordneter",
+                "description": "SPD, Bundestagsabgeordneter",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Monika Schnitzer",
+                "party": null,
+                "role": "Wirtschaftswissenschaftlerin",
+                "description": "Wirtschaftswissenschaftlerin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Frederik Pleitgen",
+                "party": null,
+                "role": "CNN",
+                "description": "CNN",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Giovanni di Lorenzo",
+                "party": null,
+                "role": "Die Zeit",
+                "description": "Die Zeit",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Robin Alexander",
+                "party": null,
+                "role": "Welt",
+                "description": "Welt",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Melanie Amann",
+                "party": null,
+                "role": "Der Spiegel",
+                "description": "Der Spiegel",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "26.11.2025",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 26.11.2025",
+        "description": "Rentenstreit und Wirtschaftspolitik: Darüber diskutieren der SPD-Sozialpolitiker Karl Lauterbach und die Vorsitzende der Wirtschaftsweisen, Monika Schnitzer. US-Friedensplan und Rolle Europas: Im Gespräch: der Journalist Frederik Pleitgen. Es kommentieren: der Chefredakteur der Wochenzeitung „Die Zeit“, Giovanni di Lorenzo, der stellvertretende Chefredakteur der „Welt“, Robin Alexander, und die Autorin der Spiegel-Chefredaktion, Melanie Amann."
+    },
+    {
+        "uid": "_X-VIrH_",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/908-sendung-vom-11-11-2025-1836587",
+        "guests": [
+            {
+                "name": "Sigmar Gabriel",
+                "party": "SPD",
+                "role": "SPD, ehemaliger Außenminister und Parteivorsitzender",
+                "description": "SPD, ehemaliger Außenminister und Parteivorsitzender",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Bryan Lanza",
+                "party": null,
+                "role": "Berater der Trump-Regierung",
+                "description": "Berater der Trump-Regierung",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Sahra Wagenknecht",
+                "party": "BSW",
+                "role": "BSW, Parteivorsitzende",
+                "description": "BSW, Parteivorsitzende",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Bärbel Schäfer",
+                "party": null,
+                "role": "Moderatorin und Autorin",
+                "description": "Moderatorin und Autorin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Michael Bröcker",
+                "party": null,
+                "role": "Table.Briefings",
+                "description": "Table.Briefings",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Iris Sayram",
+                "party": null,
+                "role": "ARD",
+                "description": "ARD",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "11.11.2025",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 11.11.2025",
+        "description": "Die USA unter Trump und die deutsch-amerikanische Beziehungen: Im Gespräch: der ehemalige Außenminister und SPD-Parteivorsitzende Sigmar Gabriel und der Berater der Trump-Regierung und der Trump-Kampagne 2024, Bryan Lanza. Die Zukunft des BSW: Im Studio: die Vorsitzende des BSW, Sahra Wagenknecht. Es kommentieren: die Fernsehmoderatorin und Autorin Bärbel Schäfer, der Chefredakteur von Table.Briefings Michael Bröcker und die Korrespondentin im ARD-Hauptstadtstudio Iris Sayram."
+    },
+    {
+        "uid": "i6Wz0k22",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/912-sendung-vom-25-11-2025-1840112",
+        "guests": [
+            {
+                "name": "Manuela Schwesig",
+                "party": "SPD",
+                "role": "SPD, Ministerpräsidentin von Mecklenburg-Vorpommern",
+                "description": "SPD, Ministerpräsidentin von Mecklenburg-Vorpommern",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Andrij Melnyk",
+                "party": null,
+                "role": "ukrainischer Botschafter bei der UN",
+                "description": "ukrainischer Botschafter bei der UN",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Sanna Marin",
+                "party": null,
+                "role": "ehemalige finnische Ministerpräsidentin",
+                "description": "ehemalige finnische Ministerpräsidentin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Ulrich Wickert",
+                "party": null,
+                "role": "Moderator und Autor",
+                "description": "Moderator und Autor",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Veit Medick",
+                "party": null,
+                "role": "Stern",
+                "description": "Stern",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Anna Schneider",
+                "party": null,
+                "role": "Die Welt",
+                "description": "Die Welt",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "25.11.2025",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 25.11.2025",
+        "description": "Streit um Rente und wirtschaftspolitischen Kurs: Im Studio: die Ministerpräsidentin von Mecklenburg-Vorpommern, Manuela Schwesig (SPD). 28-Punkte-Plan für die Ukraine: Im Gespräch: der Botschafter der Ukraine bei den Vereinten Nationen, Andrij Melnyk. US-Friedensinitiative und Auswirkungen auf die Nato: Im Studio die ehemalige Ministerpräsidentin Finnlands, Sanna Marin. Es kommentieren: der ehemalige Tagesthemen-Moderator und Autor Ulrich Wickert, der Politikchef des Stern Veit Medick und die Chefreporterin Freiheit bei der Welt Anna Schneider."
+    },
+    {
+        "uid": "oAFKk5Nk",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/914-sendung-vom-03-12-2025-1841817",
+        "guests": [
+            {
+                "name": "Lars Klingbeil",
+                "party": "SPD",
+                "role": "SPD, Bundesfinanzminister",
+                "description": "SPD, Bundesfinanzminister",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Manfred Weber",
+                "party": "CSU",
+                "role": "CSU, Partei- und Fraktionsvorsitzender der EVP",
+                "description": "CSU, Partei- und Fraktionsvorsitzender der EVP",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Fabio De Masi",
+                "party": "BSW",
+                "role": "BSW, Europaabgeordneter",
+                "description": "BSW, Europaabgeordneter",
+                "validation_status": "accept",
+                "validation_reason": "extended_person_name"
+            },
+            {
+                "name": "Anja Kohl",
+                "party": null,
+                "role": "ARD",
+                "description": "ARD",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Florian Schroeder",
+                "party": null,
+                "role": "Kabarettist und Autor",
+                "description": "Kabarettist und Autor",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Christoph Schwennicke",
+                "party": null,
+                "role": "t-online",
+                "description": "t-online",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "03.12.2025",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 03.12.2025",
+        "description": "Rentenstreit und Haushalt 2026: Im Studio: Bundesfinanzminister Lars Klingbeil (SPD). Friedensplan für die Ukraine und europäische Verteidigungspolitik: Im Gespräch: der Fraktionsvorsitzende der EVP im Europaparlament, Manfred Weber (CSU), und der Europaabgeordnete Fabio De Masi (BSW). Es kommentieren: die ARD-Wirtschaftsexpertin Anja Kohl, der Kabarettist und Autor Florian Schroeder und der Politikchef von „t-online“, Christoph Schwennicke."
+    },
+    {
+        "uid": "VKO8I11j",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/915-sendung-vom-09-12-2025-1843393",
+        "guests": [
+            {
+                "name": "Peer Steinbrück",
+                "party": "SPD",
+                "role": "SPD, ehemaliger Bundesfinanzminister",
+                "description": "SPD, ehemaliger Bundesfinanzminister",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Thomas de Maizière",
+                "party": "CDU",
+                "role": "CDU, ehemaliger Bundesminister des Inneren- und der Verteidigung",
+                "description": "CDU, ehemaliger Bundesminister des Inneren- und der Verteidigung",
+                "validation_status": "accept",
+                "validation_reason": "extended_person_name"
+            },
+            {
+                "name": "Peter R. Neumann",
+                "party": null,
+                "role": "Politikwissenschaftler",
+                "description": "Politikwissenschaftler",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Dirk Steffens",
+                "party": null,
+                "role": "Wissenschaftsjournalist und Moderator",
+                "description": "Wissenschaftsjournalist und Moderator",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Julia Ruhs",
+                "party": null,
+                "role": "Bayerischer Rundfunk",
+                "description": "Bayerischer Rundfunk",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Anna Lehmann",
+                "party": null,
+                "role": "taz",
+                "description": "taz",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "09.12.2025",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 09.12.2025",
+        "description": "Reformstau in Deutschland: Im Studio diskutieren der ehemalige Bundesfinanzminister Peer Steinbrück (SPD) und der langjährige Bundesinnen- und Verteidigungsminister Thomas de Maizière (CDU). Neue US-Sicherheitsstrategie: Im Gespräch: der Politikwissenschaftler und Sicherheitsexperte Peter Neumann. Es kommentieren: der Wissenschaftsjournalist und Moderator Dirk Steffens, die Reporterin beim Bayerischen Rundfunk, Julia Ruhs, sowie die Leiterin des Parlamentsbüros der taz, Anna Lehmann."
+    },
+    {
+        "uid": "ffP0z2UB",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/916-sendung-vom-10-12-2025-1843394",
+        "guests": [
+            {
+                "name": "Cem Özdemir",
+                "party": "Bündnis 90/Die Grünen",
+                "role": "Bündnis 90/​Die Grünen, Spitzenkandidat Baden-Württemberg",
+                "description": "Bündnis 90/​Die Grünen, Spitzenkandidat Baden-Württemberg",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Petra Gerster",
+                "party": null,
+                "role": "Moderatorin",
+                "description": "Moderatorin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Susanne Gaschke",
+                "party": null,
+                "role": "Neue Zürcher Zeitung",
+                "description": "Neue Zürcher Zeitung",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Gordon Repinski",
+                "party": null,
+                "role": "Politico",
+                "description": "Politico",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "10.12.2025",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 10.12.2025",
+        "description": "Reformpolitik und Zukunft der Grünen: Im Studio: der Spitzenkandidat für die Landtagswahl in Baden-Württemberg, Cem Özdemir (Bündnis 90/​Die Grünen). Es kommentieren: die langjährige Moderatorin der ZDF-„heute“-Nachrichten, Petra Gerster, die Autorin der Neuen Zürcher Zeitung, Susanne Gaschke, und der Chefredakteur von Politico Deutschland, Gordon Repinski."
+    },
+    {
+        "uid": "oAbu-oPD",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/917-sendung-vom-06-01-2026-1857977",
+        "guests": [
+            {
+                "name": "Armin Laschet",
+                "party": "CDU",
+                "role": "CDU Vorsitzender des Auswärtigen Ausschusses)",
+                "description": "CDU Vorsitzender des Auswärtigen Ausschusses)",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Sigmar Gabriel",
+                "party": "SPD",
+                "role": "SPD ehemaliger Bundesaußenminister und Parteivorsitzender",
+                "description": "SPD ehemaliger Bundesaußenminister und Parteivorsitzender",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Claudia Major",
+                "party": null,
+                "role": "Militärexpertin",
+                "description": "Militärexpertin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Markus Preiß",
+                "party": null,
+                "role": "ARD",
+                "description": "ARD",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Gabor Steingart",
+                "party": null,
+                "role": "",
+                "description": "",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Sophia Maier",
+                "party": null,
+                "role": "Journalistin",
+                "description": "Journalistin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "06.01.2026",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 06.01.2026",
+        "description": "US-Angriff in Venezuela Im Gespräch: der ehemalige Außenminister und SPD-Parteivorsitzende Sigmar Gabriel und der Vorsitzende des Auswärtigen Ausschusses im Bundestag, Armin Laschet (CDU). Sicherheitspolitische Auswirkungen des Militärschlags Im Studio: die Militärexpertin und Vizepräsidentin des German Marshall Fund, Claudia Major. Es kommentieren: der Leiter des ARD-Hauptstadtstudios Markus Preiß, der Herausgeber von „The Pioneer Briefing“, Gabor Steingart, sowie die Kriegsreporterin und Autorin Sophia Maier."
+    },
+    {
+        "uid": "BG3m7Ez0",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/909-sendung-vom-12-11-2025-1836588",
+        "guests": [
+            {
+                "name": "Roderich Kiesewetter",
+                "party": "CDU",
+                "role": "CDU, Bundestagsabgeordneter",
+                "description": "CDU, Bundestagsabgeordneter",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Ralf Stegner",
+                "party": "SPD",
+                "role": "SPD, Bundestagsabgeordneter",
+                "description": "SPD, Bundestagsabgeordneter",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Dieter Nuhr",
+                "party": null,
+                "role": "Kabarettist",
+                "description": "Kabarettist",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Amelie Fried",
+                "party": null,
+                "role": "Autorin",
+                "description": "Autorin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Gabor Steingart",
+                "party": null,
+                "role": "The Pioneer",
+                "description": "The Pioneer",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Anja Maier",
+                "party": null,
+                "role": "Focus",
+                "description": "Focus",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "12.11.2025",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 12.11.2025",
+        "description": "Unterstützung für die Ukraine und Wehrpflichtdebatte: Darüber diskutieren die beiden Außenpolitiker Roderich Kiesewetter (CDU) und Ralf Stegner (SPD). Sein Blick auf die deutsche Politik und die Meinungsfreiheit in den USA: Im Studio: der Kabarettist Dieter Nuhr. Es kommentieren: die Autorin und Journalistin Amelie Fried, der Herausgeber von „The Pioneer Briefing“, Gabor Steingart, und die Chefreporterin Politik beim „Focus“, Anja Maier."
+    },
+    {
+        "uid": "42FYpszf",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/918-sendung-vom-20-01-2026-1852475",
+        "guests": [
+            {
+                "name": "Karl-Theodor zu Guttenberg",
+                "party": "CSU",
+                "role": "CSU, Bundesverteidigungsminister a.D.",
+                "description": "CSU, Bundesverteidigungsminister a.D.",
+                "validation_status": "accept",
+                "validation_reason": "extended_person_name"
+            },
+            {
+                "name": "Andrew Langer",
+                "party": null,
+                "role": "US-Politikberater",
+                "description": "US-Politikberater",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Peter Maffay",
+                "party": null,
+                "role": "Musiker",
+                "description": "Musiker",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Theo Koll",
+                "party": null,
+                "role": "Journalist und Moderator",
+                "description": "Journalist und Moderator",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Jagoda Marinic",
+                "party": null,
+                "role": "Autorin",
+                "description": "Autorin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Nikolaus Blome",
+                "party": null,
+                "role": "RTL/​ntv",
+                "description": "RTL/​ntv",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "20.01.2026",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 20.01.2026",
+        "description": "Spannungen im transatlantischen Verhältnis: Im Gespräch: der ehemalige Verteidigungsminister Karl-Theodor zu Guttenberg (CSU) und US-Politikberater Andrew Langer. Über seine Karriere und sein politisches Engagement: Im Studio: Musiker Peter Maffay. Es kommentieren: der langjährige Leiter des ZDF-Hauptstadtstudios Theo Koll, die Autorin und „Stern“-Kolumnistin Jagoda Marinić sowie der Politik-Chef von RTL/​ntv, Nikolaus Blome."
+    },
+    {
+        "uid": "0gUWiEbH",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/919-sendung-vom-21-01-2026-1852476",
+        "guests": [
+            {
+                "name": "Hubertus Heil",
+                "party": "SPD",
+                "role": "SPD, Außenpolitiker",
+                "description": "SPD, Außenpolitiker",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Tino Chrupalla",
+                "party": "AfD",
+                "role": "AfD, Parteivorsitzender",
+                "description": "AfD, Parteivorsitzender",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Roland Berger",
+                "party": null,
+                "role": "Unternehmens- und Politikberater",
+                "description": "Unternehmens- und Politikberater",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Constantin Schreiber",
+                "party": null,
+                "role": "Auslandsreporter Axel Springer",
+                "description": "Auslandsreporter Axel Springer",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Anna Lehmann",
+                "party": null,
+                "role": "Journalistin taz",
+                "description": "Journalistin taz",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Kristina Dunz",
+                "party": null,
+                "role": "Journalistin RND",
+                "description": "Journalistin RND",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "21.01.2026",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 21.01.2026",
+        "description": "Transatlantische Differenzen: Wie soll Europa mit Trump umgehen? Im Studio: der SPD-Außenpolitiker Hubertus Heil und der Parteivorsitzende der AfD, Tino Chrupalla. Wirtschaft im Fokus: Blick auf die deutsche und internationale Lage: Im Gespräch: der langjährige Unternehmens- und Politikberater Roland Berger. Es kommentieren: der Auslandsreporter von Axel Springer, Constantin Schreiber, die Leiterin des Parlamentsbüros der taz, Anna Lehmann, und die stellvertretende Leiterin des RND-Hauptstadtbüros, Kristina Dunz."
+    },
+    {
+        "uid": "yHhNHNzr",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/921-sendung-vom-28-01-2026-1853804",
+        "guests": [
+            {
+                "name": "Philipp Amthor",
+                "party": "CDU",
+                "role": "CDU, parlamentarischer Staatssekretär",
+                "description": "CDU, parlamentarischer Staatssekretär",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Gregor Gysi",
+                "party": "DIE LINKE",
+                "role": "Die Linke, langjähriger Fraktionsvorsitzender",
+                "description": "Die Linke, langjähriger Fraktionsvorsitzender",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Maria Kalesnikava",
+                "party": null,
+                "role": "belarussische Oppositionelle",
+                "description": "belarussische Oppositionelle",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Matthias Deiß",
+                "party": null,
+                "role": "ARD-Hauptstadtstudio",
+                "description": "ARD-Hauptstadtstudio",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Alisha Mendgen",
+                "party": null,
+                "role": "Focus",
+                "description": "Focus",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Claus Strunz",
+                "party": null,
+                "role": "Euronews",
+                "description": "Euronews",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "28.01.2026",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 28.01.2026",
+        "description": "Wahlen in Ostdeutschland und Diskussionen um Arbeitszeit: Darüber diskutieren der parlamentarische Staatssekretär der CDU, Philipp Amthor, und der langjährige Fraktionsvorsitzende der Linken, Gregor Gysi. Ihre Zeit in Gefangenschaft und die Lage in Belarus: Im Studio: die belarussische Oppositionelle Maria Kalesnikava. Es kommentieren: der stellvertretende Leiter des ARD-Hauptstadtstudios, Matthias Deiß, die Hauptstadtkorrespondentin des Focus, Alisha Mendgen, und der Chefredakteur von Euronews, Claus Strunz."
+    },
+    {
+        "uid": "CNhDltE-",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/920-sendung-vom-27-01-2026-1853405",
+        "guests": [
+            {
+                "name": "Mette Frederiksen",
+                "party": null,
+                "role": "Premierministerin Dänemark",
+                "description": "Premierministerin Dänemark",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Uschi Glas",
+                "party": null,
+                "role": "Schauspielerin",
+                "description": "Schauspielerin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Johannes B. Kerner",
+                "party": null,
+                "role": "Fernsehmoderator",
+                "description": "Fernsehmoderator",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Sandra Navidi",
+                "party": null,
+                "role": "Juristin",
+                "description": "Juristin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Paul Ronzheimer",
+                "party": null,
+                "role": "Bild",
+                "description": "Bild",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "27.01.2026",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 27.01.2026",
+        "description": "Konflikt um Grönland und neue Weltordnung: Im Studio: die dänische Premierministerin Mette Frederiksen. Über ihre Karriere und ihr politisches Engagement: Im Studio: die Schauspielerin und Autorin Uschi Glas. Es kommentieren: der Fernsehmoderator Johannes B. Kerner, der stellvertretende Bild-Chefredakteur und Kriegsreporter Paul Ronzheimer und die USA-Expertin Sandra Navidi."
+    },
+    {
+        "uid": "lVRKGdpe",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/922-sendung-vom-18-02-2026-1857311",
+        "guests": [
+            {
+                "name": "Hillary Clinton",
+                "party": null,
+                "role": "ehemalige US-Außenministerin",
+                "description": "ehemalige US-Außenministerin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Joachim Gauck",
+                "party": null,
+                "role": "Bundespräsident a.D.",
+                "description": "Bundespräsident a.D.",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Melanie Amann",
+                "party": null,
+                "role": "Journalistin",
+                "description": "Journalistin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Robin Alexander",
+                "party": null,
+                "role": "Journalist",
+                "description": "Journalist",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Aurel Mertz",
+                "party": null,
+                "role": "Moderator",
+                "description": "Moderator",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "18.02.2026",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 18.02.2026",
+        "description": "Im Gespräch: die frühere US-Außenministerin und ehemalige Präsidentschaftskandidatin der Demokraten, Hillary Clinton. Europas Rolle in der Welt und Deutschland im Superwahljahr: Im Studio: Altbundespräsident Joachim Gauck. Es kommentieren: die Chefredakteurin Digital der Funke Mediengruppe, Melanie Amann, der Journalist und WELT-Kolumnist Robin Alexander sowie der Comedian und Moderator Aurel Mertz."
+    },
+    {
+        "uid": "AuYOAM4e",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/927-sendung-vom-10-03-2026-1863298",
+        "guests": [
+            {
+                "name": "Boris Palmer",
+                "party": null,
+                "role": "Oberbürgermeister Tübingen",
+                "description": "Oberbürgermeister Tübingen",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Dietmar Bartsch",
+                "party": "DIE LINKE",
+                "role": "Die Linke, Haushaltspolitischer Sprecher",
+                "description": "Die Linke, Haushaltspolitischer Sprecher",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Florence Gaub",
+                "party": null,
+                "role": "Militär- und Sicherheitsexpertin",
+                "description": "Militär- und Sicherheitsexpertin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Hubertus Meyer-Burckhardt",
+                "party": null,
+                "role": "Moderator und TV-Produzent",
+                "description": "Moderator und TV-Produzent",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Julie Kurz",
+                "party": null,
+                "role": "ARD",
+                "description": "ARD",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Helene Bubrowski",
+                "party": null,
+                "role": "Table.Briefings",
+                "description": "Table.Briefings",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "10.03.2026",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 10.03.2026",
+        "description": "* Die Wahl in Baden-Württemberg und die Folgen für die Bundesregierung Darüber diskutieren der Oberbürgermeister von Tübingen, Boris Palmer, und der haushaltspolitische Sprecher der Linken, Dietmar Bartsch. * Kriege im Nahen Osten und der Ukraine Im Studio: die Militär- und Sicherheitsexpertin Florence Gaub. * Es kommentieren: der Moderator und TV-Produzent Hubertus Meyer-Burckhardt, die ARD-Korrespondentin im Hauptstadtstudio, Julie Kurz, und die Chefredakteurin von Table.Briefings, Helene Bubrowski."
+    },
+    {
+        "uid": "QgWADWes",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/926-sendung-vom-04-03-2026-1861364",
+        "guests": [
+            {
+                "name": "Armin Laschet",
+                "party": "CDU",
+                "role": "CDU, Vorsitzender des Auswärtigen Ausschusses",
+                "description": "CDU, Vorsitzender des Auswärtigen Ausschusses",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Natalie Amiri",
+                "party": null,
+                "role": "ARD-Nahostexpertin",
+                "description": "ARD-Nahostexpertin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Carsten Maschmeyer",
+                "party": null,
+                "role": "Unternehmer und Investor",
+                "description": "Unternehmer und Investor",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Werner Sonne",
+                "party": null,
+                "role": "Journalist und Autor",
+                "description": "Journalist und Autor",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Iris Sayram",
+                "party": null,
+                "role": "ARD-Hauptstadtstudio",
+                "description": "ARD-Hauptstadtstudio",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Daniel Friedrich Sturm",
+                "party": null,
+                "role": "Der Tagesspiegel",
+                "description": "Der Tagesspiegel",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "04.03.2026",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 04.03.2026",
+        "description": "Krieg im Nahen Osten und Zukunft des Iran: Im Gespräch: der Vorsitzende des Auswärtigen Ausschusses im Bundestag, Armin Laschet (CDU), und die ARD-Nahost-Expertin Natalie Amiri. Donald Trumps Zollpolitik und Lage der deutschen Wirtschaft: Im Studio: der Unternehmer und Investor Carsten Maschmeyer. Es kommentieren: der Journalist und Autor Werner Sonne, die Korrespondentin im ARD-Hauptstadtstudio, Iris Sayram, und der Leiter des Hauptstadtbüros des Tagesspiegel, Daniel Friedrich Sturm."
+    },
+    {
+        "uid": "rKzQdNSb",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/923-sendung-vom-24-02-2026-1860277",
+        "guests": [
+            {
+                "name": "Annalena Baerbock",
+                "party": "Bündnis 90/Die Grünen",
+                "role": "B’90/​Die Grünen, Präsidentin der UN-Generalversammlung",
+                "description": "B’90/​Die Grünen, Präsidentin der UN-Generalversammlung",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Thorsten Frei",
+                "party": "CDU",
+                "role": "CDU, Kanzleramtsminister",
+                "description": "CDU, Kanzleramtsminister",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Ines Schwerdtner",
+                "party": "DIE LINKE",
+                "role": "Die Linke, Parteivorsitzende",
+                "description": "Die Linke, Parteivorsitzende",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Oliver Kalkofe",
+                "party": null,
+                "role": "Comedian und Autor",
+                "description": "Comedian und Autor",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Stephan Stuchlik",
+                "party": null,
+                "role": "ARD-Hauptstadtstudio",
+                "description": "ARD-Hauptstadtstudio",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Susanne Gaschke",
+                "party": null,
+                "role": "Neue Zürcher Zeitung",
+                "description": "Neue Zürcher Zeitung",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "24.02.2026",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 24.02.2026",
+        "description": "Internationale Ordnung und Rolle der Vereinten Nationen: Im Studio: die Präsidentin der UN-Generalversammlung und ehemalige Bundesaußenministerin Annalena Baerbock (B’90/​Die Grünen). Sozialreformen und deutsche Aufrüstung: Im Gespräch: Kanzleramtsminister Thorsten Frei (CDU) und die Parteivorsitzende Ines Schwerdtner (Die Linke). Es kommentieren: der Comedian und Autor Oliver Kalkofe, der ARD-Hauptstadtkorrespondent Stephan Stuchlik und die Autorin der Neuen Zürcher Zeitung, Susanne Gaschke."
+    },
+    {
+        "uid": "1lnqYXmi",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/925-sendung-vom-03-03-2026-1861677",
+        "guests": [
+            {
+                "name": "Sahra Wagenknecht",
+                "party": "BSW",
+                "role": "BSW, Parteigründerin",
+                "description": "BSW, Parteigründerin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Bijan Djir-Sarai",
+                "party": "FDP",
+                "role": "FDP, ehemaliger Generalsekretär",
+                "description": "FDP, ehemaliger Generalsekretär",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Gisèle Pelicot",
+                "party": null,
+                "role": "Hauptanklägerin im Vergewaltigungsprozess von Avignon",
+                "description": "Hauptanklägerin im Vergewaltigungsprozess von Avignon",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Anja Kohl",
+                "party": null,
+                "role": "ARD",
+                "description": "ARD",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Paul Ronzheimer",
+                "party": null,
+                "role": "Axel Springer",
+                "description": "Axel Springer",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Gregor Peter Schmitz",
+                "party": null,
+                "role": "Stern",
+                "description": "Stern",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "03.03.2026",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 03.03.2026",
+        "description": "Situation im Iran und Eskalation im Nahen Osten: Darüber diskutieren der ehemalige FDP-Generalssekretär Bijan Djir-Sarai und die BSW-Gründerin Sahra Wagenknecht. Exklusiv bei maischberger: Gisèle Pelicot über ihren öffentlichen Vergewaltigungsprozess und ihre wiedergewonnene Zuversicht. Es kommentieren: die ARD-Wirtschaftsexpertin Anja Kohl, der stellvertretende Bild-Chefredakteur Paul Ronzheimer und der Chefredakteur des Stern, Gregor Peter Schmitz."
+    },
+    {
+        "uid": "xWgVNA2E",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/924-sendung-vom-25-02-2026-1859919",
+        "guests": [
+            {
+                "name": "Sandra Navidi",
+                "party": null,
+                "role": "Autorin und USA-Expertin",
+                "description": "Autorin und USA-Expertin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Iris Berben",
+                "party": null,
+                "role": "Schauspielerin",
+                "description": "Schauspielerin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Theo Koll",
+                "party": null,
+                "role": "Journalist und Moderator",
+                "description": "Journalist und Moderator",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Anna Lehmann",
+                "party": null,
+                "role": "taz",
+                "description": "taz",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Marc Felix Serrao",
+                "party": null,
+                "role": "Die Welt",
+                "description": "Die Welt",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "25.02.2026",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 25.02.2026",
+        "description": ""
+    },
+    {
+        "uid": "DSMAXiE3",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/929-sendung-vom-16-03-2026-1864761",
+        "guests": [
+            {
+                "name": "Jan van Aken",
+                "party": "DIE LINKE",
+                "role": "Die Linke, Parteivorsitzender",
+                "description": "Die Linke, Parteivorsitzender",
+                "validation_status": "accept",
+                "validation_reason": "extended_person_name"
+            },
+            {
+                "name": "Marie-Agnes Strack-Zimmermann",
+                "party": "FDP",
+                "role": "FDP, Vorsitzende EU-Verteidigungsausschuss",
+                "description": "FDP, Vorsitzende EU-Verteidigungsausschuss",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Franz Müntefering",
+                "party": "SPD",
+                "role": "SPD, ehemaliger Parteivorsitzender und Vizekanzler",
+                "description": "SPD, ehemaliger Parteivorsitzender und Vizekanzler",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Jörg Pilawa",
+                "party": null,
+                "role": "Fernsehmoderator",
+                "description": "Fernsehmoderator",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Christoph Schwennicke",
+                "party": null,
+                "role": "t-online",
+                "description": "t-online",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Victoria Reichelt",
+                "party": null,
+                "role": "Journalistin",
+                "description": "Journalistin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "16.03.2026",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 16.03.2026",
+        "description": "Darüber diskutieren die Vorsitzende des Verteidigungsausschusses im Europaparlament Marie-Agnes Strack-Zimmermann (FDP) und der Parteivorsitzende Jan van Aken (Die Linke). Regierungspolitik und Zukunft des Sozialstaats Im Studio: der ehemalige Parteivorsitzende und Vizekanzler Franz Müntefering (SPD). Es kommentieren: Der Fernsehmoderator Jörg Pilawa, der Politikchef von „t-online“ Christoph Schwennicke und die Journalistin Victoria Reichelt"
+    },
+    {
+        "uid": "qxZU_oEB",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/928-sendung-vom-11-03-2026-1863299",
+        "guests": [
+            {
+                "name": "Kevin Kühnert",
+                "party": "SPD",
+                "role": "ehemaliger SPD-Generalsekretär",
+                "description": "ehemaliger SPD-Generalsekretär",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Philipp Amthor",
+                "party": "CDU",
+                "role": "CDU, parlamentarischer Staatssekretär",
+                "description": "CDU, parlamentarischer Staatssekretär",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Alice Schwarzer",
+                "party": null,
+                "role": "Emma-Herausgeberin",
+                "description": "Emma-Herausgeberin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Florian Schroeder",
+                "party": null,
+                "role": "Kabarettist und Comedian",
+                "description": "Kabarettist und Comedian",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Anna Schneider",
+                "party": null,
+                "role": "Die Welt",
+                "description": "Die Welt",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Klaus Brinkbäumer",
+                "party": null,
+                "role": "Autor",
+                "description": "Autor",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "11.03.2026",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 11.03.2026",
+        "description": "Sozialreformen und Bundesregierung im Umfragetief: Darüber diskutieren der ehemalige SPD-Generalsekretär und Abteilungsleiter beim Verein „Bürgerbewegung Finanzwende“ Kevin Kühnert und der parlamentarische Staatssekretär der CDU Philipp Amthor. Über Feminismus, die Frauen im Iran und ihre Biografie: Im Gespräch die Emma-Herausgeberin Alice Schwarzer. Es kommentieren: Der Kabarettist und Autor Florian Schroeder, die Chefreporterin Freiheit bei der Welt, Anna Schneider, sowie der Autor und Moderator Klaus Brinkbäumer."
+    },
+    {
+        "uid": "ichXoxLT",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/930-sendung-vom-17-03-2026-1864762",
+        "guests": [
+            {
+                "name": "Claus Ruhe Madsen",
+                "party": "CDU",
+                "role": "CDU, Wirtschaftsminister Schleswig-Holstein",
+                "description": "CDU, Wirtschaftsminister Schleswig-Holstein",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Herbert Diess",
+                "party": null,
+                "role": "Aufsichtsratsvorsitzender Infineon",
+                "description": "Aufsichtsratsvorsitzender Infineon",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Claudia Major",
+                "party": null,
+                "role": "Militärexpertin",
+                "description": "Militärexpertin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Denis Scheck",
+                "party": null,
+                "role": "Literaturkritiker und Moderator",
+                "description": "Literaturkritiker und Moderator",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Amelie Marie Weber",
+                "party": null,
+                "role": "ARD",
+                "description": "ARD",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Michael Bröcker",
+                "party": null,
+                "role": "Table.Briefings",
+                "description": "Table.Briefings",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "17.03.2026",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 17.03.2026",
+        "description": "Hohe Spritpreise und Gefahren für die deutsche Wirtschaft: Im Gespräch: der Wirtschaftsminister von Schleswig-Holstein, Claus Ruhe Madsen (CDU), und der ehemalige Vorstandsvorsitzende von VW, Herbert Diess. Europas Sicherheitspolitik und das transatlantische Verhältnis: Im Studio: die Militärexpertin Claudia Major. Es kommentieren: der Literaturkritiker und Moderator Denis Scheck, die ARD-Journalistin Amelie Marie Weber und der Chefredakteur von Table.Briefings, Michael Bröcker."
+    },
+    {
+        "uid": "4tna2mpc",
+        "link": "https://www.fernsehserien.de/maischberger-ard/folgen/931-sendung-vom-18-03-2026-1863953",
+        "guests": [
+            {
+                "name": "Alexander Dobrindt",
+                "party": "CSU",
+                "role": "CSU, Bundesminister des Innern",
+                "description": "CSU, Bundesminister des Innern",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Salman Rushdie",
+                "party": null,
+                "role": "Bestseller-Autor",
+                "description": "Bestseller-Autor",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Carlo Masala",
+                "party": null,
+                "role": "Militärexperte",
+                "description": "Militärexperte",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Amelie Fried",
+                "party": null,
+                "role": "Autorin und Moderatorin",
+                "description": "Autorin und Moderatorin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Albrecht von Lucke",
+                "party": null,
+                "role": "Blätter für deutsche und internationale Politik",
+                "description": "Blätter für deutsche und internationale Politik",
+                "validation_status": "accept",
+                "validation_reason": "extended_person_name"
+            },
+            {
+                "name": "Dagmar Rosenfeld",
+                "party": null,
+                "role": "Podcast Machtwechsel",
+                "description": "Podcast Machtwechsel",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "18.03.2026",
+        "show": "maischberger",
+        "station": "Das Erste",
+        "title": "Sendung vom 18.03.2026",
+        "description": "Exklusiv bei „maischberger“: der Bestseller-Autor Salman Rushdie: Im Studio zu Meinungsfreiheit, Kulturkampf und der Demokratie in den USA. Migration und Zustand der Bundesregierung: Fragen an den Bundesminister des Innern der CSU, Alexander Dobrindt. Über die Rolle der NATO im Iran-Krieg: Im Gespräch der Militärexperte Carlo Masala."
     }
 ]

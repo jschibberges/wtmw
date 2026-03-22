@@ -8,7 +8,6 @@ from typing import List, Tuple, Dict, Optional, Iterable
 import numpy as np
 import pandas as pd
 import networkx as nx
-from functools import lru_cache
 
 # --- Configuration ---
 BASE_DIR = Path(__file__).resolve().parent
@@ -40,11 +39,17 @@ try:
     # Lemmatization (labels cleanup)
     import spacy
     try:
-        _NLP_DE = spacy.load("de_core_news_md", disable=["parser","ner"])
+        _NLP_DE = spacy.load("de_core_news_md", disable=["parser", "ner"])
     except Exception:
-        _NLP_DE = spacy.load("de_core_news_sm", disable=["parser","ner"])
+        _NLP_DE = spacy.load("de_core_news_sm", disable=["parser", "ner"])
+        print("Using spaCy 'sm' model. For better lemmatization run: python -m spacy download de_core_news_md")
 except Exception:
     _NLP_DE = None
+    print("spaCy German model not available; proceeding without lemmatization.")
+
+# Einheitlicher Alias – wird von clean_description_for_labels (_NLP_DE)
+# und _phrase_lemmas (nlp_de) genutzt. Beide zeigen auf dasselbe Objekt.
+nlp_de = _NLP_DE
 
 
 # ==============================
@@ -68,16 +73,22 @@ class LiteConfig:
     ngram_range: tuple = (1, 3)
 
 
+# Preset für Topic-Labels: Verben weglassen, nur Inhaltswörter (Substantive, Eigennamen, Adjektive).
+# Verhindert Verb-Bigrams wie "kommentieren erklären" in den Topic-Termen.
+LABEL_CONFIG = LiteConfig(keep_pos=("NOUN", "PROPN", "ADJ"))
+
+
 # Simple lists you can extend
 PARTICLES = {"von","zu","vom","zur","van","de","del","der"}
 PARTY_ALIASES = {
-    "cdu":"CDU","csu":"CSU","spd":"SPD","afd":"AfD","fdp":"FDP",
-    "die linke":"LINKE","linke":"LINKE","dielinke":"LINKE",
-    "b'90":"GRUENE","b’90":"GRUENE","b90":"GRUENE",
-    "bündnis 90":"GRUENE","bündnis 90/die grünen":"GRUENE",
-    "grüne":"GRUENE","grünen":"GRUENE","gruene":"GRUENE","gruenen":"GRUENE",
-    "bsw":"BSW","parteilos":"parteilos"
-    }
+    "cdu": "CDU", "csu": "CSU", "spd": "SPD", "afd": "AfD", "fdp": "FDP",
+    "die linke": "LINKE", "linke": "LINKE", "dielinke": "LINKE",
+    "b’90": "GRUENE",   # einfaches Apostroph (war doppelt – Duplikat entfernt)
+    "b90":  "GRUENE",
+    "bündnis 90": "GRUENE", "bündnis 90/die grünen": "GRUENE",
+    "grüne": "GRUENE", "grünen": "GRUENE", "gruene": "GRUENE", "gruenen": "GRUENE",
+    "bsw": "BSW", "parteilos": "parteilos",
+}
 MEDIA_ORG = {
     "zdf","ard","wdr","ndr","mdr","rbb","swr","br","orf","rtl","sat1","sat.1","servustv",
     "pro7","pro sieben","phoenix","welt","faz","sz","bild","taz","zeit","spiegel","focus","stern","dpa"
@@ -100,20 +111,100 @@ ROLE_WORDS = {
 
 GERMAN_EXTRA_STOP = {
     "heute","gestern","morgen","sendung","folge","talk","talkshow",
-    "thema","gäste","gast","moderator","moderation"
+    "thema","gäste","gast","moderator","moderation",
+    # Talkshow-Meta-Verben: beschreiben was Gäste im Studio TUN, nicht das Thema
+    "äußert","spricht","analysiert","erläutert","erklärt","kommentiert",
+    "berichtet","informiert","schildert","beschreibt","diskutiert","debattiert",
+    "nimmt","fordert","kritisiert","warnt","betont","stellt","zeigt",
+    "meint","sagt","glaubt","findet","sieht","gibt","macht","geht",
+    "blickt","fragt","antwortet","reagiert","appelliert","plädiert",
+    # Englische Tokens die durch deutschen token_pattern rutschen können
+    "for","future","friday","fridays","the","and","with","about",
+    # Weitere generische Füllwörter in Beschreibungen
+    "lage","aktuellen","aktuelle","aktuell","neuen","neue","neues",
+    "ersten","erste","ersten","großen","große","weiteren","weitere",
 }
 
 # Words that are not part of a name but might appear in the name field
 JUNK_WORDS_IN_NAMES = {
+    # Alle Einträge in Kleinschreibung, da der Check t.lower() verwendet
     "gegen", "begleitete", "seine", "frau", "deren", "selbsttötung", "derzeit", "hoch", "verschuldet",
     "auswärtigen", "deutschen", "terrorgruppe", "nsu", "marzahn", "aus", "ehem.", "ehemalig",
-    "ehemaliger", "ehemalige", "Familie", "Familien", "Fachbereich", "Gast","Gäste"
+    "ehemaliger", "ehemalige", "familie", "familien", "fachbereich", "gast", "gäste"
 }
 
 LOW_INFORMATION_LEMMAS = {
     "deutsch", "deutschland", "bundesrepublik", "jahr", "jaehrig", "jährig",
     "jähr", "jährlich", "uhr",
 }
+
+# Rollenbezeichnungen, die in Talkshow-Beschreibungen zwar häufig vorkommen,
+# aber kein inhaltliches Thema beschreiben (z.B. "Außenpolitiker spricht über…").
+# Werden in _filter_topic_terms() und clean_description_for_labels() gefiltert,
+# damit sie nicht als Topic-Keywords auftauchen.
+TOPIC_ROLE_STOP: frozenset[str] = frozenset({
+    # Generische Politikrollen
+    "politiker", "politikerin", "außenpolitiker", "außenpolitikerin",
+    "innenpolitiker", "innenpolitikerin", "parteipolitiker", "parteipolitikerin",
+    "parlamentarier", "parlamentarierin", "abgeordnete", "abgeordneter",
+    "vorsitzende", "vorsitzender", "parteivorsitzende", "parteivorsitzender",
+    "fraktionsvorsitzende", "fraktionsvorsitzender", "generalsekretär", "generalsekretärin",
+    "bundeskanzler", "bundeskanzlerin", "ministerpräsident", "ministerpräsidentin",
+    "minister", "ministerin", "staatssekretär", "staatssekretärin",
+    "bürgermeister", "bürgermeisterin", "oberbürgermeister", "oberbürgermeisterin",
+    "landrat", "landrätin", "senator", "senatorin",
+    "botschafter", "botschafterin", "diplomat", "diplomatin",
+    # Wissenschaft / Expertise
+    "experte", "expertin", "fachmann", "fachfrau",
+    "wissenschaftler", "wissenschaftlerin",
+    "forscher", "forscherin",
+    "professor", "professorin",
+    "doktor",  # als Rolle, nicht als akademischer Grad im Kontext
+    "militärexperte", "militärexpertin",
+    "sicherheitsexperte", "sicherheitsexpertin",
+    "wirtschaftsexperte", "wirtschaftsexpertin",
+    "politikwissenschaftler", "politikwissenschaftlerin",
+    "politologe", "politologin",
+    "soziologe", "soziologin",
+    "historiker", "historikerin",
+    "ökonom", "ökonomin",
+    "epidemiologe", "epidemiologin",
+    "virologe", "virologin",
+    "islamwissenschaftler", "islamwissenschaftlerin",
+    "terrorismusexperte", "terrorismusexpertin",
+    "extremismusforscher", "extremismusforscherin",
+    "verfassungsrechtler", "verfassungsrechtlerin",
+    "jurist", "juristin", "rechtsanwalt", "rechtsanwältin",
+    "kriminologe", "kriminologin",
+    # Medien
+    "journalist", "journalistin",
+    "reporter", "reporterin",
+    "korrespondent", "korrespondentin",
+    "auslandskorrespondent", "auslandskorrespondentin",
+    "moderator", "moderatorin",
+    "redakteur", "redakteurin",
+    "chefredakteur", "chefredakteurin",
+    "kommentator", "kommentatorin",
+    "kolumnist", "kolumnistin",
+    "publizist", "publizistin",
+    # Wirtschaft
+    "unternehmer", "unternehmerin",
+    "manager", "managerin",
+    "geschäftsführer", "geschäftsführerin",
+    "vorstand",  # als Rolle
+    "gründer", "gründerin",
+    # Zivilgesellschaft / sonstige Rollen
+    "aktivist", "aktivistin",
+    "sprecher", "sprecherin",
+    "autor", "autorin",
+    "schriftsteller", "schriftstellerin",
+    "buchautor", "buchautorin",
+    "arzt", "ärztin",
+    "chefarzt", "chefärztin",
+    "mitglied",  # "Mitglied des Bundestages" etc.
+    # Häufige Eigennamen-Artefakte in Rollenfeldern
+    "auswärtigen",  # "Auswärtiges Amt" erscheint als Rollenterm
+})
 
 
 TITLES_RE = re.compile(r"\b(prof\.?\s*dr\.?|prof\.?|dr\.|dipl\.-\w+|md[bpl]|mdep|ra|ll\.?m\.?|ma|mba|ba|bsc|msc|phd|a\.d\.|i\.r\.)\b", re.IGNORECASE)
@@ -158,13 +249,24 @@ def _is_party_or_org_only(s: str) -> bool:
     fold = _fold(s.lower())
     return fold in PARTY_ALIASES or fold in MEDIA_ORG
 
+_ROLE_BOILERPLATE = {
+    # Scraping-Artefakte von fernsehserien.de
+    "um nichts mehr zu verpassen.",
+    "um nichts mehr zu verpassen",
+    "jetzt abonnieren",
+    "newsletter abonnieren",
+}
+
 def _normalize_role(role: str) -> str | None:
     if role is None or (isinstance(role, float) and pd.isna(role)):
         return None
     r = _nfkc(_normalize_quotes(str(role))).strip()
     r = re.sub(r"\s+", " ", r)
     # short role junk
-    if r.lower() in {"gast","gäste","thema","talk","talkshow"}: 
+    if r.lower() in {"gast","gäste","thema","talk","talkshow"}:
+        return None
+    # Scraping-Artefakte
+    if r.lower() in _ROLE_BOILERPLATE:
         return None
     if _is_party_or_org_only(r):
         return None
@@ -206,7 +308,7 @@ def _clean_name_core(raw: str) -> str:
     s = URL_RE.sub(" ", s)
     s = re.sub(r"\s*[\(\[\{<].*?[\)\]\}>]\s*", " ", s)             # drop (...) blocks
     s = TITLES_RE.sub(" ", s)                                      # drop titles
-    s = re.split(r"\s+(?:–|—|als|,|-)\s+", s, maxsplit=1)[0]      # cut after comma/dash tail, but not for intra-word hyphens
+    s = re.split(r"(?:\s+(?:–|—|als|-)\s+|,\s+)", s, maxsplit=1)[0]  # cut after dash/comma tail; comma split ohne führendes Leerzeichen
     s = re.sub(r"\s+", " ", s).strip()
     s = re.sub(r"[)\]}>]+$", "", s).strip()
     return s
@@ -308,18 +410,7 @@ def clean_guest_rows(df: pd.DataFrame,
 # 4) DESCRIPTION CLEANING (for topic labels)
 # ==============================
 
-# NLP cleaning deps
-try:
-    import spacy
-    nlp_de = spacy.load("de_core_news_md", disable=["parser", "ner"])
-except Exception:
-    try:
-        import spacy
-        nlp_de = spacy.load("de_core_news_sm", disable=["parser", "ner"])
-        print("Using spaCy 'sm' model. For better lemmatization run: python -m spacy download de_core_news_md")
-    except Exception:
-        nlp_de = None
-        print("spaCy German model not available; proceeding without lemmatization.")
+# nlp_de / _NLP_DE werden beim Modulstart oben einmalig geladen (siehe Zeile ~38).
 
 @lru_cache(maxsize=None)
 def get_german_stopwords() -> set[str]:
@@ -417,6 +508,7 @@ def clean_description_for_labels(text: str, cfg: LiteConfig = LiteConfig()) -> s
 
     # No spaCy available → simple fallback: lowercase + token filter
     stop = get_german_stopwords()
+    stop.update(TOPIC_ROLE_STOP)
     if _NLP_DE is None:
         toks = [t for t in TOKEN_RE.findall(s.lower())
                 if len(t) >= 2 and t not in stop]
@@ -434,6 +526,9 @@ def clean_description_for_labels(text: str, cfg: LiteConfig = LiteConfig()) -> s
             continue
         lemma = (t.lemma_ or t.text).lower().strip("._:;,'\"()[]!?-")
         if not lemma or lemma in stop or len(lemma) < 2:
+            continue
+        # Rollenbezeichnungen aus Topic-Labels heraushalten
+        if lemma in TOPIC_ROLE_STOP:
             continue
         toks.append(lemma)
     return " ".join(toks)
@@ -491,6 +586,9 @@ def _filter_topic_terms(terms_by_topic: dict[int, list[tuple[str, float]]]) -> d
             if not lemmas:
                 continue
             if all(l in LOW_INFORMATION_LEMMAS for l in lemmas):
+                continue
+            # Rollenbezeichnungen rausfiltern (z.B. "Außenpolitiker", "Vorsitzende")
+            if any(l in TOPIC_ROLE_STOP for l in lemmas):
                 continue
             key = lemmas
             if key in seen_keys:

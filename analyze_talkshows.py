@@ -13,10 +13,12 @@ import re
 import unicodedata
 from pathlib import Path
 from typing import Dict, Optional, List, Any
+from functools import lru_cache
 
 from scrape_talkshows import load_json_file, save_json_file
 from nlp_utils import clean_guest_rows, clean_description_for_labels, _dedupe_topic_terms, _filter_topic_terms, get_german_stopwords
 from guest_classification import add_classification_columns
+from guest_classification_embedding import build_prototype_embeddings, apply_embedding_fallback
 
 try:
     from pyvis.network import Network
@@ -31,31 +33,6 @@ except Exception:
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
 
-# Load data
-def load_json_file(filepath):
-    """Loads data from a JSON file.
-
-    Args:
-        filepath: The path to the JSON file.
-
-    Returns:
-        The loaded JSON data as a Python dictionary or list, or None if 
-        an error occurs during loading.
-    """
-    try:
-        with open(filepath, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-        return data
-    except FileNotFoundError:
-        print(f"Error: File not found at {filepath}")
-        return []
-    except json.JSONDecodeError:
-        print(f"Error: Invalid JSON format in {filepath}")
-        return []
-    except Exception as e:  # Catch other potential errors
-        print(f"An unexpected error occurred: {e}")
-        return []
-
 def clean_str(text):
     if text is not None:
         text = text.strip()
@@ -65,20 +42,26 @@ def clean_str(text):
         text=""
     return text
 
-def manual_name_corrections(name):
-    """Applies manual name corrections from a mapping file."""
+@lru_cache(maxsize=1)
+def _load_name_corrections() -> dict:
+    """Loads name corrections from JSON file. Cached to avoid repeated file I/O."""
     corrections_path = DATA_DIR / "name_corrections.json"
     if not corrections_path.exists():
         print("Warning: name_corrections.json not found. Skipping manual corrections.")
-        return name
+        return {}
 
     name_corrections = load_json_file(corrections_path)
-    # Ensure that the loaded data is a dictionary before using .get()
+    # Ensure that the loaded data is a dictionary
     if isinstance(name_corrections, dict):
-        return name_corrections.get(name, name)
-    
-    # If not a dict (e.g., file was empty or malformed), return original name
-    return name
+        return name_corrections
+
+    # If not a dict (e.g., file was empty or malformed), return empty dict
+    return {}
+
+def manual_name_corrections(name):
+    """Applies manual name corrections from a cached mapping file."""
+    corrections = _load_name_corrections()
+    return corrections.get(name, name)
 
 def prepare_guest_dataframe(all_data):
     """Extracts guests from all shows and prepares a DataFrame."""
@@ -123,20 +106,21 @@ def consolidate_guests(df_cleaned_guests: pd.DataFrame) -> pd.DataFrame:
         unique_parties = {p for p in parties if pd.notna(p)}
         if not unique_parties: return None
         if len(unique_parties) == 1: return unique_parties.pop()
-        
+
         # Prioritize specific parties if present
         if "BSW" in unique_parties:
             return "BSW"
         if "parteilos" in unique_parties:
             return "parteilos"
-        
+
         # Fallback to the most frequent party
-        return pd.Series(list(parties)).mode().iloc[0]
+        mode_series = pd.Series(list(parties)).mode()
+        return mode_series.iloc[0] if not mode_series.empty else None
 
     # Group by the cleaned name and aggregate other columns
     df_consolidated = df_cleaned_guests.groupby("name_clean").agg(
-        party_norm=('party', consolidate_party),
-        role_clean=('role', lambda x: list(x.dropna().unique())),
+        party_norm=('party_norm', consolidate_party),
+        role_clean=('role_clean', lambda x: list(x.dropna().unique())),
         description=('description', lambda x: list(x.dropna().unique())),
         uid=('uid', lambda x: list(x.dropna().unique())),
         Talkshow=('Talkshow', lambda x: list(x.dropna().unique())),
@@ -145,6 +129,93 @@ def consolidate_guests(df_cleaned_guests: pd.DataFrame) -> pd.DataFrame:
 
     return df_consolidated
 
+
+def _prepare_static_network_view(
+    G: nx.Graph,
+    *,
+    min_edge_weight: int = 2,
+    max_nodes: int = 120,
+) -> nx.Graph:
+    """Reduce a dense guest graph to a readable static subset."""
+    if G.number_of_nodes() == 0:
+        return nx.Graph()
+
+    def _graph_for_threshold(threshold: float) -> nx.Graph:
+        H = nx.Graph()
+        H.add_nodes_from(G.nodes(data=True))
+        H.add_edges_from(
+            (u, v, data)
+            for u, v, data in G.edges(data=True)
+            if float(data.get("weight", 1)) >= float(threshold)
+        )
+        H.remove_nodes_from(list(nx.isolates(H)))
+        return H
+
+    edge_weights = sorted(
+        {
+            float(data.get("weight", 1))
+            for _, _, data in G.edges(data=True)
+            if float(data.get("weight", 1)) >= float(min_edge_weight)
+        }
+    )
+
+    if edge_weights:
+        H = _graph_for_threshold(edge_weights[0])
+        for threshold in edge_weights[1:]:
+            if H.number_of_nodes() <= max_nodes:
+                break
+            candidate = _graph_for_threshold(threshold)
+            if candidate.number_of_nodes() == 0:
+                break
+            H = candidate
+    else:
+        H = G.copy()
+
+    if H.number_of_edges() > 0:
+        largest_component = max(nx.connected_components(H), key=len)
+        H = H.subgraph(largest_component).copy()
+
+    if H.number_of_nodes() > max_nodes:
+        ranked_nodes = sorted(
+            H.nodes(),
+            key=lambda node: (
+                -float(H.nodes[node].get("appearances", 0)),
+                -float(H.degree(node, weight="weight")),
+                str(node),
+            ),
+        )
+        H = H.subgraph(ranked_nodes[:max_nodes]).copy()
+
+    return H
+
+
+def _detect_graph_communities(G: nx.Graph) -> dict[str, int]:
+    """Assign each node to a community for coloring."""
+    if G.number_of_nodes() == 0:
+        return {}
+    if G.number_of_edges() == 0:
+        return {node: idx for idx, node in enumerate(G.nodes())}
+
+    communities = nx.algorithms.community.greedy_modularity_communities(G, weight="weight")
+    mapping: dict[str, int] = {}
+    for idx, community in enumerate(communities):
+        for node in community:
+            mapping[node] = idx
+    return mapping
+
+
+def _select_label_nodes(G: nx.Graph, *, top_n: int = 30) -> list[str]:
+    """Return the most important nodes to label in a static plot."""
+    ranked = sorted(
+        G.nodes(),
+        key=lambda node: (
+            -float(G.nodes[node].get("appearances", 0)),
+            -float(G.degree(node, weight="weight")),
+            str(node),
+        ),
+    )
+    return ranked[:top_n]
+
 def visualize_network(
     G,
     df_guests=None,
@@ -152,10 +223,12 @@ def visualize_network(
     seed=42,
     figsize=(12, 9),
     output_path: Optional[Path | str] = None,
+    min_edge_weight: int = 2,
+    max_nodes: int = 120,
+    label_top_n: int = 18,
 ):
     """
-    Draw a co-occurrence graph with nodes colored by the 'topic_range' node attribute.
-    Adds a colorbar safely (on the same Axes) when topic_range exists and varies.
+    Draw a curated static co-occurrence graph.
 
     Args:
         G: networkx.Graph with optional node attr 'topic_range'
@@ -164,83 +237,67 @@ def visualize_network(
         seed: random seed for layouts that support it
         figsize: figure size
     """
+    H = _prepare_static_network_view(G, min_edge_weight=min_edge_weight, max_nodes=max_nodes)
+    if H.number_of_nodes() == 0:
+        print("Guest network empty after filtering; skipping static visualization.")
+        return
+
     # ---- positions
     if layout == "spring":
-        pos = nx.spring_layout(G, seed=seed, k=None)
+        spring_k = max(0.35, 2.2 / np.sqrt(max(H.number_of_nodes(), 1)))
+        pos = nx.spring_layout(H, seed=seed, k=spring_k, iterations=300, weight="weight")
     elif layout == "kamada_kawai":
-        pos = nx.kamada_kawai_layout(G)
+        pos = nx.kamada_kawai_layout(H, weight="weight")
     elif layout == "fr":
-        pos = nx.fruchterman_reingold_layout(G, seed=seed)
+        pos = nx.fruchterman_reingold_layout(H, seed=seed)
     elif layout == "spectral":
-        pos = nx.spectral_layout(G)
+        pos = nx.spectral_layout(H)
     elif layout == "circular":
-        pos = nx.circular_layout(G)
+        pos = nx.circular_layout(H)
     else:
-        pos = nx.spring_layout(G, seed=seed)
+        pos = nx.spring_layout(H, seed=seed, weight="weight")
 
-    # ---- node sizes (optional): degree-based
-    deg = dict(G.degree())
-    node_sizes = [300 + 30 * deg.get(n, 0) for n in G.nodes()]
+    # ---- node sizes: emphasize frequent guests
+    appearances = nx.get_node_attributes(H, "appearances")
+    deg = dict(H.degree())
+    node_sizes = [160 + 35 * np.sqrt(max(appearances.get(n, deg.get(n, 1)), 1)) for n in H.nodes()]
 
-    # ---- node colors from 'topic_range'
-    tr_vals = [G.nodes[n].get("topic_range", None) for n in G.nodes()]
-    has_tr = any(v is not None for v in tr_vals)
-
-    # default gray if no topic_range
-    node_color = "#A0A0A0"
-    cmap = mpl.cm.viridis
-    norm = None
-    color_array = None
-
-    if has_tr:
-        # Replace None with np.nan to compute min/max safely
-        arr = np.array([np.nan if v is None else float(v) for v in tr_vals], dtype=float)
-        finite = arr[np.isfinite(arr)]
-        if finite.size >= 1:
-            vmin = float(np.nanmin(arr))
-            vmax = float(np.nanmax(arr))
-            if vmin == vmax:
-                # Constant color map: avoid singular norm by widening range a bit
-                vmin, vmax = vmin - 0.5, vmax + 0.5
-            norm = mpl.colors.Normalize(vmin=vmin, vmax=vmax)
-            color_array = arr
-        else:
-            has_tr = False  # all NaN -> fall back to default gray
+    # ---- node colors by community for a cleaner static view
+    communities = _detect_graph_communities(H)
+    community_cmap = mpl.colormaps.get_cmap("tab20").resampled(
+        max(len(set(communities.values())), 1)
+    )
+    node_colors = [community_cmap(communities.get(node, 0)) for node in H.nodes()]
 
     # ---- draw
     fig, ax = plt.subplots(figsize=figsize)
     ax.set_axis_off()
 
-    # edges: light gray
-    nx.draw_networkx_edges(G, pos, ax=ax, alpha=0.25)
+    edge_widths = [0.35 + 0.45 * float(data.get("weight", 1)) for _, _, data in H.edges(data=True)]
+    nx.draw_networkx_edges(H, pos, ax=ax, alpha=0.18, edge_color="#7f8c8d", width=edge_widths)
 
-    # nodes
-    if has_tr and color_array is not None:
-        # Map NaNs (if any) to a neutral color by replacing with midpoint
-        midpoint = (norm.vmin + norm.vmax) / 2.0
-        color_array = np.where(np.isfinite(color_array), color_array, midpoint)
-        nodes = nx.draw_networkx_nodes(
-            G, pos, ax=ax,
-            node_color=color_array, cmap=cmap, vmin=norm.vmin, vmax=norm.vmax,
-            node_size=node_sizes, linewidths=0.5, edgecolors="white"
-        )
-    else:
-        nodes = nx.draw_networkx_nodes(
-            G, pos, ax=ax,
-            node_color=node_color, node_size=node_sizes,
-            linewidths=0.5, edgecolors="white"
-        )
+    nx.draw_networkx_nodes(
+        H,
+        pos,
+        ax=ax,
+        node_color=node_colors,
+        node_size=node_sizes,
+        linewidths=0.7,
+        edgecolors="white",
+        alpha=0.95,
+    )
 
-    # labels (optional; comment out if cluttered)
-    nx.draw_networkx_labels(G, pos, ax=ax, font_size=9)
-
-    # ---- colorbar: only if we actually colored by topic_range
-    if has_tr and norm is not None:
-        sm = mpl.cm.ScalarMappable(cmap=cmap, norm=norm)
-        # set_array is needed in older Matplotlib to enable colorbar scale
-        sm.set_array([])
-        cbar = fig.colorbar(sm, ax=ax, shrink=0.6, pad=0.02)
-        cbar.set_label("Guest Topic Range")
+    label_nodes = _select_label_nodes(H, top_n=label_top_n)
+    label_pos = {node: pos[node] for node in label_nodes if node in pos}
+    nx.draw_networkx_labels(
+        H,
+        label_pos,
+        labels={node: node for node in label_nodes},
+        ax=ax,
+        font_size=8,
+        font_weight="medium",
+        bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.65, "pad": 0.15},
+    )
 
     fig.tight_layout()
     if output_path:
@@ -248,8 +305,8 @@ def visualize_network(
         out_path.parent.mkdir(parents=True, exist_ok=True)
         fig.savefig(out_path, dpi=300)
         print(f"Guest network saved to {out_path}")
-
-    plt.show()
+    else:
+        plt.show()
     plt.close(fig)
 
 def export_interactive_network(
@@ -261,6 +318,10 @@ def export_interactive_network(
     physics: bool = True,
     height: str = "800px",
     width: str = "100%",
+    min_edge_weight: int | None = None,
+    max_nodes: int | None = None,
+    label_top_n: int | None = None,
+    community_colors: bool = False,
 ) -> None:
     """Save an interactive PyVis network if the dependency is available."""
     if not _PYVIS_AVAILABLE or Network is None:
@@ -270,15 +331,79 @@ def export_interactive_network(
     path = Path(filepath)
     path.parent.mkdir(parents=True, exist_ok=True)
 
-    net = Network(height=height, width=width, bgcolor="#ffffff", font_color="#2b2b2b", directed=G.is_directed())
+    H = G
+    if min_edge_weight is not None or max_nodes is not None:
+        H = _prepare_static_network_view(
+            G,
+            min_edge_weight=min_edge_weight or 1,
+            max_nodes=max_nodes or G.number_of_nodes(),
+        )
+
+    net = Network(height=height, width=width, bgcolor="#ffffff", font_color="#2b2b2b", directed=H.is_directed())
     if physics:
         net.barnes_hut()
     else:
         net.toggle_physics(False)
 
-    tooltip_labels = tooltip_labels or {}
+    net.set_options(
+        """
+        {
+          "interaction": {
+            "hover": true,
+            "tooltipDelay": 120,
+            "navigationButtons": true,
+            "keyboard": true
+          },
+          "nodes": {
+            "shape": "dot",
+            "font": {
+              "size": 18,
+              "face": "Arial"
+            },
+            "scaling": {
+              "min": 10,
+              "max": 40
+            }
+          },
+          "edges": {
+            "smooth": false,
+            "color": {
+              "inherit": false,
+              "color": "#c7d1db",
+              "highlight": "#7f8c8d"
+            },
+            "scaling": {
+              "min": 1,
+              "max": 8
+            }
+          },
+          "physics": {
+            "enabled": true,
+            "barnesHut": {
+              "gravitationalConstant": -3500,
+              "centralGravity": 0.12,
+              "springLength": 165,
+              "springConstant": 0.02,
+              "damping": 0.88,
+              "avoidOverlap": 1
+            },
+            "minVelocity": 0.75
+          }
+        }
+        """
+    )
 
-    for node, data in G.nodes(data=True):
+    tooltip_labels = tooltip_labels or {}
+    label_nodes = set(_select_label_nodes(H, top_n=label_top_n or H.number_of_nodes()))
+    communities = _detect_graph_communities(H) if community_colors else {}
+    if communities:
+        community_cmap = mpl.colormaps.get_cmap("tab20").resampled(
+            max(len(set(communities.values())), 1)
+        )
+    else:
+        community_cmap = None
+
+    for node, data in H.nodes(data=True):
         tooltip_lines = [str(node)]
         for key, label in tooltip_labels.items():
             val = data.get(key)
@@ -293,17 +418,23 @@ def export_interactive_network(
                 node_value = float(val)
 
         if node_value is None:
-            deg = G.degree(node)
+            deg = H.degree(node)
             node_value = float(deg if deg > 0 else 1.0)
+
+        color = None
+        if community_cmap is not None:
+            rgba = community_cmap(communities.get(node, 0))
+            color = mpl.colors.to_hex(rgba)
 
         net.add_node(
             node,
-            label=str(node),
+            label=str(node) if node in label_nodes else "",
             title="<br>".join(tooltip_lines),
             value=node_value,
+            color=color,
         )
 
-    for source, target, edge_data in G.edges(data=True):
+    for source, target, edge_data in H.edges(data=True):
         weight = edge_data.get("weight", 1)
         try:
             weight_val = float(weight)
@@ -640,7 +771,7 @@ def tune_bertopic_hyperparameters(
                 best_params = row.copy()
 
         except Exception as e:
-            print(f" -> Error: {e}")
+            print(f" -> Error in parameter combination {params}: {type(e).__name__}: {e}")
 
     if not results:
         print("No successful runs.")
@@ -714,66 +845,8 @@ def analyze_and_visualize_topics(
     except Exception:
         KeyBERTInspired = None
 
-    def _auto_device() -> str:
-        try:
-            import torch
-            if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
-                return "mps"
-            if torch.cuda.is_available():
-                return "cuda"
-        except Exception:
-            pass
-        return "cpu"
-
-    def _get_embedder(model_name: str, device: Optional[str] = None):
-        import torch
-        device = device or _auto_device()
-
-        def _load(dev: str, dtype=None):
-            kwargs = {}
-            if dtype is not None:
-                kwargs["model_kwargs"] = {"torch_dtype": dtype}
-            model = SentenceTransformer(model_name, device=dev, **kwargs)
-            try:
-                model.max_seq_length = min(getattr(model, "max_seq_length", 512), 256)
-            except Exception:
-                pass
-            return model
-
-        try:
-            if device == "mps":
-                return _load("mps", dtype=torch.float16), "mps"
-            if device == "cuda":
-                dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
-                return _load("cuda", dtype=dtype), "cuda"
-            return _load("cpu", dtype=None), "cpu"
-        except RuntimeError:
-            return _load("cpu", dtype=None), "cpu"
-
-    def _embed_texts(embedder, texts: List[str], batch_size: int = 64):
-        def _try(bs: int):
-            return embedder.encode(
-                texts,
-                batch_size=bs,
-                convert_to_numpy=True,
-                normalize_embeddings=True,
-                show_progress_bar=True
-            )
-        try:
-            return _try(batch_size)
-        except RuntimeError as e:
-            if "out of memory" not in str(e).lower():
-                raise
-        for bs in [32, 16, 8, 4, 2, 1]:
-            try:
-                return _try(bs)
-            except RuntimeError as e:
-                if "out of memory" not in str(e).lower():
-                    raise
-        embedder.to("cpu")
-        return _try(16)
-
-
+    # _auto_device, _get_embedder, _embed_texts sind auf Modulebene definiert
+    # und werden hier direkt genutzt (keine Duplikate nötig).
 
     # ----------------------- data prep -----------------------
     if text_col not in df.columns:
@@ -870,14 +943,14 @@ def analyze_and_visualize_topics(
         deduped = _dedupe_topic_terms(topics_dict, keep_n=10)
         filtered_repr = _filter_topic_terms(deduped)
 
-        # Write back deduped representations if supported; otherwise we’ll just set labels
+        # Write back deduped representations if supported; otherwise we'll just set labels
         wrote_reprs = False
         if hasattr(topic_model, "set_topic_representations"):
             try:
                 topic_model.set_topic_representations(filtered_repr)
                 wrote_reprs = True
-            except Exception as _:
-                pass
+            except Exception as e:
+                print(f"Warning: Could not set topic representations: {type(e).__name__}: {e}")
 
         # Build clean labels: prefer the longest phrase available
         labels = {}
@@ -889,9 +962,8 @@ def analyze_and_visualize_topics(
 
         try:
             topic_model.set_topic_labels(labels)
-        except Exception as _:
-            # If setting labels fails on your version, we’ll fall back to Name-based mapping below
-            pass
+        except Exception as e:
+            print(f"Warning: Could not set topic labels: {type(e).__name__}: {e}")
 
     except Exception as e:
         print("Label refinement skipped:", e)
@@ -916,6 +988,24 @@ def analyze_and_visualize_topics(
     model_path = data_dir / "talkshow_topic_model"
     topic_model.save(str(model_path), serialization="safetensors")
     print(f"Topic model saved to {model_path}")
+    # Überschreibe die von topic_model.save() gespeicherten Repräsentationen mit
+    # unseren bereinigten (Rollenfilter + Dedupe), damit topics.json die finalen
+    # Labels enthält statt der rohen KeyBERTInspired-Ausgabe.
+    try:
+        saved_topics_path = model_path / "topics.json"
+        if saved_topics_path.exists():
+            import json as _json
+            with open(saved_topics_path, encoding="utf-8") as _f:
+                _saved = _json.load(_f)
+            _saved["topic_representations"] = {
+                str(tid): [(w, float(s)) for w, s in terms]
+                for tid, terms in filtered_repr.items()
+            }
+            with open(saved_topics_path, "w", encoding="utf-8") as _f:
+                _json.dump(_saved, _f, ensure_ascii=False, indent=2)
+            print("topics.json mit bereinigten Repräsentationen (Rollenfilter + Dedupe) überschrieben.")
+    except Exception as _e:
+        print(f"Warning: Konnte topics.json nicht nachträglich aktualisieren: {_e}")
 
     out_df = df.copy()
     if uid_col and uid_col in df.columns and uid_col in docs_df.columns:
@@ -1009,9 +1099,18 @@ def analyze_and_visualize_topics(
 
     return out_df
 
-def main():
-    """Main function to run the analysis."""
-    # Load all data
+
+############################################
+# 3) Main pipeline helper functions
+############################################
+
+def load_all_show_data() -> tuple[list[dict], pd.DataFrame]:
+    """
+    Load all show data from JSON files and prepare initial DataFrame.
+
+    Returns:
+        tuple: (all_data, df) where all_data is the raw list of dicts and df is the DataFrame
+    """
     show_files = [
         "AnneWill_data.json", "CarenMiosga_data.json", "HartAberFair_data.json",
         "MarkusLanz_data.json", "Maischberger_data.json", "Illner_data.json"
@@ -1024,65 +1123,107 @@ def main():
     all_data = [dat for dat in all_data if dat is not None]
 
     df = pd.DataFrame(all_data)
-    df['description'] = df['description'].fillna('') # Ensure no NaN in description
-    df_guests = prepare_guest_dataframe(all_data)
+    df['description'] = df['description'].fillna('')  # Ensure no NaN in description
 
-    # --- Optional: Hyperparameter Tuning for BERTopic ---
-    # This is a long-running process to help find optimal parameters.
-    # Run this separately and then update the parameters in analyze_and_visualize_topics.
+    return all_data, df
+
+
+def get_or_tune_parameters(df: pd.DataFrame, model_name: str = "intfloat/multilingual-e5-base") -> Optional[Dict[str, Any]]:
+    """
+    Load existing BERTopic parameters or run hyperparameter tuning if needed.
+
+    Args:
+        df: DataFrame with description column
+        model_name: SentenceTransformer model name
+
+    Returns:
+        dict: Best parameters, or None if tuning fails
+    """
     best_params = load_json_file(DATA_DIR / "best_parameters.json")
     descriptions = df['description'].tolist()
-    if (
-        not best_params or
-        best_params.get("document_count", 0) < 0.8 * len(descriptions)
-    ):
+
+    # Retune if params don't exist or document count has grown significantly
+    if not best_params or best_params.get("document_count", 0) < 0.8 * len(descriptions):
         print("\nNo valid best parameters found or insufficient document count. Starting hyperparameter tuning...")
-        best_params = tune_bertopic_hyperparameters(df,model_name="intfloat/multilingual-e5-base")
+        best_params = tune_bertopic_hyperparameters(df, model_name=model_name)
+
     if best_params:
         save_json_file(DATA_DIR / "best_parameters.json", best_params)
-        print(f"Successfully saved best parameters to {DATA_DIR / "best_parameters.json"}")
-    # --- End Optional Tuning ---
+        print(f"Successfully saved best parameters to {DATA_DIR / 'best_parameters.json'}")
 
-    # --- Topic Modeling ---
-    if best_params:
-        print("\nUsing best parameters from tuning for topic modeling.")
-        df_with_topics = analyze_and_visualize_topics(df, best_params=best_params)
-    else:
-        df_with_topics = analyze_and_visualize_topics(df)
-    # --- End Topic Modeling ---
+    return best_params
 
-    # --- Guest Analysis ---
+
+def perform_guest_analysis(
+    all_data: list[dict],
+    df_with_topics: pd.DataFrame,
+    model_name: str = "intfloat/multilingual-e5-base",
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """
+    Perform guest analysis: clean, consolidate, categorize, and merge with topics.
+
+    Args:
+        all_data:     Raw episode data with guests
+        df_with_topics: DataFrame with topic assignments
+        model_name:   SentenceTransformer model for embedding-based fallback
+
+    Returns:
+        tuple: (df_guests_with_topics, df_cleaned, df_consolidated)
+    """
+    print("\n--- Guest Analysis ---")
+
+    # Prepare and clean guest data
     df_guests = prepare_guest_dataframe(all_data)
-    df_cleaned, df_junk = clean_guest_rows(df_guests, name_col="name", role_col="role", party_col="party", show_col="Talkshow")
-    
+    df_cleaned, df_junk = clean_guest_rows(
+        df_guests,
+        name_col="name",
+        role_col="role",
+        party_col="party",
+        show_col="Talkshow"
+    )
+
     # Consolidate to one row per unique guest
     df_consolidated = consolidate_guests(df_cleaned)
 
-    # Rename the 'name_clean' column to 'name' for consistency in downstream analysis
+    # Rename the 'name_clean' column to 'name' for consistency
     if 'name_clean' in df_consolidated.columns:
         df_consolidated.rename(columns={'name_clean': 'name'}, inplace=True)
-        
-    # Add guest categorization
-    df_categorized = add_classification_columns(df_consolidated, role_col="role")
+
+    # Schritt 1: Regelbasierte Klassifizierung
+    df_categorized = add_classification_columns(df_consolidated)
+
+    # Schritt 2: Embedding-Fallback für Gäste ohne Regelkategorie
+    try:
+        embedder, _ = _get_embedder(model_name)
+        embed_fn = lambda texts: _embed_texts(embedder, texts)
+        prototype_embeddings = build_prototype_embeddings(embed_fn)
+        df_categorized = apply_embedding_fallback(
+            df_categorized,
+            embed_fn,
+            prototype_embeddings,
+            role_col="role_clean",
+            desc_col="description",
+        )
+    except Exception as e:
+        print(f"[embedding-fallback] Nicht verfügbar, überspringe: {e}")
 
     # Save guest data to Excel files
-    consolidated_filename = DATA_DIR / 'guests_consolidated.xlsx'
-    df_consolidated.to_excel(consolidated_filename, index=False)
-    print(f"Consolidated guest list saved to {consolidated_filename}")
-    
-    cleaned_filename = DATA_DIR / 'guests_cleaned.xlsx'
-    df_cleaned.to_excel(cleaned_filename, index=False)
-    print(f"Cleaned guest list saved to {cleaned_filename}")
+    df_categorized.to_excel(DATA_DIR / 'guests_consolidated.xlsx', index=False)
+    print(f"Consolidated guest list saved to {DATA_DIR / 'guests_consolidated.xlsx'}")
 
-    junk_filename = DATA_DIR / 'guests_junk.xlsx'
-    df_junk.to_excel(junk_filename, index=False)
-    print(f"Junk guest list saved to {junk_filename}")
+    df_cleaned.to_excel(DATA_DIR / 'guests_cleaned.xlsx', index=False)
+    print(f"Cleaned guest list saved to {DATA_DIR / 'guests_cleaned.xlsx'}")
+
+    df_junk.to_excel(DATA_DIR / 'guests_junk.xlsx', index=False)
+    print(f"Junk guest list saved to {DATA_DIR / 'guests_junk.xlsx'}")
 
     # Merge guest data with topic data for integrated analysis
-    # We use df_cleaned here as it still has the original 'uid' for merging
-    df_guests_with_topics = pd.merge(df_cleaned, df_with_topics[['uid', 'topic', 'topic_label']], on='uid', how='left')
-    df_guests_with_topics.to_excel(DATA_DIR / "guests_with_topics.xlsx", index=False)
-    print(f"Detailed guest list with topics saved to {DATA_DIR / 'guests_with_topics.xlsx'}")
+    df_guests_with_topics = pd.merge(
+        df_cleaned,
+        df_with_topics[['uid', 'topic', 'topic_label']],
+        on='uid',
+        how='left'
+    )
 
     # Rename the 'name_clean' column to 'name' for consistency in downstream analysis
     if 'name_clean' in df_guests_with_topics.columns:
@@ -1090,20 +1231,37 @@ def main():
             df_guests_with_topics.drop(columns=['name'], inplace=True)
         df_guests_with_topics.rename(columns={'name_clean': 'name'}, inplace=True)
 
-    # --- New: Analyze Guest-Topic Connections ---
+    df_guests_with_topics.to_excel(DATA_DIR / "guests_with_topics.xlsx", index=False)
+    print(f"Detailed guest list with topics saved to {DATA_DIR / 'guests_with_topics.xlsx'}")
+
+    return df_guests_with_topics, df_cleaned, df_categorized
+
+
+def create_network_visualizations(df_guests_with_topics: pd.DataFrame) -> None:
+    """
+    Create and save guest co-occurrence network visualizations.
+
+    Args:
+        df_guests_with_topics: DataFrame with guest and topic information
+    """
+    print("\n--- Creating Network Visualizations ---")
+
+    # Analyze guest-topic connections (creates topic co-occurrence network)
     analyze_topic_guest_connections(df_guests_with_topics)
 
-    # --- Create and visualize the guest co-occurrence network ---
-    # Use the cleaned and topic-merged dataframe for consistency
+    # Create guest co-occurrence network
     grouped = df_guests_with_topics.groupby('Talkshow')['name'].apply(list)
-    edges = [edge for names in grouped for edge in itertools.combinations(sorted(list(set(names))), 2)]
+    edges = [
+        edge for names in grouped
+        for edge in itertools.combinations(sorted(list(set(names))), 2)
+    ]
     edge_counts = Counter(edges)
+
     G = nx.Graph()
     for edge, weight in edge_counts.items():
         G.add_edge(edge[0], edge[1], weight=weight)
-    
-    # Add topic range as a node attribute to the guest network.
-    # The names in G now match the names in valid_topics_df.
+
+    # Add topic range as a node attribute to the guest network
     valid_topics_df = df_guests_with_topics.dropna(subset=['topic_label'])
     valid_topics_df = valid_topics_df[valid_topics_df['topic'] != -1]
     guest_topic_range = valid_topics_df.groupby('name')['topic_label'].nunique()
@@ -1112,20 +1270,48 @@ def main():
     appearance_attr = df_guests_with_topics['name'].value_counts().to_dict()
     nx.set_node_attributes(G, appearance_attr, 'appearances')
 
+    # Visualize and export
     visualize_network(
         G,
         df_guests_with_topics,
         output_path=DATA_DIR / "cooccurrence_network.png",
     )
 
-    # Export the graph (optional)
     nx.write_gexf(G, DATA_DIR / "cooccurrence_network_with_weights.gexf")
     export_interactive_network(
         G,
         DATA_DIR / "cooccurrence_network.html",
         value_attr='appearances',
         tooltip_labels={'appearances': 'Auftritte', 'topic_range': 'Themenvielfalt'},
+        min_edge_weight=4,
+        max_nodes=120,
+        label_top_n=24,
+        community_colors=True,
     )
+
+
+def main():
+    """Main function to run the talkshow analysis pipeline."""
+    # 1. Load all show data
+    all_data, df = load_all_show_data()
+
+    # 2. Get or tune BERTopic parameters
+    best_params = get_or_tune_parameters(df)
+
+    # 3. Perform topic modeling
+    if best_params:
+        print("\nUsing best parameters from tuning for topic modeling.")
+        df_with_topics = analyze_and_visualize_topics(df, best_params=best_params)
+    else:
+        df_with_topics = analyze_and_visualize_topics(df)
+
+    # 4. Perform guest analysis (clean, consolidate, categorize, merge with topics)
+    df_guests_with_topics, df_cleaned, df_consolidated = perform_guest_analysis(
+        all_data, df_with_topics
+    )
+
+    # 5. Create network visualizations
+    create_network_visualizations(df_guests_with_topics)
 
 if __name__ == "__main__":
     main()

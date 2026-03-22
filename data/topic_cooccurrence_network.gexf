@@ -1,500 +1,608 @@
 <?xml version='1.0' encoding='utf-8'?>
 <gexf xmlns="http://www.gexf.net/1.2draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">
-  <meta lastmodifieddate="2025-09-24">
-    <creator>NetworkX 3.5</creator>
+  <meta lastmodifieddate="2026-03-22">
+    <creator>NetworkX 3.4.2</creator>
   </meta>
   <graph defaultedgetype="undirected" mode="static" name="">
     <attributes mode="static" class="node">
       <attribute id="0" title="num_guests" type="long" />
     </attributes>
     <nodes>
-      <node id="0 ukrainisch russisch putin auswärtig" label="0 ukrainisch russisch putin auswärtig">
+      <node id="0 ukrainisch deutsch russisch putin" label="0 ukrainisch deutsch russisch putin">
         <attvalues>
-          <attvalue for="0" value="455" />
+          <attvalue for="0" value="536" />
         </attvalues>
       </node>
-      <node id="1 generalsekretär politiker vorsitzender korrespondent" label="1 generalsekretär politiker vorsitzender korrespondent">
+      <node id="1 außenpolitiker generalsekretär politiker vorsitzender" label="1 außenpolitiker generalsekretär politiker vorsitzender">
         <attvalues>
-          <attvalue for="0" value="433" />
+          <attvalue for="0" value="430" />
         </attvalues>
       </node>
       <node id="10 mütterrente rentenpaket rentenversicherung grundrente" label="10 mütterrente rentenpaket rentenversicherung grundrente">
         <attvalues>
-          <attvalue for="0" value="202" />
+          <attvalue for="0" value="173" />
         </attvalues>
       </node>
-      <node id="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" label="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus">
+      <node id="11 islamist rechtsextrem terrorismus islamistisch" label="11 islamist rechtsextrem terrorismus islamistisch">
         <attvalues>
           <attvalue for="0" value="198" />
         </attvalues>
       </node>
-      <node id="12 abnehmen lebensmittel kochen diät" label="12 abnehmen lebensmittel kochen diät">
+      <node id="12 bundesfinanzminister währungsfonds griechisch finanzminister" label="12 bundesfinanzminister währungsfonds griechisch finanzminister">
         <attvalues>
-          <attvalue for="0" value="171" />
+          <attvalue for="0" value="118" />
         </attvalues>
       </node>
-      <node id="13 klimaschutz klimapolitik klimawandel bundesregierung" label="13 klimaschutz klimapolitik klimawandel bundesregierung">
+      <node id="13 lebensmittel kochen diät ernährung" label="13 lebensmittel kochen diät ernährung">
         <attvalues>
-          <attvalue for="0" value="217" />
+          <attvalue for="0" value="134" />
         </attvalues>
       </node>
-      <node id="14 bundesfinanzminister währungsfonds griechisch finanzminister" label="14 bundesfinanzminister währungsfonds griechisch finanzminister">
+      <node id="14 israelisch terrororganisation netanjahu gaza" label="14 israelisch terrororganisation netanjahu gaza">
         <attvalues>
-          <attvalue for="0" value="111" />
+          <attvalue for="0" value="139" />
         </attvalues>
       </node>
-      <node id="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" label="15 wohnungsbau mietwohnung wohnung wohnungsmarkt">
+      <node id="15 landtagswahl regierungsbildung regierungsverantwortung wählen" label="15 landtagswahl regierungsbildung regierungsverantwortung wählen">
         <attvalues>
-          <attvalue for="0" value="157" />
+          <attvalue for="0" value="135" />
         </attvalues>
       </node>
-      <node id="16 netanjahu israelisch terrororganisation gaza" label="16 netanjahu israelisch terrororganisation gaza">
+      <node id="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" label="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium">
         <attvalues>
-          <attvalue for="0" value="112" />
+          <attvalue for="0" value="114" />
         </attvalues>
       </node>
-      <node id="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" label="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz">
+      <node id="17 erziehen erziehungswissenschaftler erziehung jährige" label="17 erziehen erziehungswissenschaftler erziehung jährige">
         <attvalues>
-          <attvalue for="0" value="98" />
+          <attvalue for="0" value="99" />
         </attvalues>
       </node>
-      <node id="18 deutschtürke türkisch türkischer flüchtlingsabkommen" label="18 deutschtürke türkisch türkischer flüchtlingsabkommen">
+      <node id="18 nachhaltig umweltschutz klimawandel klimakrise" label="18 nachhaltig umweltschutz klimawandel klimakrise">
+        <attvalues>
+          <attvalue for="0" value="106" />
+        </attvalues>
+      </node>
+      <node id="19 deutschtürke türkisch türkischer flüchtlingsabkommen" label="19 deutschtürke türkisch türkischer flüchtlingsabkommen">
         <attvalues>
           <attvalue for="0" value="104" />
         </attvalues>
       </node>
-      <node id="19 brexit außenhandelsministerium europawahl britisch" label="19 brexit außenhandelsministerium europawahl britisch">
+      <node id="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" label="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff">
         <attvalues>
-          <attvalue for="0" value="116" />
+          <attvalue for="0" value="460" />
         </attvalues>
       </node>
-      <node id="2 covid impfpflicht inzidenz impfstoff" label="2 covid impfpflicht inzidenz impfstoff">
+      <node id="20 stimmungstest fußball stimmung zusammenführen" label="20 stimmungstest fußball stimmung zusammenführen">
         <attvalues>
-          <attvalue for="0" value="443" />
+          <attvalue for="0" value="93" />
         </attvalues>
       </node>
-      <node id="20 katholisch glauben kindesmissbrauch glaubensgemeinschaft" label="20 katholisch glauben kindesmissbrauch glaubensgemeinschaft">
-        <attvalues>
-          <attvalue for="0" value="70" />
-        </attvalues>
-      </node>
-      <node id="21 energiekrise energiepreis gaspreisbremse bundesregierung" label="21 energiekrise energiepreis gaspreisbremse bundesregierung">
-        <attvalues>
-          <attvalue for="0" value="66" />
-        </attvalues>
-      </node>
-      <node id="22 zuwanderung einbürgern sarrazin bundesbankvorstand" label="22 zuwanderung einbürgern sarrazin bundesbankvorstand">
-        <attvalues>
-          <attvalue for="0" value="80" />
-        </attvalues>
-      </node>
-      <node id="23 jährige fühlen früh letzter" label="23 jährige fühlen früh letzter">
-        <attvalues>
-          <attvalue for="0" value="62" />
-        </attvalues>
-      </node>
-      <node id="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" label="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin">
+      <node id="21 millionär vermögen privatinsolvenz betrüger" label="21 millionär vermögen privatinsolvenz betrüger">
         <attvalues>
           <attvalue for="0" value="55" />
         </attvalues>
       </node>
-      <node id="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" label="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat">
+      <node id="22 katholisch glauben kindesmissbrauch urchristlich" label="22 katholisch glauben kindesmissbrauch urchristlich">
         <attvalues>
-          <attvalue for="0" value="53" />
+          <attvalue for="0" value="70" />
         </attvalues>
       </node>
-      <node id="26 millionär vermögen privatinsolvenz betrüger" label="26 millionär vermögen privatinsolvenz betrüger">
+      <node id="23 fußballprofi fußballtrainer weltmeister fußball" label="23 fußballprofi fußballtrainer weltmeister fußball">
         <attvalues>
-          <attvalue for="0" value="33" />
+          <attvalue for="0" value="103" />
         </attvalues>
       </node>
-      <node id="27 haftstrafe töten umbringen totschlag" label="27 haftstrafe töten umbringen totschlag">
+      <node id="24 brexit außenhandelsministerium europawahl premierministerin" label="24 brexit außenhandelsministerium europawahl premierministerin">
+        <attvalues>
+          <attvalue for="0" value="101" />
+        </attvalues>
+      </node>
+      <node id="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" label="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose">
+        <attvalues>
+          <attvalue for="0" value="81" />
+        </attvalues>
+      </node>
+      <node id="26 themenwoche maischberger einzelgespräche einzelgespräch" label="26 themenwoche maischberger einzelgespräche einzelgespräch">
+        <attvalues>
+          <attvalue for="0" value="95" />
+        </attvalues>
+      </node>
+      <node id="27 zuwanderung einbürgern bundesbankvorstand sarrazin" label="27 zuwanderung einbürgern bundesbankvorstand sarrazin">
+        <attvalues>
+          <attvalue for="0" value="74" />
+        </attvalues>
+      </node>
+      <node id="28 klimaschutz innenpolitisch euroskeptisch wählen" label="28 klimaschutz innenpolitisch euroskeptisch wählen">
+        <attvalues>
+          <attvalue for="0" value="42" />
+        </attvalues>
+      </node>
+      <node id="29 haftstrafe töten umbringen totschlag" label="29 haftstrafe töten umbringen totschlag">
+        <attvalues>
+          <attvalue for="0" value="63" />
+        </attvalues>
+      </node>
+      <node id="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" label="3 bundestagswahl sozialdemokrat landtagswahl volkspartei">
+        <attvalues>
+          <attvalue for="0" value="300" />
+        </attvalues>
+      </node>
+      <node id="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" label="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf">
         <attvalues>
           <attvalue for="0" value="54" />
         </attvalues>
       </node>
-      <node id="28 themenwoche einzelgespräche einzelgespräch maischberger" label="28 themenwoche einzelgespräche einzelgespräch maischberger">
+      <node id="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" label="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl">
         <attvalues>
-          <attvalue for="0" value="79" />
+          <attvalue for="0" value="62" />
         </attvalues>
       </node>
-      <node id="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" label="3 bundestagswahl sozialdemokrat landtagswahl linkspartei">
+      <node id="4 energiekrise energiepreis klimaschutz energiewende" label="4 energiekrise energiepreis klimaschutz energiewende">
         <attvalues>
-          <attvalue for="0" value="318" />
+          <attvalue for="0" value="280" />
         </attvalues>
       </node>
-      <node id="4 bundestagswahl landtagswahl volkspartei bundespräsident" label="4 bundestagswahl landtagswahl volkspartei bundespräsident">
+      <node id="5 demenzkrank ärztlich medizin demenz" label="5 demenzkrank ärztlich medizin demenz">
         <attvalues>
-          <attvalue for="0" value="268" />
+          <attvalue for="0" value="277" />
         </attvalues>
       </node>
-      <node id="5 auswärtig außenpolitisch vizepräsident vorsitzend" label="5 auswärtig außenpolitisch vizepräsident vorsitzend">
+      <node id="6 bundesregierung politisch redaktionsnetzwerk kritisieren" label="6 bundesregierung politisch redaktionsnetzwerk kritisieren">
         <attvalues>
-          <attvalue for="0" value="281" />
+          <attvalue for="0" value="280" />
         </attvalues>
       </node>
-      <node id="6 ärztlich arzt chefarzt medizin" label="6 ärztlich arzt chefarzt medizin">
+      <node id="7 armutsbericht arbeitslose sozial arbeiten" label="7 armutsbericht arbeitslose sozial arbeiten">
+        <attvalues>
+          <attvalue for="0" value="285" />
+        </attvalues>
+      </node>
+      <node id="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" label="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung">
+        <attvalues>
+          <attvalue for="0" value="267" />
+        </attvalues>
+      </node>
+      <node id="9 auswärtig außenpolitisch politikberater vizepräsident" label="9 auswärtig außenpolitisch politikberater vizepräsident">
         <attvalues>
           <attvalue for="0" value="260" />
         </attvalues>
       </node>
-      <node id="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" label="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage">
-        <attvalues>
-          <attvalue for="0" value="270" />
-        </attvalues>
-      </node>
-      <node id="8 fußballprofi weltmeister fußball weltmeisterschaft" label="8 fußballprofi weltmeister fußball weltmeisterschaft">
-        <attvalues>
-          <attvalue for="0" value="270" />
-        </attvalues>
-      </node>
-      <node id="9 vermögen steuer steuererhöhung finanzkrise" label="9 vermögen steuer steuererhöhung finanzkrise">
-        <attvalues>
-          <attvalue for="0" value="240" />
-        </attvalues>
-      </node>
     </nodes>
     <edges>
-      <edge source="0 ukrainisch russisch putin auswärtig" target="1 generalsekretär politiker vorsitzender korrespondent" id="0" weight="153" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="10 mütterrente rentenpaket rentenversicherung grundrente" id="1" weight="33" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" id="2" weight="47" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="12 abnehmen lebensmittel kochen diät" id="3" weight="17" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="13 klimaschutz klimapolitik klimawandel bundesregierung" id="4" weight="59" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="14 bundesfinanzminister währungsfonds griechisch finanzminister" id="5" weight="36" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" id="6" weight="47" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="16 netanjahu israelisch terrororganisation gaza" id="7" weight="45" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" id="8" weight="43" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="18 deutschtürke türkisch türkischer flüchtlingsabkommen" id="9" weight="40" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="19 brexit außenhandelsministerium europawahl britisch" id="10" weight="38" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="2 covid impfpflicht inzidenz impfstoff" id="11" weight="122" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="20 katholisch glauben kindesmissbrauch glaubensgemeinschaft" id="12" weight="5" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="21 energiekrise energiepreis gaspreisbremse bundesregierung" id="13" weight="34" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="22 zuwanderung einbürgern sarrazin bundesbankvorstand" id="14" weight="16" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" id="15" weight="26" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" id="16" weight="22" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="26 millionär vermögen privatinsolvenz betrüger" id="17" weight="4" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="27 haftstrafe töten umbringen totschlag" id="18" weight="3" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="28 themenwoche einzelgespräche einzelgespräch maischberger" id="19" weight="27" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" id="20" weight="113" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="4 bundestagswahl landtagswahl volkspartei bundespräsident" id="21" weight="84" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="5 auswärtig außenpolitisch vizepräsident vorsitzend" id="22" weight="108" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="6 ärztlich arzt chefarzt medizin" id="23" weight="16" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="24" weight="86" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="25" weight="70" />
-      <edge source="0 ukrainisch russisch putin auswärtig" target="9 vermögen steuer steuererhöhung finanzkrise" id="26" weight="46" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="10 mütterrente rentenpaket rentenversicherung grundrente" id="27" weight="36" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" id="28" weight="44" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="12 abnehmen lebensmittel kochen diät" id="29" weight="18" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="13 klimaschutz klimapolitik klimawandel bundesregierung" id="30" weight="59" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="14 bundesfinanzminister währungsfonds griechisch finanzminister" id="31" weight="29" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" id="32" weight="42" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="16 netanjahu israelisch terrororganisation gaza" id="33" weight="41" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" id="34" weight="45" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="18 deutschtürke türkisch türkischer flüchtlingsabkommen" id="35" weight="29" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="19 brexit außenhandelsministerium europawahl britisch" id="36" weight="24" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="2 covid impfpflicht inzidenz impfstoff" id="37" weight="101" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="20 katholisch glauben kindesmissbrauch glaubensgemeinschaft" id="38" weight="5" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="21 energiekrise energiepreis gaspreisbremse bundesregierung" id="39" weight="31" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="22 zuwanderung einbürgern sarrazin bundesbankvorstand" id="40" weight="20" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" id="41" weight="42" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" id="42" weight="15" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="27 haftstrafe töten umbringen totschlag" id="43" weight="2" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="28 themenwoche einzelgespräche einzelgespräch maischberger" id="44" weight="17" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" id="45" weight="104" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="4 bundestagswahl landtagswahl volkspartei bundespräsident" id="46" weight="84" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="5 auswärtig außenpolitisch vizepräsident vorsitzend" id="47" weight="85" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="6 ärztlich arzt chefarzt medizin" id="48" weight="15" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="49" weight="67" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="50" weight="83" />
-      <edge source="1 generalsekretär politiker vorsitzender korrespondent" target="9 vermögen steuer steuererhöhung finanzkrise" id="51" weight="40" />
-      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" id="52" weight="11" />
-      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="12 abnehmen lebensmittel kochen diät" id="53" weight="11" />
-      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="13 klimaschutz klimapolitik klimawandel bundesregierung" id="54" weight="21" />
-      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="14 bundesfinanzminister währungsfonds griechisch finanzminister" id="55" weight="23" />
-      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" id="56" weight="23" />
-      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="16 netanjahu israelisch terrororganisation gaza" id="57" weight="13" />
-      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" id="58" weight="32" />
-      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="18 deutschtürke türkisch türkischer flüchtlingsabkommen" id="59" weight="10" />
-      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="19 brexit außenhandelsministerium europawahl britisch" id="60" weight="11" />
-      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="2 covid impfpflicht inzidenz impfstoff" id="61" weight="41" />
-      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="20 katholisch glauben kindesmissbrauch glaubensgemeinschaft" id="62" weight="2" />
-      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="21 energiekrise energiepreis gaspreisbremse bundesregierung" id="63" weight="21" />
-      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="22 zuwanderung einbürgern sarrazin bundesbankvorstand" id="64" weight="8" />
-      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" id="65" weight="3" />
-      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" id="66" weight="17" />
-      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="28 themenwoche einzelgespräche einzelgespräch maischberger" id="67" weight="9" />
-      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" id="68" weight="47" />
-      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="4 bundestagswahl landtagswahl volkspartei bundespräsident" id="69" weight="33" />
-      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="5 auswärtig außenpolitisch vizepräsident vorsitzend" id="70" weight="28" />
-      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="6 ärztlich arzt chefarzt medizin" id="71" weight="16" />
-      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="72" weight="31" />
-      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="73" weight="17" />
-      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="9 vermögen steuer steuererhöhung finanzkrise" id="74" weight="46" />
-      <edge source="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" target="12 abnehmen lebensmittel kochen diät" id="75" weight="5" />
-      <edge source="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" target="13 klimaschutz klimapolitik klimawandel bundesregierung" id="76" weight="18" />
-      <edge source="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" target="14 bundesfinanzminister währungsfonds griechisch finanzminister" id="77" weight="15" />
-      <edge source="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" target="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" id="78" weight="9" />
-      <edge source="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" target="16 netanjahu israelisch terrororganisation gaza" id="79" weight="20" />
-      <edge source="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" target="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" id="80" weight="6" />
-      <edge source="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" target="18 deutschtürke türkisch türkischer flüchtlingsabkommen" id="81" weight="30" />
-      <edge source="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" target="19 brexit außenhandelsministerium europawahl britisch" id="82" weight="18" />
-      <edge source="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" target="2 covid impfpflicht inzidenz impfstoff" id="83" weight="36" />
-      <edge source="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" target="20 katholisch glauben kindesmissbrauch glaubensgemeinschaft" id="84" weight="7" />
-      <edge source="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" target="21 energiekrise energiepreis gaspreisbremse bundesregierung" id="85" weight="6" />
-      <edge source="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" target="22 zuwanderung einbürgern sarrazin bundesbankvorstand" id="86" weight="15" />
-      <edge source="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" target="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" id="87" weight="2" />
-      <edge source="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" target="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" id="88" weight="5" />
-      <edge source="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" target="27 haftstrafe töten umbringen totschlag" id="89" weight="5" />
-      <edge source="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" target="28 themenwoche einzelgespräche einzelgespräch maischberger" id="90" weight="8" />
-      <edge source="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" target="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" id="91" weight="49" />
-      <edge source="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" target="4 bundestagswahl landtagswahl volkspartei bundespräsident" id="92" weight="44" />
-      <edge source="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" target="5 auswärtig außenpolitisch vizepräsident vorsitzend" id="93" weight="36" />
-      <edge source="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" target="6 ärztlich arzt chefarzt medizin" id="94" weight="12" />
-      <edge source="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="95" weight="52" />
-      <edge source="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="96" weight="26" />
-      <edge source="11 islamwissenschaftlerin terrorismusexperte islamist terrorismus" target="9 vermögen steuer steuererhöhung finanzkrise" id="97" weight="18" />
-      <edge source="12 abnehmen lebensmittel kochen diät" target="13 klimaschutz klimapolitik klimawandel bundesregierung" id="98" weight="15" />
-      <edge source="12 abnehmen lebensmittel kochen diät" target="14 bundesfinanzminister währungsfonds griechisch finanzminister" id="99" weight="5" />
-      <edge source="12 abnehmen lebensmittel kochen diät" target="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" id="100" weight="13" />
-      <edge source="12 abnehmen lebensmittel kochen diät" target="16 netanjahu israelisch terrororganisation gaza" id="101" weight="3" />
-      <edge source="12 abnehmen lebensmittel kochen diät" target="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" id="102" weight="5" />
-      <edge source="12 abnehmen lebensmittel kochen diät" target="19 brexit außenhandelsministerium europawahl britisch" id="103" weight="4" />
-      <edge source="12 abnehmen lebensmittel kochen diät" target="2 covid impfpflicht inzidenz impfstoff" id="104" weight="24" />
-      <edge source="12 abnehmen lebensmittel kochen diät" target="21 energiekrise energiepreis gaspreisbremse bundesregierung" id="105" weight="9" />
-      <edge source="12 abnehmen lebensmittel kochen diät" target="22 zuwanderung einbürgern sarrazin bundesbankvorstand" id="106" weight="2" />
-      <edge source="12 abnehmen lebensmittel kochen diät" target="23 jährige fühlen früh letzter" id="107" weight="5" />
-      <edge source="12 abnehmen lebensmittel kochen diät" target="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" id="108" weight="4" />
-      <edge source="12 abnehmen lebensmittel kochen diät" target="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" id="109" weight="2" />
-      <edge source="12 abnehmen lebensmittel kochen diät" target="26 millionär vermögen privatinsolvenz betrüger" id="110" weight="2" />
-      <edge source="12 abnehmen lebensmittel kochen diät" target="28 themenwoche einzelgespräche einzelgespräch maischberger" id="111" weight="4" />
-      <edge source="12 abnehmen lebensmittel kochen diät" target="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" id="112" weight="16" />
-      <edge source="12 abnehmen lebensmittel kochen diät" target="4 bundestagswahl landtagswahl volkspartei bundespräsident" id="113" weight="16" />
-      <edge source="12 abnehmen lebensmittel kochen diät" target="5 auswärtig außenpolitisch vizepräsident vorsitzend" id="114" weight="9" />
-      <edge source="12 abnehmen lebensmittel kochen diät" target="6 ärztlich arzt chefarzt medizin" id="115" weight="15" />
-      <edge source="12 abnehmen lebensmittel kochen diät" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="116" weight="10" />
-      <edge source="12 abnehmen lebensmittel kochen diät" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="117" weight="9" />
-      <edge source="12 abnehmen lebensmittel kochen diät" target="9 vermögen steuer steuererhöhung finanzkrise" id="118" weight="17" />
-      <edge source="13 klimaschutz klimapolitik klimawandel bundesregierung" target="14 bundesfinanzminister währungsfonds griechisch finanzminister" id="119" weight="17" />
-      <edge source="13 klimaschutz klimapolitik klimawandel bundesregierung" target="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" id="120" weight="51" />
-      <edge source="13 klimaschutz klimapolitik klimawandel bundesregierung" target="16 netanjahu israelisch terrororganisation gaza" id="121" weight="13" />
-      <edge source="13 klimaschutz klimapolitik klimawandel bundesregierung" target="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" id="122" weight="33" />
-      <edge source="13 klimaschutz klimapolitik klimawandel bundesregierung" target="18 deutschtürke türkisch türkischer flüchtlingsabkommen" id="123" weight="13" />
-      <edge source="13 klimaschutz klimapolitik klimawandel bundesregierung" target="19 brexit außenhandelsministerium europawahl britisch" id="124" weight="13" />
-      <edge source="13 klimaschutz klimapolitik klimawandel bundesregierung" target="2 covid impfpflicht inzidenz impfstoff" id="125" weight="61" />
-      <edge source="13 klimaschutz klimapolitik klimawandel bundesregierung" target="20 katholisch glauben kindesmissbrauch glaubensgemeinschaft" id="126" weight="2" />
-      <edge source="13 klimaschutz klimapolitik klimawandel bundesregierung" target="21 energiekrise energiepreis gaspreisbremse bundesregierung" id="127" weight="30" />
-      <edge source="13 klimaschutz klimapolitik klimawandel bundesregierung" target="22 zuwanderung einbürgern sarrazin bundesbankvorstand" id="128" weight="9" />
-      <edge source="13 klimaschutz klimapolitik klimawandel bundesregierung" target="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" id="129" weight="10" />
-      <edge source="13 klimaschutz klimapolitik klimawandel bundesregierung" target="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" id="130" weight="10" />
-      <edge source="13 klimaschutz klimapolitik klimawandel bundesregierung" target="28 themenwoche einzelgespräche einzelgespräch maischberger" id="131" weight="12" />
-      <edge source="13 klimaschutz klimapolitik klimawandel bundesregierung" target="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" id="132" weight="58" />
-      <edge source="13 klimaschutz klimapolitik klimawandel bundesregierung" target="4 bundestagswahl landtagswahl volkspartei bundespräsident" id="133" weight="41" />
-      <edge source="13 klimaschutz klimapolitik klimawandel bundesregierung" target="5 auswärtig außenpolitisch vizepräsident vorsitzend" id="134" weight="26" />
-      <edge source="13 klimaschutz klimapolitik klimawandel bundesregierung" target="6 ärztlich arzt chefarzt medizin" id="135" weight="8" />
-      <edge source="13 klimaschutz klimapolitik klimawandel bundesregierung" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="136" weight="37" />
-      <edge source="13 klimaschutz klimapolitik klimawandel bundesregierung" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="137" weight="29" />
-      <edge source="13 klimaschutz klimapolitik klimawandel bundesregierung" target="9 vermögen steuer steuererhöhung finanzkrise" id="138" weight="26" />
-      <edge source="14 bundesfinanzminister währungsfonds griechisch finanzminister" target="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" id="139" weight="13" />
-      <edge source="14 bundesfinanzminister währungsfonds griechisch finanzminister" target="16 netanjahu israelisch terrororganisation gaza" id="140" weight="13" />
-      <edge source="14 bundesfinanzminister währungsfonds griechisch finanzminister" target="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" id="141" weight="11" />
-      <edge source="14 bundesfinanzminister währungsfonds griechisch finanzminister" target="18 deutschtürke türkisch türkischer flüchtlingsabkommen" id="142" weight="15" />
-      <edge source="14 bundesfinanzminister währungsfonds griechisch finanzminister" target="19 brexit außenhandelsministerium europawahl britisch" id="143" weight="24" />
-      <edge source="14 bundesfinanzminister währungsfonds griechisch finanzminister" target="2 covid impfpflicht inzidenz impfstoff" id="144" weight="20" />
-      <edge source="14 bundesfinanzminister währungsfonds griechisch finanzminister" target="20 katholisch glauben kindesmissbrauch glaubensgemeinschaft" id="145" weight="2" />
-      <edge source="14 bundesfinanzminister währungsfonds griechisch finanzminister" target="21 energiekrise energiepreis gaspreisbremse bundesregierung" id="146" weight="6" />
-      <edge source="14 bundesfinanzminister währungsfonds griechisch finanzminister" target="22 zuwanderung einbürgern sarrazin bundesbankvorstand" id="147" weight="12" />
-      <edge source="14 bundesfinanzminister währungsfonds griechisch finanzminister" target="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" id="148" weight="2" />
-      <edge source="14 bundesfinanzminister währungsfonds griechisch finanzminister" target="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" id="149" weight="10" />
-      <edge source="14 bundesfinanzminister währungsfonds griechisch finanzminister" target="26 millionär vermögen privatinsolvenz betrüger" id="150" weight="3" />
-      <edge source="14 bundesfinanzminister währungsfonds griechisch finanzminister" target="28 themenwoche einzelgespräche einzelgespräch maischberger" id="151" weight="9" />
-      <edge source="14 bundesfinanzminister währungsfonds griechisch finanzminister" target="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" id="152" weight="41" />
-      <edge source="14 bundesfinanzminister währungsfonds griechisch finanzminister" target="4 bundestagswahl landtagswahl volkspartei bundespräsident" id="153" weight="28" />
-      <edge source="14 bundesfinanzminister währungsfonds griechisch finanzminister" target="5 auswärtig außenpolitisch vizepräsident vorsitzend" id="154" weight="29" />
-      <edge source="14 bundesfinanzminister währungsfonds griechisch finanzminister" target="6 ärztlich arzt chefarzt medizin" id="155" weight="12" />
-      <edge source="14 bundesfinanzminister währungsfonds griechisch finanzminister" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="156" weight="40" />
-      <edge source="14 bundesfinanzminister währungsfonds griechisch finanzminister" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="157" weight="13" />
-      <edge source="14 bundesfinanzminister währungsfonds griechisch finanzminister" target="9 vermögen steuer steuererhöhung finanzkrise" id="158" weight="33" />
-      <edge source="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" target="16 netanjahu israelisch terrororganisation gaza" id="159" weight="12" />
-      <edge source="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" target="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" id="160" weight="18" />
-      <edge source="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" target="18 deutschtürke türkisch türkischer flüchtlingsabkommen" id="161" weight="9" />
-      <edge source="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" target="19 brexit außenhandelsministerium europawahl britisch" id="162" weight="13" />
-      <edge source="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" target="2 covid impfpflicht inzidenz impfstoff" id="163" weight="41" />
-      <edge source="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" target="21 energiekrise energiepreis gaspreisbremse bundesregierung" id="164" weight="16" />
-      <edge source="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" target="22 zuwanderung einbürgern sarrazin bundesbankvorstand" id="165" weight="5" />
-      <edge source="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" target="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" id="166" weight="7" />
-      <edge source="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" target="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" id="167" weight="7" />
-      <edge source="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" target="28 themenwoche einzelgespräche einzelgespräch maischberger" id="168" weight="10" />
-      <edge source="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" target="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" id="169" weight="42" />
-      <edge source="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" target="4 bundestagswahl landtagswahl volkspartei bundespräsident" id="170" weight="32" />
-      <edge source="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" target="5 auswärtig außenpolitisch vizepräsident vorsitzend" id="171" weight="23" />
-      <edge source="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" target="6 ärztlich arzt chefarzt medizin" id="172" weight="8" />
-      <edge source="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="173" weight="25" />
-      <edge source="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="174" weight="26" />
-      <edge source="15 wohnungsbau mietwohnung wohnung wohnungsmarkt" target="9 vermögen steuer steuererhöhung finanzkrise" id="175" weight="24" />
-      <edge source="16 netanjahu israelisch terrororganisation gaza" target="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" id="176" weight="10" />
-      <edge source="16 netanjahu israelisch terrororganisation gaza" target="18 deutschtürke türkisch türkischer flüchtlingsabkommen" id="177" weight="16" />
-      <edge source="16 netanjahu israelisch terrororganisation gaza" target="19 brexit außenhandelsministerium europawahl britisch" id="178" weight="10" />
-      <edge source="16 netanjahu israelisch terrororganisation gaza" target="2 covid impfpflicht inzidenz impfstoff" id="179" weight="27" />
-      <edge source="16 netanjahu israelisch terrororganisation gaza" target="21 energiekrise energiepreis gaspreisbremse bundesregierung" id="180" weight="7" />
-      <edge source="16 netanjahu israelisch terrororganisation gaza" target="22 zuwanderung einbürgern sarrazin bundesbankvorstand" id="181" weight="11" />
-      <edge source="16 netanjahu israelisch terrororganisation gaza" target="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" id="182" weight="7" />
-      <edge source="16 netanjahu israelisch terrororganisation gaza" target="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" id="183" weight="7" />
-      <edge source="16 netanjahu israelisch terrororganisation gaza" target="28 themenwoche einzelgespräche einzelgespräch maischberger" id="184" weight="8" />
-      <edge source="16 netanjahu israelisch terrororganisation gaza" target="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" id="185" weight="31" />
-      <edge source="16 netanjahu israelisch terrororganisation gaza" target="4 bundestagswahl landtagswahl volkspartei bundespräsident" id="186" weight="29" />
-      <edge source="16 netanjahu israelisch terrororganisation gaza" target="5 auswärtig außenpolitisch vizepräsident vorsitzend" id="187" weight="35" />
-      <edge source="16 netanjahu israelisch terrororganisation gaza" target="6 ärztlich arzt chefarzt medizin" id="188" weight="6" />
-      <edge source="16 netanjahu israelisch terrororganisation gaza" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="189" weight="28" />
-      <edge source="16 netanjahu israelisch terrororganisation gaza" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="190" weight="20" />
-      <edge source="16 netanjahu israelisch terrororganisation gaza" target="9 vermögen steuer steuererhöhung finanzkrise" id="191" weight="13" />
-      <edge source="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" target="18 deutschtürke türkisch türkischer flüchtlingsabkommen" id="192" weight="10" />
-      <edge source="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" target="19 brexit außenhandelsministerium europawahl britisch" id="193" weight="13" />
-      <edge source="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" target="2 covid impfpflicht inzidenz impfstoff" id="194" weight="44" />
-      <edge source="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" target="21 energiekrise energiepreis gaspreisbremse bundesregierung" id="195" weight="31" />
-      <edge source="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" target="22 zuwanderung einbürgern sarrazin bundesbankvorstand" id="196" weight="10" />
-      <edge source="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" target="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" id="197" weight="11" />
-      <edge source="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" target="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" id="198" weight="10" />
-      <edge source="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" target="28 themenwoche einzelgespräche einzelgespräch maischberger" id="199" weight="9" />
-      <edge source="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" target="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" id="200" weight="41" />
-      <edge source="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" target="4 bundestagswahl landtagswahl volkspartei bundespräsident" id="201" weight="31" />
-      <edge source="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" target="5 auswärtig außenpolitisch vizepräsident vorsitzend" id="202" weight="30" />
-      <edge source="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" target="6 ärztlich arzt chefarzt medizin" id="203" weight="6" />
-      <edge source="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="204" weight="34" />
-      <edge source="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="205" weight="22" />
-      <edge source="17 bundesfinanzminister bundeskanzler schuldenbremse klimaschutz" target="9 vermögen steuer steuererhöhung finanzkrise" id="206" weight="22" />
-      <edge source="18 deutschtürke türkisch türkischer flüchtlingsabkommen" target="19 brexit außenhandelsministerium europawahl britisch" id="207" weight="21" />
-      <edge source="18 deutschtürke türkisch türkischer flüchtlingsabkommen" target="2 covid impfpflicht inzidenz impfstoff" id="208" weight="28" />
-      <edge source="18 deutschtürke türkisch türkischer flüchtlingsabkommen" target="20 katholisch glauben kindesmissbrauch glaubensgemeinschaft" id="209" weight="2" />
-      <edge source="18 deutschtürke türkisch türkischer flüchtlingsabkommen" target="21 energiekrise energiepreis gaspreisbremse bundesregierung" id="210" weight="6" />
-      <edge source="18 deutschtürke türkisch türkischer flüchtlingsabkommen" target="22 zuwanderung einbürgern sarrazin bundesbankvorstand" id="211" weight="7" />
-      <edge source="18 deutschtürke türkisch türkischer flüchtlingsabkommen" target="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" id="212" weight="3" />
-      <edge source="18 deutschtürke türkisch türkischer flüchtlingsabkommen" target="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" id="213" weight="4" />
-      <edge source="18 deutschtürke türkisch türkischer flüchtlingsabkommen" target="27 haftstrafe töten umbringen totschlag" id="214" weight="4" />
-      <edge source="18 deutschtürke türkisch türkischer flüchtlingsabkommen" target="28 themenwoche einzelgespräche einzelgespräch maischberger" id="215" weight="7" />
-      <edge source="18 deutschtürke türkisch türkischer flüchtlingsabkommen" target="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" id="216" weight="33" />
-      <edge source="18 deutschtürke türkisch türkischer flüchtlingsabkommen" target="4 bundestagswahl landtagswahl volkspartei bundespräsident" id="217" weight="23" />
-      <edge source="18 deutschtürke türkisch türkischer flüchtlingsabkommen" target="5 auswärtig außenpolitisch vizepräsident vorsitzend" id="218" weight="29" />
-      <edge source="18 deutschtürke türkisch türkischer flüchtlingsabkommen" target="6 ärztlich arzt chefarzt medizin" id="219" weight="4" />
-      <edge source="18 deutschtürke türkisch türkischer flüchtlingsabkommen" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="220" weight="35" />
-      <edge source="18 deutschtürke türkisch türkischer flüchtlingsabkommen" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="221" weight="20" />
-      <edge source="18 deutschtürke türkisch türkischer flüchtlingsabkommen" target="9 vermögen steuer steuererhöhung finanzkrise" id="222" weight="12" />
-      <edge source="19 brexit außenhandelsministerium europawahl britisch" target="2 covid impfpflicht inzidenz impfstoff" id="223" weight="27" />
-      <edge source="19 brexit außenhandelsministerium europawahl britisch" target="21 energiekrise energiepreis gaspreisbremse bundesregierung" id="224" weight="5" />
-      <edge source="19 brexit außenhandelsministerium europawahl britisch" target="22 zuwanderung einbürgern sarrazin bundesbankvorstand" id="225" weight="10" />
-      <edge source="19 brexit außenhandelsministerium europawahl britisch" target="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" id="226" weight="3" />
-      <edge source="19 brexit außenhandelsministerium europawahl britisch" target="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" id="227" weight="2" />
-      <edge source="19 brexit außenhandelsministerium europawahl britisch" target="26 millionär vermögen privatinsolvenz betrüger" id="228" weight="2" />
-      <edge source="19 brexit außenhandelsministerium europawahl britisch" target="28 themenwoche einzelgespräche einzelgespräch maischberger" id="229" weight="5" />
-      <edge source="19 brexit außenhandelsministerium europawahl britisch" target="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" id="230" weight="33" />
-      <edge source="19 brexit außenhandelsministerium europawahl britisch" target="4 bundestagswahl landtagswahl volkspartei bundespräsident" id="231" weight="27" />
-      <edge source="19 brexit außenhandelsministerium europawahl britisch" target="5 auswärtig außenpolitisch vizepräsident vorsitzend" id="232" weight="37" />
-      <edge source="19 brexit außenhandelsministerium europawahl britisch" target="6 ärztlich arzt chefarzt medizin" id="233" weight="2" />
-      <edge source="19 brexit außenhandelsministerium europawahl britisch" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="234" weight="34" />
-      <edge source="19 brexit außenhandelsministerium europawahl britisch" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="235" weight="16" />
-      <edge source="19 brexit außenhandelsministerium europawahl britisch" target="9 vermögen steuer steuererhöhung finanzkrise" id="236" weight="15" />
-      <edge source="2 covid impfpflicht inzidenz impfstoff" target="20 katholisch glauben kindesmissbrauch glaubensgemeinschaft" id="237" weight="7" />
-      <edge source="2 covid impfpflicht inzidenz impfstoff" target="21 energiekrise energiepreis gaspreisbremse bundesregierung" id="238" weight="34" />
-      <edge source="2 covid impfpflicht inzidenz impfstoff" target="22 zuwanderung einbürgern sarrazin bundesbankvorstand" id="239" weight="18" />
-      <edge source="2 covid impfpflicht inzidenz impfstoff" target="23 jährige fühlen früh letzter" id="240" weight="3" />
-      <edge source="2 covid impfpflicht inzidenz impfstoff" target="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" id="241" weight="18" />
-      <edge source="2 covid impfpflicht inzidenz impfstoff" target="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" id="242" weight="17" />
-      <edge source="2 covid impfpflicht inzidenz impfstoff" target="26 millionär vermögen privatinsolvenz betrüger" id="243" weight="2" />
-      <edge source="2 covid impfpflicht inzidenz impfstoff" target="27 haftstrafe töten umbringen totschlag" id="244" weight="2" />
-      <edge source="2 covid impfpflicht inzidenz impfstoff" target="28 themenwoche einzelgespräche einzelgespräch maischberger" id="245" weight="28" />
-      <edge source="2 covid impfpflicht inzidenz impfstoff" target="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" id="246" weight="105" />
-      <edge source="2 covid impfpflicht inzidenz impfstoff" target="4 bundestagswahl landtagswahl volkspartei bundespräsident" id="247" weight="65" />
-      <edge source="2 covid impfpflicht inzidenz impfstoff" target="5 auswärtig außenpolitisch vizepräsident vorsitzend" id="248" weight="74" />
-      <edge source="2 covid impfpflicht inzidenz impfstoff" target="6 ärztlich arzt chefarzt medizin" id="249" weight="28" />
-      <edge source="2 covid impfpflicht inzidenz impfstoff" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="250" weight="67" />
-      <edge source="2 covid impfpflicht inzidenz impfstoff" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="251" weight="57" />
-      <edge source="2 covid impfpflicht inzidenz impfstoff" target="9 vermögen steuer steuererhöhung finanzkrise" id="252" weight="35" />
-      <edge source="20 katholisch glauben kindesmissbrauch glaubensgemeinschaft" target="21 energiekrise energiepreis gaspreisbremse bundesregierung" id="253" weight="2" />
-      <edge source="20 katholisch glauben kindesmissbrauch glaubensgemeinschaft" target="22 zuwanderung einbürgern sarrazin bundesbankvorstand" id="254" weight="2" />
-      <edge source="20 katholisch glauben kindesmissbrauch glaubensgemeinschaft" target="28 themenwoche einzelgespräche einzelgespräch maischberger" id="255" weight="3" />
-      <edge source="20 katholisch glauben kindesmissbrauch glaubensgemeinschaft" target="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" id="256" weight="5" />
-      <edge source="20 katholisch glauben kindesmissbrauch glaubensgemeinschaft" target="4 bundestagswahl landtagswahl volkspartei bundespräsident" id="257" weight="7" />
-      <edge source="20 katholisch glauben kindesmissbrauch glaubensgemeinschaft" target="6 ärztlich arzt chefarzt medizin" id="258" weight="5" />
-      <edge source="20 katholisch glauben kindesmissbrauch glaubensgemeinschaft" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="259" weight="3" />
-      <edge source="20 katholisch glauben kindesmissbrauch glaubensgemeinschaft" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="260" weight="3" />
-      <edge source="20 katholisch glauben kindesmissbrauch glaubensgemeinschaft" target="9 vermögen steuer steuererhöhung finanzkrise" id="261" weight="3" />
-      <edge source="21 energiekrise energiepreis gaspreisbremse bundesregierung" target="22 zuwanderung einbürgern sarrazin bundesbankvorstand" id="262" weight="4" />
-      <edge source="21 energiekrise energiepreis gaspreisbremse bundesregierung" target="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" id="263" weight="10" />
-      <edge source="21 energiekrise energiepreis gaspreisbremse bundesregierung" target="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" id="264" weight="8" />
-      <edge source="21 energiekrise energiepreis gaspreisbremse bundesregierung" target="28 themenwoche einzelgespräche einzelgespräch maischberger" id="265" weight="4" />
-      <edge source="21 energiekrise energiepreis gaspreisbremse bundesregierung" target="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" id="266" weight="27" />
-      <edge source="21 energiekrise energiepreis gaspreisbremse bundesregierung" target="4 bundestagswahl landtagswahl volkspartei bundespräsident" id="267" weight="18" />
-      <edge source="21 energiekrise energiepreis gaspreisbremse bundesregierung" target="5 auswärtig außenpolitisch vizepräsident vorsitzend" id="268" weight="21" />
-      <edge source="21 energiekrise energiepreis gaspreisbremse bundesregierung" target="6 ärztlich arzt chefarzt medizin" id="269" weight="7" />
-      <edge source="21 energiekrise energiepreis gaspreisbremse bundesregierung" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="270" weight="22" />
-      <edge source="21 energiekrise energiepreis gaspreisbremse bundesregierung" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="271" weight="11" />
-      <edge source="21 energiekrise energiepreis gaspreisbremse bundesregierung" target="9 vermögen steuer steuererhöhung finanzkrise" id="272" weight="18" />
-      <edge source="22 zuwanderung einbürgern sarrazin bundesbankvorstand" target="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" id="273" weight="8" />
-      <edge source="22 zuwanderung einbürgern sarrazin bundesbankvorstand" target="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" id="274" weight="4" />
-      <edge source="22 zuwanderung einbürgern sarrazin bundesbankvorstand" target="27 haftstrafe töten umbringen totschlag" id="275" weight="2" />
-      <edge source="22 zuwanderung einbürgern sarrazin bundesbankvorstand" target="28 themenwoche einzelgespräche einzelgespräch maischberger" id="276" weight="6" />
-      <edge source="22 zuwanderung einbürgern sarrazin bundesbankvorstand" target="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" id="277" weight="26" />
-      <edge source="22 zuwanderung einbürgern sarrazin bundesbankvorstand" target="4 bundestagswahl landtagswahl volkspartei bundespräsident" id="278" weight="19" />
-      <edge source="22 zuwanderung einbürgern sarrazin bundesbankvorstand" target="5 auswärtig außenpolitisch vizepräsident vorsitzend" id="279" weight="17" />
-      <edge source="22 zuwanderung einbürgern sarrazin bundesbankvorstand" target="6 ärztlich arzt chefarzt medizin" id="280" weight="5" />
-      <edge source="22 zuwanderung einbürgern sarrazin bundesbankvorstand" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="281" weight="28" />
-      <edge source="22 zuwanderung einbürgern sarrazin bundesbankvorstand" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="282" weight="11" />
-      <edge source="22 zuwanderung einbürgern sarrazin bundesbankvorstand" target="9 vermögen steuer steuererhöhung finanzkrise" id="283" weight="13" />
-      <edge source="23 jährige fühlen früh letzter" target="6 ärztlich arzt chefarzt medizin" id="284" weight="5" />
-      <edge source="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" target="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" id="285" weight="6" />
-      <edge source="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" target="28 themenwoche einzelgespräche einzelgespräch maischberger" id="286" weight="3" />
-      <edge source="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" target="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" id="287" weight="22" />
-      <edge source="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" target="4 bundestagswahl landtagswahl volkspartei bundespräsident" id="288" weight="15" />
-      <edge source="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" target="5 auswärtig außenpolitisch vizepräsident vorsitzend" id="289" weight="16" />
-      <edge source="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" target="6 ärztlich arzt chefarzt medizin" id="290" weight="3" />
-      <edge source="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="291" weight="11" />
-      <edge source="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="292" weight="15" />
-      <edge source="24 bundespolitisch bundestagswahl bundestagswahlkampf bundestagspräsidentin" target="9 vermögen steuer steuererhöhung finanzkrise" id="293" weight="6" />
-      <edge source="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" target="28 themenwoche einzelgespräche einzelgespräch maischberger" id="294" weight="3" />
-      <edge source="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" target="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" id="295" weight="23" />
-      <edge source="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" target="4 bundestagswahl landtagswahl volkspartei bundespräsident" id="296" weight="18" />
-      <edge source="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" target="5 auswärtig außenpolitisch vizepräsident vorsitzend" id="297" weight="15" />
-      <edge source="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" target="6 ärztlich arzt chefarzt medizin" id="298" weight="4" />
-      <edge source="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="299" weight="11" />
-      <edge source="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="300" weight="9" />
-      <edge source="25 sozialdemokrat koalitionsvertrag bundesfinanzminister sozialstaat" target="9 vermögen steuer steuererhöhung finanzkrise" id="301" weight="15" />
-      <edge source="26 millionär vermögen privatinsolvenz betrüger" target="4 bundestagswahl landtagswahl volkspartei bundespräsident" id="302" weight="2" />
-      <edge source="26 millionär vermögen privatinsolvenz betrüger" target="5 auswärtig außenpolitisch vizepräsident vorsitzend" id="303" weight="3" />
-      <edge source="26 millionär vermögen privatinsolvenz betrüger" target="6 ärztlich arzt chefarzt medizin" id="304" weight="2" />
-      <edge source="26 millionär vermögen privatinsolvenz betrüger" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="305" weight="2" />
-      <edge source="26 millionär vermögen privatinsolvenz betrüger" target="9 vermögen steuer steuererhöhung finanzkrise" id="306" weight="2" />
-      <edge source="27 haftstrafe töten umbringen totschlag" target="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" id="307" weight="7" />
-      <edge source="27 haftstrafe töten umbringen totschlag" target="4 bundestagswahl landtagswahl volkspartei bundespräsident" id="308" weight="2" />
-      <edge source="27 haftstrafe töten umbringen totschlag" target="6 ärztlich arzt chefarzt medizin" id="309" weight="2" />
-      <edge source="27 haftstrafe töten umbringen totschlag" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="310" weight="3" />
-      <edge source="27 haftstrafe töten umbringen totschlag" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="311" weight="3" />
-      <edge source="28 themenwoche einzelgespräche einzelgespräch maischberger" target="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" id="312" weight="25" />
-      <edge source="28 themenwoche einzelgespräche einzelgespräch maischberger" target="4 bundestagswahl landtagswahl volkspartei bundespräsident" id="313" weight="19" />
-      <edge source="28 themenwoche einzelgespräche einzelgespräch maischberger" target="5 auswärtig außenpolitisch vizepräsident vorsitzend" id="314" weight="17" />
-      <edge source="28 themenwoche einzelgespräche einzelgespräch maischberger" target="6 ärztlich arzt chefarzt medizin" id="315" weight="6" />
-      <edge source="28 themenwoche einzelgespräche einzelgespräch maischberger" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="316" weight="19" />
-      <edge source="28 themenwoche einzelgespräche einzelgespräch maischberger" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="317" weight="14" />
-      <edge source="28 themenwoche einzelgespräche einzelgespräch maischberger" target="9 vermögen steuer steuererhöhung finanzkrise" id="318" weight="11" />
-      <edge source="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" target="4 bundestagswahl landtagswahl volkspartei bundespräsident" id="319" weight="106" />
-      <edge source="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" target="5 auswärtig außenpolitisch vizepräsident vorsitzend" id="320" weight="87" />
-      <edge source="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" target="6 ärztlich arzt chefarzt medizin" id="321" weight="14" />
-      <edge source="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="322" weight="99" />
-      <edge source="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="323" weight="54" />
-      <edge source="3 bundestagswahl sozialdemokrat landtagswahl linkspartei" target="9 vermögen steuer steuererhöhung finanzkrise" id="324" weight="58" />
-      <edge source="4 bundestagswahl landtagswahl volkspartei bundespräsident" target="5 auswärtig außenpolitisch vizepräsident vorsitzend" id="325" weight="61" />
-      <edge source="4 bundestagswahl landtagswahl volkspartei bundespräsident" target="6 ärztlich arzt chefarzt medizin" id="326" weight="13" />
-      <edge source="4 bundestagswahl landtagswahl volkspartei bundespräsident" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="327" weight="72" />
-      <edge source="4 bundestagswahl landtagswahl volkspartei bundespräsident" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="328" weight="44" />
-      <edge source="4 bundestagswahl landtagswahl volkspartei bundespräsident" target="9 vermögen steuer steuererhöhung finanzkrise" id="329" weight="37" />
-      <edge source="5 auswärtig außenpolitisch vizepräsident vorsitzend" target="6 ärztlich arzt chefarzt medizin" id="330" weight="12" />
-      <edge source="5 auswärtig außenpolitisch vizepräsident vorsitzend" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="331" weight="61" />
-      <edge source="5 auswärtig außenpolitisch vizepräsident vorsitzend" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="332" weight="51" />
-      <edge source="5 auswärtig außenpolitisch vizepräsident vorsitzend" target="9 vermögen steuer steuererhöhung finanzkrise" id="333" weight="34" />
-      <edge source="6 ärztlich arzt chefarzt medizin" target="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" id="334" weight="11" />
-      <edge source="6 ärztlich arzt chefarzt medizin" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="335" weight="9" />
-      <edge source="6 ärztlich arzt chefarzt medizin" target="9 vermögen steuer steuererhöhung finanzkrise" id="336" weight="19" />
-      <edge source="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" target="8 fußballprofi weltmeister fußball weltmeisterschaft" id="337" weight="40" />
-      <edge source="7 bundeskanzlerin bundesinnenminister flüchtlingspolitik flüchtlingsfrage" target="9 vermögen steuer steuererhöhung finanzkrise" id="338" weight="31" />
-      <edge source="8 fußballprofi weltmeister fußball weltmeisterschaft" target="9 vermögen steuer steuererhöhung finanzkrise" id="339" weight="21" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="1 außenpolitiker generalsekretär politiker vorsitzender" id="0" weight="162" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="10 mütterrente rentenpaket rentenversicherung grundrente" id="1" weight="36" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="11 islamist rechtsextrem terrorismus islamistisch" id="2" weight="56" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="12 bundesfinanzminister währungsfonds griechisch finanzminister" id="3" weight="37" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="13 lebensmittel kochen diät ernährung" id="4" weight="18" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="14 israelisch terrororganisation netanjahu gaza" id="5" weight="66" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="15 landtagswahl regierungsbildung regierungsverantwortung wählen" id="6" weight="49" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" id="7" weight="50" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="17 erziehen erziehungswissenschaftler erziehung jährige" id="8" weight="3" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="18 nachhaltig umweltschutz klimawandel klimakrise" id="9" weight="35" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="19 deutschtürke türkisch türkischer flüchtlingsabkommen" id="10" weight="45" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" id="11" weight="141" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="20 stimmungstest fußball stimmung zusammenführen" id="12" weight="43" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="21 millionär vermögen privatinsolvenz betrüger" id="13" weight="3" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="22 katholisch glauben kindesmissbrauch urchristlich" id="14" weight="8" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="23 fußballprofi fußballtrainer weltmeister fußball" id="15" weight="13" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="24 brexit außenhandelsministerium europawahl premierministerin" id="16" weight="39" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" id="17" weight="19" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="26 themenwoche maischberger einzelgespräche einzelgespräch" id="18" weight="30" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="27 zuwanderung einbürgern bundesbankvorstand sarrazin" id="19" weight="21" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="28 klimaschutz innenpolitisch euroskeptisch wählen" id="20" weight="30" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="29 haftstrafe töten umbringen totschlag" id="21" weight="4" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" id="22" weight="116" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" id="23" weight="26" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" id="24" weight="33" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="4 energiekrise energiepreis klimaschutz energiewende" id="25" weight="91" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="5 demenzkrank ärztlich medizin demenz" id="26" weight="17" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="27" weight="110" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="7 armutsbericht arbeitslose sozial arbeiten" id="28" weight="54" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="29" weight="88" />
+      <edge source="0 ukrainisch deutsch russisch putin" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="30" weight="114" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="10 mütterrente rentenpaket rentenversicherung grundrente" id="31" weight="33" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="11 islamist rechtsextrem terrorismus islamistisch" id="32" weight="45" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="12 bundesfinanzminister währungsfonds griechisch finanzminister" id="33" weight="28" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="13 lebensmittel kochen diät ernährung" id="34" weight="14" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="14 israelisch terrororganisation netanjahu gaza" id="35" weight="51" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="15 landtagswahl regierungsbildung regierungsverantwortung wählen" id="36" weight="49" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" id="37" weight="50" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="18 nachhaltig umweltschutz klimawandel klimakrise" id="38" weight="27" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="19 deutschtürke türkisch türkischer flüchtlingsabkommen" id="39" weight="29" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" id="40" weight="98" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="20 stimmungstest fußball stimmung zusammenführen" id="41" weight="40" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="22 katholisch glauben kindesmissbrauch urchristlich" id="42" weight="4" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="23 fußballprofi fußballtrainer weltmeister fußball" id="43" weight="12" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="24 brexit außenhandelsministerium europawahl premierministerin" id="44" weight="21" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" id="45" weight="19" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="26 themenwoche maischberger einzelgespräche einzelgespräch" id="46" weight="16" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="27 zuwanderung einbürgern bundesbankvorstand sarrazin" id="47" weight="15" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="28 klimaschutz innenpolitisch euroskeptisch wählen" id="48" weight="25" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="29 haftstrafe töten umbringen totschlag" id="49" weight="4" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" id="50" weight="94" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" id="51" weight="40" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" id="52" weight="22" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="4 energiekrise energiepreis klimaschutz energiewende" id="53" weight="78" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="5 demenzkrank ärztlich medizin demenz" id="54" weight="14" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="55" weight="120" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="7 armutsbericht arbeitslose sozial arbeiten" id="56" weight="39" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="57" weight="64" />
+      <edge source="1 außenpolitiker generalsekretär politiker vorsitzender" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="58" weight="72" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="11 islamist rechtsextrem terrorismus islamistisch" id="59" weight="10" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="12 bundesfinanzminister währungsfonds griechisch finanzminister" id="60" weight="20" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="13 lebensmittel kochen diät ernährung" id="61" weight="8" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="14 israelisch terrororganisation netanjahu gaza" id="62" weight="12" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="15 landtagswahl regierungsbildung regierungsverantwortung wählen" id="63" weight="18" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" id="64" weight="24" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="17 erziehen erziehungswissenschaftler erziehung jährige" id="65" weight="2" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="18 nachhaltig umweltschutz klimawandel klimakrise" id="66" weight="12" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="19 deutschtürke türkisch türkischer flüchtlingsabkommen" id="67" weight="7" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" id="68" weight="33" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="20 stimmungstest fußball stimmung zusammenführen" id="69" weight="16" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="23 fußballprofi fußballtrainer weltmeister fußball" id="70" weight="5" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="24 brexit außenhandelsministerium europawahl premierministerin" id="71" weight="7" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" id="72" weight="21" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="26 themenwoche maischberger einzelgespräche einzelgespräch" id="73" weight="7" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="27 zuwanderung einbürgern bundesbankvorstand sarrazin" id="74" weight="9" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="28 klimaschutz innenpolitisch euroskeptisch wählen" id="75" weight="9" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="29 haftstrafe töten umbringen totschlag" id="76" weight="2" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" id="77" weight="44" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" id="78" weight="7" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" id="79" weight="11" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="4 energiekrise energiepreis klimaschutz energiewende" id="80" weight="34" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="5 demenzkrank ärztlich medizin demenz" id="81" weight="16" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="82" weight="29" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="7 armutsbericht arbeitslose sozial arbeiten" id="83" weight="44" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="84" weight="26" />
+      <edge source="10 mütterrente rentenpaket rentenversicherung grundrente" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="85" weight="18" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="12 bundesfinanzminister währungsfonds griechisch finanzminister" id="86" weight="15" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="13 lebensmittel kochen diät ernährung" id="87" weight="5" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="14 israelisch terrororganisation netanjahu gaza" id="88" weight="22" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="15 landtagswahl regierungsbildung regierungsverantwortung wählen" id="89" weight="28" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" id="90" weight="8" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="18 nachhaltig umweltschutz klimawandel klimakrise" id="91" weight="6" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="19 deutschtürke türkisch türkischer flüchtlingsabkommen" id="92" weight="30" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" id="93" weight="37" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="20 stimmungstest fußball stimmung zusammenführen" id="94" weight="17" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="22 katholisch glauben kindesmissbrauch urchristlich" id="95" weight="8" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="23 fußballprofi fußballtrainer weltmeister fußball" id="96" weight="8" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="24 brexit außenhandelsministerium europawahl premierministerin" id="97" weight="17" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" id="98" weight="5" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="26 themenwoche maischberger einzelgespräche einzelgespräch" id="99" weight="8" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="27 zuwanderung einbürgern bundesbankvorstand sarrazin" id="100" weight="15" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="28 klimaschutz innenpolitisch euroskeptisch wählen" id="101" weight="8" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="29 haftstrafe töten umbringen totschlag" id="102" weight="6" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" id="103" weight="48" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" id="104" weight="2" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" id="105" weight="15" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="4 energiekrise energiepreis klimaschutz energiewende" id="106" weight="20" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="5 demenzkrank ärztlich medizin demenz" id="107" weight="13" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="108" weight="28" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="7 armutsbericht arbeitslose sozial arbeiten" id="109" weight="22" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="110" weight="53" />
+      <edge source="11 islamist rechtsextrem terrorismus islamistisch" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="111" weight="33" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="13 lebensmittel kochen diät ernährung" id="112" weight="4" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="14 israelisch terrororganisation netanjahu gaza" id="113" weight="14" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="15 landtagswahl regierungsbildung regierungsverantwortung wählen" id="114" weight="13" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" id="115" weight="14" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="18 nachhaltig umweltschutz klimawandel klimakrise" id="116" weight="9" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="19 deutschtürke türkisch türkischer flüchtlingsabkommen" id="117" weight="15" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" id="118" weight="21" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="20 stimmungstest fußball stimmung zusammenführen" id="119" weight="12" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="21 millionär vermögen privatinsolvenz betrüger" id="120" weight="3" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="22 katholisch glauben kindesmissbrauch urchristlich" id="121" weight="2" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="24 brexit außenhandelsministerium europawahl premierministerin" id="122" weight="21" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" id="123" weight="13" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="26 themenwoche maischberger einzelgespräche einzelgespräch" id="124" weight="10" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="27 zuwanderung einbürgern bundesbankvorstand sarrazin" id="125" weight="12" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="28 klimaschutz innenpolitisch euroskeptisch wählen" id="126" weight="6" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" id="127" weight="41" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" id="128" weight="2" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" id="129" weight="14" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="4 energiekrise energiepreis klimaschutz energiewende" id="130" weight="21" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="5 demenzkrank ärztlich medizin demenz" id="131" weight="12" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="132" weight="16" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="7 armutsbericht arbeitslose sozial arbeiten" id="133" weight="36" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="134" weight="40" />
+      <edge source="12 bundesfinanzminister währungsfonds griechisch finanzminister" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="135" weight="27" />
+      <edge source="13 lebensmittel kochen diät ernährung" target="14 israelisch terrororganisation netanjahu gaza" id="136" weight="4" />
+      <edge source="13 lebensmittel kochen diät ernährung" target="15 landtagswahl regierungsbildung regierungsverantwortung wählen" id="137" weight="5" />
+      <edge source="13 lebensmittel kochen diät ernährung" target="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" id="138" weight="9" />
+      <edge source="13 lebensmittel kochen diät ernährung" target="17 erziehen erziehungswissenschaftler erziehung jährige" id="139" weight="3" />
+      <edge source="13 lebensmittel kochen diät ernährung" target="18 nachhaltig umweltschutz klimawandel klimakrise" id="140" weight="12" />
+      <edge source="13 lebensmittel kochen diät ernährung" target="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" id="141" weight="16" />
+      <edge source="13 lebensmittel kochen diät ernährung" target="20 stimmungstest fußball stimmung zusammenführen" id="142" weight="10" />
+      <edge source="13 lebensmittel kochen diät ernährung" target="21 millionär vermögen privatinsolvenz betrüger" id="143" weight="2" />
+      <edge source="13 lebensmittel kochen diät ernährung" target="23 fußballprofi fußballtrainer weltmeister fußball" id="144" weight="2" />
+      <edge source="13 lebensmittel kochen diät ernährung" target="24 brexit außenhandelsministerium europawahl premierministerin" id="145" weight="3" />
+      <edge source="13 lebensmittel kochen diät ernährung" target="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" id="146" weight="4" />
+      <edge source="13 lebensmittel kochen diät ernährung" target="26 themenwoche maischberger einzelgespräche einzelgespräch" id="147" weight="2" />
+      <edge source="13 lebensmittel kochen diät ernährung" target="27 zuwanderung einbürgern bundesbankvorstand sarrazin" id="148" weight="2" />
+      <edge source="13 lebensmittel kochen diät ernährung" target="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" id="149" weight="10" />
+      <edge source="13 lebensmittel kochen diät ernährung" target="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" id="150" weight="3" />
+      <edge source="13 lebensmittel kochen diät ernährung" target="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" id="151" weight="3" />
+      <edge source="13 lebensmittel kochen diät ernährung" target="4 energiekrise energiepreis klimaschutz energiewende" id="152" weight="17" />
+      <edge source="13 lebensmittel kochen diät ernährung" target="5 demenzkrank ärztlich medizin demenz" id="153" weight="12" />
+      <edge source="13 lebensmittel kochen diät ernährung" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="154" weight="11" />
+      <edge source="13 lebensmittel kochen diät ernährung" target="7 armutsbericht arbeitslose sozial arbeiten" id="155" weight="17" />
+      <edge source="13 lebensmittel kochen diät ernährung" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="156" weight="8" />
+      <edge source="13 lebensmittel kochen diät ernährung" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="157" weight="6" />
+      <edge source="14 israelisch terrororganisation netanjahu gaza" target="15 landtagswahl regierungsbildung regierungsverantwortung wählen" id="158" weight="16" />
+      <edge source="14 israelisch terrororganisation netanjahu gaza" target="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" id="159" weight="12" />
+      <edge source="14 israelisch terrororganisation netanjahu gaza" target="18 nachhaltig umweltschutz klimawandel klimakrise" id="160" weight="8" />
+      <edge source="14 israelisch terrororganisation netanjahu gaza" target="19 deutschtürke türkisch türkischer flüchtlingsabkommen" id="161" weight="17" />
+      <edge source="14 israelisch terrororganisation netanjahu gaza" target="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" id="162" weight="30" />
+      <edge source="14 israelisch terrororganisation netanjahu gaza" target="20 stimmungstest fußball stimmung zusammenführen" id="163" weight="15" />
+      <edge source="14 israelisch terrororganisation netanjahu gaza" target="23 fußballprofi fußballtrainer weltmeister fußball" id="164" weight="3" />
+      <edge source="14 israelisch terrororganisation netanjahu gaza" target="24 brexit außenhandelsministerium europawahl premierministerin" id="165" weight="9" />
+      <edge source="14 israelisch terrororganisation netanjahu gaza" target="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" id="166" weight="8" />
+      <edge source="14 israelisch terrororganisation netanjahu gaza" target="26 themenwoche maischberger einzelgespräche einzelgespräch" id="167" weight="9" />
+      <edge source="14 israelisch terrororganisation netanjahu gaza" target="27 zuwanderung einbürgern bundesbankvorstand sarrazin" id="168" weight="10" />
+      <edge source="14 israelisch terrororganisation netanjahu gaza" target="28 klimaschutz innenpolitisch euroskeptisch wählen" id="169" weight="9" />
+      <edge source="14 israelisch terrororganisation netanjahu gaza" target="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" id="170" weight="34" />
+      <edge source="14 israelisch terrororganisation netanjahu gaza" target="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" id="171" weight="11" />
+      <edge source="14 israelisch terrororganisation netanjahu gaza" target="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" id="172" weight="10" />
+      <edge source="14 israelisch terrororganisation netanjahu gaza" target="4 energiekrise energiepreis klimaschutz energiewende" id="173" weight="20" />
+      <edge source="14 israelisch terrororganisation netanjahu gaza" target="5 demenzkrank ärztlich medizin demenz" id="174" weight="7" />
+      <edge source="14 israelisch terrororganisation netanjahu gaza" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="175" weight="29" />
+      <edge source="14 israelisch terrororganisation netanjahu gaza" target="7 armutsbericht arbeitslose sozial arbeiten" id="176" weight="15" />
+      <edge source="14 israelisch terrororganisation netanjahu gaza" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="177" weight="30" />
+      <edge source="14 israelisch terrororganisation netanjahu gaza" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="178" weight="40" />
+      <edge source="15 landtagswahl regierungsbildung regierungsverantwortung wählen" target="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" id="179" weight="16" />
+      <edge source="15 landtagswahl regierungsbildung regierungsverantwortung wählen" target="18 nachhaltig umweltschutz klimawandel klimakrise" id="180" weight="11" />
+      <edge source="15 landtagswahl regierungsbildung regierungsverantwortung wählen" target="19 deutschtürke türkisch türkischer flüchtlingsabkommen" id="181" weight="10" />
+      <edge source="15 landtagswahl regierungsbildung regierungsverantwortung wählen" target="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" id="182" weight="35" />
+      <edge source="15 landtagswahl regierungsbildung regierungsverantwortung wählen" target="20 stimmungstest fußball stimmung zusammenführen" id="183" weight="20" />
+      <edge source="15 landtagswahl regierungsbildung regierungsverantwortung wählen" target="21 millionär vermögen privatinsolvenz betrüger" id="184" weight="2" />
+      <edge source="15 landtagswahl regierungsbildung regierungsverantwortung wählen" target="22 katholisch glauben kindesmissbrauch urchristlich" id="185" weight="3" />
+      <edge source="15 landtagswahl regierungsbildung regierungsverantwortung wählen" target="23 fußballprofi fußballtrainer weltmeister fußball" id="186" weight="12" />
+      <edge source="15 landtagswahl regierungsbildung regierungsverantwortung wählen" target="24 brexit außenhandelsministerium europawahl premierministerin" id="187" weight="14" />
+      <edge source="15 landtagswahl regierungsbildung regierungsverantwortung wählen" target="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" id="188" weight="7" />
+      <edge source="15 landtagswahl regierungsbildung regierungsverantwortung wählen" target="26 themenwoche maischberger einzelgespräche einzelgespräch" id="189" weight="11" />
+      <edge source="15 landtagswahl regierungsbildung regierungsverantwortung wählen" target="27 zuwanderung einbürgern bundesbankvorstand sarrazin" id="190" weight="11" />
+      <edge source="15 landtagswahl regierungsbildung regierungsverantwortung wählen" target="28 klimaschutz innenpolitisch euroskeptisch wählen" id="191" weight="10" />
+      <edge source="15 landtagswahl regierungsbildung regierungsverantwortung wählen" target="29 haftstrafe töten umbringen totschlag" id="192" weight="2" />
+      <edge source="15 landtagswahl regierungsbildung regierungsverantwortung wählen" target="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" id="193" weight="49" />
+      <edge source="15 landtagswahl regierungsbildung regierungsverantwortung wählen" target="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" id="194" weight="12" />
+      <edge source="15 landtagswahl regierungsbildung regierungsverantwortung wählen" target="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" id="195" weight="18" />
+      <edge source="15 landtagswahl regierungsbildung regierungsverantwortung wählen" target="4 energiekrise energiepreis klimaschutz energiewende" id="196" weight="24" />
+      <edge source="15 landtagswahl regierungsbildung regierungsverantwortung wählen" target="5 demenzkrank ärztlich medizin demenz" id="197" weight="9" />
+      <edge source="15 landtagswahl regierungsbildung regierungsverantwortung wählen" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="198" weight="33" />
+      <edge source="15 landtagswahl regierungsbildung regierungsverantwortung wählen" target="7 armutsbericht arbeitslose sozial arbeiten" id="199" weight="14" />
+      <edge source="15 landtagswahl regierungsbildung regierungsverantwortung wählen" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="200" weight="38" />
+      <edge source="15 landtagswahl regierungsbildung regierungsverantwortung wählen" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="201" weight="28" />
+      <edge source="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" target="18 nachhaltig umweltschutz klimawandel klimakrise" id="202" weight="16" />
+      <edge source="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" target="19 deutschtürke türkisch türkischer flüchtlingsabkommen" id="203" weight="9" />
+      <edge source="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" target="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" id="204" weight="53" />
+      <edge source="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" target="20 stimmungstest fußball stimmung zusammenführen" id="205" weight="23" />
+      <edge source="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" target="23 fußballprofi fußballtrainer weltmeister fußball" id="206" weight="2" />
+      <edge source="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" target="24 brexit außenhandelsministerium europawahl premierministerin" id="207" weight="11" />
+      <edge source="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" target="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" id="208" weight="16" />
+      <edge source="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" target="26 themenwoche maischberger einzelgespräche einzelgespräch" id="209" weight="9" />
+      <edge source="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" target="27 zuwanderung einbürgern bundesbankvorstand sarrazin" id="210" weight="8" />
+      <edge source="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" target="28 klimaschutz innenpolitisch euroskeptisch wählen" id="211" weight="13" />
+      <edge source="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" target="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" id="212" weight="44" />
+      <edge source="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" target="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" id="213" weight="12" />
+      <edge source="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" target="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" id="214" weight="12" />
+      <edge source="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" target="4 energiekrise energiepreis klimaschutz energiewende" id="215" weight="57" />
+      <edge source="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" target="5 demenzkrank ärztlich medizin demenz" id="216" weight="8" />
+      <edge source="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="217" weight="36" />
+      <edge source="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" target="7 armutsbericht arbeitslose sozial arbeiten" id="218" weight="25" />
+      <edge source="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="219" weight="37" />
+      <edge source="16 bundesfinanzminister schuldenbremse bundestagsfraktion bundesministerium" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="220" weight="31" />
+      <edge source="17 erziehen erziehungswissenschaftler erziehung jährige" target="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" id="221" weight="7" />
+      <edge source="17 erziehen erziehungswissenschaftler erziehung jährige" target="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" id="222" weight="2" />
+      <edge source="17 erziehen erziehungswissenschaftler erziehung jährige" target="26 themenwoche maischberger einzelgespräche einzelgespräch" id="223" weight="6" />
+      <edge source="17 erziehen erziehungswissenschaftler erziehung jährige" target="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" id="224" weight="3" />
+      <edge source="17 erziehen erziehungswissenschaftler erziehung jährige" target="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" id="225" weight="2" />
+      <edge source="17 erziehen erziehungswissenschaftler erziehung jährige" target="4 energiekrise energiepreis klimaschutz energiewende" id="226" weight="3" />
+      <edge source="17 erziehen erziehungswissenschaftler erziehung jährige" target="5 demenzkrank ärztlich medizin demenz" id="227" weight="9" />
+      <edge source="17 erziehen erziehungswissenschaftler erziehung jährige" target="7 armutsbericht arbeitslose sozial arbeiten" id="228" weight="4" />
+      <edge source="17 erziehen erziehungswissenschaftler erziehung jährige" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="229" weight="3" />
+      <edge source="18 nachhaltig umweltschutz klimawandel klimakrise" target="19 deutschtürke türkisch türkischer flüchtlingsabkommen" id="230" weight="6" />
+      <edge source="18 nachhaltig umweltschutz klimawandel klimakrise" target="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" id="231" weight="34" />
+      <edge source="18 nachhaltig umweltschutz klimawandel klimakrise" target="20 stimmungstest fußball stimmung zusammenführen" id="232" weight="11" />
+      <edge source="18 nachhaltig umweltschutz klimawandel klimakrise" target="23 fußballprofi fußballtrainer weltmeister fußball" id="233" weight="8" />
+      <edge source="18 nachhaltig umweltschutz klimawandel klimakrise" target="24 brexit außenhandelsministerium europawahl premierministerin" id="234" weight="7" />
+      <edge source="18 nachhaltig umweltschutz klimawandel klimakrise" target="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" id="235" weight="9" />
+      <edge source="18 nachhaltig umweltschutz klimawandel klimakrise" target="26 themenwoche maischberger einzelgespräche einzelgespräch" id="236" weight="8" />
+      <edge source="18 nachhaltig umweltschutz klimawandel klimakrise" target="27 zuwanderung einbürgern bundesbankvorstand sarrazin" id="237" weight="4" />
+      <edge source="18 nachhaltig umweltschutz klimawandel klimakrise" target="28 klimaschutz innenpolitisch euroskeptisch wählen" id="238" weight="4" />
+      <edge source="18 nachhaltig umweltschutz klimawandel klimakrise" target="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" id="239" weight="26" />
+      <edge source="18 nachhaltig umweltschutz klimawandel klimakrise" target="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" id="240" weight="3" />
+      <edge source="18 nachhaltig umweltschutz klimawandel klimakrise" target="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" id="241" weight="8" />
+      <edge source="18 nachhaltig umweltschutz klimawandel klimakrise" target="4 energiekrise energiepreis klimaschutz energiewende" id="242" weight="45" />
+      <edge source="18 nachhaltig umweltschutz klimawandel klimakrise" target="5 demenzkrank ärztlich medizin demenz" id="243" weight="9" />
+      <edge source="18 nachhaltig umweltschutz klimawandel klimakrise" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="244" weight="16" />
+      <edge source="18 nachhaltig umweltschutz klimawandel klimakrise" target="7 armutsbericht arbeitslose sozial arbeiten" id="245" weight="22" />
+      <edge source="18 nachhaltig umweltschutz klimawandel klimakrise" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="246" weight="17" />
+      <edge source="18 nachhaltig umweltschutz klimawandel klimakrise" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="247" weight="13" />
+      <edge source="19 deutschtürke türkisch türkischer flüchtlingsabkommen" target="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" id="248" weight="30" />
+      <edge source="19 deutschtürke türkisch türkischer flüchtlingsabkommen" target="20 stimmungstest fußball stimmung zusammenführen" id="249" weight="12" />
+      <edge source="19 deutschtürke türkisch türkischer flüchtlingsabkommen" target="22 katholisch glauben kindesmissbrauch urchristlich" id="250" weight="2" />
+      <edge source="19 deutschtürke türkisch türkischer flüchtlingsabkommen" target="23 fußballprofi fußballtrainer weltmeister fußball" id="251" weight="4" />
+      <edge source="19 deutschtürke türkisch türkischer flüchtlingsabkommen" target="24 brexit außenhandelsministerium europawahl premierministerin" id="252" weight="19" />
+      <edge source="19 deutschtürke türkisch türkischer flüchtlingsabkommen" target="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" id="253" weight="7" />
+      <edge source="19 deutschtürke türkisch türkischer flüchtlingsabkommen" target="26 themenwoche maischberger einzelgespräche einzelgespräch" id="254" weight="7" />
+      <edge source="19 deutschtürke türkisch türkischer flüchtlingsabkommen" target="27 zuwanderung einbürgern bundesbankvorstand sarrazin" id="255" weight="7" />
+      <edge source="19 deutschtürke türkisch türkischer flüchtlingsabkommen" target="28 klimaschutz innenpolitisch euroskeptisch wählen" id="256" weight="8" />
+      <edge source="19 deutschtürke türkisch türkischer flüchtlingsabkommen" target="29 haftstrafe töten umbringen totschlag" id="257" weight="4" />
+      <edge source="19 deutschtürke türkisch türkischer flüchtlingsabkommen" target="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" id="258" weight="32" />
+      <edge source="19 deutschtürke türkisch türkischer flüchtlingsabkommen" target="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" id="259" weight="3" />
+      <edge source="19 deutschtürke türkisch türkischer flüchtlingsabkommen" target="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" id="260" weight="7" />
+      <edge source="19 deutschtürke türkisch türkischer flüchtlingsabkommen" target="4 energiekrise energiepreis klimaschutz energiewende" id="261" weight="18" />
+      <edge source="19 deutschtürke türkisch türkischer flüchtlingsabkommen" target="5 demenzkrank ärztlich medizin demenz" id="262" weight="4" />
+      <edge source="19 deutschtürke türkisch türkischer flüchtlingsabkommen" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="263" weight="19" />
+      <edge source="19 deutschtürke türkisch türkischer flüchtlingsabkommen" target="7 armutsbericht arbeitslose sozial arbeiten" id="264" weight="13" />
+      <edge source="19 deutschtürke türkisch türkischer flüchtlingsabkommen" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="265" weight="35" />
+      <edge source="19 deutschtürke türkisch türkischer flüchtlingsabkommen" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="266" weight="29" />
+      <edge source="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" target="20 stimmungstest fußball stimmung zusammenführen" id="267" weight="34" />
+      <edge source="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" target="21 millionär vermögen privatinsolvenz betrüger" id="268" weight="3" />
+      <edge source="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" target="22 katholisch glauben kindesmissbrauch urchristlich" id="269" weight="7" />
+      <edge source="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" target="23 fußballprofi fußballtrainer weltmeister fußball" id="270" weight="12" />
+      <edge source="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" target="24 brexit außenhandelsministerium europawahl premierministerin" id="271" weight="25" />
+      <edge source="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" target="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" id="272" weight="21" />
+      <edge source="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" target="26 themenwoche maischberger einzelgespräche einzelgespräch" id="273" weight="29" />
+      <edge source="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" target="27 zuwanderung einbürgern bundesbankvorstand sarrazin" id="274" weight="16" />
+      <edge source="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" target="28 klimaschutz innenpolitisch euroskeptisch wählen" id="275" weight="16" />
+      <edge source="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" target="29 haftstrafe töten umbringen totschlag" id="276" weight="2" />
+      <edge source="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" target="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" id="277" weight="105" />
+      <edge source="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" target="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" id="278" weight="18" />
+      <edge source="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" target="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" id="279" weight="21" />
+      <edge source="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" target="4 energiekrise energiepreis klimaschutz energiewende" id="280" weight="90" />
+      <edge source="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" target="5 demenzkrank ärztlich medizin demenz" id="281" weight="28" />
+      <edge source="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="282" weight="67" />
+      <edge source="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" target="7 armutsbericht arbeitslose sozial arbeiten" id="283" weight="44" />
+      <edge source="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="284" weight="70" />
+      <edge source="2 impfpflicht bundesgesundheitsminister inzidenz impfstoff" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="285" weight="72" />
+      <edge source="20 stimmungstest fußball stimmung zusammenführen" target="21 millionär vermögen privatinsolvenz betrüger" id="286" weight="2" />
+      <edge source="20 stimmungstest fußball stimmung zusammenführen" target="22 katholisch glauben kindesmissbrauch urchristlich" id="287" weight="3" />
+      <edge source="20 stimmungstest fußball stimmung zusammenführen" target="23 fußballprofi fußballtrainer weltmeister fußball" id="288" weight="4" />
+      <edge source="20 stimmungstest fußball stimmung zusammenführen" target="24 brexit außenhandelsministerium europawahl premierministerin" id="289" weight="13" />
+      <edge source="20 stimmungstest fußball stimmung zusammenführen" target="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" id="290" weight="12" />
+      <edge source="20 stimmungstest fußball stimmung zusammenführen" target="26 themenwoche maischberger einzelgespräche einzelgespräch" id="291" weight="6" />
+      <edge source="20 stimmungstest fußball stimmung zusammenführen" target="27 zuwanderung einbürgern bundesbankvorstand sarrazin" id="292" weight="4" />
+      <edge source="20 stimmungstest fußball stimmung zusammenführen" target="28 klimaschutz innenpolitisch euroskeptisch wählen" id="293" weight="11" />
+      <edge source="20 stimmungstest fußball stimmung zusammenführen" target="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" id="294" weight="47" />
+      <edge source="20 stimmungstest fußball stimmung zusammenführen" target="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" id="295" weight="5" />
+      <edge source="20 stimmungstest fußball stimmung zusammenführen" target="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" id="296" weight="19" />
+      <edge source="20 stimmungstest fußball stimmung zusammenführen" target="4 energiekrise energiepreis klimaschutz energiewende" id="297" weight="30" />
+      <edge source="20 stimmungstest fußball stimmung zusammenführen" target="5 demenzkrank ärztlich medizin demenz" id="298" weight="5" />
+      <edge source="20 stimmungstest fußball stimmung zusammenführen" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="299" weight="26" />
+      <edge source="20 stimmungstest fußball stimmung zusammenführen" target="7 armutsbericht arbeitslose sozial arbeiten" id="300" weight="20" />
+      <edge source="20 stimmungstest fußball stimmung zusammenführen" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="301" weight="31" />
+      <edge source="20 stimmungstest fußball stimmung zusammenführen" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="302" weight="30" />
+      <edge source="21 millionär vermögen privatinsolvenz betrüger" target="23 fußballprofi fußballtrainer weltmeister fußball" id="303" weight="2" />
+      <edge source="21 millionär vermögen privatinsolvenz betrüger" target="24 brexit außenhandelsministerium europawahl premierministerin" id="304" weight="2" />
+      <edge source="21 millionär vermögen privatinsolvenz betrüger" target="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" id="305" weight="2" />
+      <edge source="21 millionär vermögen privatinsolvenz betrüger" target="5 demenzkrank ärztlich medizin demenz" id="306" weight="4" />
+      <edge source="21 millionär vermögen privatinsolvenz betrüger" target="7 armutsbericht arbeitslose sozial arbeiten" id="307" weight="3" />
+      <edge source="21 millionär vermögen privatinsolvenz betrüger" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="308" weight="2" />
+      <edge source="21 millionär vermögen privatinsolvenz betrüger" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="309" weight="4" />
+      <edge source="22 katholisch glauben kindesmissbrauch urchristlich" target="26 themenwoche maischberger einzelgespräche einzelgespräch" id="310" weight="2" />
+      <edge source="22 katholisch glauben kindesmissbrauch urchristlich" target="27 zuwanderung einbürgern bundesbankvorstand sarrazin" id="311" weight="3" />
+      <edge source="22 katholisch glauben kindesmissbrauch urchristlich" target="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" id="312" weight="5" />
+      <edge source="22 katholisch glauben kindesmissbrauch urchristlich" target="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" id="313" weight="4" />
+      <edge source="22 katholisch glauben kindesmissbrauch urchristlich" target="4 energiekrise energiepreis klimaschutz energiewende" id="314" weight="3" />
+      <edge source="22 katholisch glauben kindesmissbrauch urchristlich" target="5 demenzkrank ärztlich medizin demenz" id="315" weight="5" />
+      <edge source="22 katholisch glauben kindesmissbrauch urchristlich" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="316" weight="3" />
+      <edge source="22 katholisch glauben kindesmissbrauch urchristlich" target="7 armutsbericht arbeitslose sozial arbeiten" id="317" weight="4" />
+      <edge source="22 katholisch glauben kindesmissbrauch urchristlich" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="318" weight="3" />
+      <edge source="22 katholisch glauben kindesmissbrauch urchristlich" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="319" weight="2" />
+      <edge source="23 fußballprofi fußballtrainer weltmeister fußball" target="24 brexit außenhandelsministerium europawahl premierministerin" id="320" weight="6" />
+      <edge source="23 fußballprofi fußballtrainer weltmeister fußball" target="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" id="321" weight="2" />
+      <edge source="23 fußballprofi fußballtrainer weltmeister fußball" target="26 themenwoche maischberger einzelgespräche einzelgespräch" id="322" weight="5" />
+      <edge source="23 fußballprofi fußballtrainer weltmeister fußball" target="28 klimaschutz innenpolitisch euroskeptisch wählen" id="323" weight="3" />
+      <edge source="23 fußballprofi fußballtrainer weltmeister fußball" target="29 haftstrafe töten umbringen totschlag" id="324" weight="3" />
+      <edge source="23 fußballprofi fußballtrainer weltmeister fußball" target="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" id="325" weight="8" />
+      <edge source="23 fußballprofi fußballtrainer weltmeister fußball" target="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" id="326" weight="2" />
+      <edge source="23 fußballprofi fußballtrainer weltmeister fußball" target="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" id="327" weight="3" />
+      <edge source="23 fußballprofi fußballtrainer weltmeister fußball" target="4 energiekrise energiepreis klimaschutz energiewende" id="328" weight="7" />
+      <edge source="23 fußballprofi fußballtrainer weltmeister fußball" target="5 demenzkrank ärztlich medizin demenz" id="329" weight="5" />
+      <edge source="23 fußballprofi fußballtrainer weltmeister fußball" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="330" weight="7" />
+      <edge source="23 fußballprofi fußballtrainer weltmeister fußball" target="7 armutsbericht arbeitslose sozial arbeiten" id="331" weight="7" />
+      <edge source="23 fußballprofi fußballtrainer weltmeister fußball" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="332" weight="7" />
+      <edge source="23 fußballprofi fußballtrainer weltmeister fußball" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="333" weight="10" />
+      <edge source="24 brexit außenhandelsministerium europawahl premierministerin" target="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" id="334" weight="5" />
+      <edge source="24 brexit außenhandelsministerium europawahl premierministerin" target="26 themenwoche maischberger einzelgespräche einzelgespräch" id="335" weight="6" />
+      <edge source="24 brexit außenhandelsministerium europawahl premierministerin" target="27 zuwanderung einbürgern bundesbankvorstand sarrazin" id="336" weight="6" />
+      <edge source="24 brexit außenhandelsministerium europawahl premierministerin" target="28 klimaschutz innenpolitisch euroskeptisch wählen" id="337" weight="8" />
+      <edge source="24 brexit außenhandelsministerium europawahl premierministerin" target="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" id="338" weight="28" />
+      <edge source="24 brexit außenhandelsministerium europawahl premierministerin" target="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" id="339" weight="2" />
+      <edge source="24 brexit außenhandelsministerium europawahl premierministerin" target="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" id="340" weight="10" />
+      <edge source="24 brexit außenhandelsministerium europawahl premierministerin" target="4 energiekrise energiepreis klimaschutz energiewende" id="341" weight="18" />
+      <edge source="24 brexit außenhandelsministerium europawahl premierministerin" target="5 demenzkrank ärztlich medizin demenz" id="342" weight="2" />
+      <edge source="24 brexit außenhandelsministerium europawahl premierministerin" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="343" weight="17" />
+      <edge source="24 brexit außenhandelsministerium europawahl premierministerin" target="7 armutsbericht arbeitslose sozial arbeiten" id="344" weight="14" />
+      <edge source="24 brexit außenhandelsministerium europawahl premierministerin" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="345" weight="29" />
+      <edge source="24 brexit außenhandelsministerium europawahl premierministerin" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="346" weight="33" />
+      <edge source="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" target="26 themenwoche maischberger einzelgespräche einzelgespräch" id="347" weight="6" />
+      <edge source="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" target="27 zuwanderung einbürgern bundesbankvorstand sarrazin" id="348" weight="4" />
+      <edge source="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" target="28 klimaschutz innenpolitisch euroskeptisch wählen" id="349" weight="7" />
+      <edge source="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" target="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" id="350" weight="23" />
+      <edge source="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" target="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" id="351" weight="3" />
+      <edge source="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" target="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" id="352" weight="6" />
+      <edge source="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" target="4 energiekrise energiepreis klimaschutz energiewende" id="353" weight="20" />
+      <edge source="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" target="5 demenzkrank ärztlich medizin demenz" id="354" weight="6" />
+      <edge source="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="355" weight="11" />
+      <edge source="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" target="7 armutsbericht arbeitslose sozial arbeiten" id="356" weight="25" />
+      <edge source="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="357" weight="15" />
+      <edge source="25 arbeitslose arbeitslosigkeit sozial langzeitarbeitslose" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="358" weight="14" />
+      <edge source="26 themenwoche maischberger einzelgespräche einzelgespräch" target="27 zuwanderung einbürgern bundesbankvorstand sarrazin" id="359" weight="8" />
+      <edge source="26 themenwoche maischberger einzelgespräche einzelgespräch" target="28 klimaschutz innenpolitisch euroskeptisch wählen" id="360" weight="4" />
+      <edge source="26 themenwoche maischberger einzelgespräche einzelgespräch" target="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" id="361" weight="27" />
+      <edge source="26 themenwoche maischberger einzelgespräche einzelgespräch" target="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" id="362" weight="4" />
+      <edge source="26 themenwoche maischberger einzelgespräche einzelgespräch" target="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" id="363" weight="12" />
+      <edge source="26 themenwoche maischberger einzelgespräche einzelgespräch" target="4 energiekrise energiepreis klimaschutz energiewende" id="364" weight="17" />
+      <edge source="26 themenwoche maischberger einzelgespräche einzelgespräch" target="5 demenzkrank ärztlich medizin demenz" id="365" weight="6" />
+      <edge source="26 themenwoche maischberger einzelgespräche einzelgespräch" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="366" weight="9" />
+      <edge source="26 themenwoche maischberger einzelgespräche einzelgespräch" target="7 armutsbericht arbeitslose sozial arbeiten" id="367" weight="14" />
+      <edge source="26 themenwoche maischberger einzelgespräche einzelgespräch" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="368" weight="20" />
+      <edge source="26 themenwoche maischberger einzelgespräche einzelgespräch" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="369" weight="18" />
+      <edge source="27 zuwanderung einbürgern bundesbankvorstand sarrazin" target="28 klimaschutz innenpolitisch euroskeptisch wählen" id="370" weight="5" />
+      <edge source="27 zuwanderung einbürgern bundesbankvorstand sarrazin" target="29 haftstrafe töten umbringen totschlag" id="371" weight="2" />
+      <edge source="27 zuwanderung einbürgern bundesbankvorstand sarrazin" target="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" id="372" weight="21" />
+      <edge source="27 zuwanderung einbürgern bundesbankvorstand sarrazin" target="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" id="373" weight="7" />
+      <edge source="27 zuwanderung einbürgern bundesbankvorstand sarrazin" target="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" id="374" weight="10" />
+      <edge source="27 zuwanderung einbürgern bundesbankvorstand sarrazin" target="4 energiekrise energiepreis klimaschutz energiewende" id="375" weight="14" />
+      <edge source="27 zuwanderung einbürgern bundesbankvorstand sarrazin" target="5 demenzkrank ärztlich medizin demenz" id="376" weight="6" />
+      <edge source="27 zuwanderung einbürgern bundesbankvorstand sarrazin" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="377" weight="14" />
+      <edge source="27 zuwanderung einbürgern bundesbankvorstand sarrazin" target="7 armutsbericht arbeitslose sozial arbeiten" id="378" weight="14" />
+      <edge source="27 zuwanderung einbürgern bundesbankvorstand sarrazin" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="379" weight="25" />
+      <edge source="27 zuwanderung einbürgern bundesbankvorstand sarrazin" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="380" weight="15" />
+      <edge source="28 klimaschutz innenpolitisch euroskeptisch wählen" target="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" id="381" weight="20" />
+      <edge source="28 klimaschutz innenpolitisch euroskeptisch wählen" target="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" id="382" weight="8" />
+      <edge source="28 klimaschutz innenpolitisch euroskeptisch wählen" target="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" id="383" weight="6" />
+      <edge source="28 klimaschutz innenpolitisch euroskeptisch wählen" target="4 energiekrise energiepreis klimaschutz energiewende" id="384" weight="19" />
+      <edge source="28 klimaschutz innenpolitisch euroskeptisch wählen" target="5 demenzkrank ärztlich medizin demenz" id="385" weight="2" />
+      <edge source="28 klimaschutz innenpolitisch euroskeptisch wählen" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="386" weight="25" />
+      <edge source="28 klimaschutz innenpolitisch euroskeptisch wählen" target="7 armutsbericht arbeitslose sozial arbeiten" id="387" weight="10" />
+      <edge source="28 klimaschutz innenpolitisch euroskeptisch wählen" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="388" weight="16" />
+      <edge source="28 klimaschutz innenpolitisch euroskeptisch wählen" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="389" weight="14" />
+      <edge source="29 haftstrafe töten umbringen totschlag" target="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" id="390" weight="9" />
+      <edge source="29 haftstrafe töten umbringen totschlag" target="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" id="391" weight="2" />
+      <edge source="29 haftstrafe töten umbringen totschlag" target="4 energiekrise energiepreis klimaschutz energiewende" id="392" weight="3" />
+      <edge source="29 haftstrafe töten umbringen totschlag" target="5 demenzkrank ärztlich medizin demenz" id="393" weight="2" />
+      <edge source="29 haftstrafe töten umbringen totschlag" target="7 armutsbericht arbeitslose sozial arbeiten" id="394" weight="2" />
+      <edge source="29 haftstrafe töten umbringen totschlag" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="395" weight="5" />
+      <edge source="29 haftstrafe töten umbringen totschlag" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="396" weight="3" />
+      <edge source="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" target="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" id="397" weight="19" />
+      <edge source="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" target="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" id="398" weight="38" />
+      <edge source="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" target="4 energiekrise energiepreis klimaschutz energiewende" id="399" weight="79" />
+      <edge source="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" target="5 demenzkrank ärztlich medizin demenz" id="400" weight="16" />
+      <edge source="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="401" weight="66" />
+      <edge source="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" target="7 armutsbericht arbeitslose sozial arbeiten" id="402" weight="62" />
+      <edge source="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="403" weight="96" />
+      <edge source="3 bundestagswahl sozialdemokrat landtagswahl volkspartei" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="404" weight="82" />
+      <edge source="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" target="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" id="405" weight="3" />
+      <edge source="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" target="4 energiekrise energiepreis klimaschutz energiewende" id="406" weight="19" />
+      <edge source="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" target="5 demenzkrank ärztlich medizin demenz" id="407" weight="3" />
+      <edge source="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="408" weight="28" />
+      <edge source="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" target="7 armutsbericht arbeitslose sozial arbeiten" id="409" weight="6" />
+      <edge source="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="410" weight="11" />
+      <edge source="30 bundespolitisch bundestagswahl sicherheitspolitisch bundestagswahlkampf" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="411" weight="13" />
+      <edge source="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" target="4 energiekrise energiepreis klimaschutz energiewende" id="412" weight="19" />
+      <edge source="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" target="5 demenzkrank ärztlich medizin demenz" id="413" weight="6" />
+      <edge source="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="414" weight="16" />
+      <edge source="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" target="7 armutsbericht arbeitslose sozial arbeiten" id="415" weight="19" />
+      <edge source="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="416" weight="26" />
+      <edge source="31 bundestagswahl landtagswahl landtagswahlkampf personenwahl" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="417" weight="19" />
+      <edge source="4 energiekrise energiepreis klimaschutz energiewende" target="5 demenzkrank ärztlich medizin demenz" id="418" weight="14" />
+      <edge source="4 energiekrise energiepreis klimaschutz energiewende" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="419" weight="51" />
+      <edge source="4 energiekrise energiepreis klimaschutz energiewende" target="7 armutsbericht arbeitslose sozial arbeiten" id="420" weight="45" />
+      <edge source="4 energiekrise energiepreis klimaschutz energiewende" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="421" weight="53" />
+      <edge source="4 energiekrise energiepreis klimaschutz energiewende" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="422" weight="44" />
+      <edge source="5 demenzkrank ärztlich medizin demenz" target="6 bundesregierung politisch redaktionsnetzwerk kritisieren" id="423" weight="8" />
+      <edge source="5 demenzkrank ärztlich medizin demenz" target="7 armutsbericht arbeitslose sozial arbeiten" id="424" weight="26" />
+      <edge source="5 demenzkrank ärztlich medizin demenz" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="425" weight="12" />
+      <edge source="5 demenzkrank ärztlich medizin demenz" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="426" weight="11" />
+      <edge source="6 bundesregierung politisch redaktionsnetzwerk kritisieren" target="7 armutsbericht arbeitslose sozial arbeiten" id="427" weight="31" />
+      <edge source="6 bundesregierung politisch redaktionsnetzwerk kritisieren" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="428" weight="49" />
+      <edge source="6 bundesregierung politisch redaktionsnetzwerk kritisieren" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="429" weight="45" />
+      <edge source="7 armutsbericht arbeitslose sozial arbeiten" target="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" id="430" weight="38" />
+      <edge source="7 armutsbericht arbeitslose sozial arbeiten" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="431" weight="34" />
+      <edge source="8 flüchtlingspolitik flüchtlingsfrage flüchtling zuwanderung" target="9 auswärtig außenpolitisch politikberater vizepräsident" id="432" weight="59" />
     </edges>
   </graph>
 </gexf>

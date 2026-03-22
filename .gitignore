@@ -163,3 +163,40 @@ cython_debug/
 
 # MacOS
 .DS_Store
+
+# =============================================================
+# Projektspezifisch: wtmw
+# =============================================================
+
+# Generierte Analysedaten (werden von analyze_talkshows.py erzeugt)
+data/all_data_with_topics.xlsx
+data/all_data.xlsx
+data/guests_with_topics.xlsx
+data/guest_topic_range.xlsx
+data/guests_cleaned.xlsx
+data/guests_consolidated.xlsx
+data/guests_junk.xlsx
+data/junk_guests.xlsx
+data/guest_validation_review.xlsx
+data/bertopic_tuning_results.csv
+
+# Snapshot-Ordner (datierte Backups)
+data/snapshots/
+
+# BERTopic-Modell (groß, wird lokal trainiert)
+data/talkshow_topic_model/
+
+# Netzwerk-Visualisierungen (generiert)
+data/*.html
+data/*.png
+data/*.gexf
+data/*.gephi
+
+# Stopwort-Cache (werden automatisch heruntergeladen)
+data/stopwords_de_*.txt
+
+# BEHALTEN (explizit tracken):
+# data/best_parameters.json     → optimierte Hyperparameter
+# data/topic_labels.json        → kuratierte Topic-Namen
+# data/name_corrections.json    → manuelle Namenskorrekturen
+# data/guest_validation_overrides.json
