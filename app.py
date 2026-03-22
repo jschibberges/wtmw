@@ -252,13 +252,13 @@ if df_shows is not None:
                 pd.to_numeric(topic_counts_df["Episoden"], errors="coerce").fillna(0).astype(int)
             )
             classified = topic_counts_df[
-                ~topic_counts_df["Thema"].isin({"Kein Thema zugeordnet", "Sonstige / kein Thema"})
+                ~topic_counts_df["Thema"].isin({"Nicht klassifiziert"})
             ]
             chart_data = classified.head(20).set_index("Thema")
             st.bar_chart(chart_data)
             unclassified_count = int(
                 topic_counts_df.loc[
-                    topic_counts_df["Thema"].isin({"Kein Thema zugeordnet", "Sonstige / kein Thema"}),
+                    topic_counts_df["Thema"].isin({"Nicht klassifiziert"}),
                     "Episoden",
                 ].sum()
             )

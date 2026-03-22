@@ -15,9 +15,9 @@ def test_format_topic_label_handles_topic_prefixes_and_empty_values(monkeypatch)
     monkeypatch.setattr(app_helpers, "_load_topic_labels", lambda: {})
 
     assert format_topic_label("13 klima energie wirtschaft") == "Topic 13: klima energie wirtschaft"
-    assert format_topic_label("-1 irgendwas") == "Sonstige / kein Thema"
-    assert format_topic_label("") == "Kein Thema zugeordnet"
-    assert format_topic_label(None) == "Kein Thema zugeordnet"
+    assert format_topic_label("-1 irgendwas") == "Nicht klassifiziert"
+    assert format_topic_label("") == "Nicht klassifiziert"
+    assert format_topic_label(None) == "Nicht klassifiziert"
 
 
 def test_format_topic_label_prefers_custom_labels(monkeypatch):
@@ -61,8 +61,7 @@ def test_summarize_topic_counts_preserves_unclassified_buckets(monkeypatch):
     counts = dict(zip(result["Thema"], result["Episoden"]))
 
     assert counts["Topic 13: klima energie"] == 2
-    assert counts["Sonstige / kein Thema"] == 1
-    assert counts["Kein Thema zugeordnet"] == 1
+    assert counts["Nicht klassifiziert"] == 2
 
 
 def test_prepare_guest_metadata_deduplicates_party_tokens_and_sorts_roles_by_recency():

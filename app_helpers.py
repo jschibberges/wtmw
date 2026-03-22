@@ -232,11 +232,11 @@ def format_topic_label(label: str | float | None) -> str:
     custom = _load_topic_labels()
 
     if not isinstance(label, str):
-        return custom.get("-1", "Kein Thema zugeordnet")
+        return custom.get("-1", "Nicht klassifiziert")
 
     text = label.strip()
     if not text:
-        return custom.get("-1", "Kein Thema zugeordnet")
+        return custom.get("-1", "Nicht klassifiziert")
 
     # Numerisches Präfix extrahieren ("3_bundestagswahl_..." → "3")
     parts = text.split(" ", 1)
@@ -246,7 +246,7 @@ def format_topic_label(label: str | float | None) -> str:
         if prefix in custom:
             return custom[prefix]
         if prefix == "-1":
-            return custom.get("-1", "Sonstige / kein Thema")
+            return custom.get("-1", "Nicht klassifiziert")
         remainder = parts[1].strip() if len(parts) > 1 else ""
         # Unterstrich-Format normalisieren
         remainder = remainder.replace("_", " ").strip()
@@ -353,11 +353,12 @@ def summarize_topic_counts(df: pd.DataFrame | None) -> pd.DataFrame:
         working["topic_display"] = "Kein Thema zugeordnet"
 
     if "topic" in working.columns:
-        working.loc[working["topic"].isna(), "topic_display"] = "Kein Thema zugeordnet"
-        working.loc[working["topic"] == -1, "topic_display"] = "Sonstige / kein Thema"
+        working.loc[working["topic"].isna() | (working["topic"] == -1), "topic_display"] = (
+            "Nicht klassifiziert"
+        )
 
     topic_counts = (
-        working["topic_display"].fillna("Kein Thema zugeordnet").value_counts()
+        working["topic_display"].fillna("Nicht klassifiziert").value_counts()
     )
 
     return (
