@@ -254,8 +254,25 @@ if df_shows is not None:
             classified = topic_counts_df[
                 ~topic_counts_df["Thema"].isin({"Nicht klassifiziert"})
             ]
-            chart_data = classified.head(20).set_index("Thema")
-            st.bar_chart(chart_data)
+            chart_data = classified.head(20).copy()
+            if not chart_data.empty:
+                topic_chart_col, topic_table_col = st.columns([2, 1])
+                with topic_chart_col:
+                    fig, ax = plt.subplots(figsize=(8, max(4, len(chart_data) * 0.45)))
+                    bars = ax.barh(
+                        chart_data["Thema"][::-1],
+                        chart_data["Episoden"][::-1],
+                        color="#4C72B0",
+                    )
+                    ax.bar_label(bars, padding=3, fontsize=9)
+                    ax.set_xlabel("Episoden")
+                    ax.set_title("Top-Themen")
+                    ax.spines[["top", "right"]].set_visible(False)
+                    plt.tight_layout()
+                    st.pyplot(fig, width="stretch")
+                    plt.close(fig)
+                with topic_table_col:
+                    st.dataframe(chart_data, width="stretch", hide_index=True)
             unclassified_count = int(
                 topic_counts_df.loc[
                     topic_counts_df["Thema"].isin({"Nicht klassifiziert"}),
