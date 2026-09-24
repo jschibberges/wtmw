@@ -909,6 +909,7 @@ def analyze_and_visualize_topics(
     # ----------------------- better labels via cleaned docs -----------------------
     cleaned_texts = [clean_description_for_labels(t) for t in texts]
 
+    labels: dict[int, str] = {}
     try:
         # 1) Recompute topic words using cleaned docs (ask for more; we'll prune to 10)
         vectorizer_for_labels = CountVectorizer(
@@ -953,13 +954,12 @@ def analyze_and_visualize_topics(
             except Exception as e:
                 print(f"Warning: Could not set topic representations: {type(e).__name__}: {e}")
 
-        # Build clean labels: prefer the longest phrase available
-        labels = {}
+        # Labels aus den bereinigten Termen (Rollenfilter + Dedupe) statt aus
+        # BERTopics Roh-"Name" bauen
         for tid, terms in filtered_repr.items():
             if tid == -1 or not terms:
                 continue
-            best_phrase = max((t for t, _ in terms), key=lambda w: len(w.split()), default=terms[0][0])
-            labels[tid] = best_phrase  # keep original casing; or use .title() if you prefer
+            labels[tid] = " ".join(t for t, _ in terms[:4])
 
         try:
             topic_model.set_topic_labels(labels)
@@ -971,7 +971,9 @@ def analyze_and_visualize_topics(
 
     # ----------------------- map labels back -----------------------
     topic_info = topic_model.get_topic_info()
-    # if set_topic_labels worked, Name already reflects our labels; still normalize spacing a bit
+    # "Name" bleibt BERTopics Roh-Label ("0_wort_wort"); set_topic_labels() schreibt
+    # nur in "CustomName". Format "<ID> <wörter>" beibehalten – die App liest die ID
+    # daraus (app_helpers.format_topic_label).
     topic_info["custom_label"] = (
         topic_info["Name"]
         .str.replace("_", " ", regex=False)
@@ -979,6 +981,7 @@ def analyze_and_visualize_topics(
         .str.strip()
     )
     label_map = topic_info.set_index("Topic")["custom_label"].to_dict()
+    label_map.update({tid: f"{tid} {label}" for tid, label in labels.items()})
 
     docs_df["topic"] = topics
     docs_df["topic_label"] = docs_df["topic"].map(label_map)

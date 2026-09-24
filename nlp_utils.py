@@ -507,7 +507,8 @@ def clean_description_for_labels(text: str, cfg: LiteConfig = LiteConfig()) -> s
     s = _squash_spaces(s)
 
     # No spaCy available → simple fallback: lowercase + token filter
-    stop = get_german_stopwords()
+    # Kopie: get_german_stopwords() ist gecacht und darf nicht verändert werden
+    stop = set(get_german_stopwords())
     stop.update(TOPIC_ROLE_STOP)
     if _NLP_DE is None:
         toks = [t for t in TOKEN_RE.findall(s.lower())

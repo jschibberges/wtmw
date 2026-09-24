@@ -167,36 +167,19 @@ cython_debug/
 # =============================================================
 # Projektspezifisch: wtmw
 # =============================================================
+#
+# Die Analyse-Ergebnisse in data/ (xlsx, html, png, gexf, talkshow_topic_model/,
+# Stopwort-Listen) werden bewusst getrackt: die Streamlit-App liest sie direkt
+# aus dem Repo, und die Weekly Pipeline committet sie per `git add -A data`.
+# Hier nur Dateien ignorieren, die NICHT ins Repo sollen.
 
-# Generierte Analysedaten (werden von analyze_talkshows.py erzeugt)
-data/all_data_with_topics.xlsx
+# Zwischenstände des Scrapers
 data/all_data.xlsx
-data/guests_with_topics.xlsx
-data/guest_topic_range.xlsx
-data/guests_cleaned.xlsx
-data/guests_consolidated.xlsx
-data/guests_junk.xlsx
-data/junk_guests.xlsx
+data/all_data2.xlsx
+
+# Lokale Review-Dateien (Übernahme via sync_guest_validation_overrides.py)
 data/guest_validation_review.xlsx
-data/bertopic_tuning_results.csv
+data/junk_guests.xlsx
 
 # Snapshot-Ordner (datierte Backups)
 data/snapshots/
-
-# BERTopic-Modell (groß, wird lokal trainiert)
-data/talkshow_topic_model/
-
-# Netzwerk-Visualisierungen (generiert)
-data/*.html
-data/*.png
-data/*.gexf
-data/*.gephi
-
-# Stopwort-Cache (werden automatisch heruntergeladen)
-data/stopwords_de_*.txt
-
-# BEHALTEN (explizit tracken):
-# data/best_parameters.json     → optimierte Hyperparameter
-# data/topic_labels.json        → kuratierte Topic-Namen
-# data/name_corrections.json    → manuelle Namenskorrekturen
-# data/guest_validation_overrides.json
