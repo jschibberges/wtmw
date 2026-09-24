@@ -1,35 +1,469 @@
 {
   "-1": "Sonstige / Nicht zugeordnet",
-  "0":  "Ukraine-Krieg & Russland",
-  "1":  "Politische Runde (allgemein)",
-  "2":  "Corona-Pandemie",
-  "3":  "Bundestagswahl & Koalitionsbildung",
-  "4":  "Energiekrise & Klimapolitik",
-  "5":  "Gesundheit & Medizin",
-  "6":  "Politisches Magazin / Aktuelle Nachrichten",
-  "7":  "Steuern, Vermögen & soziale Gerechtigkeit",
-  "8":  "Flüchtlingskrise & Migration",
-  "9":  "Außenpolitik & USA",
-  "10": "Rentenpolitik",
-  "11": "Islamismus & Terrorismus",
-  "12": "Eurokrise & Griechenland",
-  "13": "Ernährung & Gesundheit",
-  "14": "Nahostkonflikt",
-  "15": "Landtagswahlen & Regierungsbildung",
-  "16": "Haushalt & Schuldenbremse",
-  "17": "Erziehung & Bildung",
-  "18": "Klimakrise & Nachhaltigkeit",
-  "19": "Türkei & deutsch-türkische Beziehungen",
-  "20": "Fußball & Nationalmannschaft",
-  "21": "Reichtum, Schulden & Betrug",
-  "22": "Katholische Kirche & Missbrauchsskandal",
-  "23": "Fußball & Sportkarrieren",
-  "24": "Brexit & Großbritannien",
-  "25": "Arbeitslosigkeit & Arbeitsmarkt",
-  "26": "Maischberger Spezial",
-  "27": "Zuwanderung & Integration",
-  "28": "Neuwahl & Regierungswechsel",
-  "29": "Strafrecht & Kriminalität",
-  "30": "Wirtschafts- und Industriepolitik",
-  "31": "Wahlkampf & Volksparteien"
+  "0": {
+    "label": "Ukraine-Krieg & Russland",
+    "keywords": [
+      "ukrainisch",
+      "russisch",
+      "putin",
+      "auswärtig",
+      "bundesregierung",
+      "kreml",
+      "liefern",
+      "bundeswehr",
+      "fordern"
+    ]
+  },
+  "1": {
+    "label": "Politische Runde (allgemein)",
+    "keywords": [
+      "vorsitzender",
+      "münstermann",
+      "afd",
+      "zdf",
+      "theveßen"
+    ]
+  },
+  "2": {
+    "label": "Corona-Pandemie",
+    "keywords": [
+      "impfpflicht",
+      "bundesgesundheitsminister",
+      "inzidenz",
+      "impfstoff",
+      "covid",
+      "pandemie",
+      "aktuell",
+      "zeitung",
+      "abonniert",
+      "corona"
+    ]
+  },
+  "3": {
+    "label": "Bundestagswahl & Koalitionsbildung",
+    "keywords": [
+      "bundestagswahl",
+      "sozialdemokrat",
+      "landtagswahl",
+      "volkspartei",
+      "linkspartei",
+      "kanzlerkandidat",
+      "spitzenkandidat",
+      "neuwahl",
+      "koalitionspartner",
+      "wahlergebnis"
+    ]
+  },
+  "4": {
+    "label": "Energiekrise & Klimapolitik",
+    "keywords": [
+      "energiekrise",
+      "energiepreis",
+      "klimaschutz",
+      "energiewende",
+      "klimapolitik",
+      "klimawandel",
+      "bundesregierung",
+      "bundeswirtschaftsminister",
+      "entlastungspaket",
+      "bundesfinanzminister"
+    ]
+  },
+  "5": {
+    "label": "Gesundheit & Medizin",
+    "keywords": [
+      "demenzkrank",
+      "ärztlich",
+      "medizin",
+      "demenz",
+      "erkrankung",
+      "gesundheitsexperte",
+      "krankheit",
+      "behandeln",
+      "gesundheitssystem",
+      "mediziner"
+    ]
+  },
+  "6": {
+    "label": "Politisches Magazin / Aktuelle Nachrichten",
+    "keywords": [
+      "bundesregierung",
+      "politisch",
+      "redaktionsnetzwerk",
+      "kritisieren",
+      "landtagswahl",
+      "ampelkoalition",
+      "zustand",
+      "äußern",
+      "aktuell",
+      "bundeswehr"
+    ]
+  },
+  "7": {
+    "label": "Steuern, Vermögen & soziale Gerechtigkeit",
+    "keywords": [
+      "armutsbericht",
+      "arbeitslose",
+      "sozial",
+      "arbeiten",
+      "fordern",
+      "arbeit",
+      "gelten",
+      "brauchen",
+      "vermögen",
+      "mitarbeiter"
+    ]
+  },
+  "8": {
+    "label": "Flüchtlingskrise & Migration",
+    "keywords": [
+      "flüchtlingspolitik",
+      "flüchtlingsfrage",
+      "flüchtling",
+      "zuwanderung",
+      "bundesinnenminister",
+      "asylantrag",
+      "einwanderungsgesetz",
+      "flüchtlingskris",
+      "asylbewerber",
+      "abschiebung"
+    ]
+  },
+  "9": {
+    "label": "Außenpolitik & USA",
+    "keywords": [
+      "auswärtig",
+      "außenpolitisch",
+      "politikberater",
+      "vizepräsident",
+      "außenpolitik",
+      "vorsitzend",
+      "demokrat",
+      "politisch",
+      "präsident",
+      "trump"
+    ]
+  },
+  "10": {
+    "label": "Rentenpolitik",
+    "keywords": [
+      "mütterrente",
+      "rentenpaket",
+      "rentenversicherung",
+      "grundrente",
+      "rentenkürzung",
+      "rentensystem",
+      "rentenplan",
+      "rente",
+      "rentenkasse",
+      "geringverdiener"
+    ]
+  },
+  "11": {
+    "label": "Islamismus & Terrorismus",
+    "keywords": [
+      "islamist",
+      "rechtsextrem",
+      "terrorismus",
+      "islamistisch",
+      "islamismus",
+      "radikalisierung",
+      "radikal",
+      "anschlag",
+      "dschihadist",
+      "islamisch"
+    ]
+  },
+  "12": {
+    "label": "Eurokrise & Griechenland",
+    "keywords": [
+      "bundesfinanzminister",
+      "währungsfonds",
+      "griechisch",
+      "finanzminister",
+      "grexit",
+      "bundesregierung",
+      "finanzkrise",
+      "griechenland",
+      "eu",
+      "schuldenschnitt"
+    ]
+  },
+  "13": {
+    "label": "Ernährung & Gesundheit",
+    "keywords": [
+      "lebensmittel",
+      "kochen",
+      "diät",
+      "ernährung",
+      "gesund",
+      "küche",
+      "veganer",
+      "gesundheit",
+      "warnen",
+      "fleisch"
+    ]
+  },
+  "14": {
+    "label": "Nahostkonflikt",
+    "keywords": [
+      "israelisch",
+      "terrororganisation",
+      "netanjahu",
+      "gaza",
+      "palästinenser",
+      "palästinensisch",
+      "iranisch",
+      "terrorangriff",
+      "antisemitisch",
+      "auswärtig"
+    ]
+  },
+  "15": {
+    "label": "Landtagswahlen & Regierungsbildung",
+    "keywords": [
+      "landtagswahl",
+      "regierungsbildung",
+      "regierungsverantwortung",
+      "wählen",
+      "politisch",
+      "wagenknecht",
+      "politbeben",
+      "demokratisch",
+      "volksvertreter",
+      "parlamentarisch"
+    ]
+  },
+  "16": {
+    "label": "Haushalt & Schuldenbremse",
+    "keywords": [
+      "bundesfinanzminister",
+      "schuldenbremse",
+      "bundestagsfraktion",
+      "bundesministerium",
+      "kindergrundsicherung",
+      "haushalt",
+      "wirtschaftsminister",
+      "bundesverfassungsgericht",
+      "finanzminister",
+      "klimaschutz"
+    ]
+  },
+  "17": {
+    "label": "Erziehung & Bildung",
+    "keywords": [
+      "erziehen",
+      "erziehungswissenschaftler",
+      "erziehung",
+      "jugendliche",
+      "kritisieren",
+      "fernsehmoderator",
+      "mitscherlich",
+      "fühlen",
+      "gründen"
+    ]
+  },
+  "18": {
+    "label": "Klimakrise & Nachhaltigkeit",
+    "keywords": [
+      "nachhaltig",
+      "umweltschutz",
+      "klimawandel",
+      "klimakrise",
+      "naturschutz",
+      "massentourismus",
+      "autofahren",
+      "flugreise",
+      "energiewende",
+      "atomenergie"
+    ]
+  },
+  "19": {
+    "label": "Türkei & deutsch-türkische Beziehungen",
+    "keywords": [
+      "deutschtürke",
+      "türkisch",
+      "flüchtlingsabkommen",
+      "auswärtig",
+      "menschenrechtsausschuß",
+      "kurdisch",
+      "vorsitzend"
+    ]
+  },
+  "20": {
+    "label": "Fußball & Nationalmannschaft",
+    "keywords": [
+      "stimmungstest",
+      "fußball",
+      "stimmung",
+      "zusammenführen",
+      "spielfreude",
+      "nationalmannschaft",
+      "europawahl",
+      "ergebnis",
+      "regierung",
+      "wählen"
+    ]
+  },
+  "21": {
+    "label": "Reichtum, Schulden & Betrug",
+    "keywords": [
+      "millionär",
+      "vermögen",
+      "privatinsolvenz",
+      "betrüger",
+      "finanziell",
+      "betrügen",
+      "schuld",
+      "geldanlage",
+      "bundesligaprofi"
+    ]
+  },
+  "22": {
+    "label": "Katholische Kirche & Missbrauchsskandal",
+    "keywords": [
+      "katholisch",
+      "glauben",
+      "kindesmissbrauch",
+      "urchristlich",
+      "glaubensgemeinschaft",
+      "missbrauchen",
+      "katholik",
+      "missbrauch",
+      "kirchlich",
+      "erschüttern"
+    ]
+  },
+  "23": {
+    "label": "Fußball & Sportkarrieren",
+    "keywords": [
+      "fußballprofi",
+      "fußballtrainer",
+      "weltmeister",
+      "fußball",
+      "fußballleidenschaft",
+      "weltmeisterschaft",
+      "europameister",
+      "weltmeisterin",
+      "sportschau",
+      "berichten"
+    ]
+  },
+  "24": {
+    "label": "Brexit & Großbritannien",
+    "keywords": [
+      "brexit",
+      "außenhandelsministerium",
+      "europawahl",
+      "premierministerin",
+      "großbritannien",
+      "britisch",
+      "abstimmung",
+      "finanzjournalistin",
+      "abstimmen",
+      "eu"
+    ]
+  },
+  "25": {
+    "label": "Arbeitslosigkeit & Arbeitsmarkt",
+    "keywords": [
+      "arbeitslose",
+      "arbeitslosigkeit",
+      "sozial",
+      "langzeitarbeitslose",
+      "arbeitslos",
+      "grundeinkommen",
+      "arbeitsmarktpolitik",
+      "arbeitsmarkt",
+      "fordern",
+      "arbeiten"
+    ]
+  },
+  "26": {
+    "label": "Maischberger Spezial",
+    "keywords": [
+      "themenwoche",
+      "maischberger",
+      "einzelgespräche",
+      "fragen",
+      "thematisch",
+      "mitherausgeber",
+      "woche",
+      "dienstagabend"
+    ]
+  },
+  "27": {
+    "label": "Zuwanderung & Integration",
+    "keywords": [
+      "zuwanderung",
+      "einbürgern",
+      "bundesbankvorstand",
+      "sarrazin",
+      "fordern",
+      "fürchten",
+      "vorurteil",
+      "gehört",
+      "integrieren",
+      "umfrage"
+    ]
+  },
+  "28": {
+    "label": "Neuwahl & Regierungswechsel",
+    "keywords": [
+      "klimaschutz",
+      "innenpolitisch",
+      "euroskeptisch",
+      "wählen",
+      "stimmenzuwachs",
+      "wahlberechtigte",
+      "aufrufen",
+      "regierung",
+      "politisch",
+      "umfrage"
+    ]
+  },
+  "29": {
+    "label": "Strafrecht & Kriminalität",
+    "keywords": [
+      "haftstrafe",
+      "töten",
+      "umbringen",
+      "totschlag",
+      "jugendstrafrecht",
+      "mörder",
+      "verurteilen",
+      "strafrecht",
+      "rechtsexperte"
+    ]
+  },
+  "30": {
+    "label": "Wirtschafts- und Industriepolitik",
+    "keywords": [
+      "bundespolitisch",
+      "bundestagswahl",
+      "sicherheitspolitisch",
+      "bundestagswahlkampf",
+      "migrationspolitisch",
+      "wirtschaftspolitisch",
+      "industriepolitisch",
+      "politisch",
+      "handelspolitisch",
+      "wahlprogrammatik"
+    ]
+  },
+  "31": {
+    "label": "Wahlkampf & Volksparteien",
+    "keywords": [
+      "bundestagswahl",
+      "landtagswahl",
+      "landtagswahlkampf",
+      "personenwahl",
+      "sozialdemokratisch",
+      "lagerwahlkampf",
+      "volkspartei",
+      "regierung",
+      "landesregierung",
+      "regierungskoalition"
+    ]
+  }
 }

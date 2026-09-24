@@ -65,6 +65,41 @@ def test_get_episode_details_handles_empty_uid_cache(monkeypatch):
     assert episodes[0]["guests"][0]["party"] == "SPD"
 
 
+def _episode_description(monkeypatch, inhalt_html: str) -> str:
+    html = EPISODE_HTML.replace(
+        "Eine ausführliche Diskussion über Klima und Wirtschaft.", inhalt_html
+    )
+
+    class FakeSession:
+        def get(self, url, headers=None, timeout=None):
+            return SimpleNamespace(content=html.encode("utf-8"), raise_for_status=lambda: None)
+
+    monkeypatch.setattr(scrape_talkshows, "_get_thread_session", lambda: FakeSession())
+    return scrape_talkshows._fetch_episode_details("https://example.com/episode")["description"]
+
+
+def test_description_keeps_short_intro_before_guest_list(monkeypatch):
+    description = _episode_description(
+        monkeypatch,
+        "<p>Streit um die Rente</p><p>Die Gäste:</p><p>Alice Example</p><p>Bob Beispiel</p>"
+        "<p>Wie sicher ist die Rente für die nächste Generation noch, und wer soll das bezahlen?</p>",
+    )
+
+    assert description == (
+        "Streit um die Rente Wie sicher ist die Rente für die nächste Generation noch, "
+        "und wer soll das bezahlen?"
+    )
+
+
+def test_description_without_guest_marker_keeps_all_lines(monkeypatch):
+    description = _episode_description(
+        monkeypatch,
+        "<p>Streit um die Rente</p><p>Wie sicher ist die Rente für die nächste Generation?</p>",
+    )
+
+    assert description == "Streit um die Rente Wie sicher ist die Rente für die nächste Generation?"
+
+
 def test_sanitize_episode_records_filters_none_and_missing_uid():
     records = [
         None,
@@ -268,3 +303,46 @@ def test_scrape_episodeguide_checkpoints_incrementally(monkeypatch, tmp_path):
     assert saved_payloads[1][1] == result
     assert stats["current_run_valid_episodes"] == 3
     assert stats["net_new_episodes"] == 3
+
+
+def test_recent_episode_uids_uses_refresh_window():
+    today = scrape_talkshows.date(2026, 3, 22)
+    records = [
+        {"uid": "new", "date": "20.03.2026"},
+        {"uid": "edge", "date": "08.03.2026"},
+        {"uid": "old", "date": "01.03.2026"},
+        {"uid": "short-year", "date": "21.03.26"},
+        {"uid": "no-date"},
+    ]
+
+    assert scrape_talkshows._recent_episode_uids(records, days=14, today=today) == {"new", "edge", "short-year"}
+
+
+def test_get_episode_details_refetches_recent_known_episodes(monkeypatch):
+    fetched = []
+
+    def fake_fetch(url):
+        fetched.append(url)
+        return {"uid": scrape_talkshows.create_hash(url), "link": url, "guests": []}
+
+    recent_url = "https://example.com/recent"
+    old_url = "https://example.com/old"
+    monkeypatch.setattr(scrape_talkshows, "_fetch_episode_details", fake_fetch)
+    monkeypatch.setattr(
+        scrape_talkshows, "uids", {scrape_talkshows.create_hash(recent_url), scrape_talkshows.create_hash(old_url)}
+    )
+    monkeypatch.setattr(scrape_talkshows, "recent_uids", {scrape_talkshows.create_hash(recent_url)})
+
+    episodes = scrape_talkshows.get_episode_details([recent_url, old_url, recent_url], max_workers=1)
+
+    assert fetched == [recent_url]
+    assert [e["link"] for e in episodes] == [recent_url]
+
+
+def test_refreshed_episode_replaces_stored_record():
+    existing = [{"uid": "a", "guests": []}, {"uid": "b", "guests": []}]
+    refreshed = [{"uid": "a", "guests": [{"name": "Alice Example"}]}]
+
+    merged = scrape_talkshows._merge_episode_records(existing, refreshed)
+
+    assert merged == [{"uid": "a", "guests": [{"name": "Alice Example"}]}, {"uid": "b", "guests": []}]

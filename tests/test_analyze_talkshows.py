@@ -221,3 +221,21 @@ def test_select_label_nodes_prefers_high_appearance_nodes():
     labels = analyze_talkshows._select_label_nodes(G, top_n=2)
 
     assert labels == ["B", "C"]
+
+
+def test_load_topic_assignments_requires_matching_model(tmp_path):
+    import json
+    import pandas as pd
+    from analyze_talkshows import _load_topic_assignments
+
+    xlsx = tmp_path / "all_data_with_topics.xlsx"
+    pd.DataFrame({"uid": ["a", "b", "c", "d"], "topic": [0, 0, 1, None]}).to_excel(xlsx, index=False)
+    topics_json = tmp_path / "topics.json"
+
+    topics_json.write_text(json.dumps({"topic_sizes": {"0": 2, "1": 1}}), encoding="utf-8")
+    assert _load_topic_assignments(xlsx, "uid", topics_json) == {"a": 0, "b": 0, "c": 1}
+
+    topics_json.write_text(json.dumps({"topic_sizes": {"0": 1, "1": 2}}), encoding="utf-8")
+    assert _load_topic_assignments(xlsx, "uid", topics_json) == {}
+
+    assert _load_topic_assignments(tmp_path / "fehlt.xlsx", "uid", topics_json) == {}

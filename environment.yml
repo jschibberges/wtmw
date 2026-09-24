@@ -1,0 +1,18 @@
+# conda-Umgebung für wtmw
+#
+#   conda env create -f environment.yml
+#   conda activate wtmw
+#
+# Aktualisieren nach Änderungen an den requirements-Dateien:
+#   conda env update -f environment.yml --prune
+#
+# Die Paketversionen (inkl. spaCy-Modell de_core_news_md) stehen nur in
+# requirements.txt – gleiche Versionen wie in der Weekly Pipeline.
+name: wtmw
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+      - -r requirements-dev.txt

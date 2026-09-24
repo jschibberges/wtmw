@@ -24,6 +24,7 @@ from date_utils import (
     is_on_or_after_analysis_start,
     normalize_date_value,
 )
+from topic_labels import load_model_keywords, update_topic_labels_file
 
 try:
     from pyvis.network import Network
@@ -1298,6 +1299,30 @@ def tune_bertopic_hyperparameters(
 # 2) Improved analysis + visualization
 ############################################
 
+def _load_topic_assignments(xlsx_path: Path, uid_col: str | None, topics_json_path: Path) -> dict:
+    """
+    {uid: topic} aus der all_data_with_topics.xlsx des letzten Laufs.
+
+    Nur gültig, wenn die Datei zum gespeicherten Modell passt (gleiche
+    Topic-Größen wie in topics.json) – sonst {} und nur Keyword-Abgleich.
+    """
+    if not uid_col or not Path(xlsx_path).exists() or not Path(topics_json_path).exists():
+        return {}
+    try:
+        prev = pd.read_excel(xlsx_path, usecols=[uid_col, "topic"]).dropna()
+        with open(topics_json_path, encoding="utf-8") as f:
+            model_sizes = {int(k): int(v) for k, v in json.load(f).get("topic_sizes", {}).items()}
+    except Exception as e:
+        print(f"Warning: Konnte frühere Topic-Zuordnung nicht lesen: {type(e).__name__}: {e}")
+        return {}
+    xlsx_sizes = prev["topic"].astype(int).value_counts().to_dict()
+    if xlsx_sizes != model_sizes:
+        print("Warning: all_data_with_topics.xlsx passt nicht zum gespeicherten Topic-Modell; "
+              "Topic-Labels werden nur über Keywords zugeordnet.")
+        return {}
+    return dict(zip(prev[uid_col], prev["topic"]))
+
+
 def analyze_and_visualize_topics(
     df,
     best_params=None,
@@ -1405,6 +1430,7 @@ def analyze_and_visualize_topics(
     # ----------------------- better labels via cleaned docs -----------------------
     cleaned_texts = [clean_description_for_labels(t) for t in texts]
 
+    labels: dict[int, str] = {}
     try:
         # 1) Recompute topic words using cleaned docs (ask for more; we'll prune to 10)
         vectorizer_for_labels = CountVectorizer(
@@ -1449,13 +1475,12 @@ def analyze_and_visualize_topics(
             except Exception as e:
                 print(f"Warning: Could not set topic representations: {type(e).__name__}: {e}")
 
-        # Build clean labels: prefer the longest phrase available
-        labels = {}
+        # Labels aus den bereinigten Termen (Rollenfilter + Dedupe) statt aus
+        # BERTopics Roh-"Name" bauen
         for tid, terms in filtered_repr.items():
             if tid == -1 or not terms:
                 continue
-            best_phrase = max((t for t, _ in terms), key=lambda w: len(w.split()), default=terms[0][0])
-            labels[tid] = best_phrase  # keep original casing; or use .title() if you prefer
+            labels[tid] = " ".join(t for t, _ in terms[:4])
 
         try:
             topic_model.set_topic_labels(labels)
@@ -1467,7 +1492,9 @@ def analyze_and_visualize_topics(
 
     # ----------------------- map labels back -----------------------
     topic_info = topic_model.get_topic_info()
-    # if set_topic_labels worked, Name already reflects our labels; still normalize spacing a bit
+    # "Name" bleibt BERTopics Roh-Label ("0_wort_wort"); set_topic_labels() schreibt
+    # nur in "CustomName". Format "<ID> <wörter>" beibehalten – die App liest die ID
+    # daraus (app_helpers.format_topic_label).
     topic_info["custom_label"] = (
         topic_info["Name"]
         .str.replace("_", " ", regex=False)
@@ -1475,6 +1502,7 @@ def analyze_and_visualize_topics(
         .str.strip()
     )
     label_map = topic_info.set_index("Topic")["custom_label"].to_dict()
+    label_map.update({tid: f"{tid} {label}" for tid, label in labels.items()})
 
     docs_df["topic"] = topics
     docs_df["topic_label"] = docs_df["topic"].map(label_map)
@@ -1483,6 +1511,14 @@ def analyze_and_visualize_topics(
     data_dir = Path(data_dir)
     data_dir.mkdir(parents=True, exist_ok=True)
     model_path = data_dir / "talkshow_topic_model"
+    # Keywords des bisherigen Modells sichern, bevor save() topics.json
+    # überschreibt – kuratierte Labels ohne eigene Keywords beziehen sich darauf.
+    previous_keywords = load_model_keywords(model_path / "topics.json")
+    # Ebenso die Topic-Zuordnung der Folgen aus dem letzten Lauf, bevor
+    # all_data_with_topics.xlsx überschrieben wird.
+    previous_assignments = _load_topic_assignments(
+        data_dir / "all_data_with_topics.xlsx", uid_col, model_path / "topics.json"
+    )
     topic_model.save(str(model_path), serialization="safetensors")
     print(f"Topic model saved to {model_path}")
     # Überschreibe die von topic_model.save() gespeicherten Repräsentationen mit
@@ -1515,6 +1551,24 @@ def analyze_and_visualize_topics(
         out_df.to_excel(xlsx_path, index=False)
         print(f"Data with topics saved to {xlsx_path}")
 
+    # Topic-IDs ändern sich bei jedem Training: kuratierte Labels über gemeinsame
+    # Folgen (Fallback: Keywords) auf die neuen IDs übertragen.
+    try:
+        new_assignments = (
+            dict(zip(docs_df[uid_col], docs_df["topic"]))
+            if uid_col and uid_col in docs_df.columns
+            else {}
+        )
+        update_topic_labels_file(
+            data_dir / "topic_labels.json",
+            load_model_keywords(model_path / "topics.json"),
+            previous_keywords,
+            previous_assignments=previous_assignments,
+            new_assignments=new_assignments,
+        )
+    except Exception as e:
+        print(f"Warning: Konnte topic_labels.json nicht neu zuordnen: {type(e).__name__}: {e}")
+
     print("Generating visualizations...")
     try:
         topic_model.visualize_topics().write_html(str(data_dir / "topics_visualization.html"))
@@ -1527,7 +1581,12 @@ def analyze_and_visualize_topics(
     # ----------------------- bullet-proof DYNAMICS (manual) -----------------------
     try:
         if date_col and date_col in docs_df.columns:
-            ts_series = pd.to_datetime(docs_df[date_col], errors="coerce")
+            # Scraper speichert Daten als DD.MM.YYYY (ältere Einträge: DD.MM.YY);
+            # ohne explizites Format rät pandas MM.DD.YYYY und verwirft/vertauscht
+            # Tag und Monat.
+            ts_series = pd.to_datetime(docs_df[date_col], format="%d.%m.%Y", errors="coerce").fillna(
+                pd.to_datetime(docs_df[date_col], format="%d.%m.%y", errors="coerce")
+            )
             pairs = [(t, ts) for t, ts in zip(texts, ts_series)
                      if isinstance(t, str) and t.strip() != "" and pd.notna(ts)]
             if not pairs:

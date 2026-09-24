@@ -6,7 +6,6 @@ import requests
 import json
 import pandas as pd
 from datetime import datetime, timedelta, date
-import locale
 import hashlib
 import base64
 import re
@@ -47,6 +46,8 @@ _SHOW_NAME_NORMALIZATIONS: dict[str, str] = {
 }
 
 uids: set = set()
+# Bekannte, aber junge Folgen: werden erneut abgerufen (siehe REFRESH_RECENT_DAYS)
+recent_uids: set = set()
 
 DEFAULT_HEADERS = {
     "User-Agent": (
@@ -67,6 +68,10 @@ MAX_WORKERS = 6
 # disabled by default. Re-enable only if ordering has been verified.
 KNOWN_UID_STREAK_STOP = None
 CHECKPOINT_EVERY = 5
+# Folgen, die kurz nach Ausstrahlung gescrapt wurden, haben oft noch keine
+# vollständige Gästeliste/Beschreibung. Bekannte Folgen der letzten N Tage
+# werden deshalb bei jedem Lauf erneut abgerufen und überschrieben.
+REFRESH_RECENT_DAYS = 14
 VALIDATION_OVERRIDES_PATH = DATA_DIR / "guest_validation_overrides.json"
 VALIDATION_REVIEW_PATH = DATA_DIR / "guest_validation_review.xlsx"
 _thread_local = threading.local()
@@ -282,6 +287,27 @@ all_illner_data: list = []
 all_data: list = []
 
 
+def _parse_stored_date(value) -> date | None:
+    """Parse a stored episode date (DD.MM.YYYY, older records DD.MM.YY)."""
+    for fmt in ("%d.%m.%Y", "%d.%m.%y"):
+        try:
+            return datetime.strptime(str(value), fmt).date()
+        except ValueError:
+            continue
+    return None
+
+
+def _recent_episode_uids(records: list[dict], days: int = REFRESH_RECENT_DAYS, today: date | None = None) -> set[str]:
+    """UIDs of stored episodes aired within the last `days` days."""
+    cutoff = (today or date.today()) - timedelta(days=days)
+    recent: set[str] = set()
+    for record in records:
+        episode_date = _parse_stored_date(record.get("date"))
+        if episode_date is not None and episode_date >= cutoff and record.get("uid"):
+            recent.add(record["uid"])
+    return recent
+
+
 def _load_existing_data() -> None:
     """Load existing scraped data from JSON files into module-level variables.
 
@@ -289,7 +315,7 @@ def _load_existing_data() -> None:
     Uses DATA_DIR-relative paths for portability.
     """
     global all_annewill_data, all_carenmiosga_data, all_hartaberfair_data
-    global all_markuslanz_data, all_maischberger_data, all_illner_data, all_data, uids
+    global all_markuslanz_data, all_maischberger_data, all_illner_data, all_data, uids, recent_uids
 
     all_annewill_data = _sanitize_episode_records(load_json_file(DATA_DIR / "AnneWill_data.json"))
     all_carenmiosga_data = _sanitize_episode_records(load_json_file(DATA_DIR / "CarenMiosga_data.json"))
@@ -304,6 +330,7 @@ def _load_existing_data() -> None:
     )
 
     uids = {data["uid"] for data in all_data if "uid" in data}
+    recent_uids = _recent_episode_uids(all_data)
     print_key_value_table(
         "Existing Dataset Snapshot",
         [
@@ -315,6 +342,7 @@ def _load_existing_data() -> None:
             ("Maybrit Illner", len(all_illner_data)),
             ("Total episodes", len(all_data)),
             ("Known UIDs", len(uids)),
+            (f"Refresh (last {REFRESH_RECENT_DAYS} days)", len(recent_uids)),
         ],
     )
 
@@ -326,14 +354,12 @@ alternative_url_maischberger = "https://www.fernsehserien.de/maischberger-ard/ep
 alternative_url_illner = "https://www.fernsehserien.de/maybrit-illner/episodenguide"
 alternative_url_markuslanz = "https://www.fernsehserien.de/markus-lanz/episodenguide"
 
-# Locale für deutsche Monatsnamen einmalig setzen (nicht bei jedem standardize_date()-Aufruf)
-try:
-    locale.setlocale(locale.LC_TIME, "de_DE.UTF-8")
-except locale.Error:
-    try:
-        locale.setlocale(locale.LC_TIME, "de_DE")
-    except locale.Error:
-        pass  # Fallback: Locale bleibt wie gesetzt; Datumsformat 2 funktioniert dann ggf. nicht
+# Deutsche Monatsnamen explizit statt über locale/%B – die de_DE-Locale ist
+# z. B. auf GitHub-Runnern nicht installiert.
+GERMAN_MONTHS = {
+    "januar": 1, "jänner": 1, "februar": 2, "märz": 3, "april": 4, "mai": 5, "juni": 6,
+    "juli": 7, "august": 8, "september": 9, "oktober": 10, "november": 11, "dezember": 12,
+}
 
 PARTY_STRINGS = ["CDU", "CSU", "SPD", "freie wähler", "FDP", "BSW", "AfD", "DIE LINKE", "Linke", "parteilos"]
 PARTY_NORMALIZATION_MAP = {
@@ -617,9 +643,6 @@ def standardize_date(date_string):
     Returns:
         A standardized date string in DD.MM.YYYY format, or None if the
         input is invalid or cannot be parsed.
-
-    Note: locale.LC_TIME is set once at module level (de_DE.UTF-8) for performance
-    and thread-safety. No setlocale() call here.
     """
     try:
         # Attempt parsing with different formats
@@ -628,8 +651,12 @@ def standardize_date(date_string):
             date_object = datetime.strptime(date_string, '%d.%m.%Y')
         except ValueError:
             try:
-                # Format 2: DD. Month YYYY
-                date_object = datetime.strptime(date_string, '%d. %B %Y')
+                # Format 2: DD. Month YYYY (deutsche Monatsnamen)
+                match = re.fullmatch(r"\s*(\d{1,2})\.\s*([^\W\d_]+)\s+(\d{4})\s*", date_string)
+                month = GERMAN_MONTHS.get(match.group(2).casefold()) if match else None
+                if month is None:
+                    raise ValueError(date_string)
+                date_object = datetime(int(match.group(3)), month, int(match.group(1)))
             except ValueError:
                 try:
                    # Format 3: DD.MM.YYYY (with potential space after the day)
@@ -770,7 +797,9 @@ def _fetch_episode_details(episode_url: str):
             tag.decompose()
 
         full_text = inhalt_clone.get_text(separator='|||', strip=True)
-        parts = re.split(r'Die Gäste:|||', full_text, maxsplit=1, flags=re.IGNORECASE)
+        # '|' muss escaped werden – unescaped matcht das Muster den leeren String
+        # und parts[0] (der Intro-Text) ginge immer verloren.
+        parts = re.split(r'Die Gäste:(?:\|\|\|)?', full_text, maxsplit=1, flags=re.IGNORECASE)
         description_parts = []
 
         if parts[0]:
@@ -783,7 +812,7 @@ def _fetch_episode_details(episode_url: str):
                     description_parts.extend(lines_after_guests[i:])
                     break
 
-        episode_info['description'] = ' '.join(description_parts).replace('|||', ' ').strip()
+        episode_info['description'] = ' '.join(' '.join(description_parts).replace('|||', ' ').split())
     else:
         episode_info['description'] = ""
 
@@ -842,7 +871,7 @@ def get_episode_details(
 
     for idx, episode_url in enumerate(episode_urls, start=1):
         uid = create_hash(episode_url)
-        if uid in uids:
+        if uid in uids and uid not in recent_uids:
             known_uid_streak += 1
             if stop_after_known_streak and known_uid_streak >= stop_after_known_streak:
                 log_info(
@@ -854,6 +883,7 @@ def get_episode_details(
 
         known_uid_streak = 0
         uids.add(uid)
+        recent_uids.discard(uid)  # innerhalb eines Laufs nur einmal abrufen
         candidate_urls.append((idx, episode_url))
 
     if not candidate_urls:
@@ -933,7 +963,11 @@ def scrape_fernsehserien_episodeguide(
     existing_uid_count = len(
         {record.get("uid") for record in (existing_data or []) if isinstance(record, dict) and record.get("uid")}
     )
-    unknown_urls = sum(1 for episode_url in episode_urls if create_hash(episode_url) not in uids)
+    unknown_urls = sum(
+        1
+        for episode_url in episode_urls
+        if create_hash(episode_url) not in uids or create_hash(episode_url) in recent_uids
+    )
     print_key_value_table(
         "Guide Scan Summary",
         [

@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import json
-import logging
 import re
 from functools import lru_cache
 from pathlib import Path
@@ -9,21 +7,15 @@ from pathlib import Path
 import pandas as pd
 from date_utils import coerce_mixed_date_series
 
+from topic_labels import labels_by_id, load_curated_labels
+
 _DATA_DIR = Path(__file__).resolve().parent / "data"
-_log = logging.getLogger(__name__)
 
 
 @lru_cache(maxsize=1)
 def _load_topic_labels() -> dict[str, str]:
-    """Lädt data/topic_labels.json, falls vorhanden. Cached."""
-    path = _DATA_DIR / "topic_labels.json"
-    if path.exists():
-        try:
-            with open(path, encoding="utf-8") as f:
-                return json.load(f)
-        except json.JSONDecodeError as e:
-            _log.warning("topic_labels.json ist ungültig und wird ignoriert: %s", e)
-    return {}
+    """Lädt data/topic_labels.json als {topic_id: label}, falls vorhanden. Cached."""
+    return labels_by_id(load_curated_labels(_DATA_DIR / "topic_labels.json"))
 
 
 def _most_common_value(series: pd.Series) -> str | None:

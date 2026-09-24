@@ -18,20 +18,34 @@ Ausgewertet werden: **Anne Will**, **Caren Miosga**, **Hart aber Fair**, **Marku
 
 ## Schnellstart
 
-### Voraussetzungen
-
-- Python 3.10+
-- [conda](https://docs.conda.io/) empfohlen für Umgebungsverwaltung
-
-### Installation
+### Installation (conda, empfohlen)
 
 ```bash
-git clone https://github.com/dein-user/wtmw.git
+git clone https://github.com/jschibberges/wtmw.git
 cd wtmw
 
-pip install -r requirements.txt
-python -m spacy download de_core_news_md
+conda env create -f environment.yml
+conda activate wtmw
 ```
+
+`environment.yml` installiert Python 3.12 und alle Pakete aus `requirements-dev.txt` (inkl. `pytest` und
+des spaCy-Modells `de_core_news_md`). Nach Änderungen an den requirements-Dateien:
+
+```bash
+conda env update -f environment.yml --prune
+```
+
+<details>
+<summary>Ohne conda (pip)</summary>
+
+```bash
+python3.12 -m venv .venv && source .venv/bin/activate
+pip install -r requirements-dev.txt
+```
+</details>
+
+Die Paketversionen sind in `requirements.txt` fest vorgegeben (getestet mit Python 3.12) und gelten
+gleichermaßen für die lokale Umgebung und die Weekly Pipeline.
 
 ### Pipeline ausführen
 
@@ -51,6 +65,31 @@ reflex run
 
 Das Streamlit-Dashboard ist dann unter http://localhost:8501 erreichbar.
 Der Reflex-Prototyp startet standardmaessig parallel mit Frontend und Backend ueber `reflex run`.
+
+Beim ersten Lauf lädt `analyze_talkshows.py` das Embedding-Modell `intfloat/multilingual-e5-base`
+von Hugging Face (ca. 1 GB) und ggf. die Stopwort-Listen nach `data/`.
+
+### Tests
+
+```bash
+pytest
+```
+
+### Automatische Aktualisierung (GitHub Actions)
+
+`.github/workflows/pipeline.yml` („Weekly Pipeline“) scrapt und analysiert jeden **Montag um 04:00 Uhr
+(Europe/Berlin)** und committet die aktualisierten Dateien in `data/` zurück ins Repo.
+
+- GitHub führt Zeitpläne nur auf dem **Default-Branch** aus – der Workflow muss dort liegen.
+- Manuell starten: *Actions → Weekly Pipeline → Run workflow*.
+- Die Pipeline nutzt dieselben Paketversionen und dasselbe spaCy-Modell (`de_core_news_md`) wie die
+  lokale Umgebung – beides kommt aus `requirements.txt`.
+
+### Aktualisierung bestehender Folgen
+
+Der Scraper lädt nur Folgen, die noch nicht in `data/{Show}_data.json` stehen. Ausnahme: Folgen der letzten
+14 Tage (`REFRESH_RECENT_DAYS` in `scrape_talkshows.py`) werden bei jedem Lauf erneut abgerufen, damit
+nachträglich ergänzte Gästelisten und Beschreibungen übernommen werden.
 
 ---
 
@@ -72,6 +111,13 @@ wtmw/
 ├── wtmw_reflex/
 │   ├── __init__.py
 │   └── wtmw_reflex.py                 # Reflex-Prototyp
+├── topic_labels.py                    # Topic-Labels über Retrainings stabil halten
+├── sync_guest_validation_overrides.py # Manuelle Gast-Prüfung → guest_validation_overrides.json
+│
+├── environment.yml                    # conda-Umgebung (Python 3.12 + requirements-dev.txt + spaCy-Modell)
+├── requirements.txt                   # Paketversionen (fest)
+├── requirements-dev.txt               # + pytest
+├── .github/workflows/pipeline.yml     # Weekly Pipeline (Scraping + Analyse + Commit)
 │
 ├── data/
 │   ├── {Show}_data.json               # Rohdaten pro Sendung
@@ -81,8 +127,11 @@ wtmw/
 │   ├── best_parameters.json           # Optimierte BERTopic-Hyperparameter
 │   ├── topic_labels.json              # Menschenlesbare Topic-Namen (editierbar)
 │   ├── name_corrections.json          # Manuelle Namenskorrekturen
+│   ├── guest_validation_overrides.json # Manuelle Entscheidungen zur Gast-Validierung
+│   ├── *.html / *.png / *.gexf        # Netzwerk- und Topic-Visualisierungen
 │   └── talkshow_topic_model/          # Gespeichertes BERTopic-Modell
 │
+├── scripts/                           # Diagnose-Skripte (siehe unten)
 └── tests/                             # Unit-Tests
 ```
 
@@ -117,7 +166,7 @@ app.py / wtmw_reflex.py  ──►  Streamlit- bzw. Reflex-Dashboard
 
 ### Gastklassifizierung
 
-Gäste werden in 9 Kategorien eingeteilt:
+Gäste werden in 10 Kategorien eingeteilt:
 
 | Kategorie | Beispiele |
 |---|---|
@@ -128,8 +177,9 @@ Gäste werden in 9 Kategorien eingeteilt:
 | Civil Society & Advocacy | Aktivisten, NGO-Vertreter, Gewerkschaften |
 | Arts & Culture | Schauspieler, Autoren, Musiker |
 | Sports | Sportler, Trainer |
-| Religion | Theologen, Kirchenvertreter |
+| Religion & Spirituality | Theologen, Kirchenvertreter |
 | Citizens & Everyday Voices | Betroffene, Privatpersonen |
+| Influencers & Digital Creators | YouTuber, Podcaster, Influencer |
 
 Die Klassifizierung läuft zweistufig: zuerst regelbasiert (Regex auf Rollenbezeichnungen + Parteizugehörigkeit), dann per Embedding-Ähnlichkeit zu Kategorie-Prototypen für nicht erkannte Gäste.
 
@@ -141,7 +191,7 @@ BERTopic mit:
 - **Dimensionsreduktion**: UMAP (automatisch getunt via Grid Search)
 - **Clustering**: HDBSCAN (automatisch getunt)
 - **Vokabular**: c-TF-IDF mit deutschen Stopwörtern + Rollenfilter (`TOPIC_ROLE_STOP`)
-- **Labels**: Gespeichert in `data/topic_labels.json`, ohne Retraining editierbar
+- **Labels**: Gespeichert in `data/topic_labels.json`, ohne Retraining editierbar; werden nach jedem Training über gemeinsame Folgen (Fallback: Keywords) den neuen Topic-IDs zugeordnet
 
 ---
 
@@ -149,17 +199,35 @@ BERTopic mit:
 
 ### Topic-Namen anpassen
 
-`data/topic_labels.json` enthält menschenlesbare Namen pro Topic-ID:
+`data/topic_labels.json` enthält menschenlesbare Namen pro Topic-ID, zusammen mit den Keywords des Topics:
 
 ```json
 {
-  "0": "Ukraine-Krieg & Russland",
-  "2": "Corona-Pandemie",
-  "4": "Energiekrise & Klimapolitik"
+  "-1": "Sonstige / Nicht zugeordnet",
+  "0": {"label": "Ukraine-Krieg & Russland", "keywords": ["ukrainisch", "russisch", "putin", "..."]},
+  "7": {"label": null, "keywords": ["..."]},
+  "_unassigned": [{"label": "Brexit & Großbritannien", "keywords": ["brexit", "..."]}]
 }
 ```
 
-Änderungen werden nach einem Streamlit-Neustart sichtbar — kein Retraining notwendig.
+Da BERTopic die Topic-IDs bei jedem Training neu vergibt, ordnet `analyze_talkshows.py` die Labels
+nach jedem Training den neuen IDs zu (`topic_labels.py`) und schreibt die Datei neu:
+
+1. **Über die Folgen:** Ein neues Topic übernimmt das Label des alten Topics, mit dem es die meisten
+   Folgen teilt (Grundlage: `all_data_with_topics.xlsx` des letzten Laufs, mind. 30 % Überlappung).
+   Teilt sich ein Topic, erhält der größere Teil das Label.
+2. **Über die Keywords** (Fallback): für geparkte Labels und falls die alte Zuordnung fehlt oder nicht
+   zum gespeicherten Modell passt (mind. die Hälfte der Keywords gleich).
+
+Das Log zeigt für jedes Label, wohin es gewandert ist und auf welchem Weg. Danach in der Datei prüfen:
+
+- **`"label": null`** — neues Topic ohne passendes Label. Einfach einen Namen eintragen.
+- **`_unassigned`** — Labels, deren Topic im aktuellen Modell nicht mehr vorkommt. Sie werden bei jedem
+  Lauf erneut (über die Keywords) geprüft.
+- Ein Eintrag darf auch nur ein String sein (`"5": "Mein Label"`); die Keywords werden dann beim nächsten
+  Lauf aus dem aktuell gespeicherten Modell ergänzt.
+
+Änderungen am Label werden nach einem Streamlit-Neustart sichtbar — kein Retraining notwendig.
 
 ### Gästenamen korrigieren
 
@@ -172,16 +240,32 @@ BERTopic mit:
 
 Danach `python analyze_talkshows.py` erneut ausführen.
 
+### Gast-Validierung prüfen
+
+Der Scraper bewertet jeden Gastnamen als `accept`, `review` oder `reject` (z. B. werden Werbetexte oder
+Organisationsnamen verworfen). Unsichere Fälle landen in `data/guest_validation_review.xlsx`:
+
+1. In der Excel-Datei die Spalte `manual_status` auf `accept` oder `reject` setzen (optional `manual_note`).
+2. `python sync_guest_validation_overrides.py` überträgt die Entscheidungen nach
+   `data/guest_validation_overrides.json`.
+3. Die Overrides gelten ab dem nächsten Scraping – für bereits gespeicherte Folgen nur, wenn diese erneut
+   abgerufen werden (z. B. innerhalb des 14-Tage-Fensters).
+
 ### Neue Sendung hinzufügen
 
-1. URL in `scrape_talkshows.py` ergänzen
-2. JSON-Loader und `all_data`-Aggregation eintragen
-3. Scraping-Aufruf in `main()` hinzufügen
-4. `show_files`-Liste in `analyze_talkshows.py` aktualisieren
+1. Episodenguide-URL in `scrape_talkshows.py` ergänzen (`alternative_url_…`)
+2. Modulvariable, Laden in `_load_existing_data()` und die `all_data`-Aggregation eintragen
+3. Scraping-Aufruf und Statistik in `main()` hinzufügen
+4. `show_files`-Liste in `load_all_show_data()` (`analyze_talkshows.py`) aktualisieren
 
 ---
 
 ## BERTopic neu trainieren
+
+Das Topic-Modell wird bei jedem Lauf von `analyze_talkshows.py` neu trainiert. Die Hyperparameter aus
+`data/best_parameters.json` werden automatisch neu getunt (Grid Search über 144 Kombinationen), wenn die
+Datei fehlt oder `document_count` darin kleiner als 80 % der aktuellen Episodenzahl ist
+(`get_or_tune_parameters()` in `analyze_talkshows.py`).
 
 ```bash
 # Hyperparameter-Tuning erzwingen:
@@ -190,7 +274,7 @@ rm data/best_parameters.json
 python analyze_talkshows.py
 ```
 
-Tuning-Ergebnisse werden in `data/bertopic_tuning_results.csv` gespeichert.
+Tuning-Ergebnisse werden in `bertopic_tuning_results.csv` (im Projektverzeichnis) gespeichert.
 
 **Hardware-Hinweis**: Das Modell nutzt automatisch Apple Silicon MPS, CUDA oder CPU. Auf MPS wird float16 verwendet; bei Speichermangel wird die Batch-Größe automatisch reduziert (64 → 1).
 
@@ -198,24 +282,29 @@ Tuning-Ergebnisse werden in `data/bertopic_tuning_results.csv` gespeichert.
 
 ## Diagnose-Skripte
 
+Aufruf aus dem Projektverzeichnis, z. B. `python scripts/compare_classification.py`.
+
 | Skript | Zweck |
 |---|---|
-| `compare_classification.py` | Regelbasierte vs. Embedding-Klassifizierung vergleichen |
-| `inspect_citizens.py` | Kategorie "Citizens & Everyday Voices" analysieren |
-| `compare_topic_labels.py` | c-TF-IDF-Labels vs. KeyBERTInspired-Reranking vergleichen |
-| `test_ngram_labels.py` | Unigramm- vs. Bigramm-Topic-Labels testen |
+| `scripts/compare_classification.py` | Regelbasierte vs. Embedding-Klassifizierung vergleichen |
+| `scripts/inspect_citizens.py` | Kategorie "Citizens & Everyday Voices" analysieren |
+| `scripts/compare_topic_labels.py` | c-TF-IDF-Labels vs. KeyBERTInspired-Reranking vergleichen |
+| `scripts/test_ngram_labels.py` | Unigramm- vs. Bigramm-Topic-Labels testen (kein pytest-Test) |
 
 ---
 
 ## Abhängigkeiten
 
+Feste Versionen stehen in `requirements.txt`.
+
 | Bereich | Pakete |
 |---|---|
 | Scraping | beautifulsoup4, requests |
 | Daten | pandas, openpyxl |
-| NLP | spacy, sentence-transformers, bertopic, umap-learn, hdbscan, scikit-learn, safetensors |
-| Visualisierung | streamlit, matplotlib, networkx, pyvis |
-| Optional | rapidfuzz, cologne_phonetics |
+| NLP | spacy (+ `de_core_news_md`), sentence-transformers, bertopic, umap-learn, hdbscan, scikit-learn |
+| Visualisierung | streamlit, altair, matplotlib, networkx, pyvis |
+| Konsole | rich |
+| Tests | pytest |
 
 ---
 

@@ -11,7 +11,7 @@ Terme bereits herausfiltert. KeyBERTInspired re-rankt diese Kandidaten
 dann semantisch per Kosinus-Ähnlichkeit zum Topic-Centroid + MMR.
 
 Ausführen:
-    conda run -n mediaanalysis python compare_topic_labels.py
+    python scripts/compare_topic_labels.py
 
 Optional: --top_n N          Anzahl anzuzeigender Terme (Standard: 8)
           --mmr_lambda L      Diversitäts-Trade-off 0.0–1.0 (Standard: 0.6)
@@ -22,13 +22,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 from typing import Optional
 
 import numpy as np
 import pandas as pd
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parents[1]  # Projektwurzel (Skript liegt in scripts/)
+if str(BASE_DIR) not in sys.path:
+    sys.path.insert(0, str(BASE_DIR))
 DATA_DIR = BASE_DIR / "data"
 MODEL_DIR = DATA_DIR / "talkshow_topic_model"
 
