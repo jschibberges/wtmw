@@ -71,6 +71,9 @@ von Hugging Face (ca. 1 GB) und ggf. die Stopwort-Listen nach `data/`.
 pytest
 ```
 
+Auf GitHub laufen die Tests automatisch bei jedem Push und bei Pull Requests nach `main`/`dev`
+(`.github/workflows/tests.yml`, Python 3.12 mit den Versionen aus `requirements-dev.txt`).
+
 ### Automatische Aktualisierung (GitHub Actions)
 
 `.github/workflows/pipeline.yml` („Weekly Pipeline“) scrapt und analysiert jeden **Montag um 04:00 Uhr
@@ -107,6 +110,7 @@ wtmw/
 ├── requirements.txt                   # Paketversionen (fest)
 ├── requirements-dev.txt               # + pytest
 ├── .github/workflows/pipeline.yml     # Weekly Pipeline (Scraping + Analyse + Commit)
+├── .github/workflows/tests.yml        # Tests bei jedem Push / Pull Request
 │
 ├── data/
 │   ├── {Show}_data.json               # Rohdaten pro Sendung
