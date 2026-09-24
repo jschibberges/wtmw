@@ -28,8 +28,8 @@ conda env create -f environment.yml
 conda activate wtmw
 ```
 
-`environment.yml` installiert Python 3.12, alle Pakete aus `requirements-dev.txt` (inkl. `pytest`) und das
-spaCy-Modell `de_core_news_md`. Nach Änderungen an den requirements-Dateien:
+`environment.yml` installiert Python 3.12 und alle Pakete aus `requirements-dev.txt` (inkl. `pytest` und
+des spaCy-Modells `de_core_news_md`). Nach Änderungen an den requirements-Dateien:
 
 ```bash
 conda env update -f environment.yml --prune
@@ -41,7 +41,6 @@ conda env update -f environment.yml --prune
 ```bash
 python3.12 -m venv .venv && source .venv/bin/activate
 pip install -r requirements-dev.txt
-python -m spacy download de_core_news_md
 ```
 </details>
 
@@ -79,7 +78,8 @@ pytest
 
 - GitHub führt Zeitpläne nur auf dem **Default-Branch** aus – der Workflow muss dort liegen.
 - Manuell starten: *Actions → Weekly Pipeline → Run workflow*.
-- Die Pipeline installiert das kleinere spaCy-Modell `de_core_news_sm`.
+- Die Pipeline nutzt dieselben Paketversionen und dasselbe spaCy-Modell (`de_core_news_md`) wie die
+  lokale Umgebung – beides kommt aus `requirements.txt`.
 
 ### Aktualisierung bestehender Folgen
 
