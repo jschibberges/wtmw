@@ -6,15 +6,18 @@ Untersucht die 'Citizens & Everyday Voices'-Kategorie nach dem Embedding-Fallbac
   - Verdächtige Fehlzuordnungen (hohe Confidence, aber klingt nicht wie Bürger)
 
 Ausführen:
-    conda run -n mediaanalysis python inspect_citizens.py
+    python scripts/inspect_citizens.py
 """
 
 from __future__ import annotations
 import json
+import sys
 from pathlib import Path
 import pandas as pd
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parents[1]  # Projektwurzel (Skript liegt in scripts/)
+if str(BASE_DIR) not in sys.path:
+    sys.path.insert(0, str(BASE_DIR))
 DATA_DIR = BASE_DIR / "data"
 
 # ---------------------------------------------------------------------------

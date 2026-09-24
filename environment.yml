@@ -1,0 +1,21 @@
+# conda-Umgebung für wtmw
+#
+#   conda env create -f environment.yml
+#   conda activate wtmw
+#
+# Aktualisieren nach Änderungen an den requirements-Dateien:
+#   conda env update -f environment.yml --prune
+#
+# Die Paketversionen stehen nur in requirements.txt (gleiche Versionen wie in
+# der Weekly Pipeline); hier kommen Python, pip und das spaCy-Modell dazu.
+name: wtmw
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+      - -r requirements-dev.txt
+      # Deutsches spaCy-Modell (passend zu spacy 3.8.x); nlp_utils.py nutzt
+      # es bevorzugt und fällt sonst auf de_core_news_sm zurück.
+      - de_core_news_md @ https://github.com/explosion/spacy-models/releases/download/de_core_news_md-3.8.0/de_core_news_md-3.8.0-py3-none-any.whl

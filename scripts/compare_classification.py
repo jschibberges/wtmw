@@ -2,7 +2,7 @@
 Vergleich: Regelbasierte Klassifizierung vs. Regelbasiert + Embedding-Fallback.
 
 Ausführen (conda env mediaanalysis):
-    conda run -n mediaanalysis python compare_classification.py
+    python scripts/compare_classification.py
 
 Ausgabe: Tabelle mit Kategorie-Verteilung und Confidence-Statistiken für
          beide Ansätze sowie eine Liste von Beispielen, die der Fallback
@@ -12,6 +12,7 @@ Ausgabe: Tabelle mit Kategorie-Verteilung und Confidence-Statistiken für
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
 import pandas as pd
@@ -19,7 +20,9 @@ import pandas as pd
 # ---------------------------------------------------------------------------
 # 1. Daten laden
 # ---------------------------------------------------------------------------
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parents[1]  # Projektwurzel (Skript liegt in scripts/)
+if str(BASE_DIR) not in sys.path:
+    sys.path.insert(0, str(BASE_DIR))
 DATA_DIR = BASE_DIR / "data"
 
 print("Lade JSON-Rohdaten…")

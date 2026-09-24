@@ -11,14 +11,15 @@ Zeigt nebeneinander:
   (1,3)  Trigram (wie im Code konfiguriert, aber bisher nicht im Output)
 
 Ausführen:
-    conda run -n mediaanalysis python test_ngram_labels.py
-    conda run -n mediaanalysis python test_ngram_labels.py --show_roles  # ohne Rollenfilter
+    python scripts/test_ngram_labels.py
+    python scripts/test_ngram_labels.py --show_roles  # ohne Rollenfilter
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
 import warnings
@@ -26,7 +27,9 @@ import numpy as np
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parents[1]  # Projektwurzel (Skript liegt in scripts/)
+if str(BASE_DIR) not in sys.path:
+    sys.path.insert(0, str(BASE_DIR))
 DATA_DIR = BASE_DIR / "data"
 
 
