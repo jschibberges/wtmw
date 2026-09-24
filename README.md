@@ -180,7 +180,7 @@ BERTopic mit:
 - **Dimensionsreduktion**: UMAP (automatisch getunt via Grid Search)
 - **Clustering**: HDBSCAN (automatisch getunt)
 - **Vokabular**: c-TF-IDF mit deutschen Stopwörtern + Rollenfilter (`TOPIC_ROLE_STOP`)
-- **Labels**: Gespeichert in `data/topic_labels.json`, ohne Retraining editierbar; werden nach jedem Training per Keyword-Abgleich den neuen Topic-IDs zugeordnet
+- **Labels**: Gespeichert in `data/topic_labels.json`, ohne Retraining editierbar; werden nach jedem Training über gemeinsame Folgen (Fallback: Keywords) den neuen Topic-IDs zugeordnet
 
 ---
 
@@ -200,11 +200,19 @@ BERTopic mit:
 ```
 
 Da BERTopic die Topic-IDs bei jedem Training neu vergibt, ordnet `analyze_talkshows.py` die Labels
-nach jedem Training über die Keywords den neuen IDs zu (`topic_labels.py`) und schreibt die Datei neu:
+nach jedem Training den neuen IDs zu (`topic_labels.py`) und schreibt die Datei neu:
+
+1. **Über die Folgen:** Ein neues Topic übernimmt das Label des alten Topics, mit dem es die meisten
+   Folgen teilt (Grundlage: `all_data_with_topics.xlsx` des letzten Laufs, mind. 30 % Überlappung).
+   Teilt sich ein Topic, erhält der größere Teil das Label.
+2. **Über die Keywords** (Fallback): für geparkte Labels und falls die alte Zuordnung fehlt oder nicht
+   zum gespeicherten Modell passt (mind. die Hälfte der Keywords gleich).
+
+Das Log zeigt für jedes Label, wohin es gewandert ist und auf welchem Weg. Danach in der Datei prüfen:
 
 - **`"label": null`** — neues Topic ohne passendes Label. Einfach einen Namen eintragen.
-- **`_unassigned`** — Labels, deren Topic im aktuellen Modell nicht mehr vorkommt (weniger als die Hälfte
-  der Keywords stimmt überein). Sie werden bei jedem Lauf erneut geprüft.
+- **`_unassigned`** — Labels, deren Topic im aktuellen Modell nicht mehr vorkommt. Sie werden bei jedem
+  Lauf erneut (über die Keywords) geprüft.
 - Ein Eintrag darf auch nur ein String sein (`"5": "Mein Label"`); die Keywords werden dann beim nächsten
   Lauf aus dem aktuell gespeicherten Modell ergänzt.
 

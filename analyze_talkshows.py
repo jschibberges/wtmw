@@ -802,6 +802,30 @@ def tune_bertopic_hyperparameters(
 # 2) Improved analysis + visualization
 ############################################
 
+def _load_topic_assignments(xlsx_path: Path, uid_col: str | None, topics_json_path: Path) -> dict:
+    """
+    {uid: topic} aus der all_data_with_topics.xlsx des letzten Laufs.
+
+    Nur gültig, wenn die Datei zum gespeicherten Modell passt (gleiche
+    Topic-Größen wie in topics.json) – sonst {} und nur Keyword-Abgleich.
+    """
+    if not uid_col or not Path(xlsx_path).exists() or not Path(topics_json_path).exists():
+        return {}
+    try:
+        prev = pd.read_excel(xlsx_path, usecols=[uid_col, "topic"]).dropna()
+        with open(topics_json_path, encoding="utf-8") as f:
+            model_sizes = {int(k): int(v) for k, v in json.load(f).get("topic_sizes", {}).items()}
+    except Exception as e:
+        print(f"Warning: Konnte frühere Topic-Zuordnung nicht lesen: {type(e).__name__}: {e}")
+        return {}
+    xlsx_sizes = prev["topic"].astype(int).value_counts().to_dict()
+    if xlsx_sizes != model_sizes:
+        print("Warning: all_data_with_topics.xlsx passt nicht zum gespeicherten Topic-Modell; "
+              "Topic-Labels werden nur über Keywords zugeordnet.")
+        return {}
+    return dict(zip(prev[uid_col], prev["topic"]))
+
+
 def analyze_and_visualize_topics(
     df,
     best_params=None,
@@ -993,6 +1017,11 @@ def analyze_and_visualize_topics(
     # Keywords des bisherigen Modells sichern, bevor save() topics.json
     # überschreibt – kuratierte Labels ohne eigene Keywords beziehen sich darauf.
     previous_keywords = load_model_keywords(model_path / "topics.json")
+    # Ebenso die Topic-Zuordnung der Folgen aus dem letzten Lauf, bevor
+    # all_data_with_topics.xlsx überschrieben wird.
+    previous_assignments = _load_topic_assignments(
+        data_dir / "all_data_with_topics.xlsx", uid_col, model_path / "topics.json"
+    )
     topic_model.save(str(model_path), serialization="safetensors")
     print(f"Topic model saved to {model_path}")
     # Überschreibe die von topic_model.save() gespeicherten Repräsentationen mit
@@ -1014,17 +1043,6 @@ def analyze_and_visualize_topics(
     except Exception as _e:
         print(f"Warning: Konnte topics.json nicht nachträglich aktualisieren: {_e}")
 
-    # Topic-IDs ändern sich bei jedem Training: kuratierte Labels per
-    # Keyword-Überlappung auf die neuen IDs übertragen.
-    try:
-        update_topic_labels_file(
-            data_dir / "topic_labels.json",
-            load_model_keywords(model_path / "topics.json"),
-            previous_keywords,
-        )
-    except Exception as e:
-        print(f"Warning: Konnte topic_labels.json nicht neu zuordnen: {type(e).__name__}: {e}")
-
     out_df = df.copy()
     if uid_col and uid_col in df.columns and uid_col in docs_df.columns:
         out_df = out_df.merge(docs_df[[uid_col, "topic", "topic_label"]], on=uid_col, how="left")
@@ -1035,6 +1053,24 @@ def analyze_and_visualize_topics(
         xlsx_path = data_dir / "all_data_with_topics.xlsx"
         out_df.to_excel(xlsx_path, index=False)
         print(f"Data with topics saved to {xlsx_path}")
+
+    # Topic-IDs ändern sich bei jedem Training: kuratierte Labels über gemeinsame
+    # Folgen (Fallback: Keywords) auf die neuen IDs übertragen.
+    try:
+        new_assignments = (
+            dict(zip(docs_df[uid_col], docs_df["topic"]))
+            if uid_col and uid_col in docs_df.columns
+            else {}
+        )
+        update_topic_labels_file(
+            data_dir / "topic_labels.json",
+            load_model_keywords(model_path / "topics.json"),
+            previous_keywords,
+            previous_assignments=previous_assignments,
+            new_assignments=new_assignments,
+        )
+    except Exception as e:
+        print(f"Warning: Konnte topic_labels.json nicht neu zuordnen: {type(e).__name__}: {e}")
 
     print("Generating visualizations...")
     try:

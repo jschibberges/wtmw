@@ -117,3 +117,132 @@ def test_real_labels_survive_simulated_retraining():
     for old_id, new_id in zip(old_ids, new_ids):
         assert remapped[new_id]["label"] == topics[old_id]["label"]
     assert report["unassigned"] == []
+
+
+def _assign(**topics):
+    """_assign(t0=["a","b"], t1=[...]) → {uid: topic_id}"""
+    return {uid: key[1:] for key, uids in topics.items() for uid in uids}
+
+
+def test_doc_overlap_matches_even_when_keywords_differ():
+    curated = {"0": {"label": "Ukraine-Krieg", "keywords": ["ukrainisch", "russisch", "putin", "kreml"]}}
+    previous = _assign(t0=["e1", "e2", "e3", "e4"])
+    new = _assign(t5=["e1", "e2", "e3", "e4", "e5"])
+
+    remapped, report = tl.remap_topic_labels(
+        curated,
+        {"5": ["ukraine", "russland", "kiew", "selenskyj"]},
+        previous_assignments=previous,
+        new_assignments=new,
+    )
+
+    assert remapped["5"]["label"] == "Ukraine-Krieg"
+    assert report["matched"] == [("Ukraine-Krieg", "5", 0.8, "Folgen")]
+
+
+def test_doc_overlap_wins_over_misleading_keywords():
+    curated = {
+        "0": {"label": "Ukraine-Krieg", "keywords": UKRAINE},
+        "1": {"label": "Corona", "keywords": CORONA},
+    }
+    previous = _assign(t0=["u1", "u2", "u3"], t1=["c1", "c2", "c3"])
+    # Neues Topic 0 enthält die Corona-Folgen, beschreibt sich aber mit Ukraine-Wörtern
+    new = _assign(t0=["c1", "c2", "c3"], t1=["u1", "u2", "u3"])
+
+    remapped, _ = tl.remap_topic_labels(
+        curated, {"0": UKRAINE, "1": CORONA}, previous_assignments=previous, new_assignments=new
+    )
+
+    assert remapped["0"]["label"] == "Corona"
+    assert remapped["1"]["label"] == "Ukraine-Krieg"
+
+
+def test_split_topic_label_goes_to_larger_part():
+    curated = {"0": {"label": "Migration", "keywords": ["migration"]}}
+    previous = _assign(t0=[f"e{i}" for i in range(10)])
+    new = _assign(t0=[f"e{i}" for i in range(3)], t1=[f"e{i}" for i in range(3, 10)])
+
+    remapped, report = tl.remap_topic_labels(
+        curated, {"0": ["asyl"], "1": ["grenze"]}, previous_assignments=previous, new_assignments=new
+    )
+
+    assert remapped["1"]["label"] == "Migration"
+    assert remapped["0"]["label"] is None
+    assert report["unlabelled"] == ["0"]
+
+
+def test_low_doc_overlap_without_keyword_match_is_parked():
+    curated = {"0": {"label": "Rente", "keywords": RENTE}}
+    previous = _assign(t0=["e1", "e2", "e3", "e4"])
+    new = _assign(t0=["e1", "x1", "x2", "x3", "x4"])  # Jaccard 1/8
+
+    remapped, report = tl.remap_topic_labels(
+        curated, {"0": CORONA}, previous_assignments=previous, new_assignments=new
+    )
+
+    assert remapped["0"]["label"] is None
+    assert report["unassigned"] == ["Rente"]
+
+
+def test_unassigned_labels_fall_back_to_keywords():
+    curated = {
+        "0": {"label": "Ukraine-Krieg", "keywords": UKRAINE},
+        tl.UNASSIGNED_KEY: [{"label": "Rente", "keywords": RENTE}],
+    }
+    previous = _assign(t0=["u1", "u2"])
+    new = _assign(t3=["u1", "u2"], t4=["r1", "r2"])
+
+    remapped, report = tl.remap_topic_labels(
+        curated, {"3": ["krieg"], "4": RENTE}, previous_assignments=previous, new_assignments=new
+    )
+
+    assert remapped["3"]["label"] == "Ukraine-Krieg"
+    assert remapped["4"]["label"] == "Rente"
+    assert [m[3] for m in report["matched"]] == ["Folgen", "Keywords"]
+    assert tl.UNASSIGNED_KEY not in remapped
+
+
+def test_topic_ids_from_excel_floats_are_normalized():
+    curated = {"2": {"label": "Corona", "keywords": ["x"]}}
+    remapped, _ = tl.remap_topic_labels(
+        curated,
+        {"7": ["y"]},
+        previous_assignments={"a": 2.0, "b": 2.0, "c": -1.0},
+        new_assignments={"a": 7, "b": 7, "c": -1},
+    )
+    assert remapped["7"]["label"] == "Corona"
+
+
+def test_real_labels_survive_simulated_retraining_with_new_keywords():
+    """Echte Zuordnungen: IDs gemischt, 5 % der Folgen umverteilt, 20 neue Folgen,
+    alle Keywords ausgetauscht – die Labels müssen allein über die Folgen folgen."""
+    import pandas as pd
+
+    root = tl.Path(__file__).resolve().parents[1] / "data"
+    curated = tl.load_curated_labels(root / "topic_labels.json")
+    prev = pd.read_excel(root / "all_data_with_topics.xlsx", usecols=["uid", "topic"]).dropna()
+    previous = dict(zip(prev["uid"], prev["topic"].astype(int)))
+
+    rng = random.Random(1)
+    topic_ids = sorted({t for t in previous.values() if t != -1})
+    shuffled = topic_ids[:]
+    rng.shuffle(shuffled)
+    id_map = dict(zip(topic_ids, shuffled)) | {-1: -1}
+    new = {uid: id_map[t] for uid, t in previous.items()}
+    for uid in rng.sample(sorted(new), k=len(new) // 20):
+        new[uid] = rng.choice(topic_ids)
+    for i in range(20):
+        new[f"neu{i}"] = rng.choice(topic_ids)
+
+    remapped, report = tl.remap_topic_labels(
+        curated,
+        {str(t): [f"anders{t}_{i}" for i in range(10)] for t in topic_ids},
+        previous_assignments=previous,
+        new_assignments=new,
+    )
+
+    for old_id, new_id in id_map.items():
+        if old_id != -1:
+            assert remapped[str(new_id)]["label"] == curated[str(old_id)]["label"]
+    assert report["unassigned"] == []
+    assert {m[3] for m in report["matched"]} == {"Folgen"}
