@@ -44,9 +44,13 @@ python analyze_talkshows.py
 
 # 3. Dashboard starten
 streamlit run app.py
+
+# Optional: Reflex-Prototyp starten
+reflex run
 ```
 
-Das Dashboard ist dann unter http://localhost:8501 erreichbar.
+Das Streamlit-Dashboard ist dann unter http://localhost:8501 erreichbar.
+Der Reflex-Prototyp startet standardmaessig parallel mit Frontend und Backend ueber `reflex run`.
 
 ---
 
@@ -60,7 +64,14 @@ wtmw/
 ├── guest_classification.py            # Regelbasierte Gastklassifizierung
 ├── guest_classification_embedding.py  # Embedding-Fallback für Klassifizierung
 ├── app.py                             # Streamlit-Dashboard
+├── reflex_dashboard_data.py           # Datenaufbereitung fuer den Reflex-Prototypen
+├── rxconfig.py                        # Reflex-Konfiguration
 ├── app_helpers.py                     # Hilfsfunktionen für die App
+├── assets/
+│   └── reflex_dashboard.css           # Styling fuer den Reflex-Prototypen
+├── wtmw_reflex/
+│   ├── __init__.py
+│   └── wtmw_reflex.py                 # Reflex-Prototyp
 │
 ├── data/
 │   ├── {Show}_data.json               # Rohdaten pro Sendung
@@ -101,7 +112,7 @@ analyze_talkshows.py
   talkshow_topic_model/
       │
       ▼
-app.py  ──►  Streamlit-Dashboard
+app.py / wtmw_reflex.py  ──►  Streamlit- bzw. Reflex-Dashboard
 ```
 
 ### Gastklassifizierung

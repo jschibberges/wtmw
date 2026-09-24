@@ -1,5 +1,6 @@
 
 from __future__ import annotations
+import math
 import numpy as np
 import json
 import pandas as pd
@@ -19,6 +20,10 @@ from scrape_talkshows import load_json_file, save_json_file
 from nlp_utils import clean_guest_rows, clean_description_for_labels, _dedupe_topic_terms, _filter_topic_terms, get_german_stopwords
 from guest_classification import add_classification_columns
 from guest_classification_embedding import build_prototype_embeddings, apply_embedding_fallback
+from date_utils import (
+    is_on_or_after_analysis_start,
+    normalize_date_value,
+)
 
 try:
     from pyvis.network import Network
@@ -34,12 +39,15 @@ BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
 
 def clean_str(text):
-    if text is not None:
-        text = text.strip()
-        if "| Bild: " in text:
-            text = ""
-    else:
-        text=""
+    if pd.isna(text):
+        return ""
+
+    if not isinstance(text, str):
+        text = str(text)
+
+    text = text.strip()
+    if "| Bild: " in text:
+        text = ""
     return text
 
 @lru_cache(maxsize=1)
@@ -87,8 +95,13 @@ def prepare_guest_dataframe(all_data):
     df_guests.drop_duplicates(subset=['name', 'uid'], inplace=True)
 
     df_guests['name'] = df_guests['name'].apply(manual_name_corrections)
-    df_guests['role'] = df_guests['role'].apply(clean_str)
-    df_guests['description'] = df_guests['description'].apply(clean_str)
+
+    for column in ["role", "description"]:
+        if column not in df_guests.columns:
+            df_guests[column] = ""
+        else:
+            df_guests[column] = df_guests[column].apply(clean_str)
+
     return df_guests
 
 def consolidate_guests(df_cleaned_guests: pd.DataFrame) -> pd.DataFrame:
@@ -309,6 +322,489 @@ def visualize_network(
         plt.show()
     plt.close(fig)
 
+# ── Cytoscape.js export (replaces PyVis) ──────────────────────────────────────
+
+# Community-detection fallback palette (used when no party_attr is set)
+_CYTOSCAPE_PALETTE = [
+    "#2563eb", "#7c3aed", "#0e7490", "#059669",
+    "#d97706", "#e11d48", "#0284c7", "#7e22ce",
+    "#0f766e", "#b45309", "#be123c", "#1d4ed8",
+]
+
+# Official-ish party colours — readable on white background
+_PARTY_COLORS: dict[str, str] = {
+    "CDU":                      "#1f2937",  # near-black
+    "CSU":                      "#1d4ed8",  # blue
+    "CDU/CSU":                  "#1f2937",
+    "SPD":                      "#dc2626",  # red
+    "Grüne":                    "#16a34a",  # green
+    "Bündnis 90/Die Grünen":    "#16a34a",
+    "FDP":                      "#ca8a04",  # amber (readable yellow)
+    "AfD":                      "#0369a1",  # sky-700
+    "Die Linke":                "#a21caf",  # fuchsia
+    "Linke":                    "#a21caf",
+    "BSW":                      "#7c3aed",  # violet
+    "freie wähler":             "#b45309",  # amber-700
+    "Freie Wähler":             "#b45309",
+    "parteilos":                "#64748b",  # slate
+}
+_PARTY_COLOR_DEFAULT = "#94a3b8"  # slate-400 for non-politicians / unknown
+
+# Mapping from CategoryPrimary strings to simplified German filter labels
+_CATEGORY_SIMPLIFIED: dict[str, str] = {
+    "Politics & Government":        "Politik",
+    "Media & Communication":        "Medien",
+    "Academia & Expertise":         "Wissenschaft",
+    "Business & Economy":           "Wirtschaft",
+    "Arts & Culture":               "Sonstige",
+    "Sports":                       "Sonstige",
+    "Civil Society & Advocacy":     "Sonstige",
+    "Citizens & Everyday Voices":   "Sonstige",
+    "Influencers & Digital Creators": "Medien",
+}
+_FILTER_ORDER = ["Politik", "Medien", "Wissenschaft", "Wirtschaft", "Sonstige"]
+
+
+def _build_filter_html(present_categories: set[str]) -> str:
+    """Generate HTML for the category pill buttons above the graph."""
+    buttons = [
+        '<button class="filter-btn active" data-cat="all" '
+        'onclick="setFilter(\'all\')">Alle</button>'
+    ]
+    for cat in _FILTER_ORDER:
+        if cat in present_categories:
+            buttons.append(
+                f'<button class="filter-btn" data-cat="{cat}" '
+                f'onclick="setFilter(\'{cat}\')">{cat}</button>'
+            )
+    return "\n    ".join(buttons)
+
+
+def _build_legend_html(party_color_counts: dict[str, tuple[str, int]]) -> str:
+    """Generate HTML for the party-colour legend panel."""
+    if not party_color_counts:
+        return (
+            '<div class="legend-item">'
+            f'<span class="legend-dot" style="background:{_PARTY_COLOR_DEFAULT}"></span>'
+            'Kein Mandat</div>'
+        )
+    sorted_p = sorted(party_color_counts.items(), key=lambda x: -x[1][1])
+    rows = [
+        f'<div class="legend-item">'
+        f'<span class="legend-dot" style="background:{color}"></span>'
+        f'{party}</div>'
+        for party, (color, _) in sorted_p
+    ]
+    rows.append(
+        f'<div class="legend-item" style="margin-top:5px;border-top:1px solid #f1f5f9;padding-top:5px">'
+        f'<span class="legend-dot" style="background:{_PARTY_COLOR_DEFAULT}"></span>'
+        f'Kein Mandat</div>'
+    )
+    return "\n  ".join(rows)
+
+_CYTOSCAPE_HTML_TEMPLATE = """\
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>%%TITLE%%</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#f8fafc;font-family:Inter,system-ui,-apple-system,sans-serif;overflow:hidden}
+#cy{width:100vw;height:100vh}
+#controls{
+  position:absolute;top:0;left:0;right:0;z-index:10;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  padding:10px 16px 10px;
+  background:rgba(248,250,252,.93);backdrop-filter:blur(8px);
+  border-bottom:1px solid #e2e8f0
+}
+#filter-bar{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.filter-btn{
+  padding:4px 13px;border:1px solid #e2e8f0;border-radius:20px;
+  background:white;font-size:12px;cursor:pointer;color:#475569;
+  transition:all .15s;white-space:nowrap
+}
+.filter-btn:hover{border-color:#2563eb;color:#2563eb}
+.filter-btn.active{background:#2563eb;border-color:#2563eb;color:white;font-weight:500}
+#search-wrap{display:flex;gap:8px;align-items:center}
+#search{
+  padding:6px 14px;border:1px solid #e2e8f0;border-radius:8px;
+  background:white;font-size:13px;width:240px;outline:none;
+  box-shadow:0 1px 4px rgba(0,0,0,.06);transition:border-color .15s
+}
+#search:focus{border-color:#2563eb}
+#search-clear{
+  padding:6px 10px;border:1px solid #e2e8f0;border-radius:8px;
+  background:white;font-size:12px;cursor:pointer;color:#64748b;display:none
+}
+#search-clear:hover{background:#f1f5f9}
+#tooltip{
+  position:absolute;pointer-events:none;display:none;
+  background:white;border:1px solid #e2e8f0;border-radius:10px;
+  padding:12px 14px;font-size:12px;color:#1e293b;
+  box-shadow:0 4px 20px rgba(0,0,0,.14);max-width:260px;
+  line-height:1.65;z-index:20
+}
+.tt-name{font-size:14px;font-weight:600;color:#0f172a;margin-bottom:6px}
+.tt-badge{
+  display:inline-block;padding:2px 8px;border-radius:4px;
+  font-size:10px;font-weight:600;color:white;margin-bottom:6px;letter-spacing:.3px
+}
+.tt-meta{color:#64748b;font-size:11px;margin-bottom:4px}
+.tt-coguests-label{font-weight:600;color:#374151;margin-top:7px;font-size:11px;margin-bottom:3px}
+.tt-coguests{color:#475569;font-size:11px;line-height:1.8}
+#legend{
+  position:absolute;bottom:44px;right:14px;z-index:10;
+  background:rgba(255,255,255,.93);backdrop-filter:blur(6px);
+  border:1px solid #e2e8f0;border-radius:10px;
+  padding:10px 14px;font-size:11px;color:#374151;max-width:200px
+}
+.legend-title{font-weight:600;font-size:11px;color:#0f172a;margin-bottom:7px}
+.legend-item{display:flex;align-items:center;gap:7px;margin-bottom:4px}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+#info-bar{
+  position:absolute;bottom:12px;left:50%;transform:translateX(-50%);
+  background:rgba(255,255,255,.88);backdrop-filter:blur(6px);
+  border:1px solid #e2e8f0;border-radius:8px;
+  padding:5px 14px;font-size:11px;color:#64748b;white-space:nowrap
+}
+</style>
+</head>
+<body>
+<div id="controls">
+  <div id="filter-bar">%%FILTER_BUTTONS_HTML%%</div>
+  <div id="search-wrap">
+    <input id="search" type="text" placeholder="Name suchen\u2026" autocomplete="off">
+    <button id="search-clear" onclick="clearSearch()">\u2715</button>
+  </div>
+</div>
+<div id="cy"></div>
+<div id="tooltip"></div>
+<div id="legend">
+  <div class="legend-title">Legende</div>
+  %%LEGEND_HTML%%
+  <div class="legend-item" style="margin-top:6px;padding-top:5px;border-top:1px solid #f1f5f9;font-size:10px;color:#94a3b8">
+    Kreisgr\u00f6\u00dfe = Auftritte
+  </div>
+</div>
+<div id="info-bar">%%NODE_COUNT%% G\u00e4ste &middot; %%EDGE_COUNT%% Verbindungen</div>
+<script>
+var ELEMENTS = %%ELEMENTS_JSON%%;
+var ACTIVE_FILTER = 'all';
+
+var cy = cytoscape({
+  container: document.getElementById('cy'),
+  elements: ELEMENTS,
+  layout: {name:'preset'},
+  style: [
+    {selector:'node', style:{
+      'background-color':'data(color)',
+      'width':'data(size)','height':'data(size)',
+      'label':'data(labelText)',
+      'font-size':'10px','font-family':'Inter,system-ui,sans-serif',
+      'color':'#1e293b','text-valign':'bottom','text-halign':'center',
+      'text-margin-y':3,
+      'text-background-color':'white','text-background-opacity':0.75,
+      'text-background-padding':'2px','text-background-shape':'round-rectangle',
+      'border-width':1.5,'border-color':'white','border-opacity':0.9,
+      'opacity':0.9
+    }},
+    {selector:'node.hl',style:{'border-width':3,'border-color':'#2563eb','opacity':1,'z-index':9999}},
+    {selector:'node.dim',style:{'opacity':0.07}},
+    {selector:'node.filtered',style:{'display':'none'}},
+    {selector:'edge',style:{
+      'width':'data(width)','line-color':'#cbd5e1','opacity':0.42,'curve-style':'bezier'
+    }},
+    {selector:'edge.hl',style:{'line-color':'#2563eb','opacity':0.75,'z-index':9998}},
+    {selector:'edge.dim',style:{'opacity':0.04}},
+    {selector:'edge.filtered',style:{'display':'none'}}
+  ],
+  minZoom:0.1, maxZoom:5,
+  userZoomingEnabled:true, userPanningEnabled:true
+});
+
+cy.ready(function(){
+  var ctrlH = document.getElementById('controls').offsetHeight || 80;
+  cy.fit(undefined, 50);
+  cy.panBy({x:0, y:ctrlH/2});
+});
+
+function setFilter(cat) {
+  ACTIVE_FILTER = cat;
+  document.querySelectorAll('.filter-btn').forEach(function(b){
+    b.classList.toggle('active', b.dataset.cat === cat);
+  });
+  cy.elements().removeClass('filtered dim hl');
+  if(cat !== 'all') {
+    cy.nodes().filter(function(n){ return n.data('category') !== cat; }).addClass('filtered');
+    cy.edges().filter(function(e){
+      return e.source().hasClass('filtered') || e.target().hasClass('filtered');
+    }).addClass('filtered');
+  }
+}
+
+var tt = document.getElementById('tooltip');
+cy.on('mouseover','node',function(e){
+  var d = e.target.data();
+  var badge = d.badgeText
+    ? '<div><span class="tt-badge" style="background:'+d.badgeColor+'">'+d.badgeText+'</span></div>'
+    : '';
+  var meta = d.metaText ? '<div class="tt-meta">'+d.metaText+'</div>' : '';
+  var co = d.topCoguests
+    ? '<div class="tt-coguests-label">Oft zusammen mit</div><div class="tt-coguests">'+d.topCoguests+'</div>'
+    : '';
+  tt.innerHTML = '<div class="tt-name">'+d.label+'</div>'+badge+meta+co;
+  tt.style.display='block';
+});
+cy.on('mousemove',function(e){
+  var p = e.renderedPosition || {x:0,y:0};
+  var x = p.x+16, y = p.y+10;
+  if(x+270 > window.innerWidth) x = p.x-280;
+  tt.style.left=x+'px'; tt.style.top=y+'px';
+});
+cy.on('mouseout','node',function(){ tt.style.display='none'; });
+
+cy.on('tap','node',function(e){
+  var nb = e.target.closedNeighborhood();
+  cy.elements().not('.filtered').addClass('dim').removeClass('hl');
+  nb.not('.filtered').removeClass('dim').addClass('hl');
+});
+cy.on('tap',function(e){
+  if(e.target===cy){ cy.elements().removeClass('dim hl'); }
+});
+
+var inp = document.getElementById('search');
+var clrBtn = document.getElementById('search-clear');
+function clearSearch(){
+  inp.value=''; clrBtn.style.display='none';
+  cy.elements().removeClass('dim hl');
+}
+inp.addEventListener('input',function(){
+  var q=inp.value.trim().toLowerCase();
+  clrBtn.style.display=q?'block':'none';
+  if(!q){ cy.elements().removeClass('dim hl'); return; }
+  var matches=cy.nodes().filter(function(n){
+    return n.data('label').toLowerCase().indexOf(q)!==-1 && !n.hasClass('filtered');
+  });
+  if(!matches.length){ cy.elements().not('.filtered').addClass('dim').removeClass('hl'); return; }
+  cy.elements().not('.filtered').addClass('dim').removeClass('hl');
+  matches.closedNeighborhood().not('.filtered').removeClass('dim');
+  matches.addClass('hl');
+  if(matches.length===1){
+    cy.animate({fit:{eles:matches.closedNeighborhood(),padding:80}},{duration:400});
+  }
+});
+</script>
+</body>
+</html>
+"""
+
+
+def export_cytoscape_network(
+    G: nx.Graph,
+    filepath: Path | str,
+    *,
+    value_attr: str | None = None,
+    tooltip_labels: Dict[str, str] | None = None,
+    physics: bool = True,           # kept for API compat, layout is pre-computed
+    height: str = "800px",          # kept for API compat
+    width: str = "100%",            # kept for API compat
+    min_edge_weight: int | None = None,
+    max_nodes: int | None = None,
+    label_top_n: int | None = None,
+    community_colors: bool = False,
+    party_attr: str | None = None,      # node attribute holding party name
+    category_attr: str | None = None,   # node attribute holding CategoryPrimary
+) -> None:
+    """Export a NetworkX graph as a self-contained Cytoscape.js HTML file.
+
+    Features:
+    - Pre-computed spring layout (instant render, no physics delay)
+    - Party-colour coding when ``party_attr`` is supplied
+    - Category filter buttons when ``category_attr`` is supplied
+    - Rich hover tooltip: badge · appearances · top 3 co-guests
+    - Collapsible colour legend (bottom-right)
+    - Name search with animated focus
+    """
+    path = Path(filepath)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    title = path.stem.replace("_", " ").title()
+
+    # ── Subgraph reduction ────────────────────────────────────────────────────
+    H = G
+    if min_edge_weight is not None or max_nodes is not None:
+        H = _prepare_static_network_view(
+            G,
+            min_edge_weight=min_edge_weight or 1,
+            max_nodes=max_nodes or G.number_of_nodes(),
+        )
+
+    if H.number_of_nodes() == 0:
+        path.write_text(
+            "<html><body style='font-family:sans-serif;padding:2rem'>"
+            "<p>Keine Netzwerkdaten vorhanden.</p></body></html>",
+            encoding="utf-8",
+        )
+        return
+
+    # ── Layout ────────────────────────────────────────────────────────────────
+    n = H.number_of_nodes()
+    k_val = 2.0 / math.sqrt(n) if n > 1 else 1.0
+    pos = nx.spring_layout(H, seed=42, weight="weight", k=k_val, iterations=80)
+
+    xs = [p[0] for p in pos.values()]
+    ys = [p[1] for p in pos.values()]
+    x_min, x_max = min(xs), max(xs)
+    y_min, y_max = min(ys), max(ys)
+    x_range = max(x_max - x_min, 1e-6)
+    y_range = max(y_max - y_min, 1e-6)
+    W_px, H_px = 2000, 1400
+
+    def _nx(v: float) -> float:
+        return (v - x_min) / x_range * W_px
+
+    def _ny(v: float) -> float:
+        return (v - y_min) / y_range * H_px
+
+    # ── Node sizing ───────────────────────────────────────────────────────────
+    appearances_map = nx.get_node_attributes(H, value_attr or "appearances")
+    deg = dict(H.degree())
+    all_vals = [float(appearances_map.get(nd, deg.get(nd, 1))) for nd in H.nodes()]
+    val_min = max(min(all_vals), 1) if all_vals else 1
+    val_max = max(max(all_vals), val_min + 1) if all_vals else 2
+
+    def _node_size(nd: object) -> float:
+        v = float(appearances_map.get(nd, deg.get(nd, 1)))
+        t = (v - val_min) / (val_max - val_min)
+        return round(14.0 + t * 38.0, 1)
+
+    # ── Community colours (fallback when party_attr not set) ──────────────────
+    communities = _detect_graph_communities(H) if (community_colors and not party_attr) else {}
+
+    # ── Top-3 co-guests per node (for tooltip) ────────────────────────────────
+    top_neighbors: dict[object, str] = {}
+    for node in H.nodes():
+        nbrs = sorted(
+            H[node].items(),
+            key=lambda x: float(x[1].get("weight", 1)),
+            reverse=True,
+        )[:3]
+        if nbrs:
+            top_neighbors[node] = "<br>".join(str(nb) for nb, _ in nbrs)
+
+    label_n = label_top_n if label_top_n is not None else min(30, n)
+    label_set = set(_select_label_nodes(H, top_n=label_n))
+
+    # ── Edge widths ───────────────────────────────────────────────────────────
+    edge_weights_raw = [float(d.get("weight", 1)) for _, _, d in H.edges(data=True)]
+    ew_min = max(min(edge_weights_raw) if edge_weights_raw else 1, 1)
+    ew_max = max(max(edge_weights_raw) if edge_weights_raw else 1, ew_min + 1)
+
+    def _edge_width(w: float) -> float:
+        t = (w - ew_min) / (ew_max - ew_min)
+        return round(0.5 + t * 5.5, 2)
+
+    # ── Collect metadata for legend & filter buttons ──────────────────────────
+    present_categories: set[str] = set()
+    party_color_counts: dict[str, tuple[str, int]] = {}
+
+    # ── Build elements ────────────────────────────────────────────────────────
+    elements: list[dict] = []
+
+    for node, data in H.nodes(data=True):
+        # ── Colour ──
+        if party_attr:
+            party_val = str(data.get(party_attr) or "").strip()
+            color = _PARTY_COLORS.get(party_val, _PARTY_COLOR_DEFAULT)
+            if party_val and party_val in _PARTY_COLORS:
+                cnt = party_color_counts.get(party_val, (color, 0))[1]
+                party_color_counts[party_val] = (color, cnt + 1)
+        elif community_colors:
+            c_idx = communities.get(node, 0)
+            color = _CYTOSCAPE_PALETTE[c_idx % len(_CYTOSCAPE_PALETTE)]
+            party_val = ""
+        else:
+            color = "#2563eb"
+            party_val = ""
+
+        # ── Category ──
+        cat_raw = str(data.get(category_attr) or "").strip() if category_attr else ""
+        cat_simplified = _CATEGORY_SIMPLIFIED.get(cat_raw, "Sonstige") if cat_raw else ""
+        if cat_simplified:
+            present_categories.add(cat_simplified)
+
+        # ── Tooltip badge ──
+        if party_attr and party_val and party_val in _PARTY_COLORS:
+            badge_text = party_val
+            badge_color = _PARTY_COLORS[party_val]
+        elif cat_simplified:
+            badge_text = cat_simplified
+            badge_color = "#64748b"
+        else:
+            badge_text = ""
+            badge_color = ""
+
+        # ── Tooltip meta line ──
+        meta_parts: list[str] = []
+        app_val = appearances_map.get(node)
+        if app_val is not None:
+            meta_parts.append(f"{int(app_val)} Auftritte")
+        tr_val = data.get("topic_range")
+        if tr_val is not None:
+            meta_parts.append(f"{int(tr_val)} Themen")
+        meta_text = " · ".join(meta_parts)
+
+        px, py = pos[node]
+        elements.append({
+            "data": {
+                "id": str(node),
+                "label": str(node),
+                "labelText": str(node) if node in label_set else "",
+                "color": color,
+                "size": _node_size(node),
+                "category": cat_simplified,
+                "badgeText": badge_text,
+                "badgeColor": badge_color,
+                "metaText": meta_text,
+                "topCoguests": top_neighbors.get(node, ""),
+            },
+            "position": {"x": round(_nx(px), 2), "y": round(_ny(py), 2)},
+        })
+
+    for source, target, edge_data in H.edges(data=True):
+        w = float(edge_data.get("weight", 1))
+        elements.append({
+            "data": {
+                "source": str(source),
+                "target": str(target),
+                "width": _edge_width(w),
+                "weight": round(w, 1),
+            }
+        })
+
+    # ── Render HTML ───────────────────────────────────────────────────────────
+    filter_html = _build_filter_html(present_categories) if category_attr else (
+        '<button class="filter-btn active" data-cat="all" onclick="setFilter(\'all\')">Alle</button>'
+    )
+    legend_html = _build_legend_html(party_color_counts) if party_attr else ""
+
+    elements_json = json.dumps(elements, ensure_ascii=False, separators=(",", ":"))
+    html = (
+        _CYTOSCAPE_HTML_TEMPLATE
+        .replace("%%TITLE%%", title)
+        .replace("%%ELEMENTS_JSON%%", elements_json)
+        .replace("%%FILTER_BUTTONS_HTML%%", filter_html)
+        .replace("%%LEGEND_HTML%%", legend_html)
+        .replace("%%NODE_COUNT%%", str(H.number_of_nodes()))
+        .replace("%%EDGE_COUNT%%", str(H.number_of_edges()))
+    )
+    path.write_text(html, encoding="utf-8")
+    print(f"Cytoscape network saved to {path}")
+
+
 def export_interactive_network(
     G: nx.Graph,
     filepath: Path | str,
@@ -504,7 +1000,7 @@ def analyze_topic_guest_connections(df_guests_with_topics):
     plt.show()
     print(f"Topic co-occurrence network saved to {DATA_DIR / 'topic_cooccurrence_network.png'}")
     nx.write_gexf(T, DATA_DIR / "topic_cooccurrence_network.gexf")
-    export_interactive_network(
+    export_cytoscape_network(
         T,
         DATA_DIR / "topic_cooccurrence_network.html",
         value_attr="num_guests",
@@ -547,7 +1043,7 @@ def _get_embedder(model_name: str, device: Optional[str] = None):
         # Keep sequences shorter for teasers; reduces memory a lot
         try:
             model.max_seq_length = min(getattr(model, "max_seq_length", 512), 256)
-        except Exception:
+        except AttributeError:
             pass
         return model
 
@@ -609,10 +1105,11 @@ def _embed_texts(embedder, texts: List[str], batch_size: int = 64):
 
     # Final fallback: move model to CPU and try again
     try:
+        print("⚠️  GPU-Speicher erschöpft – falle auf CPU zurück (batch_size=32)")
         embedder.to("cpu")
         return _try_encode(32)
-    except Exception:
-        # Last resort small batch
+    except RuntimeError:
+        print("⚠️  CPU-Fallback fehlgeschlagen – letzter Versuch mit batch_size=4")
         return _try_encode(4)
 
 
@@ -1120,10 +1617,21 @@ def load_all_show_data() -> tuple[list[dict], pd.DataFrame]:
     for file_name in show_files:
         all_data.extend(load_json_file(DATA_DIR / file_name))
 
-    all_data = [dat for dat in all_data if dat is not None]
+    all_data = [
+        dat for dat in all_data
+        if isinstance(dat, dict) and is_on_or_after_analysis_start(dat.get("date"))
+    ]
+    for dat in all_data:
+        if "date" in dat:
+            dat["date"] = normalize_date_value(dat.get("date"))
 
     df = pd.DataFrame(all_data)
-    df['description'] = df['description'].fillna('')  # Ensure no NaN in description
+    if "description" not in df.columns:
+        df["description"] = ""
+    else:
+        df["description"] = df["description"].fillna("")  # Ensure no NaN in description
+    if "date" in df.columns:
+        df["date"] = df["date"].apply(normalize_date_value)
 
     return all_data, df
 
@@ -1224,6 +1732,26 @@ def perform_guest_analysis(
         on='uid',
         how='left'
     )
+    category_columns = [
+        "Categories",
+        "CategoryPrimary",
+        "Confidence",
+        "CategoryScores",
+        "CategorySource",
+    ]
+    available_category_columns = [
+        column for column in category_columns if column in df_categorized.columns
+    ]
+    if available_category_columns:
+        category_lookup = df_categorized[["name"] + available_category_columns].rename(
+            columns={"name": "name_clean"}
+        )
+        df_guests_with_topics = pd.merge(
+            df_guests_with_topics,
+            category_lookup,
+            on="name_clean",
+            how="left",
+        )
 
     # Rename the 'name_clean' column to 'name' for consistency in downstream analysis
     if 'name_clean' in df_guests_with_topics.columns:
@@ -1270,6 +1798,30 @@ def create_network_visualizations(df_guests_with_topics: pd.DataFrame) -> None:
     appearance_attr = df_guests_with_topics['name'].value_counts().to_dict()
     nx.set_node_attributes(G, appearance_attr, 'appearances')
 
+    # ── Party affiliation per guest (for colour coding) ───────────────────────
+    if 'party_norm' in df_guests_with_topics.columns:
+        party_lookup = (
+            df_guests_with_topics
+            .dropna(subset=['party_norm'])
+            .groupby('name')['party_norm']
+            .agg(lambda s: s.mode().iloc[0] if not s.mode().empty else None)
+            .dropna()
+            .to_dict()
+        )
+        nx.set_node_attributes(G, party_lookup, 'party_norm')
+
+    # ── Primary category per guest (for filter buttons) ───────────────────────
+    if 'CategoryPrimary' in df_guests_with_topics.columns:
+        category_lookup = (
+            df_guests_with_topics
+            .dropna(subset=['CategoryPrimary'])
+            .groupby('name')['CategoryPrimary']
+            .agg(lambda s: s.mode().iloc[0] if not s.mode().empty else None)
+            .dropna()
+            .to_dict()
+        )
+        nx.set_node_attributes(G, category_lookup, 'CategoryPrimary')
+
     # Visualize and export
     visualize_network(
         G,
@@ -1278,15 +1830,15 @@ def create_network_visualizations(df_guests_with_topics: pd.DataFrame) -> None:
     )
 
     nx.write_gexf(G, DATA_DIR / "cooccurrence_network_with_weights.gexf")
-    export_interactive_network(
+    export_cytoscape_network(
         G,
         DATA_DIR / "cooccurrence_network.html",
         value_attr='appearances',
-        tooltip_labels={'appearances': 'Auftritte', 'topic_range': 'Themenvielfalt'},
         min_edge_weight=4,
         max_nodes=120,
         label_top_n=24,
-        community_colors=True,
+        party_attr='party_norm',
+        category_attr='CategoryPrimary',
     )
 
 

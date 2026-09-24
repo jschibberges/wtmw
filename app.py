@@ -12,6 +12,7 @@ from app_helpers import (
     summarize_show_coverage,
     summarize_topic_counts,
 )
+from date_utils import coerce_mixed_date_series, filter_to_analysis_window
 
 matplotlib.use("Agg")
 
@@ -49,7 +50,8 @@ def load_data():
         df_guests_with_topics = pd.read_excel(guests_with_topics_path)
 
         if "date" in df_shows.columns:
-            df_shows["date"] = pd.to_datetime(df_shows["date"], errors="coerce", dayfirst=True)
+            df_shows["date"] = coerce_mixed_date_series(df_shows["date"])
+            df_shows = filter_to_analysis_window(df_shows)
 
         show_info_cols = [
             col for col in ["uid", "date", "show", "title", "station"] if col in df_shows.columns
@@ -60,9 +62,10 @@ def load_data():
             )
 
         if "date" in df_guests_with_topics.columns:
-            df_guests_with_topics["date"] = pd.to_datetime(
-                df_guests_with_topics["date"], errors="coerce"
+            df_guests_with_topics["date"] = coerce_mixed_date_series(
+                df_guests_with_topics["date"]
             )
+            df_guests_with_topics = filter_to_analysis_window(df_guests_with_topics)
 
         if "topic_label" in df_guest_range.columns:
             df_guest_range.rename(columns={"topic_label": "unique_topics"}, inplace=True)
@@ -449,8 +452,10 @@ if df_shows is not None:
                 )
                 .copy()
             )
-            appearance_table["Partei"] = appearance_table.get("Partei", pd.Series()).fillna("–")
-            appearance_table["Rollen"] = appearance_table.get("Rollen", pd.Series()).fillna("–")
+            if "Partei" in appearance_table.columns:
+                appearance_table["Partei"] = appearance_table["Partei"].fillna("–")
+            if "Rollen" in appearance_table.columns:
+                appearance_table["Rollen"] = appearance_table["Rollen"].fillna("–")
             appearance_table["Auftritte"] = pd.to_numeric(
                 appearance_table["Auftritte"], errors="coerce"
             ).astype("Int64")
@@ -483,8 +488,10 @@ if df_shows is not None:
                 )
                 .copy()
             )
-            topic_range_table["Partei"] = topic_range_table.get("Partei", pd.Series()).fillna("–")
-            topic_range_table["Rollen"] = topic_range_table.get("Rollen", pd.Series()).fillna("–")
+            if "Partei" in topic_range_table.columns:
+                topic_range_table["Partei"] = topic_range_table["Partei"].fillna("–")
+            if "Rollen" in topic_range_table.columns:
+                topic_range_table["Rollen"] = topic_range_table["Rollen"].fillna("–")
             if "Einzigartige Themen" in topic_range_table.columns:
                 topic_range_table["Einzigartige Themen"] = pd.to_numeric(
                     topic_range_table["Einzigartige Themen"], errors="coerce"
@@ -599,16 +606,53 @@ if df_shows is not None:
             info_col1.markdown(f"**Partei:** {primary_party if primary_party else '–'}")
             info_col2.markdown(f"**Rollen:** {known_roles if known_roles else '–'}")
 
+            sendung_col = "show" if "show" in person_data.columns else None
+            titel_col = "title" if "title" in person_data.columns else sendung_col
+
             if "date" in person_data.columns and person_data["date"].notna().any():
                 last_date = person_data["date"].dropna().max()
                 st.caption(f"Letzter Auftritt im Zeitraum: {last_date.strftime('%d.%m.%Y')}")
 
+            if sendung_col:
+                show_counts = person_data.dropna(subset=[sendung_col]).copy()
+                if "uid" in show_counts.columns:
+                    show_counts = (
+                        show_counts.groupby(sendung_col)["uid"]
+                        .nunique()
+                        .reset_index(name="Auftritte")
+                    )
+                else:
+                    show_counts = (
+                        show_counts.groupby(sendung_col, as_index=False)
+                        .size()
+                        .rename(columns={"size": "Auftritte"})
+                    )
+                show_counts.rename(columns={sendung_col: "Sendung"}, inplace=True)
+                show_counts.sort_values(
+                    ["Auftritte", "Sendung"], ascending=[False, True], inplace=True
+                )
+
+                if not show_counts.empty:
+                    st.subheader("Auftritte nach Talkshow")
+                    chart_height = min(4.8, max(2.6, len(show_counts) * 0.32))
+                    fig, ax = plt.subplots(figsize=(6.2, chart_height))
+                    plot_data = show_counts.head(12)
+                    bars = ax.barh(
+                        plot_data["Sendung"][::-1],
+                        plot_data["Auftritte"][::-1],
+                        color="#C44E52",
+                    )
+                    ax.bar_label(bars, padding=3, fontsize=8)
+                    ax.set_xlabel("Auftritte", fontsize=9)
+                    ax.tick_params(axis="both", labelsize=8)
+                    ax.spines[["top", "right"]].set_visible(False)
+                    plt.tight_layout()
+                    st.pyplot(fig)
+                    plt.close(fig)
+
             # Appearances list
             st.markdown("---")
             st.subheader("Auftritte im Zeitraum")
-
-            sendung_col = "show" if "show" in person_data.columns else None
-            titel_col = "title" if "title" in person_data.columns else sendung_col
 
             display_cols: dict = {}
             if "date" in person_data.columns:

@@ -46,6 +46,21 @@ def test_filter_by_timeframe_limits_rows_relative_to_latest_date():
     assert filtered["uid"].tolist() == ["b", "c"]
 
 
+def test_filter_by_timeframe_accepts_two_digit_year_dates():
+    df = pd.DataFrame(
+        {
+            "uid": ["a", "b"],
+            "date": ["01.09.24", "15.03.2025"],
+        }
+    )
+
+    filtered, start_date, latest_date = filter_by_timeframe(df, "Letzte 12 Monate")
+
+    assert latest_date == pd.Timestamp("2025-03-15")
+    assert start_date == pd.Timestamp("2024-03-15")
+    assert filtered["uid"].tolist() == ["a", "b"]
+
+
 def test_summarize_topic_counts_preserves_unclassified_buckets(monkeypatch):
     monkeypatch.setattr(app_helpers, "_load_topic_labels", lambda: {})
 

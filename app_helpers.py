@@ -1,13 +1,16 @@
 from __future__ import annotations
 
 import json
+import logging
 import re
 from functools import lru_cache
 from pathlib import Path
 
 import pandas as pd
+from date_utils import coerce_mixed_date_series
 
 _DATA_DIR = Path(__file__).resolve().parent / "data"
+_log = logging.getLogger(__name__)
 
 
 @lru_cache(maxsize=1)
@@ -18,8 +21,8 @@ def _load_topic_labels() -> dict[str, str]:
         try:
             with open(path, encoding="utf-8") as f:
                 return json.load(f)
-        except Exception:
-            pass
+        except json.JSONDecodeError as e:
+            _log.warning("topic_labels.json ist ungültig und wird ignoriert: %s", e)
     return {}
 
 
@@ -292,7 +295,7 @@ def filter_by_timeframe(
     if df is None or df.empty or "date" not in df.columns:
         return pd.DataFrame(), None, None
 
-    date_series = pd.to_datetime(df["date"], errors="coerce")
+    date_series = coerce_mixed_date_series(df["date"])
     valid_dates = date_series.dropna()
     if valid_dates.empty:
         return pd.DataFrame(), None, None
@@ -321,7 +324,7 @@ def summarize_show_coverage(df: pd.DataFrame | None) -> pd.DataFrame:
         return pd.DataFrame(columns=["show", "first_date", "last_date", "episodes"])
 
     working = df.dropna(subset=["show"]).copy()
-    working["date"] = pd.to_datetime(working["date"], errors="coerce")
+    working["date"] = coerce_mixed_date_series(working["date"])
     working = working[working["date"].notna()]
     if working.empty:
         return pd.DataFrame(columns=["show", "first_date", "last_date", "episodes"])

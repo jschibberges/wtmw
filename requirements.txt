@@ -1,15 +1,38 @@
-beautifulsoup4
-requests
-pandas
-openpyxl
-networkx
-matplotlib
-bertopic
-sentence-transformers
-umap-learn
-hdbscan
-streamlit==1.53.0
-altair>=5,<6
-spacy
-pyvis
-rich
+# Web scraping
+beautifulsoup4>=4.12
+requests>=2.31
+
+# Data
+pandas>=2.0
+openpyxl>=3.1
+safetensors>=0.4
+
+# NLP & Topic Modeling
+spacy>=3.7
+scikit-learn>=1.3
+sentence-transformers>=2.7
+bertopic>=0.16
+umap-learn>=0.5
+hdbscan>=0.8
+
+# Network analysis
+networkx>=3.2
+pyvis>=0.3
+
+# Visualisation
+matplotlib>=3.8
+
+# Dashboard
+streamlit>=1.35
+reflex
+
+# CLI output
+rich>=13.0
+
+# Optional: faster fuzzy name matching (falls back gracefully if absent)
+rapidfuzz>=3.0
+
+# Optional: German phonetic surname matching (falls back gracefully if absent)
+cologne-phonetics>=1.0
+
+reflex==0.8.28.post1

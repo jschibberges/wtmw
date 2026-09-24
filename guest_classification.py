@@ -162,7 +162,7 @@ def _to_text_list(value: Any) -> list[str]:
                 parsed = ast.literal_eval(s)
                 if isinstance(parsed, (list, tuple)):
                     return [str(v) for v in parsed if v is not None]
-            except Exception:
+            except (ValueError, SyntaxError):
                 pass
         return [s]
     return [str(value)]
