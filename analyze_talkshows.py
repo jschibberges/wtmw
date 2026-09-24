@@ -19,6 +19,7 @@ from scrape_talkshows import load_json_file, save_json_file
 from nlp_utils import clean_guest_rows, clean_description_for_labels, _dedupe_topic_terms, _filter_topic_terms, get_german_stopwords
 from guest_classification import add_classification_columns
 from guest_classification_embedding import build_prototype_embeddings, apply_embedding_fallback
+from topic_labels import load_model_keywords, update_topic_labels_file
 
 try:
     from pyvis.network import Network
@@ -986,6 +987,9 @@ def analyze_and_visualize_topics(
     data_dir = Path(data_dir)
     data_dir.mkdir(parents=True, exist_ok=True)
     model_path = data_dir / "talkshow_topic_model"
+    # Keywords des bisherigen Modells sichern, bevor save() topics.json
+    # überschreibt – kuratierte Labels ohne eigene Keywords beziehen sich darauf.
+    previous_keywords = load_model_keywords(model_path / "topics.json")
     topic_model.save(str(model_path), serialization="safetensors")
     print(f"Topic model saved to {model_path}")
     # Überschreibe die von topic_model.save() gespeicherten Repräsentationen mit
@@ -1006,6 +1010,17 @@ def analyze_and_visualize_topics(
             print("topics.json mit bereinigten Repräsentationen (Rollenfilter + Dedupe) überschrieben.")
     except Exception as _e:
         print(f"Warning: Konnte topics.json nicht nachträglich aktualisieren: {_e}")
+
+    # Topic-IDs ändern sich bei jedem Training: kuratierte Labels per
+    # Keyword-Überlappung auf die neuen IDs übertragen.
+    try:
+        update_topic_labels_file(
+            data_dir / "topic_labels.json",
+            load_model_keywords(model_path / "topics.json"),
+            previous_keywords,
+        )
+    except Exception as e:
+        print(f"Warning: Konnte topic_labels.json nicht neu zuordnen: {type(e).__name__}: {e}")
 
     out_df = df.copy()
     if uid_col and uid_col in df.columns and uid_col in docs_df.columns:

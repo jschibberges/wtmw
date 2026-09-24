@@ -61,6 +61,7 @@ wtmw/
 ├── guest_classification_embedding.py  # Embedding-Fallback für Klassifizierung
 ├── app.py                             # Streamlit-Dashboard
 ├── app_helpers.py                     # Hilfsfunktionen für die App
+├── topic_labels.py                    # Topic-Labels über Retrainings stabil halten
 │
 ├── data/
 │   ├── {Show}_data.json               # Rohdaten pro Sendung
@@ -130,7 +131,7 @@ BERTopic mit:
 - **Dimensionsreduktion**: UMAP (automatisch getunt via Grid Search)
 - **Clustering**: HDBSCAN (automatisch getunt)
 - **Vokabular**: c-TF-IDF mit deutschen Stopwörtern + Rollenfilter (`TOPIC_ROLE_STOP`)
-- **Labels**: Gespeichert in `data/topic_labels.json`, ohne Retraining editierbar
+- **Labels**: Gespeichert in `data/topic_labels.json`, ohne Retraining editierbar; werden nach jedem Training per Keyword-Abgleich den neuen Topic-IDs zugeordnet
 
 ---
 
@@ -138,17 +139,27 @@ BERTopic mit:
 
 ### Topic-Namen anpassen
 
-`data/topic_labels.json` enthält menschenlesbare Namen pro Topic-ID:
+`data/topic_labels.json` enthält menschenlesbare Namen pro Topic-ID, zusammen mit den Keywords des Topics:
 
 ```json
 {
-  "0": "Ukraine-Krieg & Russland",
-  "2": "Corona-Pandemie",
-  "4": "Energiekrise & Klimapolitik"
+  "-1": "Sonstige / Nicht zugeordnet",
+  "0": {"label": "Ukraine-Krieg & Russland", "keywords": ["ukrainisch", "russisch", "putin", "..."]},
+  "7": {"label": null, "keywords": ["..."]},
+  "_unassigned": [{"label": "Brexit & Großbritannien", "keywords": ["brexit", "..."]}]
 }
 ```
 
-Änderungen werden nach einem Streamlit-Neustart sichtbar — kein Retraining notwendig.
+Da BERTopic die Topic-IDs bei jedem Training neu vergibt, ordnet `analyze_talkshows.py` die Labels
+nach jedem Training über die Keywords den neuen IDs zu (`topic_labels.py`) und schreibt die Datei neu:
+
+- **`"label": null`** — neues Topic ohne passendes Label. Einfach einen Namen eintragen.
+- **`_unassigned`** — Labels, deren Topic im aktuellen Modell nicht mehr vorkommt (weniger als die Hälfte
+  der Keywords stimmt überein). Sie werden bei jedem Lauf erneut geprüft.
+- Ein Eintrag darf auch nur ein String sein (`"5": "Mein Label"`); die Keywords werden dann beim nächsten
+  Lauf aus dem aktuell gespeicherten Modell ergänzt.
+
+Änderungen am Label werden nach einem Streamlit-Neustart sichtbar — kein Retraining notwendig.
 
 ### Gästenamen korrigieren
 

@@ -1,26 +1,20 @@
 from __future__ import annotations
 
-import json
 import re
 from functools import lru_cache
 from pathlib import Path
 
 import pandas as pd
 
+from topic_labels import labels_by_id, load_curated_labels
+
 _DATA_DIR = Path(__file__).resolve().parent / "data"
 
 
 @lru_cache(maxsize=1)
 def _load_topic_labels() -> dict[str, str]:
-    """Lädt data/topic_labels.json, falls vorhanden. Cached."""
-    path = _DATA_DIR / "topic_labels.json"
-    if path.exists():
-        try:
-            with open(path, encoding="utf-8") as f:
-                return json.load(f)
-        except Exception:
-            pass
-    return {}
+    """Lädt data/topic_labels.json als {topic_id: label}, falls vorhanden. Cached."""
+    return labels_by_id(load_curated_labels(_DATA_DIR / "topic_labels.json"))
 
 
 def _most_common_value(series: pd.Series) -> str | None:
