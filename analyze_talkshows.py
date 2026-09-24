@@ -1030,7 +1030,12 @@ def analyze_and_visualize_topics(
     # ----------------------- bullet-proof DYNAMICS (manual) -----------------------
     try:
         if date_col and date_col in docs_df.columns:
-            ts_series = pd.to_datetime(docs_df[date_col], errors="coerce")
+            # Scraper speichert Daten als DD.MM.YYYY (ältere Einträge: DD.MM.YY);
+            # ohne explizites Format rät pandas MM.DD.YYYY und verwirft/vertauscht
+            # Tag und Monat.
+            ts_series = pd.to_datetime(docs_df[date_col], format="%d.%m.%Y", errors="coerce").fillna(
+                pd.to_datetime(docs_df[date_col], format="%d.%m.%y", errors="coerce")
+            )
             pairs = [(t, ts) for t, ts in zip(texts, ts_series)
                      if isinstance(t, str) and t.strip() != "" and pd.notna(ts)]
             if not pairs:
