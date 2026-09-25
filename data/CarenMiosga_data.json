@@ -3103,5 +3103,543 @@
         "station": "Das Erste",
         "title": "Nach den Wahlen in Rheinland-Pfalz",
         "description": "Am Sonntag entscheiden die Wählerinnen und Wähler in Rheinland-Pfalz über ihre künftige Landesregierung. Nach 35 Jahren sozialdemokratischer Führung liefern sich Ministerpräsident Alexander Schweitzer und CDU-Spitzenkandidat Gordon Schnieder ein enges Rennen. Doch egal, wer gewinnt: Für die schwarz-rote Koalition in Berlin kann es schwierig werden, denn eine der beiden Regierungsparteien wird einen schmerzhaften Verlust hinnehmen müssen. Kann Amtsinhaber Schweitzer seine Position trotz der Schwäche der SPD auf Bundesebene verteidigen? Ist es, wie in Baden-Württemberg, wieder eine Personenwahl oder waren Themen wahlentscheidend? Und was bedeutet das Ergebnis für Stabilität und Handlungsfähigkeit der Koalition in Berlin?"
+    },
+    {
+        "uid": "S3myQze3",
+        "link": "https://www.fernsehserien.de/caren-miosga/folgen/73-usa-gegen-iran-nicht-unser-krieg-aber-unser-problem-1872775",
+        "guests": [
+            {
+                "name": "Hubertus Heil",
+                "party": "SPD",
+                "role": "Mitglied Auswärtiger Ausschuss, SPD",
+                "description": "Mitglied Auswärtiger Ausschuss, SPD",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Claudia Major",
+                "party": null,
+                "role": "Vizepräsidentin für Transatlantische Sicherheitsinitiativen German Marshall Fund",
+                "description": "Vizepräsidentin für Transatlantische Sicherheitsinitiativen German Marshall Fund",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Daniel Gerlach",
+                "party": null,
+                "role": "Publizist, Herausgeber zenith-Magazin",
+                "description": "Publizist, Herausgeber zenith-Magazin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Bojan Pancevski",
+                "party": null,
+                "role": "Chefkorrespondent für Europapolitik, Wall Street Journal",
+                "description": "Chefkorrespondent für Europapolitik, Wall Street Journal",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "26.04.2026",
+        "show": "Caren Miosga",
+        "station": "Das Erste",
+        "title": "USA gegen Iran – nicht unser Krieg, aber unser Problem?",
+        "description": "Das Ultimatum von US-Präsident Donald Trump an den Iran ist auf unbestimmte Zeit verlängert worden. Die Lage in der Straße von Hormus bleibt angespannt, diplomatische Bemühungen sind bislang ohne Erfolg geblieben. Und die wirtschaftlichen Folgen des Konflikts zeichnen sich längst weltweit und damit auch in Deutschland ab: an der Tankstelle, im Supermarkt und in den Lieferketten. Während sich die USA und der Iran in einem anhaltenden Kräftemessen gegenüberstehen, wächst in Europa der politische Druck zu reagieren. Auch ein militärischer Einsatz zur Sicherung der Meerenge nach einem möglichen Waffenstillstand wird diskutiert. Was bedeutet das für Deutschland? Wie unabhängig kann Europa von den USA agieren? Und worauf müssen sich die Bürgerinnen und Bürger einstellen?"
+    },
+    {
+        "uid": "33h3xvhc",
+        "link": "https://www.fernsehserien.de/caren-miosga/folgen/75-wie-will-die-spd-vertrauen-zurueckgewinnen-frau-schwesig-1875585",
+        "guests": [
+            {
+                "name": "Manuela Schwesig",
+                "party": "SPD",
+                "role": "Ministerpräsidentin Mecklenburg-Vorpommern, SPD",
+                "description": "Ministerpräsidentin Mecklenburg-Vorpommern, SPD",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Luca Piwodda",
+                "party": null,
+                "role": "Bürgermeister Gartz/​Oder, Partei des Fortschritts PdF",
+                "description": "Bürgermeister Gartz/​Oder, Partei des Fortschritts PdF",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Nikolaus Blome",
+                "party": null,
+                "role": "Ressortleiter Politik und Gesellschaft RTL/​ ntv",
+                "description": "Ressortleiter Politik und Gesellschaft RTL/​ ntv",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "10.05.2026",
+        "show": "Caren Miosga",
+        "station": "Das Erste",
+        "title": "Wie will die SPD Vertrauen zurückgewinnen, Frau Schwesig?",
+        "description": "Die politischen Kräfteverhältnisse in Deutschland verschieben sich. In bundesweiten Umfragen liegt die AfD inzwischen vorn, während die Regierungsparteien unter Druck geraten. Besonders die SPD verliert an Zustimmung und steht vor der Frage, warum sich immer mehr Kernwähler abwenden. Mecklenburg-Vorpommern, wo im September ein neuer Landtag gewählt wird, gilt als besonderer Prüfstein: Die SPD konnte in Umfragen zwar zuletzt zulegen, doch weiterhin führt die AfD mit großem Abstand. Wie stark ist die politische Mitte noch und warum wächst die Zustimmung zur AfD, während klassische Volksparteien an Bindungskraft verlieren? Welche Rolle spielt die Bundespolitik für die Entwicklung in den Ländern? Und welche politischen und gesellschaftlichen Folgen hat dieser Wandel vor Ort in Städten und Gemeinden – jenseits der Debatten in Berlin?"
+    },
+    {
+        "uid": "MA5U9hix",
+        "link": "https://www.fernsehserien.de/caren-miosga/folgen/71-digitale-gewalt-wie-koennen-frauen-besser-geschuetzt-werden-1867258",
+        "guests": [
+            {
+                "name": "Stefanie Hubig",
+                "party": "SPD",
+                "role": "Bundesjustizministerin, SPD",
+                "description": "Bundesjustizministerin, SPD",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Collien Monica Fernandes",
+                "party": null,
+                "role": "Schauspielerin und Moderatorin",
+                "description": "Schauspielerin und Moderatorin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Ronen Steinke",
+                "party": null,
+                "role": "Leitender Redakteur Rechtspolitik, Süddeutsche Zeitung",
+                "description": "Leitender Redakteur Rechtspolitik, Süddeutsche Zeitung",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Theresia Crone",
+                "party": null,
+                "role": "Jurastudentin, Aktivistin und Betroffene von digitaler Gewalt",
+                "description": "Jurastudentin, Aktivistin und Betroffene von digitaler Gewalt",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "29.03.2026",
+        "show": "Caren Miosga",
+        "station": "Das Erste",
+        "title": "Digitale Gewalt – wie können Frauen besser geschützt werden?",
+        "description": "Collien Fernandes setzt sich seit Jahren öffentlich mit dem Thema digitale sexualisierte Gewalt auseinander – ihr Fall hat die Debatte darüber und die Schutzlücken im deutschen Recht nun neu entfacht. Digitale Gewalt, wozu unter anderem Identitätsbetrug im Netz aber auch sogenannte sexualisierte Deepfakes gehören, betrifft weltweit Hunderttausende und richtet sich vor allem gegen Frauen. Bundesjustizministerin Stefanie Hubig will nun einen Gesetzentwurf gegen digitale Gewalt in all ihren Formen vorlegen, um Schutzlücken zu schließen. Wie wirksam kann das neue Gesetz sein? Warum gibt es das nicht schon längst? Und was muss sich strukturell, gesellschaftlich und in der Prävention ändern, damit Menschen besser vor Gewalt geschützt werden – im Netz und außerhalb?"
+    },
+    {
+        "uid": "qRRl2alr",
+        "link": "https://www.fernsehserien.de/caren-miosga/folgen/78-ist-die-brandmauer-noch-zu-halten-1896778",
+        "guests": [
+            {
+                "name": "Armin Laschet",
+                "party": "CDU",
+                "role": "CDU-Bundestagsabgeordneter und ehemaliger CDU-Vorsitzender",
+                "description": "CDU-Bundestagsabgeordneter und ehemaliger CDU-Vorsitzender",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Christian Friedel",
+                "party": null,
+                "role": "Schauspieler, Unterstützer der Kampagne „Wahre Heimatliebe ist",
+                "description": "Schauspieler, Unterstützer der Kampagne „Wahre Heimatliebe ist",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Valerie Schönian",
+                "party": null,
+                "role": "Journalistin, ZEIT",
+                "description": "Journalistin, ZEIT",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Christian Stecker",
+                "party": null,
+                "role": "Politikwissenschaftler, Technische Universität Darmstadt)",
+                "description": "Politikwissenschaftler, Technische Universität Darmstadt)",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "23.08.2026",
+        "show": "Caren Miosga",
+        "station": "Das Erste",
+        "title": "Ist die Brandmauer noch zu halten?",
+        "description": "Die AfD könnte bei der Landtagswahl in Sachsen-Anhalt in zwei Wochen mehr als 40 Prozent erreichen – und ein AfD-Ministerpräsident in Deutschland erstmals möglich werden. Die derzeit regierende CDU liegt in den Umfragen deutlich dahinter – in Sachsen-Anhalt und in bundesweiten Erhebungen. Sind die Entwicklungen in Ostdeutschland Vorboten für die politische Entwicklung im ganzen Land? Haben die etablierten Parteien mit ihrer Politik und dem Festhalten an der Brandmauer zum Aufstieg der AfD beigetragen? Und was würde ein AfD-Wahlsieg für die Bundesregierung und die Demokratie hierzulande bedeuten?"
+    },
+    {
+        "uid": "dmc8-CMj",
+        "link": "https://www.fernsehserien.de/caren-miosga/folgen/74-ein-jahr-kanzler-wie-schwer-ist-regieren-herr-merz-1874428",
+        "guests": [
+            {
+                "name": "Friedrich Merz",
+                "party": "CDU",
+                "role": "Bundeskanzler, CDU",
+                "description": "Bundeskanzler, CDU",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "03.05.2026",
+        "show": "Caren Miosga",
+        "station": "Das Erste",
+        "title": "Ein Jahr Kanzler – wie schwer ist Regieren, Herr Merz?",
+        "description": "Ein Jahr nach seinem Amtsantritt steht Bundeskanzler Friedrich Merz (CDU) unter erheblichem Druck. Die Spannungen in der schwarz-roten Koalition wachsen. Eine Gesundheitsreform ist zwar gerade auf den Weg gebracht worden, aber weitere Reformprojekte bei Rente, Steuern und Sozialstaat lassen auf sich warten. Gleichzeitig sinken seine Umfragewerte und die Wirtschaft fordert spürbare Entlastungen und strukturelle Reformen, während internationale Krisen wie zuletzt der Iran-Krieg die Lage auch in Deutschland zusätzlich verschärfen. Kann Friedrich Merz seine umfassenden Reformversprechen einlösen? Und wie handlungsfähig sind der Kanzler und sein nicht immer harmonisch agierendes Kabinett zwischen innenpolitischem Streit und globalen Krisen? Gast: Friedrich Merz (Bundeskanzler, CDU)"
+    },
+    {
+        "uid": "2qf8fiIi",
+        "link": "https://www.fernsehserien.de/caren-miosga/folgen/72-hohe-preise-wenig-zuversicht-wie-findet-deutschland-aus-der-krise-1871385",
+        "guests": [
+            {
+                "name": "Jens Spahn",
+                "party": "CDU",
+                "role": "Vorsitzender der CDU/​CSU-Fraktion",
+                "description": "Vorsitzender der CDU/​CSU-Fraktion",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Monika Schnitzer",
+                "party": null,
+                "role": "Vorsitzende des Sachverständigenrates zur Begutachtung der gesamtwirtschaftlichen Entwicklung",
+                "description": "Vorsitzende des Sachverständigenrates zur Begutachtung der gesamtwirtschaftlichen Entwicklung",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Karina Mößbauer",
+                "party": null,
+                "role": "Journalistin The Pioneer",
+                "description": "Journalistin The Pioneer",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "19.04.2026",
+        "show": "Caren Miosga",
+        "station": "Das Erste",
+        "title": "Hohe Preise, wenig Zuversicht – wie findet Deutschland aus der Krise?",
+        "description": "Die Bundesregierung hat auf die Folgen des Iran-Kriegs für die Verbraucher reagiert: Mit einer zweimonatigen Senkung der Mineralölsteuer auf Benzin und Diesel um rund 17 Cent je Liter und der Möglichkeit einer steuerfreien Entlastungsprämie von bis zu 1.000 Euro will die schwarz-rote Koalition die Bürger entlasten – die Prämie können Arbeitgeber ihren Beschäftigten freiwillig zahlen. Gleichzeitig kündigt Bundeskanzler Friedrich Merz (CDU) grundlegende Reformen bei Gesundheit, Steuern und Rente an. Doch die Kritik ist laut – von Ökonomen, aus der eigenen Koalition und aus der Wirtschaft. Wie sinnvoll sind die beschlossenen Entlastungen – wer profitiert wirklich und wer geht leer aus?"
+    },
+    {
+        "uid": "WDDB4dCy",
+        "link": "https://www.fernsehserien.de/caren-miosga/folgen/76-kriegt-die-regierung-die-kurve-herr-soeder-1876748",
+        "guests": [
+            {
+                "name": "Markus Söder",
+                "party": "CSU",
+                "role": "Ministerpräsident Bayern, CSU",
+                "description": "Ministerpräsident Bayern, CSU",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Melanie Baum",
+                "party": null,
+                "role": "Unternehmerin, Geschäftsführerin Baum Zerspanungstechnik",
+                "description": "Unternehmerin, Geschäftsführerin Baum Zerspanungstechnik",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Gordon Repinski",
+                "party": null,
+                "role": "Chefredakteur POLITICO Deutschland",
+                "description": "Chefredakteur POLITICO Deutschland",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "17.05.2026",
+        "show": "Caren Miosga",
+        "station": "Das Erste",
+        "title": "Kriegt die Regierung die Kurve, Herr Söder?",
+        "description": "Ein Jahr nach Beginn der schwarz-roten Koalition ringt die Bundesregierung um eine gemeinsame Linie für weitreichende Reformen, die von allen Beteiligten als nötig angesehen werden. Auch zentrale wirtschaftspolitische Vorhaben sind dabei noch nicht umgesetzt. Hohe Energiekosten belasten weiter den Mittelstand, eine Steuerreform ist noch nicht beschlossen, der avisierte Bürokratieabbau nicht spürbar. Laut aktuellem ARD-DeutschlandTrend trauen 71 Prozent der Deutschen der Koalition eine Stärkung der Wirtschaft nicht zu. Welche Faktoren verzögern die Umsetzung der Reformvorhaben, und welche Akteure tragen dafür politische Verantwortung? Wo liegen mögliche Hindernisse – und welche Maßnahmen werden diskutiert?"
+    },
+    {
+        "uid": "n3UoyThB",
+        "link": "https://www.fernsehserien.de/caren-miosga/folgen/80-nach-der-wahl-in-sachsen-anhalt-1899740",
+        "guests": [
+            {
+                "name": "Tino Chrupalla",
+                "party": "AfD",
+                "role": "AfD-Bundessprecher",
+                "description": "AfD-Bundessprecher",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Thomas de Maizière",
+                "party": "CDU",
+                "role": "CDU, Bundesminister a.D.",
+                "description": "CDU, Bundesminister a.D.",
+                "validation_status": "accept",
+                "validation_reason": "extended_person_name"
+            },
+            {
+                "name": "Giovanni di Lorenzo",
+                "party": null,
+                "role": "Chefredakteur DIE ZEIT",
+                "description": "Chefredakteur DIE ZEIT",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Vera Wolfskämpf",
+                "party": null,
+                "role": "Landeskorrespondentin Sachsen-Anhalt, RedaktionsNetzwerk Deutschland",
+                "description": "Landeskorrespondentin Sachsen-Anhalt, RedaktionsNetzwerk Deutschland",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Christian Stecker",
+                "party": null,
+                "role": "Politikwissenschaftler TU Darmstadt",
+                "description": "Politikwissenschaftler TU Darmstadt",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "06.09.2026",
+        "show": "Caren Miosga",
+        "station": "Das Erste",
+        "title": "Nach der Wahl in Sachsen-Anhalt",
+        "description": "Heute wählt Sachsen-Anhalt und ganz Deutschland blickt gespannt auf das Ergebnis. Laut aktuellen Umfragen liegt die AfD mit ihrem Spitzenkandidaten Ulrich Siegmund bei rund 40 Prozent und damit klar vorn, hofft sogar auf eine absolute Mehrheit inklusive damit einhergehender Alleinregierung. Die CDU kämpft derweil mit Ministerpräsident Sven Schulze um den Verbleib in der Staatskanzlei. Welche Parteien schaffen den Sprung in den Landtag – und welche Koalitionen lässt das Ergebnis am Ende zu? Was haben die regierenden Parteien in der Ansprache der Wähler versäumt? Ist die Strategie der Brandmauer gescheitert? Und ist dieses Wahlergebnis ein Vorbote für ganz Deutschland?"
+    },
+    {
+        "uid": "dxzwBYoB",
+        "link": "https://www.fernsehserien.de/caren-miosga/folgen/79-russlands-hybrider-krieg-wie-gross-ist-die-gefahr-fuer-deutschland-1898243",
+        "guests": [
+            {
+                "name": "Wolfgang Schmidt",
+                "party": "SPD",
+                "role": "ehemaliger Kanzleramtschef und Beauftragter für die Nachrichtendienste, SPD",
+                "description": "ehemaliger Kanzleramtschef und Beauftragter für die Nachrichtendienste, SPD",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Hanna Notte",
+                "party": null,
+                "role": "Sicherheits- und Russland-Expertin, Direktorin des Eurasien-Programms am James Martin Center for Nonproliferation Studies CNS",
+                "description": "Sicherheits- und Russland-Expertin, Direktorin des Eurasien-Programms am James Martin Center for Nonproliferation Studies CNS",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Nico Lange",
+                "party": null,
+                "role": "Direktor des Instituts für Risikoanalysen und Internationale Sicherheit",
+                "description": "Direktor des Instituts für Risikoanalysen und Internationale Sicherheit",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "30.08.2026",
+        "show": "Caren Miosga",
+        "station": "Das Erste",
+        "title": "Russlands hybrider Krieg – wie groß ist die Gefahr für Deutschland?",
+        "description": "Deutschland sei täglich Ziel hybrider Kriegsführung, sagt Bundesinnenminister Alexander Dobrindt und spricht von einem „Schattenkrieg des 21. Jahrhunderts“. Der Anschlagsversuch am Flughafen Leipzig/​Halle ist der bislang spektakulärste Fall einer wachsenden Serie, die von Drohnenangriffen über Cyberattacken bis hin zu Brandanschlägen reicht. Zuletzt reiste CIA-Direktor John Ratcliffe unangekündigt nach Moskau, laut Medienberichten auch um den Kreml vor weiterer Eskalation gegen Nato-Verbündete zu warnen. Wie weit ist Russlands Präsident Wladimir Putin bereit zu gehen? Wie gut ist Deutschland auf diesen hybriden Krieg vorbereitet? Und verfolgt die Bundesregierung eine wirksame Strategie zur Abwehr dieser Gefahren? Hanna Notte (Sicherheits- und Russland-Expertin, Direktorin des Eurasien-Programms am James Martin Center for Nonproliferation Studies CNS) Nico Lange (Direktor des Instituts für Risikoanalysen und Internationale Sicherheit)"
+    },
+    {
+        "uid": "h6hQFryy",
+        "link": "https://www.fernsehserien.de/caren-miosga/folgen/82-nach-den-wahlen-in-berlin-und-mecklenburg-vorpommern-1902279",
+        "guests": [
+            {
+                "name": "Tim Klüssendorf",
+                "party": "SPD",
+                "role": "SPD-Generalsekretär",
+                "description": "SPD-Generalsekretär",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Mathias Middelberg",
+                "party": "CDU",
+                "role": "Mitglied im CDU-Präsidium",
+                "description": "Mitglied im CDU-Präsidium",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Beatrix von Storch",
+                "party": "AfD",
+                "role": "stellvertretende AfD-Fraktionsvorsitzende",
+                "description": "stellvertretende AfD-Fraktionsvorsitzende",
+                "validation_status": "accept",
+                "validation_reason": "extended_person_name"
+            },
+            {
+                "name": "Robin Alexander",
+                "party": null,
+                "role": "Journalist",
+                "description": "Journalist",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "20.09.2026",
+        "show": "Caren Miosga",
+        "station": "Das Erste",
+        "title": "Nach den Wahlen in Berlin und Mecklenburg-Vorpommern",
+        "description": "Zum zweiten Mal innerhalb von zwei Wochen blickt ganz Deutschland auf Wahlen im Osten – neben Mecklenburg-Vorpommern wird auch in Berlin gewählt.Nach dem schwachen CDU-Abschneiden in Sachsen-Anhalt könnte ein weiterer Rückschlag auch die Debatte über Bundeskanzler Friedrich Merz (CDU) weiter befeuern. Kann SPD-Ministerpräsidentin Manuela Schwesig ihre Aufholjagd in den Umfragen mit einem Wahlsieg krönen – oder wird die AfD auch in Mecklenburg-Vorpommern zum Wahlsieger? Wer gewinnt das Kopf-an-Kopf-Rennen in Berlin? Und welche Folgen hat dieser Wahlabend für die Bundespolitik?"
+    },
+    {
+        "uid": "38BakAjF",
+        "link": "https://www.fernsehserien.de/caren-miosga/folgen/81-nach-sachsen-anhalt-wackeln-jetzt-die-reformen-1900692",
+        "guests": [
+            {
+                "name": "Anke Rehlinger",
+                "party": "SPD",
+                "role": "SPD, Ministerpräsidentin Saarland",
+                "description": "SPD, Ministerpräsidentin Saarland",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Karin Prien",
+                "party": "CDU",
+                "role": "CDU, Bundesministerin für Bildung, Familie, Senioren, Frauen und Jugend",
+                "description": "CDU, Bundesministerin für Bildung, Familie, Senioren, Frauen und Jugend",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Nikolaus Blome",
+                "party": null,
+                "role": "Ressortleiter Politik und Gesellschaft, RTL/​ntv",
+                "description": "Ressortleiter Politik und Gesellschaft, RTL/​ntv",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "13.09.2026",
+        "show": "Caren Miosga",
+        "station": "Das Erste",
+        "title": "Nach Sachsen-Anhalt: Wackeln jetzt die Reformen?",
+        "description": "Bundeskanzler Friedrich Merz (CDU) steht massiv unter Druck – von der eigenen Partei, vom Koalitionspartner SPD und von einer AfD, die nach ihrem Wahlsieg in Sachsen-Anhalt gestärkt wie selten auftritt. Ob Bildungspolitik, Rentenreform oder Haushalt – Union und SPD streiten öffentlich, wo sie eigentlich liefern wollten. Gleichzeitig rückt die Frage eines AfD-Verbotsverfahrens wieder in den Mittelpunkt: Nordrhein-Westfalens Ministerpräsident Hendrik Wüst (CDU) will eine Bund-Länder-Gruppe einsetzen, die ein solches Verfahren ergebnisoffen prüfen soll; sein bayerischer Amtskollege Markus Söder (CSU) sieht das anders. Was müssen Union und SPD jetzt ändern, um das Vertrauen der Bevölkerung zurückzugewinnen? Steht der Reformkurs der Koalition jetzt wieder infrage? Und ist ein AfD-Verbotsverfahren der richtige Weg? Karin Prien (CDU), Bundesministerin für Bildung, Familie, Senioren, Frauen und Jugend Nikolaus Blome, Ressortleiter Politik und Gesellschaft, RTL/​ntv"
+    },
+    {
+        "uid": "S6mhJ_DT",
+        "link": "https://www.fernsehserien.de/caren-miosga/folgen/77-ist-die-spd-bereit-fuer-grosse-reformen-frau-bas-1881146",
+        "guests": [
+            {
+                "name": "Bärbel Bas",
+                "party": "SPD",
+                "role": "SPD, Parteivorsitzende, Bundesministerin für Arbeit und Soziales",
+                "description": "SPD, Parteivorsitzende, Bundesministerin für Arbeit und Soziales",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Moritz Schularick",
+                "party": null,
+                "role": "Präsident des Kiel Instituts für Weltwirtschaft",
+                "description": "Präsident des Kiel Instituts für Weltwirtschaft",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Daniel Friedrich Sturm",
+                "party": null,
+                "role": "Leiter Hauptstadtbüro, Der Tagesspiegel",
+                "description": "Leiter Hauptstadtbüro, Der Tagesspiegel",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "07.06.2026",
+        "show": "Caren Miosga",
+        "station": "Das Erste",
+        "title": "Ist die SPD bereit für große Reformen, Frau Bas?",
+        "description": "Die SPD steht unter Druck wie selten zuvor: Im aktuellen ARD-DeutschlandTrend liegt die Partei bei dreizehn Prozent, ihre klassische Anhängerschaft wählt immer häufiger die AfD. Gleichzeitig muss die SPD-Vorsitzende und Bundesarbeitsministerin Bärbel Bas Reformen mitverantworten, von denen sie selbst sagt, sie würde manche lieber nicht anfassen. Wie steht es um die Reformbereitschaft der SPD? Was wird aus der geplanten Flexibilisierung des Acht-Stunden-Tags, wie soll die Rente langfristig finanziert werden – und wie kann die SPD das Vertrauen der arbeitenden Mitte wieder für sich gewinnen?"
+    },
+    {
+        "uid": "m6ayz6sG",
+        "link": "https://www.fernsehserien.de/caren-miosga/folgen/15a-europa-hat-gewaehlt-wohin-steuert-deutschland-teil-1-1729908",
+        "guests": [
+            {
+                "name": "Kevin Kühnert",
+                "party": "SPD",
+                "role": "SPD-Generalsekretär",
+                "description": "SPD-Generalsekretär",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Jens Spahn",
+                "party": "CDU",
+                "role": "stellv. Vorsitzender CDU/​CSU-Bundestagsfraktion",
+                "description": "stellv. Vorsitzender CDU/​CSU-Bundestagsfraktion",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Melanie Amann",
+                "party": null,
+                "role": "stellv. Chefredakteurin DER SPIEGEL",
+                "description": "stellv. Chefredakteurin DER SPIEGEL",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Jürgen Trittin",
+                "party": "Bündnis 90/Die Grünen",
+                "role": "Bündnis 90/​Die Grünen",
+                "description": "Bündnis 90/​Die Grünen",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "09.06.2024",
+        "show": "Caren Miosga",
+        "station": "Das Erste",
+        "title": "Europa hat gewählt – wohin steuert Deutschland? (Teil 1)",
+        "description": "Bis Sonntag sind die Wahlberechtigten der Europäischen Union aufgerufen, ein neues Parlament zu wählen. War bei der jüngsten Wahl vor fünf Jahren der Klimaschutz eines der wichtigsten politischen Anliegen, bestimmen aktuell Kriegsangst, äußere und innere Sicherheit und die Folgen von Migration die thematische Agenda. Verschiebt ein möglicher Stimmenzuwachs rechtspopulistischer und euroskeptischer Parteien die Kräfteverhältnisse auf dem Kontinent? Und welche Signale senden die Wählerinnen und Wähler an die regierende Ampel-Koalition von Bundeskanzler Olaf Scholz?"
+    },
+    {
+        "uid": "Uj3PdMsB",
+        "link": "https://www.fernsehserien.de/caren-miosga/folgen/15b-europa-hat-gewaehlt-wohin-steuert-deutschland-teil-2-1729909",
+        "guests": [
+            {
+                "name": "Kevin Kühnert",
+                "party": "SPD",
+                "role": "SPD-Generalsekretär",
+                "description": "SPD-Generalsekretär",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Jens Spahn",
+                "party": "CDU",
+                "role": "stellv. Vorsitzender CDU/​CSU-Bundestagsfraktion",
+                "description": "stellv. Vorsitzender CDU/​CSU-Bundestagsfraktion",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Melanie Amann",
+                "party": null,
+                "role": "stellv. Chefredakteurin DER SPIEGEL",
+                "description": "stellv. Chefredakteurin DER SPIEGEL",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Jürgen Trittin",
+                "party": "Bündnis 90/Die Grünen",
+                "role": "Bündnis 90/​Die Grünen",
+                "description": "Bündnis 90/​Die Grünen",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "09.06.2024",
+        "show": "Caren Miosga",
+        "station": "Das Erste",
+        "title": "Europa hat gewählt – wohin steuert Deutschland? (Teil 2)",
+        "description": "Bis Sonntag sind die Wahlberechtigten der Europäischen Union aufgerufen, ein neues Parlament zu wählen. War bei der jüngsten Wahl vor fünf Jahren der Klimaschutz eines der wichtigsten politischen Anliegen, bestimmen aktuell Kriegsangst, äußere und innere Sicherheit und die Folgen von Migration die thematische Agenda. Verschiebt ein möglicher Stimmenzuwachs rechtspopulistischer und euroskeptischer Parteien die Kräfteverhältnisse auf dem Kontinent? Und welche Signale senden die Wählerinnen und Wähler an die regierende Ampel-Koalition von Bundeskanzler Olaf Scholz?"
     }
 ]

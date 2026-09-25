@@ -25970,5 +25970,857 @@
         "station": "ZDF",
         "title": "Krieg in Nahost",
         "description": "Gäste: Norbert Röttgen (CDU Fraktionsvize Union, Außenpolitiker), Ben Hodges (US-General a.D.), Bente Scheller (Nahostexpertin, HBS), Mariam Lau („Die Zeit“-Journalistin, Autorin)"
+    },
+    {
+        "uid": "R4JKLq2w",
+        "link": "https://www.fernsehserien.de/maybrit-illner/folgen/1052-sieg-niederlage-oder-chaos-was-hat-trump-erreicht-1869437",
+        "guests": [
+            {
+                "name": "Norbert Röttgen",
+                "party": "CDU",
+                "role": "CDU, stellv. Vorsitzender der CDU/​CSU-Fraktion, Mitglied im Auswärtigen Ausschuss",
+                "description": "CDU, stellv. Vorsitzender der CDU/​CSU-Fraktion, Mitglied im Auswärtigen Ausschuss",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Sigmar Gabriel",
+                "party": "SPD",
+                "role": "Vorsitzender „Atlantik-Brücke e.V.“, ehemaliger Außenminister und SPD-Parteivorsitzender",
+                "description": "Vorsitzender „Atlantik-Brücke e.V.“, ehemaliger Außenminister und SPD-Parteivorsitzender",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Juli Zeh",
+                "party": null,
+                "role": "Schriftstellerin, Juristin",
+                "description": "Schriftstellerin, Juristin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Carlo Masala",
+                "party": null,
+                "role": "Militärexperte, Professor für Internationale Politik, Universität der Bundeswehr in München",
+                "description": "Militärexperte, Professor für Internationale Politik, Universität der Bundeswehr in München",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Souad Mekhennet",
+                "party": null,
+                "role": "deutsche Journalistin in Washington, Expertin für internationale Sicherheit",
+                "description": "deutsche Journalistin in Washington, Expertin für internationale Sicherheit",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "09.04.2026",
+        "show": "Maybrit Illner",
+        "station": "ZDF",
+        "title": "Sieg, Niederlage oder Chaos – Was hat Trump erreicht?",
+        "description": "Gäste: Norbert Röttgen (CDU, stellv. Vorsitzender der CDU/​CSU-Fraktion, Mitglied im Auswärtigen Ausschuss), Sigmar Gabriel (Vorsitzender „Atlantik-Brücke e.V.“, ehemaliger Außenminister und SPD-Parteivorsitzender), Juli Zeh (Schriftstellerin, Juristin), Carlo Masala (Militärexperte, Professor für Internationale Politik, Universität der Bundeswehr in München), Souad Mekhennet (deutsche Journalistin in Washington, Expertin für internationale Sicherheit)"
+    },
+    {
+        "uid": "FV3APKqi",
+        "link": "https://www.fernsehserien.de/maybrit-illner/folgen/1051-abstiegsangst-im-land-wann-liefert-schwarz-rot-1866063",
+        "guests": [
+            {
+                "name": "Carsten Linnemann",
+                "party": "CDU",
+                "role": "CDU, Generalsekretär",
+                "description": "CDU, Generalsekretär",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Anke Rehlinger",
+                "party": "SPD",
+                "role": "SPD, stellv. Parteivorsitzende, Ministerpräsidentin Saarland",
+                "description": "SPD, stellv. Parteivorsitzende, Ministerpräsidentin Saarland",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Boris Palmer",
+                "party": "parteilos",
+                "role": "parteilos, Oberbürgermeister von Tübingen",
+                "description": "parteilos, Oberbürgermeister von Tübingen",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Gabriel Felbermayr",
+                "party": null,
+                "role": "neues Mitglied im Sachverständigenrat zur Begutachtung der gesamtwirtschaftlichen Entwicklung („Wirtschaftsweiser“)Direktor des Österreichischen Instituts für Wirtschaftsforschung (Wifo)",
+                "description": "neues Mitglied im Sachverständigenrat zur Begutachtung der gesamtwirtschaftlichen Entwicklung („Wirtschaftsweiser“)Direktor des Österreichischen Instituts für Wirtschaftsforschung (Wifo)",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Kristina Dunz",
+                "party": null,
+                "role": "Stellvertretende Leiterin Hauptstadtbüro „RedaktionsNetzwerk Deutschland“ (RND)",
+                "description": "Stellvertretende Leiterin Hauptstadtbüro „RedaktionsNetzwerk Deutschland“ (RND)",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "26.03.2026",
+        "show": "Maybrit Illner",
+        "station": "ZDF",
+        "title": "Abstiegsangst im Land – wann liefert Schwarz-Rot?",
+        "description": "Gäste: Carsten Linnemann (CDU, Generalsekretär), Anke Rehlinger (SPD, stellv. Parteivorsitzende, Ministerpräsidentin Saarland), Boris Palmer (parteilos, Oberbürgermeister von Tübingen), Gabriel Felbermayr (neues Mitglied im Sachverständigenrat zur Begutachtung der gesamtwirtschaftlichen Entwicklung („Wirtschaftsweiser“), Kristina Dunz (Stellvertretende Leiterin Hauptstadtbüro „RedaktionsNetzwerk Deutschland“ (RND)) Es wird ernst für Bundeskanzler Friedrich Merz. Nach den Landtagswahlen gibt es keine Ausrede mehr: Auf den abgesagten „Herbst der Reformen“ und einen Winter voller Wahlkampf müssen jetzt die versprochenen Gesetze kommen – Steuern, Krankenversicherung, Rente, Pflege. Alles soll generalüberholt werden, und nebenbei sollen auch noch Milliarden eingespart werden. Alles in der Hoffnung, dass die Wirtschaft dann wieder wächst. Wie soll dieser große Wurf gelingen mit einer Kanzlerpartei unter Druck und Sozialdemokraten, die um ihr politisches Überleben kämpfen? Mehr Netto vom Brutto wünschen sich die Bürger – und vor allem einen sicheren Arbeitsplatz. Denn die Angst vor Deindustrialisierung und Abstieg ist groß. Reichen der politische Wille und die Kraft der schwarz-roten Koalition? Kann die Regierung das Land modernisieren, ohne viele neue Verlierer zu produzieren?"
+    },
+    {
+        "uid": "rzGDEMxP",
+        "link": "https://www.fernsehserien.de/maybrit-illner/folgen/1056-globaler-machtkampf-um-ki-hat-deutschland-eine-chance-1874913",
+        "guests": [
+            {
+                "name": "Karsten Wildberger",
+                "party": "CDU",
+                "role": "CDU, Bundesminister für Digitales und Staatsmodernisierung",
+                "description": "CDU, Bundesminister für Digitales und Staatsmodernisierung",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Ranga Yogeshwar",
+                "party": null,
+                "role": "Physiker und Wissenschaftsjournalist",
+                "description": "Physiker und Wissenschaftsjournalist",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Jeanette zu Fürstenberg",
+                "party": null,
+                "role": "Präsidentin und Geschäftsführerin der Venture-Capital-Gesellschaft General Catalyst (GC) leitet das Europageschäft",
+                "description": "Präsidentin und Geschäftsführerin der Venture-Capital-Gesellschaft General Catalyst (GC) leitet das Europageschäft",
+                "validation_status": "accept",
+                "validation_reason": "extended_person_name"
+            },
+            {
+                "name": "Sascha Lobo",
+                "party": null,
+                "role": "Digitalisierungsexperte, Publizist und Blogger",
+                "description": "Digitalisierungsexperte, Publizist und Blogger",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Sarah Tacke",
+                "party": null,
+                "role": "Juristin, ZDF-Rechtsexpertin",
+                "description": "Juristin, ZDF-Rechtsexpertin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "07.05.2026",
+        "show": "Maybrit Illner",
+        "station": "ZDF",
+        "title": "Globaler Machtkampf um KI – hat Deutschland eine Chance?",
+        "description": "Gäste: Karsten Wildberger (CDU, Bundesminister für Digitales und Staatsmodernisierung), Ranga Yogeshwar (Physiker und Wissenschaftsjournalist), Jeanette zu Fürstenberg (Präsidentin und Geschäftsführerin der Venture-Capital-Gesellschaft General Catalyst (GC) leitet das Europageschäft), Sascha Lobo (Digitalisierungsexperte, Publizist und Blogger), Sarah Tacke (Juristin, ZDF-Rechtsexpertin) Der Kampf um die Vorherrschaft bei künstlicher Intelligenz wird mit allen Mitteln geführt: Staaten, Firmen und Investoren stecken Milliarden in die Entwicklung der selbstlernenden Maschinen und suchen den entscheidenden Vorsprung. Die USA oder China – wer die Schlacht gewinnt, ist noch ungewiss, aber eines steht schon fest: Wer KI beherrscht, hat nicht nur Wirtschaftsmacht, sondern gewinnt auch Kriege. KI-Modelle, Rechenzentren, Roboter und Drohnen werden zu Schlüsselfaktoren. Während die USA und China Tempo und Strecke machen, ist Europa mit vielen Regulierungen und nationalen Egoismen überhaupt erst gestartet. Auch Deutschland will digitale Souveränität, bleibt aber bei Plattformen, Rechenleistung und Programmen abhängig, vor allem von den USA. Dabei sind KI-Anwendungen längst im Alltag angekommen: Chatbots, Übersetzer, KI-Agenten, Analyse-Tools. Sie sollen das Leben leichter machen, greifen dafür aber auf unsere Daten zu. Wie nutzt man die Chancen der KI und begrenzt gleichzeitig deren Risiken? Wo verläuft die Grenze zwischen Freiheit und Regulierung? Hat Deutschland noch eine Chance im Wettlauf um die KI der Zukunft?"
+    },
+    {
+        "uid": "T-c2fzt0",
+        "link": "https://www.fernsehserien.de/maybrit-illner/folgen/1053-selenskyj-bei-maybrit-illner-verspricht-merz-der-ukraine-zu-viel-1870693",
+        "guests": [
+            {
+                "name": "Wolodymyr Selenskyj",
+                "party": null,
+                "role": "Präsident der Ukraine",
+                "description": "Präsident der Ukraine",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Wolfgang Ischinger",
+                "party": null,
+                "role": "Vorsitzender der Münchner Sicherheitskonferenz (MSC)",
+                "description": "Vorsitzender der Münchner Sicherheitskonferenz (MSC)",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Marina Weisband",
+                "party": null,
+                "role": "Publizistin und Grünen-Politikerin",
+                "description": "Publizistin und Grünen-Politikerin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Frank Sauer",
+                "party": null,
+                "role": "Experte für Sicherheitspolitik an der Universität der Bundeswehr in München",
+                "description": "Experte für Sicherheitspolitik an der Universität der Bundeswehr in München",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "16.04.2026",
+        "show": "Maybrit Illner",
+        "station": "ZDF",
+        "title": "Selenskyj bei Maybrit Illner: Verspricht Merz der Ukraine zu viel?",
+        "description": "Gäste: Wolodymyr Selenskyj (Präsident der Ukraine), Wolfgang Ischinger (Vorsitzender der Münchner Sicherheitskonferenz (MSC)), Marina Weisband (Publizistin und Grünen-Politikerin), Frank Sauer (Experte für Sicherheitspolitik an der Universität der Bundeswehr in München) Die ersten deutsch-ukrainischen Regierungskonsultationen seit 20 Jahren. Friedrich Merz trifft Wolodymyr Selenskyj. Es ging um Geld, Drohnen und viel Verantwortung. Im Anschluss konnte Maybrit Illner mit dem ukrainischen Präsidenten sprechen. Auf ihre Frage, ob Deutschland der wichtigste strategische Partner der Ukraine sei, sagte er: „Der größte strategischer Partner in Europa ist ganz sicher Deutschland.“ Auf Maybrit Illners Nachfrage „Wichtiger als die USA?“ fügte er hinzu: „Um ehrlich zu sein, macht Deutschland tatsächlich mehr als alle anderen. Die Amerikaner finanzieren unseren Kampf nicht. Ich möchte USA und Deutschland nicht vergleichen, aber Deutschland hilft mehr heute.“ Ist Deutschland wirklich so stark, dass es die USA ersetzen kann? Oder nur Selenskyjs letzter Strohhalm, da Trump nun mit dem Iran-Krieg alle Hände voll zu tun hat? Übernimmt Merz damit auch Verantwortung für Krieg oder Frieden? Lehnt er sich zu weit aus dem Fenster? Und was kann und will die Ukraine zu dieser Partnerschaft beitragen?"
+    },
+    {
+        "uid": "8b7qwaEp",
+        "link": "https://www.fernsehserien.de/maybrit-illner/folgen/1054-welt-im-oel-schock-unterschaetzt-die-regierung-die-krise-1871947",
+        "guests": [
+            {
+                "name": "Prince Reza Pahlavi",
+                "party": null,
+                "role": "iranischer Oppositionspolitiker im Exil",
+                "description": "iranischer Oppositionspolitiker im Exil",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Thorsten Frei",
+                "party": "CDU",
+                "role": "CDU, Chef des Bundeskanzleramts",
+                "description": "CDU, Chef des Bundeskanzleramts",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Felix Banaszak",
+                "party": "Bündnis 90/Die Grünen",
+                "role": "B’90/​Die Grünen, Parteivorsitzender",
+                "description": "B’90/​Die Grünen, Parteivorsitzender",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Isabella M. Weber",
+                "party": null,
+                "role": "Wirtschaftswissenschaftlerin an der US-Universität Massachusetts Amherst",
+                "description": "Wirtschaftswissenschaftlerin an der US-Universität Massachusetts Amherst",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Moritz Schularick",
+                "party": null,
+                "role": "Präsident „Kiel Institut für Weltwirtschaft“, Professor für Volkswirtschaftslehre",
+                "description": "Präsident „Kiel Institut für Weltwirtschaft“, Professor für Volkswirtschaftslehre",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Helene Bubrowski",
+                "party": null,
+                "role": "stellvertretende Chefredakteurin „Table.Briefings“, designierte FAZ-Herausgeberin",
+                "description": "stellvertretende Chefredakteurin „Table.Briefings“, designierte FAZ-Herausgeberin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "23.04.2026",
+        "show": "Maybrit Illner",
+        "station": "ZDF",
+        "title": "Welt im Öl-Schock – unterschätzt die Regierung die Krise?",
+        "description": "Gäste: Prince Reza Pahlavi (iranischer Oppositionspolitiker im Exil), Thorsten Frei (CDU, Chef des Bundeskanzleramts), Felix Banaszak (B’90/​Die Grünen, Parteivorsitzender), Isabella M. Weber (Wirtschaftswissenschaftlerin an der US-Universität Massachusetts Amherst), Moritz Schularick (Präsident „Kiel Institut für Weltwirtschaft“, Professor für Volkswirtschaftslehre), Helene Bubrowski (stellvertretende Chefredakteurin „Table.Briefings“, designierte FAZ-Herausgeberin) Es ist längst eine globale Energiekrise, womöglich bald die „größte Energiekrise der Neuzeit“, wie der Internationale Währungsfonds warnt. Die Preise für Öl, Benzin und Gas sind hoch und sie dürften weiter steigen, wenn sich der Irankrieg zuspitzt. Die fossilen Energieträger werden Mangelware. Die EU schlägt heute erst Maßnahmen vor: Energie sparen, Wärmepumpen, Gebäudesanierung, mehr ÖPNV und Elektromobilität. Die Bundesregierung dagegen will Öl und Gas in Teilen wieder salonfähig machen, setzt auf Tankrabatt und Technologieoffenheit und verkauft das als Pragmatismus. Die Vorschläge wirken wie ein großes Sammelsurium und sorgen auch zwischen Union und SPD für Streit. Bleibt also nur die Hoffnung auf ein schnelles Ende des Irankrieges und einen belastbaren Frieden? „Maybrit Illner“ spricht am Donnerstag mit dem iranischen Oppositionspolitiker Reza Pahlavi, Sohn des Schahs. Sie diskutiert mit Kanzleramtschef Thorsten Frei, dem Grünen Vorsitzenden Felix Banaszak, den Ökonomen Isabella M. Weber und Moritz Schularick sowie der Journalistin Helene Bubrowski. Wie groß ist die Krise bereits und unterschätzt die Regierung sie immer noch?"
+    },
+    {
+        "uid": "PDq0Kzk2",
+        "link": "https://www.fernsehserien.de/maybrit-illner/folgen/1055-land-in-not-merz-in-noeten-reform-chaos-statt-wirtschaftswunder-1873510",
+        "guests": [
+            {
+                "name": "Johannes Winkel",
+                "party": "CDU",
+                "role": "CDU, Bundesvorsitzender der Jungen Union Deutschlands",
+                "description": "CDU, Bundesvorsitzender der Jungen Union Deutschlands",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Wolfgang Kubicki",
+                "party": "FDP",
+                "role": "FDP, stellvertretender Vorsitzender der Freien Demokraten",
+                "description": "FDP, stellvertretender Vorsitzender der Freien Demokraten",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Helena Melnikov",
+                "party": null,
+                "role": "Hauptgeschäftsführerin der Deutschen Industrie- und Handelskammer (DIHK)",
+                "description": "Hauptgeschäftsführerin der Deutschen Industrie- und Handelskammer (DIHK)",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Kevin Kühnert",
+                "party": "SPD",
+                "role": "Bürgerbewegung „Finanzwende“, Mitglied der DGB-Rentenkommission, ehemaliger SPD-Generalsekretär",
+                "description": "Bürgerbewegung „Finanzwende“, Mitglied der DGB-Rentenkommission, ehemaliger SPD-Generalsekretär",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Melanie Amann",
+                "party": null,
+                "role": "",
+                "description": "",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "30.04.2026",
+        "show": "Maybrit Illner",
+        "station": "ZDF",
+        "title": "Land in Not, Merz in Nöten – Reform-Chaos statt Wirtschaftswunder?",
+        "description": "Gäste: Johannes Winkel (CDU, Bundesvorsitzender der Jungen Union Deutschlands), Wolfgang Kubicki (FDP, stellvertretender Vorsitzender der Freien Demokraten), Helena Melnikov (Hauptgeschäftsführerin der Deutschen Industrie- und Handelskammer (DIHK)), Kevin Kühnert (Bürgerbewegung „Finanzwende“, Mitglied der DGB-Rentenkommission, ehemaliger SPD-Generalsekretär), Melanie Amann („Chefredakteurin Digital“ bei Funke) Kurz vor den finalen Verhandlungen gab es noch einmal Beschimpfungen und Maximalforderungen von Bärbel Bas, Markus Söder und Lars Klingbeil. Auch wenn die Minister der Regierung am Mittwoch „Eckwerte“ für den Haushalt und ein Sparpaket für die Gesundheit im Kabinett beschlossen haben, erreicht ist damit nicht so sehr viel, denn die Abgeordneten von Union und SPD wetzen schon die Messer. Was der Kanzler mit „Detaildiskussionen zum Haushalt“ ankündigt, hat das Zeug für neuen, handfesten Streit. Und wenn das mit Steuer, Pflege und Rente dann so weiter geht, könnten Bürger und Wirtschaft vielleicht endgültig die Geduld verlieren. Hat die Koalition einen größeren Plan? Wen will sie belasten und wen entlasten? Bringt sie so das Wachstum zurück? …und das Vertrauen in die Regierungsfähigkeit?"
+    },
+    {
+        "uid": "O6R5NAw0",
+        "link": "https://www.fernsehserien.de/maybrit-illner/folgen/1057-reformen-in-der-krise-verspricht-merz-zu-viel-1879059",
+        "guests": [
+            {
+                "name": "Thorsten Frei",
+                "party": "CDU",
+                "role": "CDU /​  Chef des Bundeskanzleramtes",
+                "description": "CDU /​  Chef des Bundeskanzleramtes",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Ricarda Lang",
+                "party": "Bündnis 90/Die Grünen",
+                "role": "B’90/​Die Grünen, ehemalige Grünen-Vorsitzende und Bundestagsabgeordnete",
+                "description": "B’90/​Die Grünen, ehemalige Grünen-Vorsitzende und Bundestagsabgeordnete",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Julia Friedrichs",
+                "party": null,
+                "role": "Filmemacherin und Autorin u.a. „Crazy Rich",
+                "description": "Filmemacherin und Autorin u.a. „Crazy Rich",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Robin Alexander",
+                "party": null,
+                "role": "Journalist und Autor u. a. Podcast „Machtwechsel“",
+                "description": "Journalist und Autor u. a. Podcast „Machtwechsel“",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "28.05.2026",
+        "show": "Maybrit Illner",
+        "station": "ZDF",
+        "title": "Reformen in der Krise – verspricht Merz zu viel?",
+        "description": "Gäste: Thorsten Frei (CDU /​ Chef des Bundeskanzleramtes), Ricarda Lang (B’90/​Die Grünen, ehemalige Grünen-Vorsitzende und Bundestagsabgeordnete), Julia Friedrichs (Filmemacherin und Autorin u.a. „Crazy Rich“), Robin Alexander (Journalist und Autor u. a. Podcast „Machtwechsel“) Friedrich Merz will Ruhe und Vertrauen – doch ausgerechnet die Steuerreform zeigt, wie wenig davon bei Schwarz-Rot übrig ist. Schon die Koalitionsverhandlungen standen durch den Streit um höhere Reichensteuern vor dem Abbruch. Später eskalierte der Streit beim Koalitionsgipfel in der Villa Borsig erneut. Die CDU will die Entlastungen durch Einsparungen finanzieren, die SPD hält an ihrem Plan fest, Topverdiener stärker zu belasten. Lohnt sich der Streit für eine Reform, die kaum mehr bringt als ein paar Hundert Euro im Jahr, die aber schnell 20 bis 30 Milliarden Euro-Löcher in den Haushalt reißt? Die deutsche Wirtschaft lahmt weiterhin. Der Sachverständigenrat erwartet, dass das Bruttoinlandsprodukt (BIP) im Jahr 2026 nur noch um 0,5 Prozent ansteigen wird – das sind 0,4 Prozentpunkte weniger als zuletzt angenommen. Wäre angesichts der Krise eine ehrlichere Debatte die um Belastungen und ihre gerechte Verteilung nicht angezeigt? Weniger für alle – das klingt nicht schön, aber realistischer. Wird das Steuerthema der Aufschlag für die großen Reformpläne oder zum Stolperstein für den Bundeskanzler?"
+    },
+    {
+        "uid": "p9AbVDir",
+        "link": "https://www.fernsehserien.de/maybrit-illner/folgen/1059-trumps-frieden-mit-iran-desaster-oder-durchbruch-1883392",
+        "guests": [
+            {
+                "name": "Norbert Röttgen",
+                "party": "CDU",
+                "role": "CDU, stellv. Fraktionsvorsitzender der CDU/​CSU-Fraktion, Mitglied im Auswärtigen Ausschuss",
+                "description": "CDU, stellv. Fraktionsvorsitzender der CDU/​CSU-Fraktion, Mitglied im Auswärtigen Ausschuss",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Minu Barati",
+                "party": null,
+                "role": "deutsch-iranische Filmproduzentin, Autorin",
+                "description": "deutsch-iranische Filmproduzentin, Autorin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Nicole Deitelhoff",
+                "party": null,
+                "role": "Professorin Internationale Beziehungen und Theorien globaler Ordnungspolitik Goethe-Universität Frankfurt/​Main, Direktorin Leibniz-Institut für Friedens- und Konfliktforschung (PRIF)",
+                "description": "Professorin Internationale Beziehungen und Theorien globaler Ordnungspolitik Goethe-Universität Frankfurt/​Main, Direktorin Leibniz-Institut für Friedens- und Konfliktforschung (PRIF)",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Guido Steinberg",
+                "party": null,
+                "role": "Islamwissenschaftler und Nahostexperte, Stiftung für Wissenschaft und Politik (SWP)",
+                "description": "Islamwissenschaftler und Nahostexperte, Stiftung für Wissenschaft und Politik (SWP)",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Elmar Theveßen",
+                "party": null,
+                "role": "Leiter des ZDF-Studios in Washington",
+                "description": "Leiter des ZDF-Studios in Washington",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "18.06.2026",
+        "show": "Maybrit Illner",
+        "station": "ZDF",
+        "title": "Trumps Frieden mit Iran – Desaster oder Durchbruch?",
+        "description": "Gäste: Norbert Röttgen (CDU, stellv. Fraktionsvorsitzender der CDU/​CSU-Fraktion, Mitglied im Auswärtigen Ausschuss), Minu Barati (deutsch-iranische Filmproduzentin, Autorin), Nicole Deitelhoff (Professorin Internationale Beziehungen und Theorien globaler Ordnungspolitik Goethe-Universität Frankfurt/​Main, Direktorin Leibniz-Institut für Friedens- und Konfliktforschung (PRIF)), Guido Steinberg (Islamwissenschaftler und Nahostexperte, Stiftung für Wissenschaft und Politik (SWP)), Elmar Theveßen (Leiter des ZDF-Studios in Washington) Donald Trump feiert seinen Iran-Deal als großen Friedensschluss. Doch noch ist völlig offen, ob daraus wirklich Stabilität und Frieden erwachsen. Die zentralen Kriegsziele bleiben unerreicht: kein Regimewechsel in Teheran, keine Lösung für das Atomprogramm, keine Entwaffnung der Unterstützergruppen des Irans in der Region. Immerhin könnte die Straße von Hormus wieder geöffnet werden – eine Entlastung für Weltwirtschaft und Energiepreise. Doch was ist dieser Deal wert, wenn Iran den Westen und die Welt weiter erpressen kann? Ist das ein „Durchbruch“, wie der Kanzler sagt, oder ein „Desaster“, wie sein CDU-Parteifreund Kiesewetter meint? Wie sehr ist Trump geschwächt? Und was kann das für die Ukraine bedeuten?"
+    },
+    {
+        "uid": "dbV8y_TG",
+        "link": "https://www.fernsehserien.de/maybrit-illner/folgen/1060-gesundheit-nach-kassenlage-sparen-bis-kein-arzt-kommt-1888845",
+        "guests": [
+            {
+                "name": "Nina Warken",
+                "party": "CDU",
+                "role": "CDU, Bundesgesundheitsministerin",
+                "description": "CDU, Bundesgesundheitsministerin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Bernd Lange",
+                "party": "SPD",
+                "role": "SPD, Vorsitzender des Handelsausschusses im Europäischen Parlament",
+                "description": "SPD, Vorsitzender des Handelsausschusses im Europäischen Parlament",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Ricarda Lang",
+                "party": "Bündnis 90/Die Grünen",
+                "role": "B’90/​Die Grünen, ehemalige Grünen-Vorsitzende und Bundestagsabgeordnete",
+                "description": "B’90/​Die Grünen, ehemalige Grünen-Vorsitzende und Bundestagsabgeordnete",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Jens Baas",
+                "party": null,
+                "role": "Vorstandsvorsitzender Techniker Krankenkasse=Humanmediziner",
+                "description": "Vorstandsvorsitzender Techniker Krankenkasse=Humanmediziner",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Sibylle Katzenstein",
+                "party": null,
+                "role": "Hausärztin",
+                "description": "Hausärztin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Melanie Amann",
+                "party": null,
+                "role": "Chefredakteurin Digital der Funke Zentralredaktion",
+                "description": "Chefredakteurin Digital der Funke Zentralredaktion",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "16.07.2026",
+        "show": "Maybrit Illner",
+        "station": "ZDF",
+        "title": "Gesundheit nach Kassenlage – sparen, bis kein Arzt kommt?",
+        "description": "Gäste: Nina Warken (CDU, Bundesgesundheitsministerin), Bernd Lange (SPD, Vorsitzender des Handelsausschusses im Europäischen Parlament), Ricarda Lang (B’90/​Die Grünen, ehemalige Grünen-Vorsitzende und Bundestagsabgeordnete), Jens Baas (Vorstandsvorsitzender Techniker Krankenkasse=Humanmediziner), Sibylle Katzenstein (Hausärztin), Melanie Amann (Chefredakteurin Digital der Funke Zentralredaktion) Im kommenden Jahr fehlen den Krankenkassen 19 Milliarden Euro. Die muss Gesundheitsministerin Warken (CDU) also mindestens einsparen, damit die Kassen-Beiträge nicht steigen. Mit dem sogenannten Beitragsstabilisierungsgesetz scheint wenigstens das gelungen. Was die Regierung Merz als erstes großes Reformpaket feiert, kostet vor allem die Versicherten viel Geld: höhere Medikamentenzuzahlungen, eine höhere Beitragsbemessungsgrenze für Gutverdiener und das Aus für die kostenlose Ehepartner-Mitversicherung. „Die Versorgung wird dafür schlechter“, klagen Ärzte, Psychotherapeuten und Krankenhäuser, es sei nicht mehr als eine „Notoperation“. In der noch zu beschließenden Strukturreform sollen dann ausgerechnet Hausärzte wieder die „Lotsen im System“ sein. Wie voll sind „übermorgen“ also die Wartezimmer? Erst recht, wenn schon für den ersten Tag ein Krankenschein gebraucht wird? Gesundheit nach Kassenlage – sind die Zumutungen wenigstens gerecht verteilt? Warum ist das deutsche Gesundheitssystem teurer, aber nicht besser als in anderen Industrieländern? Warum sind zum Beispiel Medikamente hierzulande teurer?"
+    },
+    {
+        "uid": "m7eZoNsm",
+        "link": "https://www.fernsehserien.de/maybrit-illner/folgen/1061-zwischen-trump-und-putin-wird-europa-zerrieben-1890188",
+        "guests": [
+            {
+                "name": "Armin Laschet",
+                "party": "CDU",
+                "role": "CDU, Vorsitzender des Auswärtigen Ausschusses im Bundestag",
+                "description": "CDU, Vorsitzender des Auswärtigen Ausschusses im Bundestag",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Sergey Lagodinsky",
+                "party": null,
+                "role": "stellvertretender Fraktionsvorsitzender der Grünen/​EFA im Europäischen Parlament",
+                "description": "stellvertretender Fraktionsvorsitzender der Grünen/​EFA im Europäischen Parlament",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Gregor Gysi",
+                "party": "Linke",
+                "role": "Linken-Politiker",
+                "description": "Linken-Politiker",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Rüdiger Lucassen",
+                "party": "AfD",
+                "role": "früherer verteidigungspolitischer Sprecher der AfD-Bundestagsfraktion",
+                "description": "früherer verteidigungspolitischer Sprecher der AfD-Bundestagsfraktion",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Liana Fix",
+                "party": null,
+                "role": "Historikerin und Politikwissenschaftlerin",
+                "description": "Historikerin und Politikwissenschaftlerin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Annett Meiritz",
+                "party": null,
+                "role": "Internationale Korrespondentin beim „Handelsblatt“",
+                "description": "Internationale Korrespondentin beim „Handelsblatt“",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "23.07.2026",
+        "show": "Maybrit Illner",
+        "station": "ZDF",
+        "title": "Zwischen Trump und Putin – wird Europa zerrieben?",
+        "description": "Gäste: Armin Laschet (CDU, Vorsitzender des Auswärtigen Ausschusses im Bundestag), Sergey Lagodinsky (stellvertretender Fraktionsvorsitzender der Grünen/​EFA im Europäischen Parlament), Gregor Gysi (Linken-Politiker), Rüdiger Lucassen (früherer verteidigungspolitischer Sprecher der AfD-Bundestagsfraktion), Liana Fix (Historikerin und Politikwissenschaftlerin), Annett Meiritz (Internationale Korrespondentin beim „Handelsblatt“) Trumps Krieg gegen den Iran ist nicht vorbei. Der US-Präsident droht und bombardiert weiter, zum ersten Mal seit Anfang Juni auch wieder Teheran. Deutschland und die Europäische Union? Sie spielen bei der Lösung des Konfliktes immer noch keine Rolle – spüren aber massiv die Folgen: Die Blockade der Straße von Hormus lässt Spritpreise und Inflation steigen. Trump fordert wieder Unterstützung, doch die verweigert ihm nicht nur der Bundeskanzler. Europa braucht die USA noch immer, die agieren jedoch nicht mehr wie ein Verbündeter, sondern wie ein Gegner. Auf ihren militärischen Beistand will sich jedenfalls niemand mehr verlassen. Ist Europa bereit und in der Lage, für die Ukraine und seine eigene Sicherheit einzustehen? Wie weit ist der Kontinent schon gekommen auf dem Weg zu einer politischen und militärischen Unabhängigkeit von den USA?"
+    },
+    {
+        "uid": "i7fBH2oy",
+        "link": "https://www.fernsehserien.de/maybrit-illner/folgen/1058-krieg-oder-frieden-trumps-chaos-europas-chance-1880424",
+        "guests": [
+            {
+                "name": "Armin Laschet",
+                "party": "CDU",
+                "role": "CDU, Vorsitzender des Auswärtigen Ausschusses",
+                "description": "CDU, Vorsitzender des Auswärtigen Ausschusses",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Klaus von Dohnanyi",
+                "party": "SPD",
+                "role": "SPD-Politiker, Autor u.a. „Frieden _ Wie geht das?“",
+                "description": "SPD-Politiker, Autor u.a. „Frieden _ Wie geht das?“",
+                "validation_status": "accept",
+                "validation_reason": "extended_person_name"
+            },
+            {
+                "name": "Claudia Major",
+                "party": null,
+                "role": "Politikwissenschaftlerin im Bereich Sicherheitspolitik, Senior Vice President für Transatlantische Sicherheitsinitiativen des German Marshall Fund",
+                "description": "Politikwissenschaftlerin im Bereich Sicherheitspolitik, Senior Vice President für Transatlantische Sicherheitsinitiativen des German Marshall Fund",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Rüdiger Bachmann",
+                "party": null,
+                "role": "deutsch-amerikanischer Wirtschaftswissenschaftler, University of Michigan",
+                "description": "deutsch-amerikanischer Wirtschaftswissenschaftler, University of Michigan",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Wolfgang Merkel",
+                "party": null,
+                "role": "Politikwissenschaftler, bis 2020 Direktor Wissenschaftszentrum Berlin",
+                "description": "Politikwissenschaftler, bis 2020 Direktor Wissenschaftszentrum Berlin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "04.06.2026",
+        "show": "Maybrit Illner",
+        "station": "ZDF",
+        "title": "Krieg oder Frieden – Trumps Chaos, Europas Chance?",
+        "description": "Gäste: Armin Laschet (CDU, Vorsitzender des Auswärtigen Ausschusses), Klaus von Dohnanyi (SPD-Politiker, Autor u.a. „Frieden – Wie geht das?“), Claudia Major (Politikwissenschaftlerin im Bereich Sicherheitspolitik, Senior Vice President für Transatlantische Sicherheitsinitiativen des German Marshall Fund), Rüdiger Bachmann (deutsch-amerikanischer Wirtschaftswissenschaftler, University of Michigan), Wolfgang Merkel (Politikwissenschaftler, bis 2020 Direktor Wissenschaftszentrum Berlin) Ein Ende des Ukraine-Krieges noch vor dem Winter – in Kiew kommt Hoffnung auf. Präsident Selenskyj spricht von stabilen Fronten, sein Stabschef nennt ein Abkommen „realistisch“. Doch während militärische Erfolge Kiews Verhandlungsposition stärken, fehlen ausgerechnet jetzt die Vermittler: Die USA wirken im Iran-Konflikt gefangen, Europa ringt um eine gemeinsame Linie – und Moskau reagiert mit immer noch massiveren Angriffen, nun auch auf die Hauptstadt. Ist die Ukraine tatsächlich näher am Frieden – oder steht der Krieg vor einer neuen Eskalation, die womöglich Nato-Staaten direkt betreffen könnte? Wie gravierend ist es, dass die USA die geplante Stationierung von konventionellen Tomahawk-Marschflugkörpern in Deutschland abgesagt haben? Ist Europa bereit und in der Lage, für die Ukraine und seine eigene Sicherheit einzustehen?"
+    },
+    {
+        "uid": "yZPb6ryz",
+        "link": "https://www.fernsehserien.de/maybrit-illner/folgen/1062-der-osten-waehlt-die-letzten-tage-der-brandmauer-1898874",
+        "guests": [
+            {
+                "name": "Dennis Radtke",
+                "party": "CDU",
+                "role": "CDU, CDA-Bundesvorsitzender, Präsident der Europäischen Union Christlich-Demokratischer Arbeitnehmer (EUCDA), MdEP",
+                "description": "CDU, CDA-Bundesvorsitzender, Präsident der Europäischen Union Christlich-Demokratischer Arbeitnehmer (EUCDA), MdEP",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Stephan Weil",
+                "party": "SPD",
+                "role": "SPD, ehemaliger Ministerpräsident Niedersachsen, Mitglied des Niedersächsischen Landtages",
+                "description": "SPD, ehemaliger Ministerpräsident Niedersachsen, Mitglied des Niedersächsischen Landtages",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Ruth Moschner",
+                "party": null,
+                "role": "Vorständin bei teilensWert e.V., Moderatorin, Autorin",
+                "description": "Vorständin bei teilensWert e.V., Moderatorin, Autorin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Hendrik Bolz",
+                "party": null,
+                "role": "Podcaster, Rapper, Autor „Nullerjahre“ und „Aus Ruinen: Junger Mann in Krisenzeiten“",
+                "description": "Podcaster, Rapper, Autor „Nullerjahre“ und „Aus Ruinen: Junger Mann in Krisenzeiten“",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Nena Brockhaus",
+                "party": null,
+                "role": "Journalistin, Kolumnistin, „WELT TV“",
+                "description": "Journalistin, Kolumnistin, „WELT TV“",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "03.09.2026",
+        "show": "Maybrit Illner",
+        "station": "ZDF",
+        "title": "Der Osten wählt – die letzten Tage der Brandmauer?",
+        "description": "Gäste: Dennis Radtke (CDU, CDA-Bundesvorsitzender, Präsident der Europäischen Union Christlich-Demokratischer Arbeitnehmer (EUCDA), MdEP), Stephan Weil (SPD, ehemaliger Ministerpräsident Niedersachsen, Mitglied des Niedersächsischen Landtages), Ruth Moschner (Vorständin bei teilensWert e.V., Moderatorin, Autorin), Hendrik Bolz (Podcaster, Rapper, Autor „Nullerjahre“ und „Aus Ruinen: Junger Mann in Krisenzeiten“), Nena Brockhaus (Journalistin, Kolumnistin, „WELT TV“) Sachsen-Anhalt wählt, und auch im Berliner Kanzleramt wächst die Nervosität. Kann der rechtsextreme Landesverband der AfD nach der Landtagswahl mit absoluter Mehrheit regieren, droht Bundeskanzler Friedrich Merz ein politisches Desaster und dem Land ein Umbau: Die AfD plant bereits offen den Austausch von 200 Spitzenbeamten, Experten warnen vor Einschnitten bei Medien und Unis. Aber selbst wenn es gelingt, die absehbar stärkste Partei von der Regierung in Magdeburg fernzuhalten, durch eine Minderheitsregierung beispielsweise, ist der Schaden groß. Sollte die sogenannte Brandmauer noch einmal halten, ihre Tage sind von da an gezählt. Bricht das System der politischen Mitte zusammen? Welche echten Antworten haben Union und SPD auf den Aufstieg der AfD?"
+    },
+    {
+        "uid": "xdyttajm",
+        "link": "https://www.fernsehserien.de/maybrit-illner/folgen/1063-die-denkzettelwahl-was-muss-sich-aendern-1899763",
+        "guests": [
+            {
+                "name": "Armin Laschet",
+                "party": "CDU",
+                "role": "CDU MdB, früherer CDU-Vorsitzender",
+                "description": "CDU MdB, früherer CDU-Vorsitzender",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Cem Özdemir",
+                "party": "Bündnis 90/Die Grünen",
+                "role": "Bündnis 90/​Die Grünen, Ministerpräsident von Baden-Württemberg",
+                "description": "Bündnis 90/​Die Grünen, Ministerpräsident von Baden-Württemberg",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Frauke Rostalski",
+                "party": null,
+                "role": "Rechtswissenschaftlerin und Mitglied des Deutschen Ethikrats",
+                "description": "Rechtswissenschaftlerin und Mitglied des Deutschen Ethikrats",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Robin Alexander",
+                "party": null,
+                "role": "Autor, u. a. Podcast „Machtwechsel“",
+                "description": "Autor, u. a. Podcast „Machtwechsel“",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Sabine Rennefanz",
+                "party": null,
+                "role": "Journalistin u. a. für „Der Spiegel“",
+                "description": "Journalistin u. a. für „Der Spiegel“",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "10.09.2026",
+        "show": "Maybrit Illner",
+        "station": "ZDF",
+        "title": "Die Denkzettelwahl – Was muss sich ändern?",
+        "description": "Gäste: Armin Laschet (CDU MdB, früherer CDU-Vorsitzender), Cem Özdemir (Bündnis 90/​Die Grünen, Ministerpräsident von Baden-Württemberg), Julia Reuschenbach (Politikwissenschaftlerin, Universität Hamburg), Robin Alexander (Autor, u. a. Podcast „Machtwechsel“), Sabine Rennefanz (Journalistin u. a. für „Der Spiegel“) Der Denkzettel hätte kaum größer sein können: 44 Prozent für die AfD in Sachsen-Anhalt. Die Betroffenheit bei den Regierungsparteien in Berlin ist groß – die Antworten sind allerdings sehr verschieden. Der Reformkurs müsse unbedingt beibehalten werden, denn er sei quasi alternativlos, so der Bundeskanzler. Die SPD dagegen will das Paket aufmachen, Härten abmildern. Und nach Baden-Württembergs grünem Ministerpräsidenten Cem Özdemir und Bundesverteidigungsminister Boris Pistorius (SPD) will nun auch CDU-Ministerpräsident Hendrik Wüst ein AfD-Verbot prüfen lassen. Welches Signal kommt aus Sachsen-Anhalt? Wird Ulrich Siegmund Ministerpräsident? Geht es in Berlin so weiter wie bisher? Löst der Erdrutschsieg der AfD eine Koalitionskrise aus? Noch kann sich Friedrich Merz als CDU-Vorsitzender und Kanzler halten, doch wie sieht es nach den Wahlen in Mecklenburg-Vorpommern und Berlin aus?"
+    },
+    {
+        "uid": "rYdlVaGF",
+        "link": "https://www.fernsehserien.de/maybrit-illner/folgen/1064-viele-krisen-wenig-rueckhalt-kriegt-der-kanzler-die-kurve-1901672",
+        "guests": [
+            {
+                "name": "Franziska Hoppermann",
+                "party": "CDU",
+                "role": "CDU, Generalsekretärin",
+                "description": "CDU, Generalsekretärin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Boris Palmer",
+                "party": "parteilos",
+                "role": "parteilos (zuvor B’90/​Die Grünen), seit 2007 Oberbürgermeister der Stadt Tübingen",
+                "description": "parteilos (zuvor B’90/​Die Grünen), seit 2007 Oberbürgermeister der Stadt Tübingen",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Elisa Hoven",
+                "party": null,
+                "role": "Professorin für Strafrecht Universität Leipzig, Autorin u. a. „Das Ende der Wahrheit“",
+                "description": "Professorin für Strafrecht Universität Leipzig, Autorin u. a. „Das Ende der Wahrheit“",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Fabian Grischkat",
+                "party": null,
+                "role": "Moderator und Autor, „Newsfluencer“",
+                "description": "Moderator und Autor, „Newsfluencer“",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Gordon Repinski",
+                "party": null,
+                "role": "Journalist, u.a. „Politico Deutschland“ und „Welt TV“",
+                "description": "Journalist, u.a. „Politico Deutschland“ und „Welt TV“",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "17.09.2026",
+        "show": "Maybrit Illner",
+        "station": "ZDF",
+        "title": "Viele Krisen, wenig Rückhalt – kriegt der Kanzler die Kurve?",
+        "description": "Gäste: Franziska Hoppermann (CDU, Generalsekretärin), Boris Palmer (parteilos (zuvor B’90/​Die Grünen), seit 2007 Oberbürgermeister der Stadt Tübingen), Elisa Hoven (Professorin für Strafrecht Universität Leipzig, Autorin u. a. „Das Ende der Wahrheit“), Fabian Grischkat (Moderator und Autor, „Newsfluencer“), Gordon Repinski (Journalist, u.a. „Politico Deutschland“ und „Welt TV“) Deutschland steckt tief in der Krise. Und nach der Wahl von Sachsen-Anhalt stocken nun auch die Reformen und der Kanzler selbst. Seine eigene Partei zweifelt öffentlich an ihm. Und das vor zwei entscheidenden Landtagswahlen. Kann dieser Kanzler die Wende noch schaffen? Wer oder was wäre die Alternative? Auch ein neuer Kanzler fände die bekannten Probleme und den alten Koalitionspartner vor. Wie werden die beiden Wahlen in Mecklenburg-Vorpommern und Berlin ausgehen? Wie wird die Union abschneiden? Welchen Anteil hätte Friedrich Merz auch daran? Oder ist seine Regierung Symbol einer viel tieferen Krise, der der beiden Volksparteien und der demokratischen Institutionen insgesamt?"
+    },
+    {
+        "uid": "3XI0wd-W",
+        "link": "https://www.fernsehserien.de/maybrit-illner/folgen/1065-zumutungen-abgewaehlt-wettlauf-um-gerechtigkeit-1902992",
+        "guests": [],
+        "date": "24.09.2026",
+        "show": "Maybrit Illner",
+        "station": "ZDF",
+        "title": "Zumutungen abgewählt – Wettlauf um Gerechtigkeit?",
+        "description": "Gäste: Alexander Dobrindt (CSU, Bundesinnenminister), Tim Klüssendorf (SPD, Generalsekretär), Heidi Reichinnek (Die Linke, Fraktionsvorsitzende im Bundestag), Gregor Peter Schmitz (Vorsitzender der Chefredaktionen des stern, von GEO und Capital) Die Landtagswahlen sind vorüber – beruhigt hat sich das Land noch nicht. Unter dem Eindruck der Wahlsiege der AfD und der Linken stellen Politiker aus Union und SPD den Kurs der eigenen Regierung in Frage. Selbst der Kanzler entdeckt jetzt Ungerechtigkeiten und verspricht Antworten. Rückt die Bundesregierung nach den Wahlerfolgen von AfD und Linkspartei also nach links? Haben Grüne und SPD kein Problem damit, eine Koalition mit der Berliner Linken einzugehen? Einer Partei, die Enteignungen plant und in ihren Reihen Antisemitismus duldet? Gewählt wurde die Linke, weil sie verspricht, das Leben bezahlbar zu machen. Welche Ideen hat dazu die Bundesregierung?"
+    },
+    {
+        "uid": "LkMp3Ysb",
+        "link": "https://www.fernsehserien.de/maybrit-illner/folgen/ist-das-jetzt-der-neustart-herr-merz-1894670",
+        "guests": [],
+        "date": "02.07.2026",
+        "show": "Maybrit Illner",
+        "station": "ZDF",
+        "title": "Ist das jetzt der Neustart, Herr Merz?",
+        "description": "Der Koalitionsausschuss hat sich auf ein großes Reformpaket verständigt – trotz der Differenzen zwischen CDU, CSU und SPD und der schwierigen Haushaltslage. Der Druck ist enorm. Werden diese Reformen reichen, um das Land aus der Dauerkrise und die Wirtschaft wieder in Schwung zu bringen? Kommen Entlastungen für die große Mehrheit? Werden die Lasten fair verteilt? Friedrich Merz, CDU Bundeskanzler"
+    },
+    {
+        "uid": "ZZqeNguQ",
+        "link": "https://www.fernsehserien.de/maybrit-illner/folgen/maybrit-illner-spezial-vom-21-09-2026-1911073",
+        "guests": [
+            {
+                "name": "Thorsten Frei",
+                "party": "CDU",
+                "role": "CDU, Vorsitzender der CDU/​CSU-Fraktion im Bundestag",
+                "description": "CDU, Vorsitzender der CDU/​CSU-Fraktion im Bundestag",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Sigmar Gabriel",
+                "party": "SPD",
+                "role": "Vorsitzender „Atlantik-Brücke e.V.“, ehemaliger SPD-Parteivorsitzender und Außenminister",
+                "description": "Vorsitzender „Atlantik-Brücke e.V.“, ehemaliger SPD-Parteivorsitzender und Außenminister",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Christian Stecker",
+                "party": null,
+                "role": "Politikwissenschaftler, Professor der TU Darmstadt",
+                "description": "Politikwissenschaftler, Professor der TU Darmstadt",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Eva Quadbeck",
+                "party": null,
+                "role": "Chefredakteurin und Leiterin des Hauptstadtbüros „RedaktionsNetzwerk Deutschland“ (RND)",
+                "description": "Chefredakteurin und Leiterin des Hauptstadtbüros „RedaktionsNetzwerk Deutschland“ (RND)",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Manuela Schwesig",
+                "party": "SPD",
+                "role": "SPD, Ministerpräsidentin Mecklenburg-Vorpommern, geschaltet aus Schwerin",
+                "description": "SPD, Ministerpräsidentin Mecklenburg-Vorpommern, geschaltet aus Schwerin",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "21.09.2026",
+        "show": "Maybrit Illner",
+        "station": "ZDF",
+        "title": "maybrit illner spezial vom 21.09.2026",
+        "description": "Gäste: Thorsten Frei (CDU, Vorsitzender der CDU/​CSU-Fraktion im Bundestag), Sigmar Gabriel (Vorsitzender „Atlantik-Brücke e.V.“, ehemaliger SPD-Parteivorsitzender und Außenminister), Christian Stecker (Politikwissenschaftler, Professor der TU Darmstadt), Eva Quadbeck (Chefredakteurin und Leiterin des Hauptstadtbüros „RedaktionsNetzwerk Deutschland“ (RND)), Manuela Schwesig (SPD, Ministerpräsidentin Mecklenburg-Vorpommern, geschaltet aus Schwerin) Wer will oder kann mit wem regieren? Was bedeuten die Wahlergebnisse für das Land und die Bundesregierung? Maybrit Illner diskutiert mit Politikern und Beobachtern."
+    },
+    {
+        "uid": "2P2aIy5Q",
+        "link": "https://www.fernsehserien.de/maybrit-illner/folgen/maybrit-illner-spezial-vom-06-09-2026-1899764",
+        "guests": [
+            {
+                "name": "Thorsten Frei",
+                "party": "CDU",
+                "role": "CDU, Fraktionsvorsitzender der CDU/​CSU",
+                "description": "CDU, Fraktionsvorsitzender der CDU/​CSU",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Beatrix von Storch",
+                "party": "AfD",
+                "role": "AfD, Stellv. Fraktionsvorsitzende",
+                "description": "AfD, Stellv. Fraktionsvorsitzende",
+                "validation_status": "accept",
+                "validation_reason": "extended_person_name"
+            },
+            {
+                "name": "Ines Schwerdtner",
+                "party": "DIE LINKE",
+                "role": "Die Linke, Parteivorsitzende",
+                "description": "Die Linke, Parteivorsitzende",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Dieter Hallervorden",
+                "party": null,
+                "role": "Kabarettist und Schauspieler",
+                "description": "Kabarettist und Schauspieler",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Olaf Sundermeyer",
+                "party": null,
+                "role": "Journalist und Autor",
+                "description": "Journalist und Autor",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            },
+            {
+                "name": "Kerstin Münstermann",
+                "party": null,
+                "role": "Parlamentsredaktion „Rheinische Post“",
+                "description": "Parlamentsredaktion „Rheinische Post“",
+                "validation_status": "accept",
+                "validation_reason": "person_like_multi_token"
+            }
+        ],
+        "date": "06.09.2026",
+        "show": "Maybrit Illner",
+        "station": "ZDF",
+        "title": "maybrit illner spezial vom 06.09.2026",
+        "description": "Sachsen-Anhalt nach der Wahl: Kann die AfD alleine regieren, oder steht das Land vor komplizierten und schwierigen Koalitionsverhandlungen? Wer will oder kann mit wem regieren? Was bedeuten die Wahlergebnisse für das Land und die Bundesregierung? Maybrit Illner diskutiert am Wahl-Sonntag ab 22:15 Uhr im ZDF mit dem Vorsitzenden der Unionsfraktion, Thorsten Frei (CDU), der stellvertretenden AfD-Bundestagsfraktionsvorsitzenden Beatrix von Storch, der Co-Vorsitzenden der Linken, Ines Schwerdtner, dem Kabarettisten Dieter Hallervorden, dem Autor Olaf Sundermeyer und der Journalistin Kerstin Münstermann („Rheinische Post“)."
     }
 ]

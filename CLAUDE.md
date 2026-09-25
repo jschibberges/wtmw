@@ -15,6 +15,7 @@ This file provides guidance to Claude when working with code in this repository.
    - Creates/updates JSON files in `data/` directory (one per show)
    - Generates unique episode IDs (UIDs) via URL hashing to prevent duplicates
    - Extracts: episode metadata, descriptions, dates, guests with roles/parties
+   - The main `/episodenguide` page **omits whole blocks of episodes** (e.g. Lanz and Maischberger 2024/25), so the scraper also walks the season pages `/episodenguide/<season>/<form-id>[/<page>]` (24 episodes per page, pagination followed). Default: newest 3 seasons; `--seasons N` / `--all-seasons` backfill older gaps; `--dry-run` reports what would be fetched without fetching or writing
 
 2. **Analysis**: `python analyze_talkshows.py`
    - Loads all JSON files and performs comprehensive analysis

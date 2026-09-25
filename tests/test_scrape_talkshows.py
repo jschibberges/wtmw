@@ -278,6 +278,7 @@ def test_scrape_episodeguide_checkpoints_incrementally(monkeypatch, tmp_path):
         saved_payloads.append((path, [dict(item) for item in data]))
 
     monkeypatch.setattr(scrape_talkshows, "get_episode_urls_from_guide", fake_get_episode_urls_from_guide)
+    monkeypatch.setattr(scrape_talkshows, "get_season_episode_urls", lambda url, latest_seasons=None: [])
     monkeypatch.setattr(scrape_talkshows, "get_episode_details", fake_get_episode_details)
     monkeypatch.setattr(scrape_talkshows, "save_json_file", fake_save_json_file)
 
@@ -346,3 +347,114 @@ def test_refreshed_episode_replaces_stored_record():
     merged = scrape_talkshows._merge_episode_records(existing, refreshed)
 
     assert merged == [{"uid": "a", "guests": [{"name": "Alice Example"}]}, {"uid": "b", "guests": []}]
+
+
+SEASON_GUIDE = "https://www.fernsehserien.de/show/episodenguide"
+
+
+def _season_pages() -> dict[str, str]:
+    """Main guide with three seasons (+ specials) and season 2 split over two pages."""
+    nav = "".join(
+        f'<a href="/show/episodenguide/{n}/100">S{n}</a>' for n in (1, 2, 3)
+    ) + '<a href="episodenguide/0/999">Specials</a>'
+    return {
+        SEASON_GUIDE: f"<html>{nav}</html>",
+        f"{SEASON_GUIDE}/3/100": '<a href="/show/folgen/s3-a">a</a><a href="/show/folgen/s3-a#Cast-Crew">cast</a>',
+        f"{SEASON_GUIDE}/2/100": (
+            '<a href="/show/folgen/s2-a">a</a><a href="/show/episodenguide/2/100/2">next</a>'
+            '<a href="/show/episodenguide/1/100/4">other season, ignored</a>'
+        ),
+        f"{SEASON_GUIDE}/2/100/2": '<a href="/show/folgen/s2-b">b</a><a href="/show/episodenguide/2/100/3">next</a>',
+        f"{SEASON_GUIDE}/2/100/3": '<a href="/show/folgen/s2-c">c</a>',
+        f"{SEASON_GUIDE}/1/100": '<a href="/show/folgen/s1-a">a</a>',
+        f"{SEASON_GUIDE}/0/999": '<a href="/show/folgen/special-a">special</a>',
+    }
+
+
+def _patch_guide_pages(monkeypatch, pages: dict[str, str]) -> list[str]:
+    requested: list[str] = []
+
+    class FakeSession:
+        def get(self, url, headers=None, timeout=None):
+            requested.append(url)
+            return SimpleNamespace(content=pages[url].encode("utf-8"), raise_for_status=lambda: None)
+
+    monkeypatch.setattr(scrape_talkshows, "_get_thread_session", lambda: FakeSession())
+    monkeypatch.setattr(scrape_talkshows, "SEASON_PAGE_DELAY", 0)
+    return requested
+
+
+def test_get_season_episode_urls_follows_pagination_within_newest_seasons(monkeypatch):
+    requested = _patch_guide_pages(monkeypatch, _season_pages())
+
+    urls = scrape_talkshows.get_season_episode_urls(SEASON_GUIDE, latest_seasons=2)
+
+    assert urls == [
+        "https://www.fernsehserien.de/show/folgen/s3-a",
+        "https://www.fernsehserien.de/show/folgen/s2-a",
+        "https://www.fernsehserien.de/show/folgen/s2-b",
+        "https://www.fernsehserien.de/show/folgen/s2-c",
+    ]
+    assert f"{SEASON_GUIDE}/1/100" not in requested
+
+
+def test_get_season_episode_urls_walks_every_season_including_specials(monkeypatch):
+    _patch_guide_pages(monkeypatch, _season_pages())
+
+    urls = scrape_talkshows.get_season_episode_urls(SEASON_GUIDE, latest_seasons=None)
+
+    assert len(urls) == 6
+    assert "https://www.fernsehserien.de/show/folgen/special-a" in urls
+    assert "https://www.fernsehserien.de/show/folgen/s1-a" in urls
+
+
+def test_get_season_episode_urls_skips_specials_when_limited(monkeypatch):
+    _patch_guide_pages(monkeypatch, _season_pages())
+
+    urls = scrape_talkshows.get_season_episode_urls(SEASON_GUIDE, latest_seasons=10)
+
+    assert "https://www.fernsehserien.de/show/folgen/special-a" not in urls
+    assert len(urls) == 5
+
+
+def test_get_season_episode_urls_returns_empty_when_guide_unreachable(monkeypatch):
+    class FailingSession:
+        def get(self, url, headers=None, timeout=None):
+            raise scrape_talkshows.requests.ConnectionError("down")
+
+    monkeypatch.setattr(scrape_talkshows, "_get_thread_session", lambda: FailingSession())
+
+    assert scrape_talkshows.get_season_episode_urls(SEASON_GUIDE) == []
+
+
+def test_episodeguide_combines_main_and_season_urls_and_dry_run_fetches_nothing(monkeypatch):
+    fetched: list[list[str]] = []
+    monkeypatch.setattr(scrape_talkshows, "uids", set())
+    monkeypatch.setattr(scrape_talkshows, "recent_uids", set())
+    monkeypatch.setattr(scrape_talkshows, "get_episode_urls_from_guide", lambda url: ["m1", "shared"])
+    monkeypatch.setattr(
+        scrape_talkshows, "get_season_episode_urls", lambda url, latest_seasons=None: ["shared", "s1"]
+    )
+    monkeypatch.setattr(scrape_talkshows, "get_episode_details", lambda urls, **kw: fetched.append(urls) or [])
+
+    existing = [{"uid": "old"}]
+    result, stats = scrape_talkshows.scrape_fernsehserien_episodeguide(
+        "https://example.com/guide", existing_data=existing, dry_run=True
+    )
+
+    assert fetched == []
+    assert result == existing
+    assert stats["episode_links_found"] == 3
+    assert stats["episodes_to_fetch"] == 3
+    assert stats["net_new_episodes"] == 0
+
+
+def test_build_parser_defaults_and_flags():
+    parser = scrape_talkshows.build_parser()
+
+    defaults = parser.parse_args([])
+    assert (defaults.seasons, defaults.all_seasons, defaults.dry_run) == (
+        scrape_talkshows.DEFAULT_SEASONS_PER_RUN, False, False,
+    )
+    args = parser.parse_args(["--seasons", "5", "--all-seasons", "--dry-run"])
+    assert (args.seasons, args.all_seasons, args.dry_run) == (5, True, True)

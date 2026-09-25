@@ -9,8 +9,11 @@ from datetime import datetime, timedelta, date
 import hashlib
 import base64
 import re
+import argparse
 import threading
+import time
 from pathlib import Path
+from urllib.parse import urljoin, urlparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from functools import lru_cache
 from requests.adapters import HTTPAdapter
@@ -68,6 +71,16 @@ MAX_WORKERS = 6
 # disabled by default. Re-enable only if ordering has been verified.
 KNOWN_UID_STREAK_STOP = None
 CHECKPOINT_EVERY = 5
+BASE_URL = "https://www.fernsehserien.de"
+# The main episode guide only lists a slice of each show (it omits whole blocks, e.g.
+# most of Markus Lanz 2024/25 and Maischberger 2024/25). The complete list lives on the
+# season pages /<show>/episodenguide/<season>/<form-id>[/<page>], 24 episodes per page.
+# Weekly runs walk the newest seasons; older gaps are backfilled with --seasons / --all-seasons.
+DEFAULT_SEASONS_PER_RUN = 3
+SEASON_PAGE_DELAY = 0.5  # seconds between guide-page requests
+MAX_SEASON_PAGES = 40  # safety cap per season
+_SEASON_PATH_RE = re.compile(r"/episodenguide/(\d+)/(\d+)(?:/(\d+))?/?$")
+_EPISODE_PATH_RE = re.compile(r"^(/[^/?#]+/folgen/[^/?#]+)")
 # Folgen, die kurz nach Ausstrahlung gescrapt wurden, haben oft noch keine
 # vollständige Gästeliste/Beschreibung. Bekannte Folgen der letzten N Tage
 # werden deshalb bei jedem Lauf erneut abgerufen und überschrieben.
@@ -726,6 +739,87 @@ def get_episode_urls_from_guide(guide_url):
     return list(dict.fromkeys(episode_urls))
 
 
+def _fetch_guide_page(url: str) -> BeautifulSoup | None:
+    """GET a guide page and parse it; log and return None on request errors."""
+    try:
+        response = _get_thread_session().get(
+            url,
+            headers={"Referer": f"{BASE_URL}/"},
+            timeout=REQUEST_TIMEOUT,
+        )
+        response.raise_for_status()
+    except requests.RequestException as e:
+        log_error(f"Error fetching guide page {url}: {e}")
+        return None
+    return BeautifulSoup(response.content, "html.parser")
+
+
+def _guide_links(soup: BeautifulSoup, page_url: str) -> list[str]:
+    """Absolute, fragment-free URLs of all links on a page, in document order."""
+    return [
+        urljoin(page_url, anchor["href"]).split("#")[0]
+        for anchor in soup.find_all("a", href=True)
+    ]
+
+
+def _season_pages_in(links: list[str]) -> dict[tuple[int, int], set[int]]:
+    """Group season-guide links as {(season, form_id): {page numbers}} (page 1 has no suffix)."""
+    seasons: dict[tuple[int, int], set[int]] = {}
+    for link in links:
+        match = _SEASON_PATH_RE.search(urlparse(link).path)
+        if match:
+            key = (int(match.group(1)), int(match.group(2)))
+            seasons.setdefault(key, {1}).add(int(match.group(3) or 1))
+    return seasons
+
+
+def get_season_episode_urls(guide_url: str, latest_seasons: int | None = DEFAULT_SEASONS_PER_RUN) -> list[str]:
+    """
+    Episode URLs from the season pages of a show, following pagination.
+
+    Args:
+        guide_url: The show's main episode guide URL (used to discover its seasons).
+        latest_seasons: Walk only the newest N seasons (season 0 = specials is skipped);
+            None walks every season including specials.
+
+    Returns:
+        Unique episode URLs, in the same "https://www.fernsehserien.de/<show>/folgen/<slug>"
+        form as get_episode_urls_from_guide so UIDs stay comparable.
+    """
+    main_page = _fetch_guide_page(guide_url)
+    if main_page is None:
+        return []
+
+    seasons = sorted(_season_pages_in(_guide_links(main_page, guide_url)), key=lambda key: key[0], reverse=True)
+    if latest_seasons is not None:
+        seasons = [key for key in seasons if key[0] > 0][:latest_seasons]
+
+    guide_root = guide_url.rstrip("/")
+    episode_urls: list[str] = []
+    for season, form_id in seasons:
+        fetched: set[int] = set()
+        pending = {1}
+        while pending and len(fetched) < MAX_SEASON_PAGES:
+            page = min(pending)
+            pending.discard(page)
+            fetched.add(page)
+            page_url = f"{guide_root}/{season}/{form_id}" + (f"/{page}" if page > 1 else "")
+            soup = _fetch_guide_page(page_url)
+            time.sleep(SEASON_PAGE_DELAY)
+            if soup is None:
+                continue
+            links = _guide_links(soup, page_url)
+            for link in links:
+                match = _EPISODE_PATH_RE.match(urlparse(link).path)
+                if match:
+                    episode_urls.append(BASE_URL + match.group(1))
+            found = _season_pages_in(links).get((season, form_id), set())
+            pending |= found - fetched
+        log_info(f"Season {season}: read {len(fetched)} guide page(s)")
+
+    return list(dict.fromkeys(episode_urls))
+
+
 def _fetch_episode_details(episode_url: str):
     """Fetch and parse a single episode page."""
     session = _get_thread_session()
@@ -944,6 +1038,8 @@ def scrape_fernsehserien_episodeguide(
     existing_data: list[dict] | None = None,
     output_path: Path | None = None,
     checkpoint_every: int = CHECKPOINT_EVERY,
+    latest_seasons: int | None = DEFAULT_SEASONS_PER_RUN,
+    dry_run: bool = False,
 ):
     """
     Scrapes episode data from a fernsehserien.de episodenguide URL.
@@ -952,14 +1048,21 @@ def scrape_fernsehserien_episodeguide(
     individual episode pages. Then, it visits each episode page to extract
     detailed information, including guests.
 
+    The main guide page omits many episodes, so the season pages are walked as well
+    (see get_season_episode_urls).
+
     Args:
         url (str): The URL of the episodenguide page.
+        latest_seasons: Newest N seasons to walk; None walks all seasons.
+        dry_run: Only report what would be fetched; nothing is fetched or written.
 
     Returns:
         tuple: (merged_show_data, stats) where stats summarizes the current run.
     """
     log_info(f"Scraping episode guide: {url}")
-    episode_urls = get_episode_urls_from_guide(url)
+    main_page_urls = get_episode_urls_from_guide(url)
+    episode_urls = list(dict.fromkeys(main_page_urls + get_season_episode_urls(url, latest_seasons)))
+    log_info(f"Season pages added {len(episode_urls) - len(main_page_urls)} links missing from the main guide")
     existing_uid_count = len(
         {record.get("uid") for record in (existing_data or []) if isinstance(record, dict) and record.get("uid")}
     )
@@ -977,6 +1080,19 @@ def scrape_fernsehserien_episodeguide(
             ("Episodes to fetch", unknown_urls),
         ],
     )
+
+    if dry_run:
+        log_info("[dry-run] Skipping episode fetch and writes")
+        return list(existing_data or []), {
+            "episode_links_found": len(episode_urls),
+            "known_episodes": len(episode_urls) - unknown_urls,
+            "episodes_to_fetch": unknown_urls,
+            "current_run_valid_episodes": 0,
+            "current_run_episode_data": [],
+            "net_new_episodes": 0,
+            "stored_episodes": len(existing_data or []),
+            "output_path": output_path,
+        }
 
     checkpoint_data = list(existing_data or [])
     pending_records: list[dict] = []
@@ -1026,10 +1142,43 @@ def scrape_fernsehserien_episodeguide(
     }
     return current_run_episode_data, stats
 
-def main():
+# USAGE EXAMPLES
+# --------------
+# Weekly run (newest seasons, resumes automatically):
+#   python scrape_talkshows.py
+#
+# Preview what a backfill would fetch, without fetching or writing anything:
+#   python scrape_talkshows.py --all-seasons --dry-run
+#
+# Backfill a gap further back (newest 5 seasons) / the complete history:
+#   python scrape_talkshows.py --seasons 5
+#   python scrape_talkshows.py --all-seasons
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        description="Scrape talkshow episodes from fernsehserien.de.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    parser.add_argument(
+        "--seasons",
+        type=int,
+        default=DEFAULT_SEASONS_PER_RUN,
+        help=f"Newest N seasons to walk per show (default: {DEFAULT_SEASONS_PER_RUN})",
+    )
+    parser.add_argument("--all-seasons", action="store_true", help="Walk every season, including specials")
+    parser.add_argument("--dry-run", action="store_true", help="Report what would be fetched; write nothing")
+    return parser
+
+
+def main(argv: list[str] | None = None):
     """Main function to run the scraping process."""
     global all_annewill_data, all_carenmiosga_data, all_hartaberfair_data
     global all_markuslanz_data, all_maischberger_data, all_illner_data
+
+    args = build_parser().parse_args(argv)
+    season_options = {
+        "latest_seasons": None if args.all_seasons else args.seasons,
+        "dry_run": args.dry_run,
+    }
 
     log_section("Talkshow Scraper")
     DATA_DIR.mkdir(exist_ok=True)
@@ -1041,6 +1190,7 @@ def main():
         alternative_url_miosga,
         existing_data=all_carenmiosga_data,
         output_path=DATA_DIR / 'CarenMiosga_data.json',
+        **season_options,
     )
     if miosga_fernsehserien_data:
         all_carenmiosga_data = miosga_fernsehserien_data
@@ -1050,6 +1200,7 @@ def main():
         alternative_url_will,
         existing_data=all_annewill_data,
         output_path=DATA_DIR / 'AnneWill_data.json',
+        **season_options,
     )
     if will_fernsehserien_data:
         all_annewill_data = will_fernsehserien_data
@@ -1059,6 +1210,7 @@ def main():
         alternative_url_hartaberfair,
         existing_data=all_hartaberfair_data,
         output_path=DATA_DIR / 'HartAberFair_data.json',
+        **season_options,
     )
     if hartaberfair_fernsehserien_data:
         all_hartaberfair_data = hartaberfair_fernsehserien_data
@@ -1068,6 +1220,7 @@ def main():
         alternative_url_maischberger,
         existing_data=all_maischberger_data,
         output_path=DATA_DIR / 'Maischberger_data.json',
+        **season_options,
     )
     if maischberger_fernsehserien_data:
         all_maischberger_data = maischberger_fernsehserien_data
@@ -1077,6 +1230,7 @@ def main():
         alternative_url_markuslanz,
         existing_data=all_markuslanz_data,
         output_path=DATA_DIR / 'MarkusLanz_data.json',
+        **season_options,
     )
     if markuslanz_fernsehserien_data:
         all_markuslanz_data = markuslanz_fernsehserien_data
@@ -1086,9 +1240,14 @@ def main():
         alternative_url_illner,
         existing_data=all_illner_data,
         output_path=DATA_DIR / 'Illner_data.json',
+        **season_options,
     )
     if illner_fernsehserien_data:
         all_illner_data = illner_fernsehserien_data
+
+    if args.dry_run:
+        log_success("Dry run finished; no episodes fetched, no files written")
+        return
 
     # Aggregate all data and save to Excel
     log_section("Aggregation")
