@@ -22,6 +22,11 @@ Format von data/topic_labels.json:
       "_unassigned": [{"label": "...", "keywords": [...]}]  # aktuell ohne Treffer
     }
 
+Cluster, die keine Themen sind, sondern Sendungsformate (z. B. Gastrollen bei
+Markus Lanz), tragen zusätzlich ``"kind": "format"``. Sie werden im Dashboard
+als "Format-Cluster: <Label>" angezeigt und nicht in Themen-Rankings gezählt.
+Das Feld wandert beim Remapping mit dem Label mit.
+
 Ein Eintrag darf auch nur ein String sein ("5": "Name"). Die Keywords werden
 dann beim nächsten Lauf aus dem zuletzt gespeicherten Modell ergänzt.
 """
@@ -41,6 +46,8 @@ MIN_SIMILARITY = 0.5
 # nahe 1; teilt sich ein Topic, erhält der größere Teil das Label.
 MIN_DOC_OVERLAP = 0.3
 MAX_KEYWORDS = 10
+FORMAT_KIND = "format"
+FORMAT_CLUSTER_PREFIX = "Format-Cluster: "
 
 
 def _tokens(keywords: Iterable[str]) -> set[str]:
@@ -79,15 +86,23 @@ def label_text(entry: object) -> str | None:
     return None
 
 
+def is_format_entry(entry: object) -> bool:
+    """True if the entry is flagged as a show-format cluster, not a topic."""
+    return isinstance(entry, dict) and entry.get("kind") == FORMAT_KIND
+
+
 def labels_by_id(data: dict) -> dict[str, str]:
-    """Flatten topic_labels.json to {topic_id: label} for display."""
+    """Flatten topic_labels.json to {topic_id: label} for display.
+
+    Format clusters get the FORMAT_CLUSTER_PREFIX so every view shows them as such.
+    """
     result: dict[str, str] = {}
     for key, entry in data.items():
         if key.startswith("_"):
             continue
         label = label_text(entry)
         if label:
-            result[str(key)] = label
+            result[str(key)] = FORMAT_CLUSTER_PREFIX + label if is_format_entry(entry) else label
     return result
 
 
@@ -149,13 +164,22 @@ def _candidates(curated: dict, previous_keywords: dict[str, list[str]]) -> list[
         if not keywords:
             # Plain string / no anchor yet: the label refers to the model saved last run.
             keywords = previous_keywords.get(str(key), [])
-        candidates.append({"label": label, "keywords": list(keywords), "old_id": str(key)})
+        candidates.append(
+            {
+                "label": label,
+                "keywords": list(keywords),
+                "old_id": str(key),
+                "format": is_format_entry(entry),
+            }
+        )
 
     for entry in curated.get(UNASSIGNED_KEY, []) or []:
         label = label_text(entry)
         keywords = entry.get("keywords") if isinstance(entry, dict) else None
         if label and keywords:
-            candidates.append({"label": label, "keywords": list(keywords), "old_id": None})
+            candidates.append(
+                {"label": label, "keywords": list(keywords), "old_id": None, "format": is_format_entry(entry)}
+            )
     return candidates
 
 
@@ -168,6 +192,14 @@ def _greedy_match(pairs, threshold, assigned, used, method):
             continue
         assigned[tid] = (ci, score, method)
         used.add(ci)
+
+
+def _entry(candidate: dict | None, keywords: list[str]) -> dict:
+    """Build a topic_labels.json entry, carrying the format flag along with the label."""
+    entry: dict = {"label": candidate["label"] if candidate else None, "keywords": keywords}
+    if candidate and candidate["format"]:
+        entry["kind"] = FORMAT_KIND
+    return entry
 
 
 def remap_topic_labels(
@@ -243,12 +275,9 @@ def remap_topic_labels(
         result[OUTLIER_ID] = curated[OUTLIER_ID]
     for tid in sorted(new_kw, key=lambda t: int(t) if t.lstrip("-").isdigit() else t):
         match = assigned.get(tid)
-        result[tid] = {
-            "label": candidates[match[0]]["label"] if match else None,
-            "keywords": new_kw[tid],
-        }
+        result[tid] = _entry(candidates[match[0]] if match else None, new_kw[tid])
     unassigned = [
-        {"label": candidates[ci]["label"], "keywords": candidates[ci]["keywords"]}
+        _entry(candidates[ci], candidates[ci]["keywords"])
         for ci in range(len(candidates))
         if ci not in used
     ]

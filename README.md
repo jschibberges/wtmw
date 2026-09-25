@@ -103,14 +103,16 @@ wtmw/
 ├── guest_classification.py            # Regelbasierte Gastklassifizierung
 ├── guest_classification_embedding.py  # Embedding-Fallback für Klassifizierung
 ├── app.py                             # Streamlit-Dashboard
-├── reflex_dashboard_data.py           # Datenaufbereitung fuer den Reflex-Prototypen
+├── reflex_dashboard_data.py           # Laden, Filtern, Netzwerk-Assets fuer das Reflex-Dashboard
+├── reflex_dashboard_redesign.py       # Daten-Builder fuer die Reflex-Seiten (Uebersicht, Gaeste, Themen, Profil)
 ├── rxconfig.py                        # Reflex-Konfiguration
 ├── app_helpers.py                     # Hilfsfunktionen für die App
 ├── assets/
-│   └── reflex_dashboard.css           # Styling fuer den Reflex-Prototypen
+│   ├── reflex_dashboard.css           # Basis-Styling fuer das Reflex-Dashboard
+│   └── reflex_dashboard_redesign.css  # Layout der ueberarbeiteten Seiten (wird danach geladen)
 ├── wtmw_reflex/
 │   ├── __init__.py
-│   └── wtmw_reflex.py                 # Reflex-Prototyp
+│   └── wtmw_reflex.py                 # Reflex-Dashboard (5 Routen)
 ├── topic_labels.py                    # Topic-Labels über Retrainings stabil halten
 ├── sync_guest_validation_overrides.py # Manuelle Gast-Prüfung → guest_validation_overrides.json
 │

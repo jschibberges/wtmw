@@ -7,6 +7,7 @@ from app_helpers import (
     filter_by_timeframe,
     format_topic_label,
     prepare_guest_metadata,
+    rankable_topic_counts,
     summarize_topic_counts,
 )
 
@@ -108,3 +109,29 @@ def test_prepare_guest_metadata_deduplicates_party_tokens_and_sorts_roles_by_rec
         metadata.loc[0, "known_roles"]
         == "Bundesminister für Gesundheit, Mitglied des Deutschen Bundestages, Gesundheitsökonom und Epidemiologe"
     )
+
+
+def test_rankable_topic_counts_drops_unclassified_and_format_clusters():
+    counts = pd.DataFrame(
+        {
+            "Thema": ["Nicht klassifiziert", "Format-Cluster: Politische Runde", "Corona-Pandemie"],
+            "Episoden": [300, 260, 285],
+        }
+    )
+
+    assert rankable_topic_counts(counts)["Thema"].tolist() == ["Corona-Pandemie"]
+
+
+def test_prepare_guest_metadata_uses_latest_party_not_most_frequent():
+    df = pd.DataFrame(
+        {
+            "name": ["Sahra Wagenknecht"] * 3,
+            "party_norm": ["DIE LINKE", "DIE LINKE", "BSW"],
+            "role": ["Politikerin", "Politikerin", "Parteivorsitzende"],
+            "date": pd.to_datetime(["2019-01-01", "2021-01-01", "2024-03-01"]),
+        }
+    )
+
+    metadata = prepare_guest_metadata(df)
+
+    assert metadata.loc[0, "primary_party"] == "BSW"

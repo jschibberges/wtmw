@@ -8,7 +8,9 @@ from app_helpers import (
     TIMEFRAME_OPTIONS,
     filter_by_timeframe,
     format_topic_label,
+    is_format_cluster_label,
     prepare_guest_metadata,
+    rankable_topic_counts,
     summarize_show_coverage,
     summarize_topic_counts,
 )
@@ -254,10 +256,7 @@ if df_shows is not None:
             topic_counts_df["Episoden"] = (
                 pd.to_numeric(topic_counts_df["Episoden"], errors="coerce").fillna(0).astype(int)
             )
-            classified = topic_counts_df[
-                ~topic_counts_df["Thema"].isin({"Nicht klassifiziert"})
-            ]
-            chart_data = classified.head(20).copy()
+            chart_data = rankable_topic_counts(topic_counts_df).head(20).copy()
             if not chart_data.empty:
                 topic_chart_col, topic_table_col = st.columns([2, 1])
                 with topic_chart_col:
@@ -282,8 +281,15 @@ if df_shows is not None:
                     "Episoden",
                 ].sum()
             )
+            format_count = int(
+                topic_counts_df.loc[
+                    topic_counts_df["Thema"].apply(is_format_cluster_label),
+                    "Episoden",
+                ].sum()
+            )
             st.caption(
-                f"Nicht klassifizierte Episoden: {unclassified_count:,}".replace(",", ".")
+                f"Nicht klassifizierte Episoden: {unclassified_count:,} · "
+                f"Format-Cluster (nicht als Themen gerankt): {format_count:,}".replace(",", ".")
             )
             with st.expander("Alle Themen anzeigen"):
                 st.dataframe(topic_counts_df, width="stretch", hide_index=True)
@@ -344,10 +350,11 @@ if df_shows is not None:
             )
 
             mc1, mc2, mc3 = st.columns(3)
-            mc1.metric("Themen mit Episoden", f"{len(topic_counts_df):,}".replace(",", "."))
-            if not topic_counts_df.empty:
-                top_topic = str(topic_counts_df.iloc[0]["Thema"])
-                top_topic_count = int(topic_counts_df.iloc[0]["Episoden"])
+            ranked_topics_df = rankable_topic_counts(topic_counts_df)
+            mc1.metric("Themen mit Episoden", f"{len(ranked_topics_df):,}".replace(",", "."))
+            if not ranked_topics_df.empty:
+                top_topic = str(ranked_topics_df.iloc[0]["Thema"])
+                top_topic_count = int(ranked_topics_df.iloc[0]["Episoden"])
             else:
                 top_topic, top_topic_count = "–", 0
             mc2.metric("Größtes Thema", top_topic)

@@ -37,11 +37,11 @@ def test_build_network_summary_extracts_metrics_and_highlights(tmp_path):
     ]
     assert summary["highlights"] == [
         {
-            "label": "Staerkster Hub",
+            "label": "Stärkster Hub",
             "value": "Bob Example (4 gewichtete Verknuepfungen)",
         },
         {
-            "label": "Staerkste Verbindung",
+            "label": "Stärkste Verbindung",
             "value": "Alice Example <-> Bob Example (3 gemeinsame Auftritte)",
         },
     ]

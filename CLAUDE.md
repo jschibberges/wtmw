@@ -128,6 +128,17 @@ All files are created in the `data/` directory:
 - Caching: `@st.cache_data(ttl=3600)` for data loading and HTML file content
 - DataFrame column access uses `if "col" in df.columns` guards — never `df.get("col", ...)`, which silently returns an empty Series on DataFrames
 
+**Reflex dashboard** (`reflex run`, `wtmw_reflex/wtmw_reflex.py`)
+- Routes: `/` Übersicht, `/gaeste`, `/gaeste/[guest]` (person profile, name URL-encoded; `personensuche` still serves the Gäste page), `/themen`, `/netzwerke`
+- Data builders live in `reflex_dashboard_redesign.py` (all return JSON-friendly str/int dicts so Reflex can type the computed vars); `reflex_dashboard_data.py` keeps loading, filtering and network assets
+- Shared filter bar (Zeitraum / Sendung / Gastkategorie) on every page except `/netzwerke`, which always shows the full data set (`network_pairs` is unfiltered on purpose)
+- `INCOMPLETE_YEARS` in `reflex_dashboard_redesign.py` dims scraping-gap years in the timeline (currently 2025, 2026: no Lanz Jan–Jul, no Maischberger Jan–Aug 2025)
+- Format clusters come from `"kind": "format"` in `topic_labels.json` (no hard-coded IDs); shown with a badge and never chosen as the default topic
+- Guest party = **latest** known `party_norm`, not the most frequent (`prepare_guest_metadata` / `latest_party_map`)
+- Recharts ignores `fill_opacity` on `rx.recharts.bar`; use a lighter `fill` colour instead
+- After editing a helper module, restart `reflex run`: hot reload re-imports the app file but not imported modules
+- `topic_label_mismatches()` logs stale labels at startup
+
 ## German Language Handling
 
 ### Party Normalization
@@ -172,7 +183,7 @@ The codebase handles numerous variations of German party names:
 ### Unclassified Episodes — Root Causes
 Two distinct situations produce "Nicht klassifiziert":
 - **topic = NaN (no description)**: fernsehserien.de has no text for older episodes (mainly 2001–2009). BERTopic was never called. Cannot be fixed without an alternative data source.
-- **topic = -1 (BERTopic outlier)**: episode has a description but HDBSCAN assigned it to the outlier cluster. Currently ~23% of analysed episodes. Can be reduced by running `topic_model.reduce_outliers()` after training.
+- **topic = -1 (BERTopic outlier)**: episode has a description but HDBSCAN assigned it to the outlier cluster. Currently ~14% of analysed episodes (322 of 2,280); with the 42 episodes without description, ~16% of all episodes show as "Nicht klassifiziert". Can be reduced by running `topic_model.reduce_outliers()` after training.
 
 ### Guest Consolidation
 - `consolidate_guests()` aggregates on `party_norm` and `role_clean`, not on raw `party`/`role`
@@ -228,6 +239,12 @@ German spaCy model: `python -m spacy download de_core_news_md`
 **Rename a topic**:
 - Edit `data/topic_labels.json`: `{"3": "Neuer Name"}`
 - Restart Streamlit — no retraining needed
+
+**Mark a cluster as a show format (not a topic)**:
+- Some BERTopic clusters group guest roles / show formats (e.g. Markus Lanz episodes) rather than a subject
+- In `data/topic_labels.json` give the entry `"kind": "format"`; it is shown as `"Format-Cluster: <label>"` and excluded from topic rankings ("Top-Thema", top-topic chart). The flag follows the label through `topic_labels.remap_topic_labels`
+- `_TOPIC_GROUPS` in `reflex_dashboard_data.py` is keyed by curated **label text**, not topic ID (IDs change on every retraining)
+- After a retraining outside the pipeline, remap labels with `topic_labels.update_topic_labels_file` — `topic_labels.json` must always match the model in `data/talkshow_topic_model/`
 
 **Fix misidentified guests**:
 1. Add entries to `data/name_corrections.json`: `{"Wrong Name": "Correct Name"}`

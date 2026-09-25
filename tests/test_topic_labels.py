@@ -116,7 +116,9 @@ def test_real_labels_survive_simulated_retraining():
 
     for old_id, new_id in zip(old_ids, new_ids):
         assert remapped[new_id]["label"] == topics[old_id]["label"]
-    assert report["unassigned"] == []
+    # Nichts Aktuelles geht verloren; geparkt bleiben nur die Labels vergangener Topics.
+    parked = {tl.label_text(e) for e in curated.get(tl.UNASSIGNED_KEY, [])}
+    assert set(report["unassigned"]) == parked
 
 
 def _assign(**topics):
@@ -244,5 +246,29 @@ def test_real_labels_survive_simulated_retraining_with_new_keywords():
     for old_id, new_id in id_map.items():
         if old_id != -1:
             assert remapped[str(new_id)]["label"] == curated[str(old_id)]["label"]
-    assert report["unassigned"] == []
+    # Nichts Aktuelles geht verloren; geparkt bleiben nur die Labels vergangener Topics.
+    parked = {tl.label_text(e) for e in curated.get(tl.UNASSIGNED_KEY, [])}
+    assert set(report["unassigned"]) == parked
     assert {m[3] for m in report["matched"]} == {"Folgen"}
+
+
+def test_format_flag_follows_label_through_remap_and_prefixes_display():
+    curated = {
+        "0": {"label": "Ukraine-Krieg", "keywords": UKRAINE},
+        "1": {"label": "Politische Runde", "keywords": RENTE, "kind": tl.FORMAT_KIND},
+    }
+    remapped, _ = tl.remap_topic_labels(curated, {"0": RENTE, "1": UKRAINE})
+
+    assert remapped["0"]["kind"] == tl.FORMAT_KIND
+    assert "kind" not in remapped["1"]
+    assert tl.labels_by_id(remapped) == {
+        "0": "Format-Cluster: Politische Runde",
+        "1": "Ukraine-Krieg",
+    }
+
+
+def test_parked_format_label_keeps_its_flag():
+    curated = {"0": {"label": "Politische Runde", "keywords": RENTE, "kind": tl.FORMAT_KIND}}
+    remapped, _ = tl.remap_topic_labels(curated, {"0": CORONA})
+
+    assert remapped[tl.UNASSIGNED_KEY][0]["kind"] == tl.FORMAT_KIND

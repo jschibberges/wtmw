@@ -12,7 +12,9 @@ from app_helpers import (
     TIMEFRAME_OPTIONS,
     filter_by_timeframe,
     format_topic_label,
+    is_format_cluster_label,
     prepare_guest_metadata,
+    rankable_topic_counts,
     summarize_topic_counts,
 )
 from date_utils import coerce_mixed_date_series, filter_to_analysis_window
@@ -44,9 +46,9 @@ CATEGORY_LABELS = {
     "Academia & Expertise": "Wissenschaft & Expertise",
     "Arts & Culture": "Kultur",
     "Business & Economy": "Wirtschaft",
-    "Citizens & Everyday Voices": "Buergerliche Stimmen",
+    "Citizens & Everyday Voices": "Bürger:innen & Betroffene",
     "Civil Society & Advocacy": "Zivilgesellschaft",
-    "Influencers & Digital Creators": "Digitale Oeffentlichkeit",
+    "Influencers & Digital Creators": "Digitale Öffentlichkeit",
     "Media & Communication": "Medien",
     "Politics & Government": "Politik",
     "Religion & Spirituality": "Religion",
@@ -55,31 +57,31 @@ CATEGORY_LABELS = {
 
 NETWORK_ASSET_SPECS: dict[str, dict[str, str]] = {
     "guest_network": {
-        "title": "Gaeste-Netzwerk",
+        "title": "Gäste-Netzwerk",
         "description": (
-            "Ko-Auftritte von Gaesten. Die statische Ansicht betont Cluster, "
-            "die interaktive Version eignet sich fuer Exploration und Hover-Details."
+            "Ko-Auftritte von Gästen. Die statische Ansicht betont Cluster, "
+            "die interaktive Version eignet sich für Exploration und Hover-Details."
         ),
         "image": "cooccurrence_network.png",
         "html": "cooccurrence_network.html",
         "gexf": "cooccurrence_network_with_weights.gexf",
-        "node_kind": "Gaeste",
+        "node_kind": "Gäste",
         "edge_kind": "gemeinsame Auftritte",
-        "hub_kind": "gewichtete Verknuepfungen",
+        "hub_kind": "gewichtete Verknüpfungen",
         "scope_note": "Globaler Export aus dem Gesamtdatensatz; reagiert nicht auf die Filter oben.",
     },
     "topic_network": {
         "title": "Themen-Netzwerk",
         "description": (
-            "Themencluster und ihre geteilten Gaeste. Knoten stehen fuer Themen, "
-            "Verbindungen fuer personelle Ueberlappungen."
+            "Themencluster und ihre geteilten Gäste. Knoten stehen für Themen, "
+            "Verbindungen für personelle Überlappungen."
         ),
         "image": "topic_cooccurrence_network.png",
         "html": "topic_cooccurrence_network.html",
         "gexf": "topic_cooccurrence_network.gexf",
         "node_kind": "Themen",
-        "edge_kind": "geteilte Gaeste",
-        "hub_kind": "gewichtete Verknuepfungen",
+        "edge_kind": "geteilte Gäste",
+        "hub_kind": "gewichtete Verknüpfungen",
         "scope_note": "Globaler Export aus dem Gesamtdatensatz; reagiert nicht auf die Filter oben.",
     },
     "topics_visualization": {
@@ -89,7 +91,7 @@ NETWORK_ASSET_SPECS: dict[str, dict[str, str]] = {
     },
     "topics_over_time": {
         "title": "Themen im Zeitverlauf",
-        "description": "Entwicklung der Themen ueber die Jahre hinweg.",
+        "description": "Entwicklung der Themen über die Jahre hinweg.",
         "html": "topics_over_time.html",
     },
     "topics_hierarchy": {
@@ -98,7 +100,7 @@ NETWORK_ASSET_SPECS: dict[str, dict[str, str]] = {
         "html": "topics_hierarchy.html",
     },
     "topics_barchart": {
-        "title": "Themen-Haeufigkeit",
+        "title": "Themen-Häufigkeit",
         "description": "Interaktives Balkendiagramm der Themenverteilung.",
         "html": "topics_barchart.html",
     },
@@ -201,11 +203,11 @@ def _build_network_summary(gexf_path: Path, spec: dict[str, str]) -> dict[str, o
 
     highlights = [
         {
-            "label": "Staerkster Hub",
+            "label": "Stärkster Hub",
             "value": (
                 f"{compact_label(top_node, 34)} "
                 f"({_format_metric_number(top_node_weight)} "
-                f"{spec.get('hub_kind', 'Verknuepfungen')})"
+                f"{spec.get('hub_kind', 'Verknüpfungen')})"
             ),
         }
     ]
@@ -213,7 +215,7 @@ def _build_network_summary(gexf_path: Path, spec: dict[str, str]) -> dict[str, o
         source, target, edge_data = top_edge
         highlights.append(
             {
-                "label": "Staerkste Verbindung",
+                "label": "Stärkste Verbindung",
                 "value": (
                     f"{compact_label(source, 28)} <-> {compact_label(target, 28)} "
                     f"({_format_metric_number(edge_data.get('weight', 0))} "
@@ -314,7 +316,7 @@ def load_dashboard_bundle() -> DashboardBundle:
             category_options=[ALL_CATEGORIES],
             error=(
                 "Auswertungsdateien fehlen. Bitte zuerst "
-                "'python analyze_talkshows.py' ausfuehren."
+                "'python analyze_talkshows.py' ausführen."
             ),
         )
 
@@ -442,7 +444,7 @@ def build_topic_rows(df_shows: pd.DataFrame, limit: int = 8) -> list[dict[str, i
     if topic_counts.empty:
         return []
 
-    topic_counts = topic_counts[topic_counts["Thema"] != "Nicht klassifiziert"].copy()
+    topic_counts = rankable_topic_counts(topic_counts).copy()
     if topic_counts.empty:
         return []
 
@@ -629,51 +631,87 @@ TIMEFRAME_LABELS = list(TIMEFRAME_OPTIONS.keys())
 
 # ── Treemap ──────────────────────────────────────────────────────────────────
 
-# Thematic groups with their member topic IDs and display colours.
-# Each group maps a set of BERTopic integer IDs to a semantic label + colour.
+# Thematic groups with their member topics and display colours.
+# Members are curated topic *labels* (data/topic_labels.json), not BERTopic IDs:
+# IDs change with every training run, labels are remapped to follow their topic.
 _TOPIC_GROUPS: list[dict[str, object]] = [
     {
         "label": "Außenpolitik & Sicherheit",
         "color": "#2563eb",  # blue
-        "topics": {0, 9, 11, 14, 19, 24},
+        "topics": {
+            "Ukraine-Krieg & Russland",
+            "Außenpolitik & USA",
+            "Islamismus & Terrorismus",
+            "Nahostkonflikt",
+            "Türkei & deutsch-türkische Beziehungen",
+            "Brexit & Großbritannien",
+        },
     },
     {
         "label": "Innenpolitik & Wahlen",
         "color": "#7c3aed",  # violet
-        "topics": {1, 3, 6, 15, 28, 31},
+        "topics": {
+            "Bundestagswahl & Koalitionsbildung",
+            "Landtagswahlen & Regierungsbildung",
+            "Neuwahl & Regierungswechsel",
+            "Wahlkampf & Volksparteien",
+        },
     },
     {
         "label": "Wirtschaft & Klima",
         "color": "#0e7490",  # cyan/teal
-        "topics": {4, 12, 16, 18, 21, 25, 30},
+        "topics": {
+            "Energiekrise & Klimapolitik",
+            "Eurokrise & Griechenland",
+            "Haushalt & Schuldenbremse",
+            "Klimakrise & Nachhaltigkeit",
+            "Reichtum, Schulden & Betrug",
+            "Arbeitslosigkeit & Arbeitsmarkt",
+            "Wirtschafts- und Industriepolitik",
+        },
     },
     {
         "label": "Gesellschaft & Migration",
         "color": "#059669",  # emerald
-        "topics": {7, 8, 10, 17, 27, 29},
+        "topics": {
+            "Steuern, Vermögen & soziale Gerechtigkeit",
+            "Flüchtlingskrise & Migration",
+            "Rentenpolitik",
+            "Erziehung & Bildung",
+            "Zuwanderung & Integration",
+            "Strafrecht & Kriminalität",
+        },
     },
     {
         "label": "Gesundheit",
         "color": "#d97706",  # amber
-        "topics": {2, 5, 13},
+        "topics": {"Corona-Pandemie", "Gesundheit & Medizin", "Ernährung & Gesundheit"},
     },
     {
         "label": "Kultur & Sport",
         "color": "#e11d48",  # rose
-        "topics": {20, 22, 23, 26},
+        "topics": {
+            "Fußball & Nationalmannschaft",
+            "Fußball & Sportkarrieren",
+            "Katholische Kirche & Missbrauchsskandal",
+            "Maischberger Spezial",
+        },
     },
 ]
 
-# Fallback colour for topics not assigned to any group
+# Fallback colour for topics not assigned to any group (and for format clusters)
 _TOPIC_GROUP_FALLBACK = "#94a3b8"  # slate-400
+_FORMAT_CLUSTER_GROUP = "Format-Cluster"
 
 
-def _topic_group_color(topic_id: int) -> str:
-    """Return the thematic group colour for a given topic ID."""
+def _topic_group(display_label: str) -> tuple[str, str]:
+    """Return (group name, colour) for a topic's full display label."""
+    if is_format_cluster_label(display_label):
+        return _FORMAT_CLUSTER_GROUP, _TOPIC_GROUP_FALLBACK
     for group in _TOPIC_GROUPS:
-        if topic_id in group["topics"]:  # type: ignore[operator]
-            return str(group["color"])
-    return _TOPIC_GROUP_FALLBACK
+        if display_label in group["topics"]:  # type: ignore[operator]
+            return str(group["label"]), str(group["color"])
+    return "Sonstige", _TOPIC_GROUP_FALLBACK
 
 
 def build_treemap_data(df_shows: pd.DataFrame) -> list[dict[str, object]]:
@@ -716,13 +754,9 @@ def build_treemap_data(df_shows: pd.DataFrame) -> list[dict[str, object]]:
     for _, row in counts.iterrows():
         topic_id = int(row["topic"])
         raw_label = label_map.get(topic_id, f"Topic {topic_id}")
-        display = compact_label(format_topic_label(raw_label), 26)
-        color = _topic_group_color(topic_id)
-        # Determine group name for tooltip enrichment
-        group_name = next(
-            (str(g["label"]) for g in _TOPIC_GROUPS if topic_id in g["topics"]),  # type: ignore[operator]
-            "Sonstige",
-        )
+        full_label = format_topic_label(raw_label)
+        display = compact_label(full_label, 26)
+        group_name, color = _topic_group(full_label)
         rows.append(
             {
                 "name": display,
@@ -740,10 +774,12 @@ def build_treemap_legend() -> list[dict[str, str]]:
     Returns one entry per thematic group for rendering a colour legend.
     Each item: ``{"color": str, "label": str}``
     """
-    return [
+    legend = [
         {"color": str(g["color"]), "label": str(g["label"])}
         for g in _TOPIC_GROUPS
     ]
+    legend.append({"color": _TOPIC_GROUP_FALLBACK, "label": _FORMAT_CLUSTER_GROUP})
+    return legend
 
 
 # ── Top guest pairs by co-appearance intensity (filter-reactive) ─────────────

@@ -7,7 +7,7 @@ from pathlib import Path
 import pandas as pd
 from date_utils import coerce_mixed_date_series
 
-from topic_labels import labels_by_id, load_curated_labels
+from topic_labels import FORMAT_CLUSTER_PREFIX, labels_by_id, load_curated_labels
 
 _DATA_DIR = Path(__file__).resolve().parent / "data"
 
@@ -18,16 +18,17 @@ def _load_topic_labels() -> dict[str, str]:
     return labels_by_id(load_curated_labels(_DATA_DIR / "topic_labels.json"))
 
 
-def _most_common_value(series: pd.Series) -> str | None:
-    """Return the most frequent non-empty value in a series."""
-    if series is None:
+def _latest_value(group: pd.DataFrame, col: str) -> str | None:
+    """Return the most recent non-empty value of ``col`` (falls back to row order without dates)."""
+    if col not in group.columns:
         return None
-    valid = series.dropna().astype(str).str.strip()
-    valid = valid[valid != ""]
-    if valid.empty:
+    src = group.dropna(subset=[col])
+    src = src[src[col].astype(str).str.strip() != ""]
+    if src.empty:
         return None
-    counts = valid.value_counts()
-    return counts.index[0] if not counts.empty else None
+    if "date" in src.columns:
+        src = src.sort_values("date")
+    return str(src[col].iloc[-1]).strip()
 
 
 def _summarize_roles(series: pd.Series) -> str | None:
@@ -259,7 +260,8 @@ def prepare_guest_metadata(df: pd.DataFrame) -> pd.DataFrame:
 
     records: list[dict[str, str | None]] = []
     for name, group in df.groupby("name", sort=False):
-        primary_party = _most_common_value(group["party"]) if "party" in group.columns else None
+        # Latest affiliation, not the most frequent one: people switch parties (e.g. Wagenknecht → BSW).
+        primary_party = _latest_value(group, "party_norm" if "party_norm" in group.columns else "party")
         known_roles = _summarize_roles_for_guest(group, primary_party)
         records.append(
             {
@@ -361,3 +363,18 @@ def summarize_topic_counts(df: pd.DataFrame | None) -> pd.DataFrame:
         .reset_index(name="Episoden")
         .sort_values("Episoden", ascending=False)
     )
+
+
+def is_format_cluster_label(display: object) -> bool:
+    """True for display labels of show-format clusters (see topic_labels.py)."""
+    return isinstance(display, str) and display.startswith(FORMAT_CLUSTER_PREFIX)
+
+
+def rankable_topic_counts(topic_counts: pd.DataFrame) -> pd.DataFrame:
+    """Drop unclassified episodes and format clusters: only real topics get ranked."""
+    if topic_counts.empty or "Thema" not in topic_counts.columns:
+        return topic_counts
+    mask = (topic_counts["Thema"] == "Nicht klassifiziert") | topic_counts["Thema"].apply(
+        is_format_cluster_label
+    )
+    return topic_counts[~mask]
