@@ -1,33 +1,6 @@
 {
   "-1": "Sonstige / Nicht zugeordnet",
   "0": {
-    "label": "Corona-Pandemie",
-    "keywords": [
-      "impfpflicht",
-      "gesundheitsminister",
-      "inzidenz",
-      "covid",
-      "impfstoff",
-      "corona",
-      "pandemie",
-      "gesundheit",
-      "warnen",
-      "aktuell"
-    ]
-  },
-  "1": {
-    "label": "Politische Runde (allgemein)",
-    "keywords": [
-      "außenpolitiker",
-      "vorsitzender",
-      "theveßen",
-      "klimaaktivistin",
-      "afd",
-      "kiesewetter"
-    ],
-    "kind": "format"
-  },
-  "2": {
     "label": "Ukraine-Krieg & Russland",
     "keywords": [
       "ukrainisch",
@@ -35,240 +8,247 @@
       "putin",
       "auswärtig",
       "bundesregierung",
-      "liefern",
       "fordern",
-      "bundeswehr",
-      "sicherheitspolitik",
-      "waffenlieferunge"
+      "konflikt",
+      "kommentieren",
+      "aktuell"
     ]
   },
-  "3": {
-    "label": "Energiekrise & Klimapolitik",
-    "keywords": [
-      "bundesfinanzminister",
-      "bundesregierung",
-      "klimaschutz",
-      "haushalt",
-      "klimapolitik",
-      "bundeswirtschaftsminister",
-      "energiepreis",
-      "klimawandel",
-      "energiewende",
-      "schuldenbremse"
-    ]
-  },
-  "4": {
+  "1": {
     "label": "Politisches Magazin / Aktuelle Nachrichten",
     "keywords": [
       "bundesregierung",
       "politisch",
-      "landtagswahl",
+      "vorsitzender",
       "redaktionsnetzwerk",
-      "kritisieren",
-      "ampelkoalition",
-      "äußern",
       "zustand",
-      "rheinisch",
-      "aktuell"
+      "landtagswahl",
+      "aktuell",
+      "parlamentsbüro",
+      "analysieren"
     ],
     "kind": "format"
   },
-  "5": {
-    "label": "Bundestagswahl & Koalitionsbildung",
+  "2": {
+    "label": "Corona-Pandemie",
     "keywords": [
-      "bundestagswahl",
-      "landtagswahl",
-      "kanzlerkandidat",
-      "volkspartei",
-      "wahlergebnis",
-      "neuwahl",
-      "bleiben",
-      "kanzlerin",
-      "vorsitzend",
-      "parteivorsitz"
+      "bundesgesundheitsminister",
+      "impfpflicht",
+      "gesundheitsminister",
+      "inzidenz",
+      "impfstoff",
+      "covid",
+      "corona",
+      "pandemie",
+      "aktuell",
+      "gesundheit"
+    ]
+  },
+  "3": {
+    "label": "Politische Runde (allgemein)",
+    "keywords": [
+      "vorsitzender",
+      "klimaaktivistin",
+      "theveßen",
+      "kiesewetter"
+    ],
+    "kind": "format"
+  },
+  "4": {
+    "label": null,
+    "keywords": [
+      "regierung",
+      "klimakrise",
+      "wohnung",
+      "rentnerinn",
+      "gesellschaftlich",
+      "bürgergeld",
+      "sozial",
+      "bundesregierung",
+      "wohnen",
+      "vermögen"
+    ]
+  },
+  "5": {
+    "label": "Energiekrise & Klimapolitik",
+    "keywords": [
+      "energiekrise",
+      "energiepreis",
+      "klimaschutz",
+      "klimapolitik",
+      "energiewende",
+      "klimawandel",
+      "bundesregierung",
+      "bundesfinanzminister",
+      "bundesverband",
+      "grüne"
     ]
   },
   "6": {
     "label": "Außenpolitik & USA",
     "keywords": [
-      "politikberater",
       "auswärtig",
       "außenpolitisch",
       "vizepräsident",
-      "außenpolitik",
+      "vorsitzend",
       "demokrat",
       "politisch",
-      "vorsitzend",
+      "präsident",
       "trump",
-      "trumps"
+      "bundesaußenminister",
+      "republikaner"
     ]
   },
   "7": {
-    "label": "Flüchtlingskrise & Migration",
+    "label": "Bundestagswahl & Koalitionsbildung",
     "keywords": [
-      "flüchtlingspolitik",
-      "bundesinnenminister",
-      "flüchtlingsfrage",
-      "bundesregierung",
-      "flüchtlingskrise",
-      "flüchtling",
-      "bundesinnenministerin",
-      "zuwanderung",
-      "kanzlerin",
-      "einwanderungsgesetz"
+      "bundestagswahl",
+      "landtagswahl",
+      "kanzleramt",
+      "volkspartei",
+      "neuwahl",
+      "parteivorsitz",
+      "merkel",
+      "bleiben",
+      "wahlergebnis",
+      "parteitag"
     ]
   },
   "8": {
-    "label": "Haushaltskrise & Wirtschaft",
-    "keywords": [
-      "bundesfinanzminister",
-      "bundesregierung",
-      "haushalt",
-      "hauptstadtstudio",
-      "kriegsreporter",
-      "ukrainisch",
-      "regierung",
-      "wirtschaftsminister",
-      "vorsitzend"
-    ]
-  },
-  "9": {
     "label": "Islamismus & Terrorismus",
     "keywords": [
       "terrorismus",
-      "rechtsextrem",
       "terroranschlag",
       "islamist",
-      "islamistisch",
       "anschlag",
-      "islamismus",
+      "islamistisch",
+      "flüchtling",
       "radikalisierung",
       "terrorist",
-      "bundesinnenminister"
+      "muslimisch",
+      "attentat"
+    ]
+  },
+  "9": {
+    "label": "Einkommen & Sozialstaat",
+    "keywords": [
+      "grundrente",
+      "einkommen",
+      "arbeitsmarkt",
+      "sozial",
+      "beitrag",
+      "arbeiten",
+      "sozialstaat",
+      "arbeitnehmer",
+      "arbeit",
+      "bleiben"
     ]
   },
   "10": {
-    "label": "Einkommen & Sozialstaat",
+    "label": "Flüchtlingskrise & Migration",
     "keywords": [
-      "verdienen",
-      "einkommen",
-      "rentenpaket",
-      "sozial",
-      "sozialstaat",
-      "arbeitsmarkt",
-      "vermögen",
-      "gehalt",
-      "beitrag",
-      "rente"
+      "flüchtlingspolitik",
+      "flüchtlingsfrage",
+      "flüchtling",
+      "bundesinnenminister",
+      "einwanderungsgesetz",
+      "flüchtlingskris",
+      "asylbewerber",
+      "bundesinnenministerin",
+      "eu",
+      "kanzlerin"
     ]
   },
   "11": {
-    "label": "Landtagswahlen & Regierungsbildung",
+    "label": "Haushalt & Schuldenbremse",
     "keywords": [
-      "landtagswahl",
-      "regierungsbildung",
-      "zusammenhalt",
-      "neuwahl",
       "bundesregierung",
+      "bundesfinanzminister",
+      "schuldenbremse",
+      "klimaschutz",
+      "abonniert",
       "regierung",
-      "regierungsverantwortung",
-      "wählen",
-      "politisch",
-      "europawahl"
+      "wirtschaftlich",
+      "koalitionsverhandlung",
+      "haushalt",
+      "kindergrundsicherung"
     ]
   },
   "12": {
-    "label": "Rente",
-    "keywords": [
-      "rentnerinnen",
-      "rentenplan",
-      "nachhaltig",
-      "abnehmen",
-      "rentensystem",
-      "klimawandel",
-      "klimakrise",
-      "bleiben",
-      "lohnerhöhung",
-      "massentourismus"
-    ]
-  },
-  "13": {
     "label": "Nahostkonflikt",
     "keywords": [
       "israelisch",
       "terrororganisation",
       "netanjahu",
       "gaza",
-      "palästinenserinne",
       "palästinenser",
       "palästinensisch",
       "iranisch",
       "terrorangriff",
-      "antisemitisch"
+      "antisemitisch",
+      "auswärtig"
+    ]
+  },
+  "13": {
+    "label": "Türkei & deutsch-türkische Beziehungen",
+    "keywords": [
+      "deutschtürke",
+      "türkisch",
+      "flüchtlingsabkommen",
+      "türk",
+      "auswärtig",
+      "menschenrechtsausschuß",
+      "kurdisch",
+      "vorsitzend"
     ]
   },
   "14": {
-    "label": "Neuwahl & Regierungswechsel",
-    "keywords": [
-      "regierung",
-      "neuwahl",
-      "umfrage",
-      "vertrauensfrage",
-      "euroskeptisch",
-      "politisch",
-      "amtszeit",
-      "stimmenzuwachs",
-      "wirtschaftlich",
-      "wählen"
-    ]
-  },
-  "15": {
-    "label": "Türkei & deutsch-türkische Beziehungen",
-    "keywords": [
-      "menschenrechtsausschuss",
-      "türkisch",
-      "flüchtlingsabkommen",
-      "auswärtig",
-      "kurdisch",
-      "vorsitzend",
-      "abgeordneter",
-      "yeneroglu"
-    ]
-  },
-  "16": {
-    "label": "Außenpolitik & Diplomatie",
-    "keywords": [
-      "bundesaußenminister",
-      "außenminister",
-      "außenpolitisch",
-      "auswärtig",
-      "bundesregierung",
-      "putin",
-      "russisch",
-      "vorsitzend",
-      "ausschuss"
-    ]
-  },
-  "17": {
     "label": "Brexit & Großbritannien",
     "keywords": [
       "brexit",
       "außenhandelsministerium",
-      "finanzjournalistin",
       "europawahl",
-      "britisch",
-      "großbritannien",
       "premierministerin",
-      "eu",
-      "neuwahl",
-      "abstimmung"
+      "großbritannien",
+      "britisch",
+      "abstimmung",
+      "abstimmen",
+      "eu"
     ]
   },
-  "18": {
+  "15": {
+    "label": null,
+    "keywords": [
+      "landtagswahl",
+      "wiederwahl",
+      "wählen",
+      "volkspartei",
+      "regierung",
+      "wahl",
+      "landtag",
+      "demokratie",
+      "politisch",
+      "ergebnis"
+    ]
+  },
+  "16": {
+    "label": "Wirtschafts- und Industriepolitik",
+    "keywords": [
+      "bundestagspräsidentin",
+      "bundestagswahl",
+      "bundestagswahlkampf",
+      "sicherheitspolitisch",
+      "bundespräsident",
+      "politisch",
+      "handelspolitisch",
+      "demokratie",
+      "neuwahl"
+    ]
+  },
+  "17": {
     "label": "Eurokrise & Griechenland",
     "keywords": [
       "bundesfinanzminister",
-      "europaparlament",
       "griechisch",
       "währungsfonds",
       "grexit",
@@ -276,25 +256,84 @@
       "finanzminister",
       "griechenland",
       "schuldenstreit",
-      "eu"
-    ]
-  },
-  "19": {
-    "label": "Wirtschafts- und Industriepolitik",
-    "keywords": [
-      "bundespolitisch",
-      "sicherheitspolitisch",
-      "bundestagswahl",
-      "bundestagswahlkampf",
-      "migrationspolitisch",
-      "wirtschaftspolitisch",
-      "industriepolitisch",
-      "politisch",
-      "handelspolitisch",
-      "wahlprogrammatik"
+      "eu",
+      "regierungsberater"
     ]
   },
   "_unassigned": [
+    {
+      "label": "Haushaltskrise & Wirtschaft",
+      "keywords": [
+        "bundesfinanzminister",
+        "bundesregierung",
+        "haushalt",
+        "hauptstadtstudio",
+        "kriegsreporter",
+        "ukrainisch",
+        "regierung",
+        "wirtschaftsminister",
+        "vorsitzend"
+      ]
+    },
+    {
+      "label": "Landtagswahlen & Regierungsbildung",
+      "keywords": [
+        "landtagswahl",
+        "regierungsbildung",
+        "zusammenhalt",
+        "neuwahl",
+        "bundesregierung",
+        "regierung",
+        "regierungsverantwortung",
+        "wählen",
+        "politisch",
+        "europawahl"
+      ]
+    },
+    {
+      "label": "Rente",
+      "keywords": [
+        "rentnerinnen",
+        "rentenplan",
+        "nachhaltig",
+        "abnehmen",
+        "rentensystem",
+        "klimawandel",
+        "klimakrise",
+        "bleiben",
+        "lohnerhöhung",
+        "massentourismus"
+      ]
+    },
+    {
+      "label": "Neuwahl & Regierungswechsel",
+      "keywords": [
+        "regierung",
+        "neuwahl",
+        "umfrage",
+        "vertrauensfrage",
+        "euroskeptisch",
+        "politisch",
+        "amtszeit",
+        "stimmenzuwachs",
+        "wirtschaftlich",
+        "wählen"
+      ]
+    },
+    {
+      "label": "Außenpolitik & Diplomatie",
+      "keywords": [
+        "bundesaußenminister",
+        "außenminister",
+        "außenpolitisch",
+        "auswärtig",
+        "bundesregierung",
+        "putin",
+        "russisch",
+        "vorsitzend",
+        "ausschuss"
+      ]
+    },
     {
       "label": "Gesundheit & Medizin",
       "keywords": [
@@ -353,21 +392,6 @@
         "gesundheit",
         "warnen",
         "fleisch"
-      ]
-    },
-    {
-      "label": "Haushalt & Schuldenbremse",
-      "keywords": [
-        "bundesfinanzminister",
-        "schuldenbremse",
-        "bundestagsfraktion",
-        "bundesministerium",
-        "kindergrundsicherung",
-        "haushalt",
-        "wirtschaftsminister",
-        "bundesverfassungsgericht",
-        "finanzminister",
-        "klimaschutz"
       ]
     },
     {
