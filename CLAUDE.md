@@ -133,7 +133,7 @@ All files are created in the `data/` directory:
 - Routes: `/` Übersicht, `/gaeste`, `/gaeste/[guest]` (person profile, name URL-encoded; `personensuche` still serves the Gäste page), `/themen`, `/netzwerke`
 - Data builders live in `reflex_dashboard_redesign.py` (all return JSON-friendly str/int dicts so Reflex can type the computed vars); `reflex_dashboard_data.py` keeps loading, filtering and network assets
 - Shared filter bar (Zeitraum / Sendung / Gastkategorie) on every page except `/netzwerke`, which always shows the full data set (`network_pairs` is unfiltered on purpose)
-- `INCOMPLETE_YEARS` in `reflex_dashboard_redesign.py` dims scraping-gap years in the timeline (currently 2025, 2026: no Lanz Jan–Jul, no Maischberger Jan–Aug 2025)
+- `INCOMPLETE_YEARS` in `reflex_dashboard_redesign.py` dims scraping-gap years in the timeline (currently `None` = only the latest year; the Lanz/Maischberger 2025 gap was closed by the season-page scrape)
 - Format clusters come from `"kind": "format"` in `topic_labels.json` (no hard-coded IDs); shown with a badge and never chosen as the default topic
 - Guest party = **latest** known `party_norm`, not the most frequent (`prepare_guest_metadata` / `latest_party_map`)
 - Recharts ignores `fill_opacity` on `rx.recharts.bar`; use a lighter `fill` colour instead

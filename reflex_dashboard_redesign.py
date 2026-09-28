@@ -39,9 +39,10 @@ CATEGORY_COLORS: list[str] = [
 ]
 
 # Years whose scrape is known to be incomplete (None = only the latest year in the data).
-# 2025 has no Markus Lanz episodes Jan–Jul and no Maischberger episodes Jan–Aug, and
-# holds ~40 % of the 2024 volume — a scraping gap, not fewer broadcasts.
-INCOMPLETE_YEARS: set[int] | None = {2025, 2026}
+# The Lanz/Maischberger 2025 gap was closed by scraping the season pages. Hart aber Fair (20),
+# Miosga (31) and Illner (34) are still low in 2025, but fernsehserien.de lists no more
+# episodes for them, so that is not marked as a gap here.
+INCOMPLETE_YEARS: set[int] | None = None
 
 UNCLASSIFIED_LABEL = "Nicht klassifiziert"
 

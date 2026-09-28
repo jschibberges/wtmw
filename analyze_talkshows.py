@@ -998,7 +998,7 @@ def analyze_topic_guest_connections(df_guests_with_topics):
     plt.title("Topic Co-occurrence Network (Connected by Shared Guests)", size=20)
     plt.tight_layout()
     plt.savefig(DATA_DIR / "topic_cooccurrence_network.png", dpi=300)
-    plt.show()
+    plt.close()  # not plt.show(): it blocks on interactive backends and hung a local run
     print(f"Topic co-occurrence network saved to {DATA_DIR / 'topic_cooccurrence_network.png'}")
     nx.write_gexf(T, DATA_DIR / "topic_cooccurrence_network.gexf")
     export_cytoscape_network(

@@ -650,7 +650,7 @@ def timeline_card() -> rx.Component:
             rx.flex(rx.box(class_name="swatch swatch-partial"), rx.text("Unvollständig erfasst"),
                     align="center", gap="6px"),
             rx.text("Verläufe können aus der Erfassung stammen: Markus Lanz ist bis 2022 nur mit rund 10 Folgen "
-                    "pro Jahr enthalten, 2025 hat Lücken bei Lanz und Maischberger."),
+                    "pro Jahr enthalten."),
             class_name="chart-footnote",
         ),
         class_name="stack-16",
