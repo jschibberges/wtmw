@@ -55,7 +55,7 @@
     "kind": "format"
   },
   "4": {
-    "label": null,
+    "label": "Bürgercheck / Wahlcheck",
     "keywords": [
       "regierung",
       "klimakrise",
@@ -67,7 +67,8 @@
       "bundesregierung",
       "wohnen",
       "vermögen"
-    ]
+    ],
+    "kind": "format"
   },
   "5": {
     "label": "Energiekrise & Klimapolitik",
@@ -217,7 +218,7 @@
     ]
   },
   "15": {
-    "label": null,
+    "label": "Wahlkampf & Volksparteien",
     "keywords": [
       "landtagswahl",
       "wiederwahl",
@@ -537,21 +538,6 @@
         "verurteilen",
         "strafrecht",
         "rechtsexperte"
-      ]
-    },
-    {
-      "label": "Wahlkampf & Volksparteien",
-      "keywords": [
-        "bundestagswahl",
-        "landtagswahl",
-        "landtagswahlkampf",
-        "personenwahl",
-        "sozialdemokratisch",
-        "lagerwahlkampf",
-        "volkspartei",
-        "regierung",
-        "landesregierung",
-        "regierungskoalition"
       ]
     }
   ]
