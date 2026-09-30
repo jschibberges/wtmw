@@ -17,5 +17,5 @@ spacy==3.8.16
 # Deutsches spaCy-Modell (passend zu spacy 3.8.x); von nlp_utils.py bevorzugt genutzt
 de_core_news_md @ https://github.com/explosion/spacy-models/releases/download/de_core_news_md-3.8.0/de_core_news_md-3.8.0-py3-none-any.whl
 pyvis==0.3.2
-rich==15.0.0
+rich==14.3.4
 reflex==0.8.28.post1
