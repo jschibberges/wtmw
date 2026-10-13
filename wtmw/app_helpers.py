@@ -5,11 +5,11 @@ from functools import lru_cache
 from pathlib import Path
 
 import pandas as pd
-from date_utils import coerce_mixed_date_series
+from wtmw.date_utils import coerce_mixed_date_series
 
-from topic_labels import FORMAT_CLUSTER_PREFIX, labels_by_id, load_curated_labels
+from wtmw.topic_labels import FORMAT_CLUSTER_PREFIX, labels_by_id, load_curated_labels
 
-_DATA_DIR = Path(__file__).resolve().parent / "data"
+_DATA_DIR = Path(__file__).resolve().parents[1] / "data"
 
 
 @lru_cache(maxsize=1)

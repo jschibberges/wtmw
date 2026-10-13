@@ -8,7 +8,7 @@ from pathlib import Path
 import networkx as nx
 import pandas as pd
 
-from app_helpers import (
+from wtmw.app_helpers import (
     TIMEFRAME_OPTIONS,
     filter_by_timeframe,
     format_topic_label,
@@ -17,9 +17,9 @@ from app_helpers import (
     rankable_topic_counts,
     summarize_topic_counts,
 )
-from date_utils import coerce_mixed_date_series, filter_to_analysis_window
+from wtmw.date_utils import coerce_mixed_date_series, filter_to_analysis_window
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data"
 ASSETS_DIR = BASE_DIR / "assets"
 NETWORK_ASSETS_DIR = ASSETS_DIR / "generated_networks"

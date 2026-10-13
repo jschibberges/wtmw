@@ -4,7 +4,7 @@ import json
 
 import pandas as pd
 
-import sync_guest_validation_overrides as sync_mod
+from scripts import sync_guest_validation_overrides as sync_mod
 
 
 def test_extract_override_updates_uses_cleaned_name_and_filters_statuses(tmp_path):

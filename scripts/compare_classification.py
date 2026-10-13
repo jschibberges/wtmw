@@ -1,7 +1,7 @@
 """
 Vergleich: Regelbasierte Klassifizierung vs. Regelbasiert + Embedding-Fallback.
 
-Ausführen (conda env mediaanalysis):
+Ausführen (conda env wtmw):
     python scripts/compare_classification.py
 
 Ausgabe: Tabelle mit Kategorie-Verteilung und Confidence-Statistiken für
@@ -51,7 +51,7 @@ print(f"  {len(df_raw)} Gastzeilen aus {len(list(DATA_DIR.glob('*_data.json')))}
 # ---------------------------------------------------------------------------
 # 2. Cleaning & Konsolidierung
 # ---------------------------------------------------------------------------
-from nlp_utils import clean_guest_rows
+from wtmw.nlp_utils import clean_guest_rows
 from analyze_talkshows import consolidate_guests
 
 print("Cleaning & Konsolidierung…")
@@ -66,7 +66,7 @@ print(f"  {len(df_consolidated)} konsolidierte Gäste\n")
 # ---------------------------------------------------------------------------
 # 3. Regelbasierte Klassifizierung
 # ---------------------------------------------------------------------------
-from guest_classification import add_classification_columns
+from wtmw.guest_classification import add_classification_columns
 
 print("Regelbasierte Klassifizierung…")
 df_rules = add_classification_columns(df_consolidated.copy())
@@ -78,7 +78,7 @@ df_rules["CategorySource"] = df_rules["CategoryPrimary"].apply(
 # 4. Embedding-Fallback
 # ---------------------------------------------------------------------------
 from analyze_talkshows import _get_embedder, _embed_texts
-from guest_classification_embedding import build_prototype_embeddings, apply_embedding_fallback
+from wtmw.guest_classification_embedding import build_prototype_embeddings, apply_embedding_fallback
 
 EMBEDDING_MODEL = "intfloat/multilingual-e5-base"
 

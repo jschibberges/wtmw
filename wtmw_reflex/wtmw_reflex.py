@@ -24,7 +24,7 @@ from urllib.parse import unquote
 
 import reflex as rx
 
-from reflex_dashboard_data import (
+from wtmw_reflex.dashboard_data import (
     ALL_CATEGORIES,
     ALL_SHOWS,
     DEFAULT_TIMEFRAME,
@@ -36,7 +36,7 @@ from reflex_dashboard_data import (
     format_count,
     load_dashboard_bundle,
 )
-from reflex_dashboard_redesign import (
+from wtmw_reflex.page_data import (
     build_axis_labels,
     build_category_share_rows,
     build_coverage_rows,
@@ -1092,7 +1092,7 @@ def netzwerke_page() -> rx.Component:
 
 app = rx.App(
     theme=rx.theme(appearance="light", accent_color="blue", gray_color="slate", radius="medium", scaling="100%"),
-    stylesheets=["/reflex_dashboard.css", "/reflex_dashboard_redesign.css"],
+    stylesheets=["/reflex_dashboard.css", "/reflex_dashboard_pages.css"],
 )
 
 app.add_page(overview_page, route="/", title="Wer talkt mit wem? – Übersicht")

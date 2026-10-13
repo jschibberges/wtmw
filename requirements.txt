@@ -12,7 +12,6 @@ umap-learn==0.5.12
 hdbscan==0.8.44
 scikit-learn==1.9.1
 streamlit==1.53.0
-altair==5.5.0
 spacy==3.8.16
 # Deutsches spaCy-Modell (passend zu spacy 3.8.x); von nlp_utils.py bevorzugt genutzt
 de_core_news_md @ https://github.com/explosion/spacy-models/releases/download/de_core_news_md-3.8.0/de_core_news_md-3.8.0-py3-none-any.whl

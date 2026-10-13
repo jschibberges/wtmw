@@ -17,14 +17,14 @@ from typing import Dict, Optional, List, Any
 from functools import lru_cache
 
 from scrape_talkshows import load_json_file, save_json_file
-from nlp_utils import clean_guest_rows, clean_description_for_labels, _dedupe_topic_terms, _filter_topic_terms, get_german_stopwords
-from guest_classification import add_classification_columns
-from guest_classification_embedding import build_prototype_embeddings, apply_embedding_fallback
-from date_utils import (
+from wtmw.nlp_utils import clean_guest_rows, clean_description_for_labels, _dedupe_topic_terms, _filter_topic_terms, get_german_stopwords
+from wtmw.guest_classification import add_classification_columns
+from wtmw.guest_classification_embedding import build_prototype_embeddings, apply_embedding_fallback
+from wtmw.date_utils import (
     is_on_or_after_analysis_start,
     normalize_date_value,
 )
-from topic_labels import load_model_keywords, update_topic_labels_file
+from wtmw.topic_labels import load_model_keywords, update_topic_labels_file
 
 try:
     from pyvis.network import Network
@@ -1125,7 +1125,7 @@ def tune_bertopic_hyperparameters(
     min_words: int = 8,
     model_name: str = "intfloat/multilingual-e5-base",
     save_results: bool = True,
-    results_path: str | Path = "bertopic_tuning_results.csv",
+    results_path: str | Path = DATA_DIR / "bertopic_tuning_results.csv",
     random_state: int = 42,
 ) -> Optional[Dict[str, Any]]:
     """

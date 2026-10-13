@@ -1,3 +1,11 @@
+"""
+Überträgt manuelle Entscheidungen aus data/guest_validation_review.xlsx
+(Spalten manual_status / manual_note) nach data/guest_validation_overrides.json.
+
+Ausführen:
+    python scripts/sync_guest_validation_overrides.py
+"""
+
 from __future__ import annotations
 
 import json
@@ -6,7 +14,7 @@ from pathlib import Path
 import pandas as pd
 
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data"
 REVIEW_PATH = DATA_DIR / "guest_validation_review.xlsx"
 OVERRIDES_PATH = DATA_DIR / "guest_validation_overrides.json"

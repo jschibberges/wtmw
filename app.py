@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 from pathlib import Path
 import streamlit.components.v1 as components
-from app_helpers import (
+from wtmw.app_helpers import (
     TIMEFRAME_OPTIONS,
     filter_by_timeframe,
     format_topic_label,
@@ -14,7 +14,7 @@ from app_helpers import (
     summarize_show_coverage,
     summarize_topic_counts,
 )
-from date_utils import coerce_mixed_date_series, filter_to_analysis_window
+from wtmw.date_utils import coerce_mixed_date_series, filter_to_analysis_window
 
 matplotlib.use("Agg")
 

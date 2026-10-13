@@ -1,4 +1,4 @@
-/* WTMW redesign — load after reflex_dashboard.css. Uses its tokens. */
+/* WTMW page layouts — load after reflex_dashboard.css. Uses its tokens. */
 .page-stack{display:flex;flex-direction:column;gap:24px;width:100%}
 .nav-inner{gap:24px}
 .nav-search-wrap{position:relative;width:260px}

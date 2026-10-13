@@ -92,7 +92,7 @@ def _mmr(
 def _load_role_stop() -> frozenset[str]:
     """Importiert TOPIC_ROLE_STOP aus nlp_utils, falls verfügbar."""
     try:
-        from nlp_utils import TOPIC_ROLE_STOP
+        from wtmw.nlp_utils import TOPIC_ROLE_STOP
         return TOPIC_ROLE_STOP
     except ImportError:
         # Minimale Inline-Fallback-Liste für den Fall, dass nlp_utils nicht importierbar

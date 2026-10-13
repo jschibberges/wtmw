@@ -10,7 +10,7 @@ import pandas as pd
 import networkx as nx
 
 # --- Configuration ---
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data"
 
 # --- optional deps: try to use if present, else fall back ---

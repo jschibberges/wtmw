@@ -11,8 +11,8 @@ Zeigt nebeneinander:
   (1,3)  Trigram (wie im Code konfiguriert, aber bisher nicht im Output)
 
 Ausführen:
-    python scripts/test_ngram_labels.py
-    python scripts/test_ngram_labels.py --show_roles  # ohne Rollenfilter
+    python scripts/compare_ngram_labels.py
+    python scripts/compare_ngram_labels.py --show_roles  # ohne Rollenfilter
 """
 
 from __future__ import annotations
@@ -61,7 +61,7 @@ def compute_ctfidf(
 
     stop_words: set[str] = set()
     try:
-        from nlp_utils import get_german_stopwords, TOPIC_ROLE_STOP
+        from wtmw.nlp_utils import get_german_stopwords, TOPIC_ROLE_STOP
         stop_words = get_german_stopwords()
         stop_words.update(TOPIC_ROLE_STOP)
     except ImportError:
@@ -140,7 +140,7 @@ def dedupe_terms(terms: list[tuple[str, float]], keep_n: int) -> list[tuple[str,
 
 def _get_role_stop() -> frozenset[str]:
     try:
-        from nlp_utils import TOPIC_ROLE_STOP
+        from wtmw.nlp_utils import TOPIC_ROLE_STOP
         return TOPIC_ROLE_STOP
     except ImportError:
         return frozenset()
@@ -235,7 +235,7 @@ def load_data() -> tuple[dict[int, list[str]], dict[str, list]]:
     # LABEL_CONFIG schließt Verben aus (keep_pos = NOUN, PROPN, ADJ),
     # damit Verb-Bigrams wie "kommentieren erklären" nicht in Labels auftauchen.
     try:
-        from nlp_utils import clean_description_for_labels, LABEL_CONFIG
+        from wtmw.nlp_utils import clean_description_for_labels, LABEL_CONFIG
         print("Bereinige Texte mit clean_description_for_labels(LABEL_CONFIG)…")
         texts_cleaned = df[text_col].fillna("").apply(
             lambda t: clean_description_for_labels(t, cfg=LABEL_CONFIG)

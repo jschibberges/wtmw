@@ -1,8 +1,3 @@
-assets/external/
-assets/generated_networks/
-.web
-.states
-*.db
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -182,9 +177,15 @@ cython_debug/
 data/all_data.xlsx
 data/all_data2.xlsx
 
-# Lokale Review-Dateien (Übernahme via sync_guest_validation_overrides.py)
+# Lokale Review-Dateien (Übernahme via scripts/sync_guest_validation_overrides.py)
 data/guest_validation_review.xlsx
-data/junk_guests.xlsx
 
 # Snapshot-Ordner (datierte Backups)
 data/snapshots/
+
+# Reflex: Build-Ordner, State-Dateien und zur Laufzeit kopierte Netzwerk-HTMLs
+.web/
+.states/
+*.db
+assets/external/
+assets/generated_networks/

@@ -59,12 +59,12 @@ python analyze_talkshows.py
 # 3. Dashboard starten
 streamlit run app.py
 
-# Optional: Reflex-Prototyp starten
+# Alternativ: Reflex-Dashboard starten
 reflex run
 ```
 
 Das Streamlit-Dashboard ist dann unter http://localhost:8501 erreichbar.
-Der Reflex-Prototyp startet standardmaessig parallel mit Frontend und Backend ueber `reflex run`.
+Das Reflex-Dashboard startet mit `reflex run` Frontend und Backend gemeinsam (http://localhost:3000).
 
 Beim ersten Lauf lädt `analyze_talkshows.py` das Embedding-Modell `intfloat/multilingual-e5-base`
 von Hugging Face (ca. 1 GB) und ggf. die Stopwort-Listen nach `data/`.
@@ -100,45 +100,47 @@ nachträglich ergänzte Gästelisten und Beschreibungen übernommen werden.
 
 ```
 wtmw/
-├── scrape_talkshows.py                # Web-Scraper (fernsehserien.de)
-├── analyze_talkshows.py               # Analyse-Pipeline (BERTopic, Netzwerke, Klassifizierung)
-├── nlp_utils.py                       # Deutsche NLP-Utilities (spaCy, Stopwörter, Lemmatisierung)
-├── guest_classification.py            # Regelbasierte Gastklassifizierung
-├── guest_classification_embedding.py  # Embedding-Fallback für Klassifizierung
-├── app.py                             # Streamlit-Dashboard
-├── reflex_dashboard_data.py           # Laden, Filtern, Netzwerk-Assets fuer das Reflex-Dashboard
-├── reflex_dashboard_redesign.py       # Daten-Builder fuer die Reflex-Seiten (Uebersicht, Gaeste, Themen, Profil)
-├── rxconfig.py                        # Reflex-Konfiguration
-├── app_helpers.py                     # Hilfsfunktionen für die App
-├── assets/
-│   ├── reflex_dashboard.css           # Basis-Styling fuer das Reflex-Dashboard
-│   └── reflex_dashboard_redesign.css  # Layout der ueberarbeiteten Seiten (wird danach geladen)
-├── wtmw_reflex/
-│   ├── __init__.py
-│   └── wtmw_reflex.py                 # Reflex-Dashboard (5 Routen)
-├── topic_labels.py                    # Topic-Labels über Retrainings stabil halten
-├── sync_guest_validation_overrides.py # Manuelle Gast-Prüfung → guest_validation_overrides.json
+├── scrape_talkshows.py        # 1. Scraper (fernsehserien.de → data/{Show}_data.json)
+├── analyze_talkshows.py       # 2. Analyse (Gastbereinigung, Klassifizierung, BERTopic, Netzwerke)
+├── app.py                     # 3a. Streamlit-Dashboard
+├── rxconfig.py                # 3b. Reflex-Konfiguration (`reflex run`)
 │
-├── environment.yml                    # conda-Umgebung (Python 3.12 + requirements-dev.txt + spaCy-Modell)
-├── requirements.txt                   # Paketversionen (fest)
-├── requirements-dev.txt               # + pytest
-├── .github/workflows/pipeline.yml     # Weekly Pipeline (Scraping + Analyse + Commit)
-├── .github/workflows/tests.yml        # Tests bei jedem Push / Pull Request
+├── wtmw/                      # Gemeinsame Bibliotheksmodule
+│   ├── nlp_utils.py           #   Deutsche NLP-Utilities (spaCy, Stopwörter, Gastnamen-Bereinigung)
+│   ├── guest_classification.py           # Regelbasierte Gastklassifizierung
+│   ├── guest_classification_embedding.py # Embedding-Fallback für die Klassifizierung
+│   ├── topic_labels.py        #   Topic-Labels über Retrainings stabil halten
+│   ├── date_utils.py          #   Datums-Parsing und Analysezeitraum
+│   └── app_helpers.py         #   Gemeinsame Helfer beider Dashboards (Topic-Namen, Gast-Metadaten)
 │
-├── data/
-│   ├── {Show}_data.json               # Rohdaten pro Sendung
-│   ├── all_data_with_topics.xlsx      # Hauptauswertung mit Themen
-│   ├── guests_with_topics.xlsx        # Gäste mit Themen und Kategorien
-│   ├── guest_topic_range.xlsx         # Ranking nach Themenbreite
-│   ├── best_parameters.json           # Optimierte BERTopic-Hyperparameter
-│   ├── topic_labels.json              # Menschenlesbare Topic-Namen (editierbar)
-│   ├── name_corrections.json          # Manuelle Namenskorrekturen
+├── wtmw_reflex/               # Reflex-Dashboard
+│   ├── wtmw_reflex.py         #   Seiten, State und Routen
+│   ├── dashboard_data.py      #   Laden, Filtern, Netzwerk-Assets
+│   └── page_data.py           #   Daten-Builder für Übersicht, Gäste, Themen, Profil
+├── assets/                    # CSS für das Reflex-Dashboard
+│   ├── reflex_dashboard.css        # Basis-Styling (Tokens, Navigation, Karten)
+│   └── reflex_dashboard_pages.css  # Seiten-Layouts (wird danach geladen)
+│
+├── data/                      # Rohdaten, Analyse-Ergebnisse, Modell, manuelle Korrekturen
+│   ├── {Show}_data.json       #   Rohdaten pro Sendung
+│   ├── all_data_with_topics.xlsx   # Hauptauswertung mit Themen
+│   ├── guests_with_topics.xlsx     # Gäste mit Themen und Kategorien
+│   ├── guest_topic_range.xlsx      # Ranking nach Themenbreite
+│   ├── best_parameters.json        # Optimierte BERTopic-Hyperparameter
+│   ├── bertopic_tuning_results.csv # Alle Kombinationen des letzten Tunings
+│   ├── topic_labels.json           # Menschenlesbare Topic-Namen (editierbar)
+│   ├── name_corrections.json       # Manuelle Namenskorrekturen
 │   ├── guest_validation_overrides.json # Manuelle Entscheidungen zur Gast-Validierung
-│   ├── *.html / *.png / *.gexf        # Netzwerk- und Topic-Visualisierungen
-│   └── talkshow_topic_model/          # Gespeichertes BERTopic-Modell
+│   ├── *.html / *.png / *.gexf     # Netzwerk- und Topic-Visualisierungen
+│   └── talkshow_topic_model/       # Gespeichertes BERTopic-Modell
 │
-├── scripts/                           # Diagnose-Skripte (siehe unten)
-└── tests/                             # Unit-Tests
+├── scripts/                   # Wartungs- und Diagnose-Skripte (siehe unten)
+├── tests/                     # pytest-Tests
+│
+├── environment.yml            # conda-Umgebung (Python 3.12 + requirements-dev.txt)
+├── requirements.txt           # Paketversionen (fest)
+├── requirements-dev.txt       # + pytest
+└── .github/workflows/         # Weekly Pipeline (pipeline.yml) und Tests (tests.yml)
 ```
 
 ---
@@ -155,9 +157,9 @@ scrape_talkshows.py  ──►  {Show}_data.json
       │
       ▼
 analyze_talkshows.py
-  ├── Gastbereinigung & Konsolidierung  (nlp_utils.py)
-  ├── Regelbasierte Klassifizierung     (guest_classification.py)
-  ├── Embedding-Fallback                (guest_classification_embedding.py)
+  ├── Gastbereinigung & Konsolidierung  (wtmw/nlp_utils.py)
+  ├── Regelbasierte Klassifizierung     (wtmw/guest_classification.py)
+  ├── Embedding-Fallback                (wtmw/guest_classification_embedding.py)
   ├── BERTopic-Themenmodellierung
   └── Netzwerkanalyse
       │
@@ -167,7 +169,7 @@ analyze_talkshows.py
   talkshow_topic_model/
       │
       ▼
-app.py / wtmw_reflex.py  ──►  Streamlit- bzw. Reflex-Dashboard
+app.py / wtmw_reflex/  ──►  Streamlit- bzw. Reflex-Dashboard
 ```
 
 ### Gastklassifizierung
@@ -217,7 +219,7 @@ BERTopic mit:
 ```
 
 Da BERTopic die Topic-IDs bei jedem Training neu vergibt, ordnet `analyze_talkshows.py` die Labels
-nach jedem Training den neuen IDs zu (`topic_labels.py`) und schreibt die Datei neu:
+nach jedem Training den neuen IDs zu (`wtmw/topic_labels.py`) und schreibt die Datei neu:
 
 1. **Über die Folgen:** Ein neues Topic übernimmt das Label des alten Topics, mit dem es die meisten
    Folgen teilt (Grundlage: `all_data_with_topics.xlsx` des letzten Laufs, mind. 30 % Überlappung).
@@ -252,7 +254,7 @@ Der Scraper bewertet jeden Gastnamen als `accept`, `review` oder `reject` (z. B.
 Organisationsnamen verworfen). Unsichere Fälle landen in `data/guest_validation_review.xlsx`:
 
 1. In der Excel-Datei die Spalte `manual_status` auf `accept` oder `reject` setzen (optional `manual_note`).
-2. `python sync_guest_validation_overrides.py` überträgt die Entscheidungen nach
+2. `python scripts/sync_guest_validation_overrides.py` überträgt die Entscheidungen nach
    `data/guest_validation_overrides.json`.
 3. Die Overrides gelten ab dem nächsten Scraping – für bereits gespeicherte Folgen nur, wenn diese erneut
    abgerufen werden (z. B. innerhalb des 14-Tage-Fensters).
@@ -280,13 +282,13 @@ rm data/best_parameters.json
 python analyze_talkshows.py
 ```
 
-Tuning-Ergebnisse werden in `bertopic_tuning_results.csv` (im Projektverzeichnis) gespeichert.
+Tuning-Ergebnisse werden in `data/bertopic_tuning_results.csv` gespeichert.
 
 **Hardware-Hinweis**: Das Modell nutzt automatisch Apple Silicon MPS, CUDA oder CPU. Auf MPS wird float16 verwendet; bei Speichermangel wird die Batch-Größe automatisch reduziert (64 → 1).
 
 ---
 
-## Diagnose-Skripte
+## Wartungs- und Diagnose-Skripte
 
 Aufruf aus dem Projektverzeichnis, z. B. `python scripts/compare_classification.py`.
 
@@ -295,7 +297,8 @@ Aufruf aus dem Projektverzeichnis, z. B. `python scripts/compare_classification.
 | `scripts/compare_classification.py` | Regelbasierte vs. Embedding-Klassifizierung vergleichen |
 | `scripts/inspect_citizens.py` | Kategorie "Citizens & Everyday Voices" analysieren |
 | `scripts/compare_topic_labels.py` | c-TF-IDF-Labels vs. KeyBERTInspired-Reranking vergleichen |
-| `scripts/test_ngram_labels.py` | Unigramm- vs. Bigramm-Topic-Labels testen (kein pytest-Test) |
+| `scripts/compare_ngram_labels.py` | Unigramm- vs. Bigramm-/Trigramm-Topic-Labels vergleichen |
+| `scripts/sync_guest_validation_overrides.py` | Manuelle Gast-Prüfung → `data/guest_validation_overrides.json` |
 
 ---
 
@@ -308,7 +311,7 @@ Feste Versionen stehen in `requirements.txt`.
 | Scraping | beautifulsoup4, requests |
 | Daten | pandas, openpyxl |
 | NLP | spacy (+ `de_core_news_md`), sentence-transformers, bertopic, umap-learn, hdbscan, scikit-learn |
-| Visualisierung | streamlit, altair, matplotlib, networkx, pyvis |
+| Visualisierung | streamlit, reflex, matplotlib, networkx, pyvis |
 | Konsole | rich |
 | Tests | pytest |
 

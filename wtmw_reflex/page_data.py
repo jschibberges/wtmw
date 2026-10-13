@@ -1,9 +1,9 @@
 """
-Data builders for the redesigned Reflex dashboard.
+Data builders for the Reflex dashboard pages (Übersicht, Gäste, Themen, Profil).
 
-Sits next to reflex_dashboard_data.py and only adds functions; nothing in the
-existing module has to be removed. Every builder returns plain JSON-friendly
-structures (str/int values) so Reflex can type the computed vars.
+Builds on wtmw_reflex.dashboard_data (loading, filtering, network assets).
+Every builder returns plain JSON-friendly structures (str/int values) so
+Reflex can type the computed vars.
 """
 
 from __future__ import annotations
@@ -14,11 +14,11 @@ from urllib.parse import quote
 
 import pandas as pd
 
-from app_helpers import format_topic_label, is_format_cluster_label
-from reflex_dashboard_data import build_top_guest_pairs, compact_label, format_count
-from topic_labels import FORMAT_CLUSTER_PREFIX, label_text, load_curated_labels
+from wtmw.app_helpers import format_topic_label, is_format_cluster_label
+from wtmw_reflex.dashboard_data import build_top_guest_pairs, compact_label, format_count
+from wtmw.topic_labels import FORMAT_CLUSTER_PREFIX, label_text, load_curated_labels
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data"
 
 # Same order/colours as CHART_COLORS in wtmw_reflex.py, fixed per show so a

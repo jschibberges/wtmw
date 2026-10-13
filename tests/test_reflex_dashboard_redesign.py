@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pandas as pd
 
-import reflex_dashboard_redesign as rd
+from wtmw_reflex import page_data as rd
 
 
 def _shows() -> pd.DataFrame:

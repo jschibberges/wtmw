@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import networkx as nx
 
-from reflex_dashboard_data import _build_network_summary
+from wtmw_reflex.dashboard_data import _build_network_summary
 
 
 def test_build_network_summary_extracts_metrics_and_highlights(tmp_path):

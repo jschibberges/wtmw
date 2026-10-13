@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pandas as pd
 
-from date_utils import (
+from wtmw.date_utils import (
     ANALYSIS_START_DATE,
     filter_to_analysis_window,
     is_on_or_after_analysis_start,

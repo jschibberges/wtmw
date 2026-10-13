@@ -10,7 +10,7 @@ Strategie:
      Klassifizierungen im Confidence-Wert unterscheidbar bleiben.
 
 Integration in analyze_talkshows.py:
-    from guest_classification_embedding import (
+    from wtmw.guest_classification_embedding import (
         build_prototype_embeddings,
         apply_embedding_fallback,
     )

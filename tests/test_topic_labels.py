@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import random
 
-import topic_labels as tl
+from wtmw import topic_labels as tl
 
 
 UKRAINE = ["ukrainisch", "russisch", "putin", "kreml", "bundeswehr"]

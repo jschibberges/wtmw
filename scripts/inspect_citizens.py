@@ -45,10 +45,10 @@ for f in sorted(DATA_DIR.glob("*_data.json")):
 
 df_raw = pd.DataFrame(rows)
 
-from nlp_utils import clean_guest_rows
+from wtmw.nlp_utils import clean_guest_rows
 from analyze_talkshows import consolidate_guests, _get_embedder, _embed_texts
-from guest_classification import add_classification_columns
-from guest_classification_embedding import build_prototype_embeddings, apply_embedding_fallback
+from wtmw.guest_classification import add_classification_columns
+from wtmw.guest_classification_embedding import build_prototype_embeddings, apply_embedding_fallback
 
 df_cleaned, _ = clean_guest_rows(
     df_raw, name_col="name", role_col="role", party_col="party", show_col="Talkshow"

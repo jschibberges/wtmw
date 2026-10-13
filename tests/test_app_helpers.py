@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import pandas as pd
 
-import app_helpers
-from app_helpers import (
+from wtmw import app_helpers
+from wtmw.app_helpers import (
     filter_by_timeframe,
     format_topic_label,
     prepare_guest_metadata,

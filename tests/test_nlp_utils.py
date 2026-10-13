@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import nlp_utils
+from wtmw import nlp_utils
 
 
 def test_clean_description_does_not_mutate_cached_stopwords():

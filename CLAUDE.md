@@ -39,6 +39,7 @@ All files are created in the `data/` directory:
 - `guests_with_topics.xlsx` - Guest appearances with topic labels
 - `guest_topic_range.xlsx` - Guests ranked by topic diversity
 - `best_parameters.json` - Optimized BERTopic hyperparameters
+- `bertopic_tuning_results.csv` - All combinations from the last hyperparameter tuning
 - `name_corrections.json` - Manual guest name override mappings
 - `topic_labels.json` - Human-readable topic label overrides (edit to rename topics)
 - `talkshow_topic_model/` - Saved BERTopic model (safetensors format)
@@ -47,6 +48,13 @@ All files are created in the `data/` directory:
 - `topics_*.html` - Interactive BERTopic visualizations
 
 ## Architecture
+
+### Repository Layout
+
+- Root: only the entry points — `scrape_talkshows.py`, `analyze_talkshows.py`, `app.py` (Streamlit), `rxconfig.py` (Reflex)
+- `wtmw/`: shared library modules (`nlp_utils`, `guest_classification`, `guest_classification_embedding`, `topic_labels`, `date_utils`, `app_helpers`); import as `from wtmw.nlp_utils import ...`
+- `wtmw_reflex/`: Reflex app (`wtmw_reflex.py`) plus its data modules `dashboard_data.py` and `page_data.py`; CSS in `assets/`
+- `scripts/`: maintenance and diagnostic scripts; `tests/`: pytest suite; `data/`: all inputs and generated outputs
 
 ### Core Modules
 
@@ -71,12 +79,12 @@ All files are created in the `data/` directory:
   - After `topic_model.save()`, overwrites `topics.json` with cleaned representations (role filter + dedupe applied)
 - **Guest Consolidation**: Merges duplicate guests using `nlp_utils.clean_guest_rows`; aggregates `party_norm` and `role_clean` (not raw `party`/`role`)
 - **Guest Classification**: `add_classification_columns(df, role_col="role_clean")` — uses cleaned role column
-- **Embedding Fallback**: `apply_embedding_fallback()` from `guest_classification_embedding.py` classifies remaining unclassified guests
+- **Embedding Fallback**: `apply_embedding_fallback()` from `wtmw/guest_classification_embedding.py` classifies remaining unclassified guests
 - **Network Analysis**: NetworkX graphs weighted by co-appearances or shared guests
 - **Exports**: Interactive PyVis networks and static Matplotlib plots
 - Exception handling uses specific types (`AttributeError`, `RuntimeError`) rather than bare `except Exception`
 
-**nlp_utils.py**
+**wtmw/nlp_utils.py**
 - German NLP preprocessing using spaCy (`de_core_news_md` or `de_core_news_sm`)
 - Stopwords: Combines solariz + stopwords-iso sources with custom domain terms (`GERMAN_EXTRA_STOP`)
 - `GERMAN_EXTRA_STOP`: includes talkshow meta-verbs ("äußert", "spricht", "analysiert" etc.) to prevent them appearing as topic terms
@@ -88,7 +96,7 @@ All files are created in the `data/` directory:
 - Topic term deduplication via `_dedupe_topic_terms`: removes shorter n-grams that are subsets of longer kept phrases
 - Configurable via `LiteConfig` dataclass
 
-**guest_classification.py**
+**wtmw/guest_classification.py**
 - Rule-based guest classification into 9 categories (Politics, Media, Academia, Business, etc.)
 - `RULES` dict with `strong` / `weak` regex patterns per category
 - Weights: `STRONG_W=3.0`, `WEAK_W=1.0`, `PARTY_W=4.0`
@@ -96,7 +104,7 @@ All files are created in the `data/` directory:
 - `add_classification_columns(df, role_col="role_clean")` — accepts explicit role column name
 - Role-list parsing uses `except (ValueError, SyntaxError)` rather than bare `except Exception`
 
-**guest_classification_embedding.py**
+**wtmw/guest_classification_embedding.py**
 - Embedding-based fallback for guests without rule-based category
 - `CATEGORY_PROTOTYPES`: 5 representative German texts per category
 - `CATEGORY_MIN_SIMILARITY_OVERRIDES`: per-category minimum cosine similarity thresholds
@@ -104,7 +112,7 @@ All files are created in the `data/` directory:
 - Guests with a `party_norm` value cannot be classified as Citizens
 - `CategorySource` column tracks whether classification came from 'rules' or 'embedding'
 
-**app_helpers.py**
+**wtmw/app_helpers.py**
 - Uses `logging` module (`_log = logging.getLogger(__name__)`); no bare `except Exception: pass`
 - `_load_topic_labels()`: reads `data/topic_labels.json` (cached via `@lru_cache`); logs a `WARNING` on `json.JSONDecodeError` instead of silently returning `{}`
 - `format_topic_label(label)`: returns human-readable topic name; both `None`/empty input and topic `-1` resolve to `"Nicht klassifiziert"` — there is intentionally only one "unclassified" label
@@ -131,9 +139,9 @@ All files are created in the `data/` directory:
 
 **Reflex dashboard** (`reflex run`, `wtmw_reflex/wtmw_reflex.py`)
 - Routes: `/` Übersicht, `/gaeste`, `/gaeste/[guest]` (person profile, name URL-encoded; `personensuche` still serves the Gäste page), `/themen`, `/netzwerke`
-- Data builders live in `reflex_dashboard_redesign.py` (all return JSON-friendly str/int dicts so Reflex can type the computed vars); `reflex_dashboard_data.py` keeps loading, filtering and network assets
+- Data builders live in `wtmw_reflex/page_data.py` (all return JSON-friendly str/int dicts so Reflex can type the computed vars); `wtmw_reflex/dashboard_data.py` keeps loading, filtering and network assets
 - Shared filter bar (Zeitraum / Sendung / Gastkategorie) on every page except `/netzwerke`, which always shows the full data set (`network_pairs` is unfiltered on purpose)
-- `INCOMPLETE_YEARS` in `reflex_dashboard_redesign.py` dims scraping-gap years in the timeline (currently `None` = only the latest year; the Lanz/Maischberger 2025 gap was closed by the season-page scrape)
+- `INCOMPLETE_YEARS` in `wtmw_reflex/page_data.py` dims scraping-gap years in the timeline (currently `None` = only the latest year; the Lanz/Maischberger 2025 gap was closed by the season-page scrape)
 - Format clusters come from `"kind": "format"` in `topic_labels.json` (no hard-coded IDs); shown with a badge and never chosen as the default topic
 - Guest party = **latest** known `party_norm`, not the most frequent (`prepare_guest_metadata` / `latest_party_map`)
 - Recharts ignores `fill_opacity` on `rx.recharts.bar`; use a lighter `fill` colour instead
@@ -147,7 +155,7 @@ The codebase handles numerous variations of German party names:
 - "Bündnis 90/Die Grünen" has 7+ spelling variations normalized to canonical form
 - Regex pattern for Greens: `B[^.]{0,10}90[^.]*?[gG]rün\w{1,2}`
 - Other parties: CDU, CSU, SPD, FDP, AfD, BSW, LINKE, parteilos
-- `PARTY_ALIASES` in `nlp_utils.py` and `PARTY_NORMALIZATION_MAP` in `scrape_talkshows.py` are deduplicated (no repeated keys)
+- `PARTY_ALIASES` in `wtmw/nlp_utils.py` and `PARTY_NORMALIZATION_MAP` in `scrape_talkshows.py` are deduplicated (no repeated keys)
 
 ### Show Name Normalization
 - `_SHOW_NAME_NORMALIZATIONS` in `scrape_talkshows.py` maps all known capitalisation variants to the canonical show name
@@ -204,7 +212,7 @@ Two distinct situations produce "Nicht klassifiziert":
 
 ## Dependencies
 
-Install via: `pip install -r requirements.txt`
+Install via: `conda env create -f environment.yml` (or `pip install -r requirements-dev.txt`)
 
 Key packages:
 - **Scraping**: beautifulsoup4, requests
@@ -229,7 +237,7 @@ German spaCy model: `python -m spacy download de_core_news_md`
 **Retune BERTopic**:
 - Delete `data/best_parameters.json`
 - Run `python analyze_talkshows.py` (tuning will auto-trigger)
-- Results saved to `bertopic_tuning_results.csv` with all combinations tested
+- Results saved to `data/bertopic_tuning_results.csv` with all combinations tested
 - Note: `clean_description_for_labels` uses `LABEL_CONFIG` (no verbs) for cleaner label candidates
 
 **Reduce BERTopic outlier rate**:
@@ -243,39 +251,39 @@ German spaCy model: `python -m spacy download de_core_news_md`
 
 **Mark a cluster as a show format (not a topic)**:
 - Some BERTopic clusters group guest roles / show formats (e.g. Markus Lanz episodes) rather than a subject
-- In `data/topic_labels.json` give the entry `"kind": "format"`; it is shown as `"Format-Cluster: <label>"` and excluded from topic rankings ("Top-Thema", top-topic chart). The flag follows the label through `topic_labels.remap_topic_labels`
-- `_TOPIC_GROUPS` in `reflex_dashboard_data.py` is keyed by curated **label text**, not topic ID (IDs change on every retraining)
-- After a retraining outside the pipeline, remap labels with `topic_labels.update_topic_labels_file` — `topic_labels.json` must always match the model in `data/talkshow_topic_model/`
+- In `data/topic_labels.json` give the entry `"kind": "format"`; it is shown as `"Format-Cluster: <label>"` and excluded from topic rankings ("Top-Thema", top-topic chart). The flag follows the label through `wtmw.topic_labels.remap_topic_labels`
+- `_TOPIC_GROUPS` in `wtmw_reflex/dashboard_data.py` is keyed by curated **label text**, not topic ID (IDs change on every retraining)
+- After a retraining outside the pipeline, remap labels with `wtmw.topic_labels.update_topic_labels_file` — `topic_labels.json` must always match the model in `data/talkshow_topic_model/`
 
 **Fix misidentified guests**:
 1. Add entries to `data/name_corrections.json`: `{"Wrong Name": "Correct Name"}`
 2. Rerun `python analyze_talkshows.py`
 
 **Update stopwords**:
-- Generic stopwords: edit `GERMAN_EXTRA_STOP` in `nlp_utils.py`
-- Role/job title filter: edit `TOPIC_ROLE_STOP` in `nlp_utils.py`
+- Generic stopwords: edit `GERMAN_EXTRA_STOP` in `wtmw/nlp_utils.py`
+- Role/job title filter: edit `TOPIC_ROLE_STOP` in `wtmw/nlp_utils.py`
 - Changes affect both `clean_description_for_labels()` and `_filter_topic_terms()`
 
 **Improve guest classification**:
-- Rule-based: extend `RULES` in `guest_classification.py`
-- Embedding fallback: adjust `CATEGORY_PROTOTYPES` or `CATEGORY_MIN_SIMILARITY_OVERRIDES` in `guest_classification_embedding.py`
+- Rule-based: extend `RULES` in `wtmw/guest_classification.py`
+- Embedding fallback: adjust `CATEGORY_PROTOTYPES` or `CATEGORY_MIN_SIMILARITY_OVERRIDES` in `wtmw/guest_classification_embedding.py`
 - Compare results: `python scripts/compare_classification.py`
 
 ## Utility / Diagnostic Scripts
 
-All diagnostic scripts live in `scripts/`:
+All maintenance and diagnostic scripts live in `scripts/` (run from the project root, e.g. `python scripts/compare_classification.py`):
 
 - `compare_classification.py` — compares rule-based vs. embedding classification side-by-side
 - `inspect_citizens.py` — deep analysis of "Citizens & Everyday Voices" category distribution
 - `compare_topic_labels.py` — compares c-TF-IDF labels vs. KeyBERTInspired re-ranking
-- `test_ngram_labels.py` — tests unigram / bigram / trigram c-TF-IDF labels on existing topic assignments
-- `sync_guest_validation_overrides.py` — syncs manual guest validation overrides
+- `compare_ngram_labels.py` — compares unigram / bigram / trigram c-TF-IDF labels on existing topic assignments
+- `sync_guest_validation_overrides.py` — syncs manual decisions from `data/guest_validation_review.xlsx` into `data/guest_validation_overrides.json`
 
 ## File Structure Patterns
 
-- Python scripts use `BASE_DIR = Path(__file__).resolve().parent` for path resolution
+- Python modules resolve the project root via `BASE_DIR = Path(__file__).resolve().parent` (root entry points) or `.parents[1]` (modules in `wtmw/`, `wtmw_reflex/`, `scripts/`)
 - Data always goes to `data/` subdirectory; snapshots/backups go to `data/snapshots/`
 - JSON for intermediate storage, Excel (`.xlsx`) for human-readable exports
 - HTML visualizations use `.html` extension
 - Network formats: `.png` (static), `.html` (interactive), `.gexf` (Gephi export)
-- Diagnostic/utility scripts live in `scripts/`, not the project root
+- Diagnostic/utility scripts live in `scripts/`, shared library code in `wtmw/` — not the project root
