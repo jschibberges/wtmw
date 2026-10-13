@@ -55,6 +55,7 @@ All files are created in the `data/` directory:
 - `wtmw/`: shared library modules (`nlp_utils`, `guest_classification`, `guest_classification_embedding`, `topic_labels`, `date_utils`, `app_helpers`); import as `from wtmw.nlp_utils import ...`
 - `wtmw_reflex/`: Reflex app (`wtmw_reflex.py`) plus its data modules `dashboard_data.py` and `page_data.py`; CSS in `assets/`
 - `scripts/`: maintenance and diagnostic scripts; `tests/`: pytest suite; `data/`: all inputs and generated outputs
+- `README.md` is written for a non-technical audience (content, findings, data limits); technical setup and configuration docs live in `docs/ENTWICKLUNG.md`
 
 ### Core Modules
 

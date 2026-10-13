@@ -1,319 +1,118 @@
 # Wer talkt mit wem?
 
-Eine Datenplattform zur Analyse von Gästen, Themen und Netzwerken in deutschen politischen Talkshows.
+Politische Talkshows prägen, worüber in Deutschland gestritten wird und wer dabei zu Wort kommt.
+Aber wer sitzt dort eigentlich Woche für Woche in den Sesseln? Welche Parteien, Berufe und
+Stimmen sind häufig zu sehen, welche kaum? Welche Themen bestimmen die Sendungen, und wie
+verschieben sie sich über die Jahre?
 
-Ausgewertet werden: **Anne Will**, **Caren Miosga**, **Hart aber Fair**, **Markus Lanz**, **Maischberger** und **Maybrit Illner**.
-
----
-
-## Was kann das Projekt?
-
-- **Wer war wann wo?** — Alle Gäste aller Folgen auf einen Blick, filterbar nach Zeitraum und Sendung
-- **Wer trifft wen?** — Netzwerkvisualisierung der Gäste-Ko-Auftritte
-- **Worüber wurde geredet?** — Automatische Themenmodellierung via BERTopic
-- **Wer kommt aus welchem Lager?** — Parteizuordnung und Gastklassifizierung (Politik, Wissenschaft, Medien, …)
-- **Wer ist am vielseitigsten?** — Ranking nach Themenbreite der Gäste
+**Wer talkt mit wem?** sammelt die Gästelisten und Sendungsbeschreibungen der großen
+politischen Talkshows und macht sie in einem Dashboard durchsuchbar.
 
 ---
 
-## Schnellstart
+## Welche Sendungen?
 
-### Installation (conda, empfohlen)
-
-```bash
-git clone https://github.com/jschibberges/wtmw.git
-cd wtmw
-
-conda env create -f environment.yml
-conda activate wtmw
-```
-
-`environment.yml` installiert Python 3.12 und alle Pakete aus `requirements-dev.txt` (inkl. `pytest` und
-des spaCy-Modells `de_core_news_md`). Nach Änderungen an den requirements-Dateien:
-
-```bash
-conda env update -f environment.yml --prune
-```
-
-<details>
-<summary>Ohne conda (pip)</summary>
-
-```bash
-python3.12 -m venv .venv && source .venv/bin/activate
-pip install -r requirements-dev.txt
-```
-</details>
-
-Die Paketversionen sind in `requirements.txt` fest vorgegeben (getestet mit Python 3.12) und gelten
-gleichermaßen für die lokale Umgebung und die Weekly Pipeline.
-
-### Pipeline ausführen
-
-```bash
-# 1. Daten scrapen
-python scrape_talkshows.py
-
-# 2. Analyse & Themenmodellierung
-python analyze_talkshows.py
-
-# 3. Dashboard starten
-streamlit run app.py
-
-# Alternativ: Reflex-Dashboard starten
-reflex run
-```
-
-Das Streamlit-Dashboard ist dann unter http://localhost:8501 erreichbar.
-Das Reflex-Dashboard startet mit `reflex run` Frontend und Backend gemeinsam (http://localhost:3000).
-
-Beim ersten Lauf lädt `analyze_talkshows.py` das Embedding-Modell `intfloat/multilingual-e5-base`
-von Hugging Face (ca. 1 GB) und ggf. die Stopwort-Listen nach `data/`.
-
-### Tests
-
-```bash
-pytest
-```
-
-Auf GitHub laufen die Tests automatisch bei jedem Push und bei Pull Requests nach `main`/`dev`
-(`.github/workflows/tests.yml`, Python 3.12 mit den Versionen aus `requirements-dev.txt`).
-
-### Automatische Aktualisierung (GitHub Actions)
-
-`.github/workflows/pipeline.yml` („Weekly Pipeline“) scrapt und analysiert jeden **Montag um 04:00 Uhr
-(Europe/Berlin)** und committet die aktualisierten Dateien in `data/` zurück ins Repo.
-
-- GitHub führt Zeitpläne nur auf dem **Default-Branch** aus – der Workflow muss dort liegen.
-- Manuell starten: *Actions → Weekly Pipeline → Run workflow*.
-- Die Pipeline nutzt dieselben Paketversionen und dasselbe spaCy-Modell (`de_core_news_md`) wie die
-  lokale Umgebung – beides kommt aus `requirements.txt`.
-
-### Aktualisierung bestehender Folgen
-
-Der Scraper lädt nur Folgen, die noch nicht in `data/{Show}_data.json` stehen. Ausnahme: Folgen der letzten
-14 Tage (`REFRESH_RECENT_DAYS` in `scrape_talkshows.py`) werden bei jedem Lauf erneut abgerufen, damit
-nachträglich ergänzte Gästelisten und Beschreibungen übernommen werden.
-
----
-
-## Projektstruktur
-
-```
-wtmw/
-├── scrape_talkshows.py        # 1. Scraper (fernsehserien.de → data/{Show}_data.json)
-├── analyze_talkshows.py       # 2. Analyse (Gastbereinigung, Klassifizierung, BERTopic, Netzwerke)
-├── app.py                     # 3a. Streamlit-Dashboard
-├── rxconfig.py                # 3b. Reflex-Konfiguration (`reflex run`)
-│
-├── wtmw/                      # Gemeinsame Bibliotheksmodule
-│   ├── nlp_utils.py           #   Deutsche NLP-Utilities (spaCy, Stopwörter, Gastnamen-Bereinigung)
-│   ├── guest_classification.py           # Regelbasierte Gastklassifizierung
-│   ├── guest_classification_embedding.py # Embedding-Fallback für die Klassifizierung
-│   ├── topic_labels.py        #   Topic-Labels über Retrainings stabil halten
-│   ├── date_utils.py          #   Datums-Parsing und Analysezeitraum
-│   └── app_helpers.py         #   Gemeinsame Helfer beider Dashboards (Topic-Namen, Gast-Metadaten)
-│
-├── wtmw_reflex/               # Reflex-Dashboard
-│   ├── wtmw_reflex.py         #   Seiten, State und Routen
-│   ├── dashboard_data.py      #   Laden, Filtern, Netzwerk-Assets
-│   └── page_data.py           #   Daten-Builder für Übersicht, Gäste, Themen, Profil
-├── assets/                    # CSS für das Reflex-Dashboard
-│   ├── reflex_dashboard.css        # Basis-Styling (Tokens, Navigation, Karten)
-│   └── reflex_dashboard_pages.css  # Seiten-Layouts (wird danach geladen)
-│
-├── data/                      # Rohdaten, Analyse-Ergebnisse, Modell, manuelle Korrekturen
-│   ├── {Show}_data.json       #   Rohdaten pro Sendung
-│   ├── all_data_with_topics.xlsx   # Hauptauswertung mit Themen
-│   ├── guests_with_topics.xlsx     # Gäste mit Themen und Kategorien
-│   ├── guest_topic_range.xlsx      # Ranking nach Themenbreite
-│   ├── best_parameters.json        # Optimierte BERTopic-Hyperparameter
-│   ├── bertopic_tuning_results.csv # Alle Kombinationen des letzten Tunings
-│   ├── topic_labels.json           # Menschenlesbare Topic-Namen (editierbar)
-│   ├── name_corrections.json       # Manuelle Namenskorrekturen
-│   ├── guest_validation_overrides.json # Manuelle Entscheidungen zur Gast-Validierung
-│   ├── *.html / *.png / *.gexf     # Netzwerk- und Topic-Visualisierungen
-│   └── talkshow_topic_model/       # Gespeichertes BERTopic-Modell
-│
-├── scripts/                   # Wartungs- und Diagnose-Skripte (siehe unten)
-├── tests/                     # pytest-Tests
-│
-├── environment.yml            # conda-Umgebung (Python 3.12 + requirements-dev.txt)
-├── requirements.txt           # Paketversionen (fest)
-├── requirements-dev.txt       # + pytest
-└── .github/workflows/         # Weekly Pipeline (pipeline.yml) und Tests (tests.yml)
-```
-
----
-
-## Architektur
-
-### Daten-Pipeline
-
-```
-fernsehserien.de
-      │
-      ▼
-scrape_talkshows.py  ──►  {Show}_data.json
-      │
-      ▼
-analyze_talkshows.py
-  ├── Gastbereinigung & Konsolidierung  (wtmw/nlp_utils.py)
-  ├── Regelbasierte Klassifizierung     (wtmw/guest_classification.py)
-  ├── Embedding-Fallback                (wtmw/guest_classification_embedding.py)
-  ├── BERTopic-Themenmodellierung
-  └── Netzwerkanalyse
-      │
-      ▼
-  all_data_with_topics.xlsx
-  guests_with_topics.xlsx
-  talkshow_topic_model/
-      │
-      ▼
-app.py / wtmw_reflex/  ──►  Streamlit- bzw. Reflex-Dashboard
-```
-
-### Gastklassifizierung
-
-Gäste werden in 10 Kategorien eingeteilt:
-
-| Kategorie | Beispiele |
+| Sendung | Sender |
 |---|---|
-| Politics & Government | Abgeordnete, Minister, Botschafter |
-| Media & Communication | Journalisten, Moderatoren, Chefredakteure |
-| Academia & Expertise | Professoren, Forscher, Gutachter |
-| Business & Economy | CEOs, Unternehmer, Ökonomen |
-| Civil Society & Advocacy | Aktivisten, NGO-Vertreter, Gewerkschaften |
-| Arts & Culture | Schauspieler, Autoren, Musiker |
-| Sports | Sportler, Trainer |
-| Religion & Spirituality | Theologen, Kirchenvertreter |
-| Citizens & Everyday Voices | Betroffene, Privatpersonen |
-| Influencers & Digital Creators | YouTuber, Podcaster, Influencer |
+| Anne Will | Das Erste (bis 2023) |
+| Caren Miosga | Das Erste (seit 2024) |
+| hart aber fair | Das Erste |
+| maischberger | Das Erste |
+| Markus Lanz | ZDF |
+| Maybrit Illner | ZDF |
 
-Die Klassifizierung läuft zweistufig: zuerst regelbasiert (Regex auf Rollenbezeichnungen + Parteizugehörigkeit), dann per Embedding-Ähnlichkeit zu Kategorie-Prototypen für nicht erkannte Gäste.
-
-### Themenmodellierung
-
-BERTopic mit:
-
-- **Embeddings**: `intfloat/multilingual-e5-base` (mehrsprachig)
-- **Dimensionsreduktion**: UMAP (automatisch getunt via Grid Search)
-- **Clustering**: HDBSCAN (automatisch getunt)
-- **Vokabular**: c-TF-IDF mit deutschen Stopwörtern + Rollenfilter (`TOPIC_ROLE_STOP`)
-- **Labels**: Gespeichert in `data/topic_labels.json`, ohne Retraining editierbar; werden nach jedem Training über gemeinsame Folgen (Fallback: Keywords) den neuen Topic-IDs zugeordnet
+Ausgewertet werden alle Ausgaben seit Januar 2015, aktuell rund 2.650 Sendungen mit knapp
+3.000 verschiedenen Gästen (Stand: Oktober 2026). Die Daten werden jeden Montag automatisch
+um die Sendungen der Vorwoche ergänzt.
 
 ---
 
-## Konfiguration
+## Was lässt sich herausfinden?
 
-### Topic-Namen anpassen
-
-`data/topic_labels.json` enthält menschenlesbare Namen pro Topic-ID, zusammen mit den Keywords des Topics:
-
-```json
-{
-  "-1": "Sonstige / Nicht zugeordnet",
-  "0": {"label": "Ukraine-Krieg & Russland", "keywords": ["ukrainisch", "russisch", "putin", "..."]},
-  "7": {"label": null, "keywords": ["..."]},
-  "_unassigned": [{"label": "Brexit & Großbritannien", "keywords": ["brexit", "..."]}]
-}
-```
-
-Da BERTopic die Topic-IDs bei jedem Training neu vergibt, ordnet `analyze_talkshows.py` die Labels
-nach jedem Training den neuen IDs zu (`wtmw/topic_labels.py`) und schreibt die Datei neu:
-
-1. **Über die Folgen:** Ein neues Topic übernimmt das Label des alten Topics, mit dem es die meisten
-   Folgen teilt (Grundlage: `all_data_with_topics.xlsx` des letzten Laufs, mind. 30 % Überlappung).
-   Teilt sich ein Topic, erhält der größere Teil das Label.
-2. **Über die Keywords** (Fallback): für geparkte Labels und falls die alte Zuordnung fehlt oder nicht
-   zum gespeicherten Modell passt (mind. die Hälfte der Keywords gleich).
-
-Das Log zeigt für jedes Label, wohin es gewandert ist und auf welchem Weg. Danach in der Datei prüfen:
-
-- **`"label": null`** — neues Topic ohne passendes Label. Einfach einen Namen eintragen.
-- **`_unassigned`** — Labels, deren Topic im aktuellen Modell nicht mehr vorkommt. Sie werden bei jedem
-  Lauf erneut (über die Keywords) geprüft.
-- Ein Eintrag darf auch nur ein String sein (`"5": "Mein Label"`); die Keywords werden dann beim nächsten
-  Lauf aus dem aktuell gespeicherten Modell ergänzt.
-
-Änderungen am Label werden nach einem Streamlit-Neustart sichtbar — kein Retraining notwendig.
-
-### Gästenamen korrigieren
-
-```json
-// data/name_corrections.json
-{
-  "Falsch Geschrieben": "Korrekt Geschrieben"
-}
-```
-
-Danach `python analyze_talkshows.py` erneut ausführen.
-
-### Gast-Validierung prüfen
-
-Der Scraper bewertet jeden Gastnamen als `accept`, `review` oder `reject` (z. B. werden Werbetexte oder
-Organisationsnamen verworfen). Unsichere Fälle landen in `data/guest_validation_review.xlsx`:
-
-1. In der Excel-Datei die Spalte `manual_status` auf `accept` oder `reject` setzen (optional `manual_note`).
-2. `python scripts/sync_guest_validation_overrides.py` überträgt die Entscheidungen nach
-   `data/guest_validation_overrides.json`.
-3. Die Overrides gelten ab dem nächsten Scraping – für bereits gespeicherte Folgen nur, wenn diese erneut
-   abgerufen werden (z. B. innerhalb des 14-Tage-Fensters).
-
-### Neue Sendung hinzufügen
-
-1. Episodenguide-URL in `scrape_talkshows.py` ergänzen (`alternative_url_…`)
-2. Modulvariable, Laden in `_load_existing_data()` und die `all_data`-Aggregation eintragen
-3. Scraping-Aufruf und Statistik in `main()` hinzufügen
-4. `show_files`-Liste in `load_all_show_data()` (`analyze_talkshows.py`) aktualisieren
+- **Wer ist Dauergast?** Ranglisten der häufigsten Gäste, insgesamt oder für einen
+  bestimmten Zeitraum und eine bestimmte Sendung.
+- **Aus welcher Partei?** Politikerinnen und Politiker sind in Ranglisten, Gästelisten und
+  Profilen mit ihrer Partei ausgewiesen.
+- **Wer kommt aus Politik, Medien, Wissenschaft oder Wirtschaft?** Jeder Gast hat eine
+  Kategorie (siehe unten). So wird sichtbar, wie viel Raum etwa Fachleute oder Betroffene bekommen.
+- **Worüber wird gesprochen?** Jede Sendung ist einem Thema zugeordnet, zum Beispiel
+  „Ukraine-Krieg & Russland“, „Corona-Pandemie“ oder „Flüchtlingskrise & Migration“. Zeitreihen
+  zeigen, wann ein Thema die Talkshows beherrscht hat und wann es wieder verschwand.
+- **Wer sitzt mit wem zusammen?** Das Gäste-Netzwerk zeigt, welche Personen besonders oft
+  gemeinsam eingeladen werden. Das Themen-Netzwerk zeigt, welche Themen sich dieselben Gäste teilen.
+- **Wer ist Allrounder, wer Spezialist?** Für jeden Gast lässt sich ablesen, zu wie vielen
+  verschiedenen Themen er oder sie eingeladen wurde.
+- **Personenprofile:** Alle Auftritte einer Person, ihre Themen und die Gäste, mit denen sie
+  am häufigsten in einer Runde saß.
 
 ---
 
-## BERTopic neu trainieren
+## Wer sitzt da?
 
-Das Topic-Modell wird bei jedem Lauf von `analyze_talkshows.py` neu trainiert. Die Hyperparameter aus
-`data/best_parameters.json` werden automatisch neu getunt (Grid Search über 144 Kombinationen), wenn die
-Datei fehlt oder `document_count` darin kleiner als 80 % der aktuellen Episodenzahl ist
-(`get_or_tune_parameters()` in `analyze_talkshows.py`).
+Jeder Gast wird einer von zehn Gruppen zugeordnet:
+
+| Gruppe | Zum Beispiel |
+|---|---|
+| Politik & Regierung | Abgeordnete, Ministerinnen, Botschafter |
+| Medien & Kommunikation | Journalistinnen, Moderatoren, Chefredakteure |
+| Wissenschaft & Expertise | Professorinnen, Forscher, Gutachter |
+| Wirtschaft | Unternehmerinnen, Managerinnen, Ökonomen |
+| Zivilgesellschaft | Aktivistinnen, Verbände, Gewerkschaften |
+| Kunst & Kultur | Schauspieler, Autorinnen, Musiker |
+| Sport | Sportlerinnen, Trainer |
+| Religion | Theologen, Kirchenvertreterinnen |
+| Bürgerinnen & Bürger | Betroffene, Privatpersonen |
+| Influencer & Digitales | YouTuberinnen, Podcaster |
+
+Grundlage ist die Beschreibung, mit der ein Gast in der Sendung vorgestellt wird
+(z. B. „Bundesminister für Wirtschaft“ oder „Virologin an der Charité“), und eine
+eventuelle Parteizugehörigkeit. Wo die Beschreibung nicht eindeutig ist, ordnet ein
+Sprachmodell den Gast der ähnlichsten Gruppe zu.
+
+---
+
+## Wie entstehen die Themen?
+
+Die Themen sind nicht vorgegeben, sie werden aus den Sendungsbeschreibungen gewonnen.
+Ein Sprachmodell erkennt, welche Beschreibungen inhaltlich ähnlich sind, und fasst sie zu
+Gruppen zusammen. Jede Gruppe erhält anschließend einen von Hand vergebenen Namen.
+
+Das hat Vor- und Nachteile: Die Themen spiegeln wider, worüber tatsächlich gesprochen wurde,
+und nicht ein vorab festgelegtes Raster. Dafür ist die Zuordnung nicht perfekt, und einzelne
+Gruppen beschreiben eher das Sendungsformat (z. B. „Politische Runde (allgemein)“) als ein Thema.
+Solche Format-Gruppen sind im Dashboard gekennzeichnet und zählen nicht zu den Themen-Ranglisten.
+
+---
+
+## Grenzen der Daten
+
+- **Quelle:** Alle Angaben stammen von [fernsehserien.de](https://www.fernsehserien.de).
+  Fehlt dort ein Gast oder eine Beschreibung, fehlt er auch hier.
+- **Nicht jede Sendung hat ein Thema:** Knapp jede fünfte Sendung ist „nicht klassifiziert“,
+  weil die Beschreibung fehlt oder keinem Thema klar zugeordnet werden kann.
+- **Parteizugehörigkeit:** Angezeigt wird die zuletzt bekannte Partei, bei Sahra Wagenknecht
+  also das BSW, auch für ihre früheren Auftritte als Politikerin der Linken.
+- **Namen:** Schreibweisen werden automatisch zusammengeführt und bei Bedarf von Hand
+  korrigiert. Vereinzelt können Personen trotzdem doppelt oder falsch zugeordnet sein.
+- **Kategorien** sind eine Annäherung: Eine Person, die Politikerin und Autorin ist, landet in
+  genau einer Gruppe.
+
+Hinweise auf Fehler sind willkommen, gern als [Issue](https://github.com/jschibberges/wtmw/issues).
+
+---
+
+## Selbst ausführen
 
 ```bash
-# Hyperparameter-Tuning erzwingen:
-rm data/best_parameters.json
+conda env create -f environment.yml && conda activate wtmw
 
-python analyze_talkshows.py
+python scrape_talkshows.py    # Sendungsdaten aktualisieren
+python analyze_talkshows.py   # Gäste, Kategorien, Themen und Netzwerke berechnen
+streamlit run app.py          # Dashboard öffnen (http://localhost:8501)
 ```
 
-Tuning-Ergebnisse werden in `data/bertopic_tuning_results.csv` gespeichert.
-
-**Hardware-Hinweis**: Das Modell nutzt automatisch Apple Silicon MPS, CUDA oder CPU. Auf MPS wird float16 verwendet; bei Speichermangel wird die Batch-Größe automatisch reduziert (64 → 1).
-
----
-
-## Wartungs- und Diagnose-Skripte
-
-Aufruf aus dem Projektverzeichnis, z. B. `python scripts/compare_classification.py`.
-
-| Skript | Zweck |
-|---|---|
-| `scripts/compare_classification.py` | Regelbasierte vs. Embedding-Klassifizierung vergleichen |
-| `scripts/inspect_citizens.py` | Kategorie "Citizens & Everyday Voices" analysieren |
-| `scripts/compare_topic_labels.py` | c-TF-IDF-Labels vs. KeyBERTInspired-Reranking vergleichen |
-| `scripts/compare_ngram_labels.py` | Unigramm- vs. Bigramm-/Trigramm-Topic-Labels vergleichen |
-| `scripts/sync_guest_validation_overrides.py` | Manuelle Gast-Prüfung → `data/guest_validation_overrides.json` |
-
----
-
-## Abhängigkeiten
-
-Feste Versionen stehen in `requirements.txt`.
-
-| Bereich | Pakete |
-|---|---|
-| Scraping | beautifulsoup4, requests |
-| Daten | pandas, openpyxl |
-| NLP | spacy (+ `de_core_news_md`), sentence-transformers, bertopic, umap-learn, hdbscan, scikit-learn |
-| Visualisierung | streamlit, reflex, matplotlib, networkx, pyvis |
-| Konsole | rich |
-| Tests | pytest |
+Installation, Projektstruktur, Konfiguration und alle weiteren technischen Details stehen in der
+[Entwicklerdokumentation](docs/ENTWICKLUNG.md).
 
 ---
 
