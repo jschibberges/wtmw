@@ -52,7 +52,9 @@ streamlit run app.py
 reflex run
 ```
 
-Das Streamlit-Dashboard ist dann unter http://localhost:8501 erreichbar.
+Das Streamlit-Dashboard ist dann unter http://localhost:8501 erreichbar. Es hat denselben Aufbau wie das
+Reflex-Dashboard (Übersicht, Gäste mit Personenprofil, Themen, Netzwerke) und nutzt dessen Daten-Builder
+aus `wtmw_reflex/page_data.py`, sodass beide Dashboards dieselben Zahlen zeigen.
 Das Reflex-Dashboard startet mit `reflex run` Frontend und Backend gemeinsam (http://localhost:3000).
 
 Beim ersten Lauf lädt `analyze_talkshows.py` das Embedding-Modell `intfloat/multilingual-e5-base`
@@ -91,7 +93,8 @@ nachträglich ergänzte Gästelisten und Beschreibungen übernommen werden.
 wtmw/
 ├── scrape_talkshows.py        # 1. Scraper (fernsehserien.de → data/{Show}_data.json)
 ├── analyze_talkshows.py       # 2. Analyse (Gastbereinigung, Klassifizierung, BERTopic, Netzwerke)
-├── app.py                     # 3a. Streamlit-Dashboard
+├── app.py                     # 3a. Streamlit-Dashboard (gleiche Seiten wie Reflex)
+├── .streamlit/config.toml     #     Streamlit-Theme (Farben des Reflex-Dashboards)
 ├── rxconfig.py                # 3b. Reflex-Konfiguration (`reflex run`)
 │
 ├── wtmw/                      # Gemeinsame Bibliotheksmodule
@@ -105,7 +108,7 @@ wtmw/
 ├── wtmw_reflex/               # Reflex-Dashboard
 │   ├── wtmw_reflex.py         #   Seiten, State und Routen
 │   ├── dashboard_data.py      #   Laden, Filtern, Netzwerk-Assets
-│   └── page_data.py           #   Daten-Builder für Übersicht, Gäste, Themen, Profil
+│   └── page_data.py           #   Daten-Builder für Übersicht, Gäste, Themen, Profil (auch von app.py genutzt)
 ├── assets/                    # CSS für das Reflex-Dashboard
 │   ├── reflex_dashboard.css        # Basis-Styling (Tokens, Navigation, Karten)
 │   └── reflex_dashboard_pages.css  # Seiten-Layouts (wird danach geladen)
